@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<component>
+  <configuration default="false" factoryName="Application" name="runServer" singleton="false" type="Application">
+    <option name="MAIN_CLASS_NAME" value="net.minecraftforge.legacydev.MainServer"/>
+    <option name="VM_PARAMETERS" value="-Dforge.logging.console.level=debug -Dforge.logging.markers=SCAN,REGISTRIES,REGISTRYDUMP -Dnet.minecraftforge.gradle.GradleStart.srg.srg-mcp=C:\Users\mine-\Documents\GitHub\untitledMappetAddon\build\createSrgToMcp\output.srg -Dmixin.env.remapRefMap=true -Dmixin.env.refMapRemappingFile=C:\Users\mine-\Documents\GitHub\untitledMappetAddon\build\createSrgToMcp\output.srg -Dnet.minecraftforge.gradle.GradleStart.csvDir=C:\Users\mine-\Documents\GitHub\untitledMappetAddon\build\extractMappings -Xmx1G"/>
+    <option name="PROGRAM_PARAMETERS" value="--tweakClass org.spongepowered.asm.launch.MixinTweaker --mixin mixins.untitledmappetaddon.json"/>
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$\run"/>
+    <module name="untitledMappetAddon.main"/>
+    <envs>
+      <env name="MCP_TO_SRG" value="$PROJECT_DIR$\build\createSrgToMcp\output.srg"/>
+      <env name="MOD_CLASSES" value="$PROJECT_DIR$\build\resources\main;$PROJECT_DIR$\build\classes\java\main"/>
+      <env name="mainClass" value="net.minecraft.launchwrapper.Launch"/>
+      <env name="MCP_MAPPINGS" value="snapshot_20171003-1.12"/>
+      <env name="FORGE_VERSION" value="14.23.5.2860"/>
+      <env name="FORGE_GROUP" value="net.minecraftforge"/>
+      <env name="tweakClass" value="net.minecraftforge.fml.common.launcher.FMLServerTweaker"/>
+      <env name="MC_VERSION" value="${MC_VERSION}"/>
+    </envs>
+    <method v="2">
+      <option enabled="true" name="Make"/>
+      <option enabled="true" externalProjectPath="$PROJECT_DIR$" name="Gradle.BeforeRunTask" tasks=":prepareRunServer"/>
+    </method>
+  </configuration>
+</component>
