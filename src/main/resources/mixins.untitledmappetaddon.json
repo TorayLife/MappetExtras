@@ -1,11 +1,10 @@
 {
-    "minVersion": "0.7.11",
+    "required": true,
     "compatibilityLevel": "JAVA_8",
     "package": "toraylife.untitledmappetaddon.mixin",
     "refmap": "mixins.untitledmappetaddon.refmap.json",
-    "mixins": [
-        "MixinGuiScriptPanel"
-    ],
-    "client": [],
+    "mixinPriority": 1000,
+    "mixins": [],
+    "client": ["MixinGuiScriptPanel"],
     "server": []
 }
