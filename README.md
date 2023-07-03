@@ -9,3 +9,7 @@
 ## Features
 
 //TODO
+
+## Special thanks
+
+Special thanks to [McHorse](https://github.com/mchorse), [dyamo](https://github.com/dyam0), [OtakuGamer](https://github.com/OtakuGamerAds) for helping and supporting!
