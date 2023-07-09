@@ -1,0 +1,16 @@
+{
+    "required": true,
+    "compatibilityLevel": "JAVA_8",
+    "package": "toraylife.mappetextras.modules.utils.mixins",
+    "refmap": "mixins.mappetextras.refmap.json",
+    "mixinPriority": 1000,
+    "mixins": [
+
+    ],
+    "client": [
+        "MixinGuiScriptPanel"
+    ],
+    "server": [
+
+    ]
+}

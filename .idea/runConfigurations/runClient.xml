@@ -15,8 +15,8 @@
     </envs>
     <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
     <option name="MAIN_CLASS_NAME" value="net.minecraftforge.legacydev.MainClient" />
-    <module name="untitledMappetAddon.main" />
-    <option name="PROGRAM_PARAMETERS" value="--tweakClass org.spongepowered.asm.launch.MixinTweaker --mixin mixins.untitledmappetaddon.json" />
+    <module name="mappetExtras.main" />
+    <option name="PROGRAM_PARAMETERS" value="--tweakClass org.spongepowered.asm.launch.MixinTweaker --mixin mixins/mixins.utils.json" />
     <option name="VM_PARAMETERS" value="-Dforge.logging.console.level=debug -Dforge.logging.markers=SCAN,REGISTRIES,REGISTRYDUMP -Dnet.minecraftforge.gradle.GradleStart.srg.srg-mcp=C:\Users\mine-\Documents\GitHub\untitledMappetAddon\build\createSrgToMcp\output.srg -Dmixin.env.remapRefMap=true -Dmixin.env.refMapRemappingFile=C:\Users\mine-\Documents\GitHub\untitledMappetAddon\build\createSrgToMcp\output.srg -Dnet.minecraftforge.gradle.GradleStart.csvDir=C:\Users\mine-\Documents\GitHub\untitledMappetAddon\build\extractMappings -Xmx1G" />
     <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/run" />
     <method v="2">

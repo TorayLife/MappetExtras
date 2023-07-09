@@ -1,0 +1,6 @@
+mappetextras.config.title=Mappet Extras
+# UTILS
+mappetextras.config.utils_module.title=Utils module
+mappetextras.config.utils_module.enabled=Enabled
+mappetextras.config.comments.utils_module.enabled=Determines whether the functionality of the Utils module will work. (Restart required)
+mappetextras.utils_module.beautify=Beautify
