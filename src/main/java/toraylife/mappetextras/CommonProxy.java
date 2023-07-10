@@ -1,5 +1,6 @@
 package toraylife.mappetextras;
 
+import mchorse.mappet.network.Dispatcher;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -10,6 +11,7 @@ public class CommonProxy {
     public CommonProxy() {
     }
     public void preInit(FMLPreInitializationEvent event) {
+        Dispatcher.register();
         MappetExtras.modules.forEach(module -> module.preInit(event));
     }
 
