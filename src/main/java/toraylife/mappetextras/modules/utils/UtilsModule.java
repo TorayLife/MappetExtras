@@ -51,8 +51,6 @@ public class UtilsModule extends AbstractModule {
 
     @Override
     public List<String> getMixinConfigs() {
-        if (!this.isEnabled()) return new ArrayList<>();
-
         return new ArrayList<>(Arrays.asList(
                 "mixins/mixins." + this.getModuleId() + ".json"
         ));
