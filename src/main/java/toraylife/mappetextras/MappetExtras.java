@@ -18,6 +18,7 @@ import toraylife.mappetextras.modules.utils.UtilsModule;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Mod(
@@ -43,11 +44,9 @@ public class MappetExtras {
     @SidedProxy(serverSide = "toraylife.mappetextras.CommonProxy", clientSide = "toraylife.mappetextras.ClientProxy")
     public static CommonProxy proxy;
 
-    public static final List<IModule> modules = new ArrayList<>();
-
-    public MappetExtras() {
-        modules.add(UtilsModule.getInstance());
-    }
+    public static final List<IModule> modules = new ArrayList<>(Arrays.asList(
+        UtilsModule.getInstance()
+    ));
 
     @SubscribeEvent
     public void onConfigRegister(RegisterConfigEvent event) {
