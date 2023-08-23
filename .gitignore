@@ -40,6 +40,7 @@ bin/
 
 ### Mac OS ###
 .DS_Store
-/run/logs/
-/run/saves/
-/run/crash-reports/
+/.idea/
+/.git.zip
+run/*
+!run/libs/
