@@ -11,11 +11,12 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.relauncher.Side;
 import toraylife.mappetextras.MappetExtras;
+import toraylife.mappetextras.modules.utils.network.PacketTest;
 
 public class Dispatcher {
     public static final AbstractDispatcher DISPATCHER = new AbstractDispatcher(MappetExtras.MOD_ID) {
         public void register() {
-
+            this.register(PacketTest.class, PacketTest.ClientHandlerTest.class, Side.CLIENT);
         }
     };
 
