@@ -5,16 +5,13 @@ import toraylife.mappetextras.modules.IModule;
 import zone.rong.mixinbooter.ILateMixinLoader;
 
 import javax.annotation.Nullable;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class LateMixinLoader implements IFMLLoadingPlugin, ILateMixinLoader
-{
+public class LateMixinLoader implements IFMLLoadingPlugin, ILateMixinLoader {
     @Override
-    public List<String> getMixinConfigs()
-    {
+    public List<String> getMixinConfigs() {
         return MappetExtras.modules.stream()
                 .map(IModule::getMixinConfigs)
                 .flatMap(List::stream)
@@ -22,33 +19,28 @@ public class LateMixinLoader implements IFMLLoadingPlugin, ILateMixinLoader
     }
 
     @Override
-    public String[] getASMTransformerClass()
-    {
+    public String[] getASMTransformerClass() {
         return new String[0];
     }
 
     @Override
-    public String getModContainerClass()
-    {
+    public String getModContainerClass() {
         return null;
     }
 
     @Nullable
     @Override
-    public String getSetupClass()
-    {
+    public String getSetupClass() {
         return null;
     }
 
     @Override
-    public void injectData(Map<String, Object> data)
-    {
+    public void injectData(Map<String, Object> data) {
 
     }
 
     @Override
-    public String getAccessTransformerClass()
-    {
+    public String getAccessTransformerClass() {
         return null;
     }
 }

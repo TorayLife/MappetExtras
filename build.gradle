@@ -36,11 +36,18 @@ mixin {
     disableAnnotationProcessorCheck()
 }
 
-def mixins = new StringJoiner(",")
 // Re-run genIntellijRuns if you add a new mixin
+def mixins = new ArrayList<>(Arrays.asList(
+        "--tweakClass",
+        "org.spongepowered.asm.launch.MixinTweaker",
+));
+
 new ArrayList<>(Arrays.asList(
         'mixins/mixins.utils.json'
-)).forEach { mixins.add(it)}
+)).forEach {
+    mixins.add("--mixin");
+    mixins.add(it)
+}
 
 minecraft {
 
@@ -62,7 +69,7 @@ minecraft {
 
             jvmArgs("-Xmx1G")
 
-            args '--tweakClass', 'org.spongepowered.asm.launch.MixinTweaker', '--mixin', mixins.toString()
+            args mixins
         }
 
         server {
@@ -72,7 +79,7 @@ minecraft {
 
             jvmArgs("-Xmx1G")
 
-            args '--tweakClass', 'org.spongepowered.asm.launch.MixinTweaker', '--mixin', mixins.toString()
+            args mixins
         }
     }
 }
@@ -155,7 +162,8 @@ task processSource(type: Sync) {
     filter(ReplaceTokens, tokens: [
             MAPPET     : mappet,
             MCLIB      : mclib,
-            VERSION    : version
+            VERSION    : version,
+            MIXINBOOTER: mixinbooter
     ])
     into "$buildDir/src"
 }

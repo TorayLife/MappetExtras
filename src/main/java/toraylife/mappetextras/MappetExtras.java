@@ -4,30 +4,29 @@ import mchorse.mclib.McLib;
 import mchorse.mclib.config.ConfigBuilder;
 import mchorse.mclib.config.ConfigManager;
 import mchorse.mclib.events.RegisterConfigEvent;
-import net.minecraftforge.fml.common.FMLModContainer;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLConstructionEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import toraylife.mappetextras.modules.utils.UtilsModule;
 import toraylife.mappetextras.modules.IModule;
+import toraylife.mappetextras.modules.utils.UtilsModule;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 @Mod(
-        modid = MappetExtras.MOD_ID,
-        version = MappetExtras.VERSION,
-        dependencies =
-                "required-after:mclib@[@MCLIB@,);" +
-                        "required-after:mappet@[@MAPPET@,);"
+    modid = MappetExtras.MOD_ID,
+    version = MappetExtras.VERSION,
+    dependencies = "" +
+        "required-after:mclib@[@MCLIB@,);" +
+        "required-after:mixinbooter[@MIXINBOOTER@,)" +
+        "required-after:mappet@[@MAPPET@,);"
 )
 public class MappetExtras {
     public static final String MOD_ID = "mappetextras";
@@ -58,8 +57,7 @@ public class MappetExtras {
     }
 
     @Mod.EventHandler
-    public void preInit(FMLPreInitializationEvent event)
-    {
+    public void preInit(FMLPreInitializationEvent event) {
         McLib.EVENT_BUS.register(this);
 
         this.configs = new ConfigManager();
@@ -73,14 +71,12 @@ public class MappetExtras {
     }
 
     @Mod.EventHandler
-    public void init(FMLInitializationEvent event)
-    {
+    public void init(FMLInitializationEvent event) {
         proxy.init(event);
     }
 
     @Mod.EventHandler
-    public void postInit(FMLPostInitializationEvent event)
-    {
+    public void postInit(FMLPostInitializationEvent event) {
         proxy.postInit(event);
     }
 }
