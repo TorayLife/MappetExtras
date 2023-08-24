@@ -219,6 +219,17 @@ artifacts {
     archives sourcesJar
 }
 
+// task for my symlink
+task multiMC(type: Copy){
+    System.out.println("build/libs/${archivesBaseName}-${version}.jar")
+    from "build/libs/${archivesBaseName}-${version}.jar"
+    into 'build/libs/'
+    rename { String fileName ->
+        fileName.replace("-${version}", "-multiMC")
+    }
+}
+
+jar.finalizedBy(multiMC)
 /* Comparing keys */
 task compareLangFiles {
     doLast {
