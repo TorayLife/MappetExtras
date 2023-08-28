@@ -44,7 +44,8 @@ def mixins = new ArrayList<>(Arrays.asList(
 
 new ArrayList<>(Arrays.asList(
         'mixins/mixins.utils.json',
-        'mixins/mixins.client.json'
+        'mixins/mixins.client.json',
+        'mixins/mixins.scripting.json'
 )).forEach {
     mixins.add("--mixin");
     mixins.add(it)

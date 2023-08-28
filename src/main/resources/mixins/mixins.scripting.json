@@ -1,0 +1,20 @@
+{
+  "required": true,
+  "compatibilityLevel": "JAVA_8",
+  "package": "toraylife.mappetextras.modules.scripting.mixins",
+  "refmap": "mixins.mappetextras.refmap.json",
+  "mixinPriority": 1000,
+  "mixins": [
+    "MixinScriptEntity",
+    "MixinScriptFactory",
+    "MixinScriptInventory",
+    "MixinScriptPlayer",
+    "MixinScriptServer",
+    "MixinScriptTileEntity",
+    "MixinScriptWorld"
+  ],
+  "client": [
+  ],
+  "server": [
+  ]
+}
