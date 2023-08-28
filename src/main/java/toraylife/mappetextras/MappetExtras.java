@@ -14,7 +14,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import toraylife.mappetextras.modules.IModule;
+import toraylife.mappetextras.modules.scripting.ScriptingModule;
 import toraylife.mappetextras.modules.utils.UtilsModule;
+import toraylife.mappetextras.modules.client.ClientModule;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -45,7 +47,9 @@ public class MappetExtras {
     public static CommonProxy proxy;
 
     public static final List<IModule> modules = new ArrayList<>(Arrays.asList(
-        UtilsModule.getInstance()
+        UtilsModule.getInstance(),
+        ClientModule.getInstance(),
+        ScriptingModule.getInstance()
     ));
 
     @SubscribeEvent
