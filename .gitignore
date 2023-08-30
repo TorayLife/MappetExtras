@@ -15,6 +15,10 @@ build/
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
+.idea/discord.xml
+.idea/gradle.xml
+.idea/runConfigurations/runClient.xml
+.idea/runConfigurations/runServer.xml
 
 ### Eclipse ###
 .apt_generated
@@ -44,3 +48,6 @@ bin/
 /.git.zip
 run/*
 !run/libs/
+
+src/main/resources/assets/mappetextras/docs.json
+docs.json
