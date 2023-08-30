@@ -1,6 +1,28 @@
+# CONFIG
 mappetextras.config.title=Mappet Extras
-# UTILS
+
+mappetextras.config.main_module.title=Main module
+
+mappetextras.config.main_module.show_version_update_message=Show version update message
+mappetextras.config.comments.main_module.show_version_update_message=Determines whether MappetExtras send message about version.
+mappetextras.config.main_module.show_update_only_if_outdated=Send update message only if outdated
+mappetextras.config.comments.main_module.show_update_only_if_outdated=Only show the version update message if the current version is outdated.
+
 mappetextras.config.utils_module.title=Utils module
+
 mappetextras.config.utils_module.enabled=Enabled
 mappetextras.config.comments.utils_module.enabled=Determines whether the functionality of the Utils module will work. (Restart required)
+
+# MAIN
+mappetextras.main_module.update.up_to_date=[§6%s§f] §7You have the latest version installed.
+mappetextras.main_module.update.outdated=[§6%s§f] §7A new version §e%s§7 is now available (your current version is §e%s§7).
+mappetextras.main_module.update.outdated_view=§f [§9View updates§f]
+mappetextras.main_module.update.outdated_tooltip=§7Click here to view the updates
+mappetextras.main_module.update.failed=[§6%s§f] §7Failed to check for updates.
+mappetextras.main_module.update.screen_title=Updates: Current version - §e%s§f, latest version - §e%s§f
+mappetextras.main_module.update.button_update_link=Visit mod page
+
+# UTILS
 mappetextras.utils_module.beautify=Beautify
+
+mappetextras.error=§Error
