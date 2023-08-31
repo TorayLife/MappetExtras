@@ -12,13 +12,20 @@ import java.lang.reflect.Field;
 public abstract class MixinScriptPlayer {
     @Shadow public abstract EntityPlayerMP getMinecraftPlayer();
 
+    /**
+     *Inspires the player into the entity. First set the player's gamemode to 3.
+     *
+     * @param entity
+     */
     public void setSpectating(ScriptEntity entity){
-        this.getMinecraftPlayer().setSpectatingEntity(entity.getMinecraftEntity());
+        if(getMinecraftPlayer().interactionManager.getGameType().getID() == 3){
+            this.getMinecraftPlayer().setSpectatingEntity(entity.getMinecraftEntity());
+        }
     }
 
     public String getLanguage(){
         try {
-            Field field = this.getMinecraftPlayer().getClass().getDeclaredField("language");
+            Field field = this.getMinecraftPlayer().getClass().getDeclaredField("field_71148_cg");
             field.setAccessible(true);
 
             return (String) field.get(this.getMinecraftPlayer());

@@ -239,6 +239,8 @@ task scriptingJavadocsJson(type: Exec) {
     List<String> subpackages = new ArrayList(Arrays.asList(
             "toraylife.mappetextras.modules.utils.scripts.user",
             "toraylife.mappetextras.modules.utils.mixins",
+            "toraylife.mappetextras.modules.scripting.mixins",
+            "toraylife.mappetextras.modules.client.mixins",
     ))
     args "-doclet", "mchorse.utils.doclets.JsonDoclet", "-docletpath", "./run/jsonDoclet.jar", "-sourcepath", "./src/main/java", "-subpackages", subpackages.join(":"), "-verbose"
 
