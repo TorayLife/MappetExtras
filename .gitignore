@@ -5,16 +5,13 @@ build/
 !**/src/test/**/build/
 
 ### IntelliJ IDEA ###
-.idea/modules.xml
-.idea/jarRepositories.xml
-.idea/compiler.xml
-.idea/libraries/
 *.iws
 *.iml
 *.ipr
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
+.idea/
 
 ### Eclipse ###
 .apt_generated
@@ -44,3 +41,6 @@ bin/
 /.git.zip
 run/*
 !run/libs/
+
+src/main/resources/assets/mappetextras/docs.json
+docs.json

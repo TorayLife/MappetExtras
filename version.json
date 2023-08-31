@@ -1,10 +1,7 @@
 {
     "homepage": "https://github.com/TorayLife/MappetExtras",
     "1.12.2": {
-        "0.1.0": "Initial version",
-        "0.0.9": "for tests",
-        "0.0.8": "For tests",
-        "0.0.7": "For tests"
+        "0.1.0": "Initial version"
     },
     "promos": {
         "1.12.2-latest": "0.1.0",
