@@ -1,6 +1,7 @@
 package toraylife.mappetextras.modules.utils.mixins;
 
 import mchorse.mappet.api.scripts.code.ScriptFactory;
+import mchorse.mappet.api.scripts.user.IScriptFactory;
 import org.spongepowered.asm.mixin.Mixin;
 import toraylife.mappetextras.modules.utils.scripts.code.ScriptFiles;
 import toraylife.mappetextras.modules.main.documentation.MixinTargetName;
