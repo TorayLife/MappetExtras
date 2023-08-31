@@ -15,6 +15,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import toraylife.mappetextras.modules.IModule;
 import toraylife.mappetextras.modules.scripting.ScriptingModule;
+import toraylife.mappetextras.modules.main.MainModule;
 import toraylife.mappetextras.modules.utils.UtilsModule;
 import toraylife.mappetextras.modules.client.ClientModule;
 
@@ -25,14 +26,17 @@ import java.util.List;
 
 @Mod(
     modid = MappetExtras.MOD_ID,
+    name = MappetExtras.NAME,
     version = MappetExtras.VERSION,
     dependencies = "" +
         "required-after:mclib@[@MCLIB@,);" +
         "required-after:mixinbooter[@MIXINBOOTER@,)" +
-        "required-after:mappet@[@MAPPET@,);"
+        "required-after:mappet@[@MAPPET@,);",
+    updateJSON = "https://raw.githubusercontent.com/TorayLife/MappetExtras/master/version.json"
 )
 public class MappetExtras {
     public static final String MOD_ID = "mappetextras";
+    public static final String NAME = "MappetExtras";
 
     public static final String VERSION = "@VERSION@";
 
@@ -47,6 +51,7 @@ public class MappetExtras {
     public static CommonProxy proxy;
 
     public static final List<IModule> modules = new ArrayList<>(Arrays.asList(
+        MainModule.getInstance(),
         UtilsModule.getInstance(),
         ClientModule.getInstance(),
         ScriptingModule.getInstance()
@@ -61,6 +66,17 @@ public class MappetExtras {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
+        String banner =
+            "\n" +
+                "███╗   ███╗ █████╗ ██████╗ ██████╗ ███████╗████████╗    ███████╗██╗  ██╗████████╗██████╗  █████╗ ███████╗\n" +
+                "████╗ ████║██╔══██╗██╔══██╗██╔══██╗██╔════╝╚══██╔══╝    ██╔════╝╚██╗██╔╝╚══██╔══╝██╔══██╗██╔══██╗██╔════╝\n" +
+                "██╔████╔██║███████║██████╔╝██████╔╝█████╗     ██║       █████╗   ╚███╔╝    ██║   ██████╔╝███████║███████╗\n" +
+                "██║╚██╔╝██║██╔══██║██╔═══╝ ██╔═══╝ ██╔══╝     ██║       ██╔══╝   ██╔██╗    ██║   ██╔══██╗██╔══██║╚════██║\n" +
+                "██║ ╚═╝ ██║██║  ██║██║     ██║     ███████╗   ██║       ███████╗██╔╝ ██╗   ██║   ██║  ██║██║  ██║███████║\n" +
+                "╚═╝     ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝     ╚══════╝   ╚═╝       ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝\n";
+
+        System.out.println(banner);
+
         McLib.EVENT_BUS.register(this);
 
         this.configs = new ConfigManager();

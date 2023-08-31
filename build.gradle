@@ -45,7 +45,8 @@ def mixins = new ArrayList<>(Arrays.asList(
 new ArrayList<>(Arrays.asList(
         'mixins/mixins.utils.json',
         'mixins/mixins.client.json',
-        'mixins/mixins.scripting.json'
+        'mixins/mixins.scripting.json',
+        'mixins/mixins.main.json'
 )).forEach {
     mixins.add("--mixin");
     mixins.add(it)
@@ -221,6 +222,44 @@ artifacts {
     archives sourcesJar
 }
 
+task scriptingJavadocs(type: Javadoc) {
+    source = sourceSets.main.allJava
+
+    include "mchorse/mappet/api/ui/components/**"
+    include "mchorse/mappet/client/gui/utils/graphics/Graphic**"
+    include "mchorse/mappet/api/scripts/user/**"
+}
+
+task scriptingJavadocsJson(type: Exec) {
+    // Writing gradle tasks is PAIN, if you'll ever would need to run this, clone and build:
+    // https://github.com/mchorse/jsonDoclet
+    //
+    // Rename it to jsonDoclet.jar, and place it in the run/ folder
+    executable "javadoc"
+    List<String> subpackages = new ArrayList(Arrays.asList(
+            "toraylife.mappetextras.modules.utils.scripts.user",
+            "toraylife.mappetextras.modules.utils.mixins",
+    ))
+    args "-doclet", "mchorse.utils.doclets.JsonDoclet", "-docletpath", "./run/jsonDoclet.jar", "-sourcepath", "./src/main/java", "-subpackages", subpackages.join(":"), "-verbose"
+
+    doLast {
+        file("src/main/resources/assets/mappetextras/docs.json").setText(file("docs.json").text)
+    }
+}
+
+tasks.processResources.dependsOn(scriptingJavadocsJson)
+
+// task for my symlink
+task multiMC(type: Copy){
+    System.out.println("build/libs/${archivesBaseName}-${version}.jar")
+    from "build/libs/${archivesBaseName}-${version}.jar"
+    into 'build/libs/'
+    rename { String fileName ->
+        fileName.replace("-${version}", "-multiMC")
+    }
+}
+
+jar.finalizedBy(multiMC)
 /* Comparing keys */
 task compareLangFiles {
     doLast {
