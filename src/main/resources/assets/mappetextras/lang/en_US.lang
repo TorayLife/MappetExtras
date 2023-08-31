@@ -22,6 +22,11 @@ mappetextras.main_module.update.failed=[§6%s§f] §7Failed to check for updates
 mappetextras.main_module.update.screen_title=Updates: Current version - §e%s§f, latest version - §e%s§f
 mappetextras.main_module.update.button_update_link=Visit mod page
 
+# CLIENT
+mappetextras.config.client_module.title=Client module
+mappetextras.config.client_module.enabled=Enabled
+mappetextras.config.comments.client_module.enabled=Determines whether the functionality of the Client module will work. (Restart required)
+
 # UTILS
 mappetextras.utils_module.beautify=Beautify
 
