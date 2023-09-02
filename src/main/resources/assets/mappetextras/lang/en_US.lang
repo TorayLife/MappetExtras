@@ -27,6 +27,11 @@ mappetextras.config.client_module.title=Client module
 mappetextras.config.client_module.enabled=Enabled
 mappetextras.config.comments.client_module.enabled=Determines whether the functionality of the Client module will work. (Restart required)
 
+# SCRIPTING
+mappetextras.config.scripting_module.title=Scripting module
+mappetextras.config.scripting_module.enabled=Enabled
+mappetextras.config.comments.scripting_module.enabled=Determines whether the functionality of the Scripting module will work. (Restart required)
+
 # UTILS
 mappetextras.utils_module.beautify=Beautify
 

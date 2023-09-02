@@ -3,11 +3,13 @@ package toraylife.mappetextras.modules.scripting.mixins;
 import mchorse.mappet.CommonProxy;
 import mchorse.mappet.api.scripts.code.entities.ScriptEntity;
 import mchorse.mappet.api.scripts.code.entities.ScriptPlayer;
+import mchorse.mappet.api.scripts.user.data.ScriptVector;
 import mchorse.mappet.utils.RunnableExecutionFork;
 import mchorse.mclib.utils.Interpolation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import toraylife.mappetextras.modules.main.documentation.MixinTargetName;
@@ -83,5 +85,13 @@ public abstract class MixinScriptEntity <T extends Entity>{
 
     public boolean isUndead(){
         return ((EntityLivingBase)this.entity).isEntityUndead();
+    }
+
+    public float getFallDistance(){
+        return this.entity.fallDistance;
+    }
+
+    public ScriptVector getForward(){
+        return new ScriptVector(this.entity.getForward().x, this.entity.getForward().y, this.entity.getForward().z);
     }
 }
