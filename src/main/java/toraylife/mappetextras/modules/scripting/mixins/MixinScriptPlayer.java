@@ -27,10 +27,29 @@ public abstract class MixinScriptPlayer {
 
     public String getLanguage(){
         try {
-            Field field = this.getMinecraftPlayer().getClass().getDeclaredField("field_71148_cg");
-            field.setAccessible(true);
+            Field language = this.getMinecraftPlayer().getClass().getDeclaredField("field_71148_cg");
+            language.setAccessible(true);
 
-            return (String) field.get(this.getMinecraftPlayer());
+            return (String) language.get(this.getMinecraftPlayer());
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public boolean isSleeping(){
+        return this.getMinecraftPlayer().isPlayerSleeping();
+    }
+
+    public int getPing(){
+        return this.getMinecraftPlayer().ping;
+    }
+
+    public int getRespawnInvulnerability(){
+        try {
+            Field respawnInvulnerabilityTicks = this.getMinecraftPlayer().getClass().getDeclaredField("field_147101_bU");
+            respawnInvulnerabilityTicks.setAccessible(true);
+
+            return (int) respawnInvulnerabilityTicks.get(this.getMinecraftPlayer());
         } catch (NoSuchFieldException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }

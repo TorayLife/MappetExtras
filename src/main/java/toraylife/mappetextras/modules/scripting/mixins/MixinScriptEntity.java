@@ -94,4 +94,27 @@ public abstract class MixinScriptEntity <T extends Entity>{
     public ScriptVector getForward(){
         return new ScriptVector(this.entity.getForward().x, this.entity.getForward().y, this.entity.getForward().z);
     }
+
+    public int getEntityId(){
+        return this.entity.getEntityId();
+    }
+
+    public void setEntityId(int id){
+        this.entity.setEntityId(id);
+    }
+
+    public float getAIMoveSpeed(){
+        return ((EntityLivingBase)this.entity).getAIMoveSpeed();
+    }
+    public void setNoClip(boolean clip){
+        this.entity.noClip = clip;
+    }
+
+    public boolean getNoClip(){
+        return this.entity.noClip;
+    }
+
+    public void setIgnoreFrustumCheck(boolean check){
+        this.entity.ignoreFrustumCheck = check;
+    }
 }
