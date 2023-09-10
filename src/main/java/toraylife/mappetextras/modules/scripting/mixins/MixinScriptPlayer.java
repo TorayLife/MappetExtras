@@ -54,4 +54,13 @@ public abstract class MixinScriptPlayer {
             throw new RuntimeException(e);
         }
     }
+
+    public void loadResourcePack(String url, String hash)
+    {
+        this.getMinecraftPlayer().loadResourcePack(url, hash);
+    }
+
+    public IScriptServer getServer(){
+        return new MixinScriptFactoryHelper().getMappetServer(this.getMinecraftPlayer().mcServer);
+    }
 }

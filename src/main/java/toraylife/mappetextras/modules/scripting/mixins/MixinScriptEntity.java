@@ -106,15 +106,16 @@ public abstract class MixinScriptEntity <T extends Entity>{
     public float getAIMoveSpeed(){
         return ((EntityLivingBase)this.entity).getAIMoveSpeed();
     }
+
+    public void setAIMoveSpeed(float speed){
+        ((EntityLivingBase)this.entity).setAIMoveSpeed(speed);
+    }
+
     public void setNoClip(boolean clip){
         this.entity.noClip = clip;
     }
 
     public boolean getNoClip(){
         return this.entity.noClip;
-    }
-
-    public void setIgnoreFrustumCheck(boolean check){
-        this.entity.ignoreFrustumCheck = check;
     }
 }
