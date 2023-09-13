@@ -14,6 +14,7 @@ import toraylife.mappetextras.modules.scripting.mixins.helpers.MixinScriptInvent
 import toraylife.mappetextras.modules.scripting.mixins.helpers.MixinScriptServerHelper;
 import toraylife.mappetextras.modules.scripting.mixins.helpers.MixinScriptTileEntityHelper;
 import toraylife.mappetextras.modules.scripting.mixins.helpers.MixinScriptWorldHelper;
+import toraylife.mappetextras.modules.scripting.scripts.code.MPETriggerFactory;
 
 @Mixin(value = ScriptFactory.class, remap = false)
 public abstract class MixinScriptFactory{
@@ -31,5 +32,9 @@ public abstract class MixinScriptFactory{
 
     public IScriptInventory getMappetInventory(IInventory minecraftInventory){
         return new MixinScriptInventoryHelper().create(minecraftInventory);
+    }
+
+    public MPETriggerFactory getTriggerFactory() {
+        return new MPETriggerFactory();
     }
 }
