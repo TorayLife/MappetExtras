@@ -91,10 +91,6 @@ public abstract class MixinScriptEntity <T extends Entity>{
         return this.entity.fallDistance;
     }
 
-    public ScriptVector getForward(){
-        return new ScriptVector(this.entity.getForward().x, this.entity.getForward().y, this.entity.getForward().z);
-    }
-
     public int getEntityId(){
         return this.entity.getEntityId();
     }
