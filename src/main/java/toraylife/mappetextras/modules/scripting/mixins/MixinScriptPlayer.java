@@ -2,10 +2,15 @@ package toraylife.mappetextras.modules.scripting.mixins;
 
 import mchorse.mappet.api.scripts.code.entities.ScriptEntity;
 import mchorse.mappet.api.scripts.code.entities.ScriptPlayer;
+import mchorse.mappet.api.scripts.user.IScriptServer;
+import mchorse.mappet.api.scripts.user.IScriptWorld;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import toraylife.mappetextras.modules.main.documentation.MixinTargetName;
+import toraylife.mappetextras.modules.scripting.mixins.helpers.MixinScriptFactoryHelper;
 
 import java.lang.reflect.Field;
 
@@ -55,12 +60,15 @@ public abstract class MixinScriptPlayer {
         }
     }
 
-    public void loadResourcePack(String url, String hash)
-    {
+    public void loadResourcePack(String url, String hash) {
         this.getMinecraftPlayer().loadResourcePack(url, hash);
     }
 
-    public IScriptServer getServer(){
-        return new MixinScriptFactoryHelper().getMappetServer(this.getMinecraftPlayer().mcServer);
+    public MinecraftServer getServer(){
+        return this.getMinecraftPlayer().mcServer;
+    }
+
+    public World getWorld(){
+        return this.getMinecraftPlayer().world;
     }
 }
