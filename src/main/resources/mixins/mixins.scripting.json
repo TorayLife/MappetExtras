@@ -7,11 +7,8 @@
   "mixins": [
     "MixinScriptEntity",
     "MixinScriptFactory",
-    "MixinScriptInventory",
     "MixinScriptPlayer",
-    "MixinScriptServer",
-    "MixinScriptTileEntity",
-    "MixinScriptWorld"
+    "MixinScriptServer"
   ],
   "client": [
   ],
