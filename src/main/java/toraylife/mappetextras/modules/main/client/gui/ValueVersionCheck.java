@@ -33,7 +33,7 @@ public class ValueVersionCheck extends ValueGUI
             new GuiButtonElement(
                 mc,
                 IKey.lang("mappetextras.config.main_module.show_version_update_message"),
-                (b) -> CommonProxy.eventHandler.sendUpdateMessage(mc.player, true)
+                (b) -> CommonProxy.eventHandler.sendUpdateMessage(true)
             ).marginTop(6)
         );
     }
