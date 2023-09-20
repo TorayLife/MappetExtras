@@ -5,7 +5,6 @@
     "refmap": "mixins.mappetextras.refmap.json",
     "mixinPriority": 1000,
     "mixins": [
-        "MixinScriptFactory"
     ],
     "client": [
         "MixinGuiScriptPanel"

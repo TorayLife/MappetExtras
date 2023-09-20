@@ -1,35 +1,70 @@
 package toraylife.mappetextras.modules.scripting.mixins;
 
 import mchorse.mappet.api.scripts.code.ScriptFactory;
-import mchorse.mappet.api.scripts.user.IScriptServer;
-import mchorse.mappet.api.scripts.user.IScriptWorld;
-import mchorse.mappet.api.scripts.user.blocks.IScriptTileEntity;
-import mchorse.mappet.api.scripts.user.items.IScriptInventory;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
+import net.minecraftforge.common.DimensionManager;
 import org.spongepowered.asm.mixin.Mixin;
-import toraylife.mappetextras.modules.scripting.mixins.helpers.MixinScriptInventoryHelper;
-import toraylife.mappetextras.modules.scripting.mixins.helpers.MixinScriptServerHelper;
-import toraylife.mappetextras.modules.scripting.mixins.helpers.MixinScriptTileEntityHelper;
-import toraylife.mappetextras.modules.scripting.mixins.helpers.MixinScriptWorldHelper;
+import toraylife.mappetextras.modules.main.documentation.MixinTargetName;
+import toraylife.mappetextras.modules.scripting.scripts.code.ScriptPath;
+import toraylife.mappetextras.modules.scripting.scripts.user.IScriptPath;
+
+import java.nio.file.Paths;
 
 @Mixin(value = ScriptFactory.class, remap = false)
+@MixinTargetName("mchorse.mappet.api.scripts.user.IScriptFactory")
 public abstract class MixinScriptFactory{
-    public IScriptWorld getMappetWorld(World minecraftWorld) {
-        return new MixinScriptWorldHelper().create(minecraftWorld);
+
+    /**
+     *  Returns the directory path of the current world.
+     *
+     *  <p>Read {@link IScriptPath} for more information about work with files.</p>
+     *
+     * <pre>{@code
+     *    function main(c)
+     *    {
+     *        var worldDir = mappet.getWorldDir();
+     *        var file = worldDir.resolve("testFile.txt");
+     *        file.write("Hello World!");
+     *    }
+     * }</pre>
+     */
+
+    public IScriptPath getWorldDir() {
+        return new ScriptPath(DimensionManager.getCurrentSaveRootDirectory().toPath());
     }
 
-    public IScriptServer getMappetServer(MinecraftServer minecraftServer){
-        return new MixinScriptServerHelper().create(minecraftServer);
+    /**
+     *  Returns the directory path of the minecraft directory (if singleplayer), or server directory (if multiplayer).
+     *
+     *  <p>Read {@link IScriptPath} for more information about work with files.</p>
+     *
+     * <pre>{@code
+     *    function main(c)
+     *    {
+     *        var minecraftDir = mappet.getMinecraftDir();
+     *        var file = minecraftDir.resolve("testFile.txt");
+     *        file.write("Hello World!");
+     *    }
+     * }</pre>
+     */
+    public IScriptPath getMinecraftDir() {
+        return new ScriptPath(Paths.get("."));
     }
 
-    public IScriptTileEntity getMappetTileEntity(TileEntity minecraftTileEntity){
-        return new MixinScriptTileEntityHelper().create(minecraftTileEntity);
-    }
+    /**
+     *  Returns the path of given string path.
+     *
+     *  <p>Read {@link IScriptPath} for more information about work with files.</p>
+     *
+     * <pre>{@code
+     *    function main(c)
+     *    {
+     *        var file = mappet.createPath("./config/mappet/test.txt");
+     *        file.write("Hello World!");
+     *    }
+     * }</pre>
+     */
 
-    public IScriptInventory getMappetInventory(IInventory minecraftInventory){
-        return new MixinScriptInventoryHelper().create(minecraftInventory);
+    public IScriptPath createPath(String path) {
+        return new ScriptPath(Paths.get(path));
     }
 }
