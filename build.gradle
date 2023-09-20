@@ -237,8 +237,8 @@ task scriptingJavadocsJson(type: Exec) {
     // Rename it to jsonDoclet.jar, and place it in the run/ folder
     executable "javadoc"
     List<String> subpackages = new ArrayList(Arrays.asList(
-            "toraylife.mappetextras.modules.utils.scripts.user",
-            "toraylife.mappetextras.modules.utils.mixins",
+            "toraylife.mappetextras.modules.scripting.scripts.user",
+            "toraylife.mappetextras.modules.scripting.mixins",
     ))
     args "-doclet", "mchorse.utils.doclets.JsonDoclet", "-docletpath", "./run/jsonDoclet.jar", "-sourcepath", "./src/main/java", "-subpackages", subpackages.join(":"), "-verbose"
 
