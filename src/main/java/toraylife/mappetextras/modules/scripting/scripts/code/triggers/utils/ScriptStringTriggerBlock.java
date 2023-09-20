@@ -2,7 +2,7 @@ package toraylife.mappetextras.modules.scripting.scripts.code.triggers.utils;
 
 import mchorse.mappet.api.triggers.blocks.StringTriggerBlock;
 
-public abstract class MPEStringTriggerBlock<T extends StringTriggerBlock> extends MPETriggerBlock<T> {
+public abstract class ScriptStringTriggerBlock<T extends StringTriggerBlock> extends ScriptTriggerBlock<T> {
 
     public String getString() {
         return this.triggerBlock.string;

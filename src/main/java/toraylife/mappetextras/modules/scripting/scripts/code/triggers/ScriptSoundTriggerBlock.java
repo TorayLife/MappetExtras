@@ -1,12 +1,10 @@
 package toraylife.mappetextras.modules.scripting.scripts.code.triggers;
 
-import mchorse.mappet.api.triggers.blocks.EventTriggerBlock;
 import mchorse.mappet.api.triggers.blocks.SoundTriggerBlock;
 import mchorse.mappet.api.utils.TargetMode;
-import toraylife.mappetextras.modules.scripting.scripts.code.triggers.utils.MPEDataTriggerBlock;
-import toraylife.mappetextras.modules.scripting.scripts.code.triggers.utils.MPEStringTriggerBlock;
+import toraylife.mappetextras.modules.scripting.scripts.code.triggers.utils.ScriptStringTriggerBlock;
 
-public class MPESoundTriggerBlock extends MPEStringTriggerBlock<SoundTriggerBlock> {
+public class ScriptSoundTriggerBlock extends ScriptStringTriggerBlock<SoundTriggerBlock> {
 
     public String getTarget() {
         return this.triggerBlock.target.name();
@@ -15,11 +13,11 @@ public class MPESoundTriggerBlock extends MPEStringTriggerBlock<SoundTriggerBloc
         this.triggerBlock.target = TargetMode.valueOf(target.toUpperCase());
     }
 
-    public MPESoundTriggerBlock() {
+    public ScriptSoundTriggerBlock() {
         this(new SoundTriggerBlock());
     }
 
-    public MPESoundTriggerBlock(SoundTriggerBlock triggerBlock) {
+    public ScriptSoundTriggerBlock(SoundTriggerBlock triggerBlock) {
         this.triggerBlock = triggerBlock;
     }
 }

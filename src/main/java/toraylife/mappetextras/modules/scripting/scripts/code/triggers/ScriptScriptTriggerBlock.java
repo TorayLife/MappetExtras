@@ -1,10 +1,9 @@
 package toraylife.mappetextras.modules.scripting.scripts.code.triggers;
 
 import mchorse.mappet.api.triggers.blocks.ScriptTriggerBlock;
-import scala.inline;
-import toraylife.mappetextras.modules.scripting.scripts.code.triggers.utils.MPEDataTriggerBlock;
+import toraylife.mappetextras.modules.scripting.scripts.code.triggers.utils.ScriptDataTriggerBlock;
 
-public class MPEScriptTriggerBlock extends MPEDataTriggerBlock<ScriptTriggerBlock> {
+public class ScriptScriptTriggerBlock extends ScriptDataTriggerBlock<ScriptTriggerBlock> {
 
     public String getFunction() {
         return this.triggerBlock.function;
@@ -30,11 +29,11 @@ public class MPEScriptTriggerBlock extends MPEDataTriggerBlock<ScriptTriggerBloc
         this.triggerBlock.inline = inline;
     }
 
-    public MPEScriptTriggerBlock() {
+    public ScriptScriptTriggerBlock() {
         this(new ScriptTriggerBlock());
     }
 
-    public MPEScriptTriggerBlock(ScriptTriggerBlock triggerBlock) {
+    public ScriptScriptTriggerBlock(ScriptTriggerBlock triggerBlock) {
         this.triggerBlock = triggerBlock;
     }
 }

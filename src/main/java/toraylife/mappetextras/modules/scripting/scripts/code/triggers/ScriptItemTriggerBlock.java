@@ -1,12 +1,10 @@
 package toraylife.mappetextras.modules.scripting.scripts.code.triggers;
 
 import mchorse.mappet.api.triggers.blocks.ItemTriggerBlock;
-import mchorse.mappet.api.triggers.blocks.StateTriggerBlock;
 import mchorse.mappet.api.utils.TargetMode;
-import toraylife.mappetextras.modules.scripting.scripts.code.triggers.utils.MPEStringTriggerBlock;
-import toraylife.mappetextras.modules.scripting.scripts.code.triggers.utils.MPETriggerBlock;
+import toraylife.mappetextras.modules.scripting.scripts.code.triggers.utils.ScriptTriggerBlock;
 
-public class MPEItemTriggerBlock extends MPETriggerBlock<ItemTriggerBlock> {
+public class ScriptItemTriggerBlock extends ScriptTriggerBlock<ItemTriggerBlock> {
 
     public String getTarget() {
         return this.triggerBlock.target.mode.name();
@@ -22,11 +20,11 @@ public class MPEItemTriggerBlock extends MPETriggerBlock<ItemTriggerBlock> {
         this.triggerBlock.mode = ItemTriggerBlock.ItemMode.valueOf(mode.toUpperCase());
     }
 
-    public MPEItemTriggerBlock() {
+    public ScriptItemTriggerBlock() {
         this(new ItemTriggerBlock());
     }
 
-    public MPEItemTriggerBlock(ItemTriggerBlock triggerBlock) {
+    public ScriptItemTriggerBlock(ItemTriggerBlock triggerBlock) {
         this.triggerBlock = triggerBlock;
     }
 }

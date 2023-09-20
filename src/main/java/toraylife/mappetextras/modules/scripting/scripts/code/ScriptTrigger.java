@@ -2,18 +2,18 @@ package toraylife.mappetextras.modules.scripting.scripts.code;
 
 import mchorse.mappet.api.triggers.Trigger;
 import mchorse.mappet.api.triggers.blocks.AbstractTriggerBlock;
-import toraylife.mappetextras.modules.scripting.scripts.code.triggers.utils.MPETriggerBlock;
+import toraylife.mappetextras.modules.scripting.scripts.code.triggers.utils.ScriptTriggerBlock;
 
 import java.util.List;
 
-public class MPETrigger {
+public class ScriptTrigger {
     public Trigger trigger;
 
-    public MPETrigger() {
+    public ScriptTrigger() {
         this(new Trigger());
     }
 
-    public MPETrigger(Trigger trigger) {
+    public ScriptTrigger(Trigger trigger) {
         this.trigger = trigger;
     }
 
@@ -25,7 +25,7 @@ public class MPETrigger {
         this.trigger.blocks.remove(index);
     }
 
-    public void addBlock(MPETriggerBlock<? extends AbstractTriggerBlock> triggerBlock) {
+    public void addBlock(ScriptTriggerBlock<? extends AbstractTriggerBlock> triggerBlock) {
         this.trigger.blocks.add(triggerBlock.triggerBlock);
     }
 

@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import toraylife.mappetextras.modules.scripting.scripts.code.MPETriggerTileEntity;
+import toraylife.mappetextras.modules.scripting.scripts.code.ScriptTriggerTileEntity;
 
 @Mixin(value = ScriptWorld.class, remap = false)
 public abstract class MixinScriptWorld {
@@ -37,7 +37,7 @@ public abstract class MixinScriptWorld {
 
         // TODO rewrite
         if (tileEntity instanceof TileTrigger) {
-            cir.setReturnValue(new MPETriggerTileEntity((TileTrigger) tileEntity));
+            cir.setReturnValue(new ScriptTriggerTileEntity((TileTrigger) tileEntity));
         }
         else {
             cir.setReturnValue(new ScriptTileEntity(tileEntity));
