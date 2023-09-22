@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 
-public interface IScriptPath {
+public interface IScriptFile {
 
     /**
      * Returns the java Path object.
@@ -57,7 +57,7 @@ public interface IScriptPath {
     String getExtension();
 
     /**
-     * Returns new {@link IScriptPath} with combined path.
+     * Returns new {@link IScriptFile} with combined path.
      *
      * <pre>{@code
      *    function main(c)
@@ -67,21 +67,7 @@ public interface IScriptPath {
      *    }
      *  }</pre>
      */
-    IScriptPath resolve(String path);
-
-    /**
-     * Returns new {@link IScriptPath} with combined path.
-     *
-     * <pre>{@code
-     *    function main(c)
-     *    {
-     *       var files = mappet.createPath("./configs"); // "./configs"
-     *       var someFile = mappet.createPath("test.txt"); // "test.txt"
-     *       var testFile = files.resolve(someFile); // "./configs/test.txt"
-     *    }
-     *  }</pre>
-     */
-    IScriptPath resolve(IScriptPath path);
+    IScriptFile resolve(String path);
 
     /**
      * Returns true if the path is a file.
@@ -202,7 +188,7 @@ public interface IScriptPath {
      *
      * <p>Throws {@link IOException} If an I/O error occurs during the operation.</p>
      */
-    void copy(IScriptPath path) throws IOException;
+    void copy(IScriptFile path) throws IOException;
 
     /**
      * Deletes a file or a directory.
@@ -234,7 +220,7 @@ public interface IScriptPath {
      *
      * <p>Throws {@link IOException} If an I/O error occurs during the operation.</p>
      */
-    void move(IScriptPath path) throws IOException;
+    void move(IScriptFile path) throws IOException;
 
     /**
      * Returns a list of contents of the directory.
@@ -251,5 +237,5 @@ public interface IScriptPath {
      *
      * <p>Throws {@link IOException} If an I/O error occurs during the operation.</p>
      */
-    List<IScriptPath> list() throws IOException;
+    List<IScriptFile> list() throws IOException;
 }

@@ -1,6 +1,6 @@
 package toraylife.mappetextras.modules.scripting.scripts.code;
 
-import toraylife.mappetextras.modules.scripting.scripts.user.IScriptPath;
+import toraylife.mappetextras.modules.scripting.scripts.user.IScriptFile;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -10,11 +10,11 @@ import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ScriptPath implements IScriptPath {
+public class ScriptFile implements IScriptFile {
 
     Path path;
 
-    public ScriptPath(Path path) {
+    public ScriptFile(Path path) {
         this.path = path;
     }
 
@@ -41,13 +41,8 @@ public class ScriptPath implements IScriptPath {
     }
 
     @Override
-    public IScriptPath resolve(String path) {
-        return new ScriptPath(this.path.resolve(path));
-    }
-
-    @Override
-    public IScriptPath resolve(IScriptPath path) {
-        return new ScriptPath(this.path.resolve(path.getPath()));
+    public IScriptFile resolve(String path) {
+        return new ScriptFile(this.path.resolve(path));
     }
 
     @Override
@@ -89,7 +84,7 @@ public class ScriptPath implements IScriptPath {
     }
 
     @Override
-    public void copy(IScriptPath path) throws IOException {
+    public void copy(IScriptFile path) throws IOException {
         Files.copy(path.getPath(), this.path);
     }
 
@@ -99,12 +94,12 @@ public class ScriptPath implements IScriptPath {
     }
 
     @Override
-    public void move(IScriptPath path) throws IOException {
+    public void move(IScriptFile path) throws IOException {
         Files.move(this.path, path.getPath());
     }
 
     @Override
-    public List<IScriptPath> list() throws IOException {
-        return Files.list(this.path).map(ScriptPath::new).collect(Collectors.toList());
+    public List<IScriptFile> list() throws IOException {
+        return Files.list(this.path).map(ScriptFile::new).collect(Collectors.toList());
     }
 }

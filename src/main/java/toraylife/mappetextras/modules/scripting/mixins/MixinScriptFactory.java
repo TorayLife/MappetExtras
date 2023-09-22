@@ -4,8 +4,8 @@ import mchorse.mappet.api.scripts.code.ScriptFactory;
 import net.minecraftforge.common.DimensionManager;
 import org.spongepowered.asm.mixin.Mixin;
 import toraylife.mappetextras.modules.main.documentation.MixinTargetName;
-import toraylife.mappetextras.modules.scripting.scripts.code.ScriptPath;
-import toraylife.mappetextras.modules.scripting.scripts.user.IScriptPath;
+import toraylife.mappetextras.modules.scripting.scripts.code.ScriptFile;
+import toraylife.mappetextras.modules.scripting.scripts.user.IScriptFile;
 
 import java.nio.file.Paths;
 
@@ -16,7 +16,7 @@ public abstract class MixinScriptFactory{
     /**
      *  Returns the directory path of the current world.
      *
-     *  <p>Read {@link IScriptPath} for more information about work with files.</p>
+     *  <p>Read {@link IScriptFile} for more information about work with files.</p>
      *
      * <pre>{@code
      *    function main(c)
@@ -28,14 +28,14 @@ public abstract class MixinScriptFactory{
      * }</pre>
      */
 
-    public IScriptPath getWorldDir() {
-        return new ScriptPath(DimensionManager.getCurrentSaveRootDirectory().toPath());
+    public IScriptFile getWorldDir() {
+        return new ScriptFile(DimensionManager.getCurrentSaveRootDirectory().toPath());
     }
 
     /**
      *  Returns the directory path of the minecraft directory (if singleplayer), or server directory (if multiplayer).
      *
-     *  <p>Read {@link IScriptPath} for more information about work with files.</p>
+     *  <p>Read {@link IScriptFile} for more information about work with files.</p>
      *
      * <pre>{@code
      *    function main(c)
@@ -46,14 +46,14 @@ public abstract class MixinScriptFactory{
      *    }
      * }</pre>
      */
-    public IScriptPath getMinecraftDir() {
-        return new ScriptPath(Paths.get("."));
+    public IScriptFile getMinecraftDir() {
+        return new ScriptFile(Paths.get("."));
     }
 
     /**
      *  Returns the path of given string path.
      *
-     *  <p>Read {@link IScriptPath} for more information about work with files.</p>
+     *  <p>Read {@link IScriptFile} for more information about work with files.</p>
      *
      * <pre>{@code
      *    function main(c)
@@ -64,7 +64,7 @@ public abstract class MixinScriptFactory{
      * }</pre>
      */
 
-    public IScriptPath createPath(String path) {
-        return new ScriptPath(Paths.get(path));
+    public IScriptFile createPath(String path) {
+        return new ScriptFile(Paths.get(path));
     }
 }
