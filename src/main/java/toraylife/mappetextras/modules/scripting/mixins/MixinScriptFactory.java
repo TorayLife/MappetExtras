@@ -7,6 +7,7 @@ import toraylife.mappetextras.modules.main.documentation.MixinTargetName;
 import toraylife.mappetextras.modules.scripting.scripts.code.ScriptFile;
 import toraylife.mappetextras.modules.scripting.scripts.user.IScriptFile;
 
+
 import java.nio.file.Paths;
 
 @Mixin(value = ScriptFactory.class, remap = false)
@@ -46,6 +47,7 @@ public abstract class MixinScriptFactory{
      *    }
      * }</pre>
      */
+  
     public IScriptFile getMinecraftDir() {
         return new ScriptFile(Paths.get("."));
     }
