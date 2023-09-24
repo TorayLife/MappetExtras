@@ -32,4 +32,19 @@ public abstract class MixinScriptFactory{
     public IScriptInventory getMappetInventory(IInventory minecraftInventory){
         return new ScriptInventory(minecraftInventory);
     }
+
+    public double radiansToDegrees(double radians) {
+        return radians * 180 / Math.PI;
+    }
+
+    public double degreesToRadians(double degrees) {
+        return degrees * Math.PI / 180;
+    }
+
+    public String instance(Object value) {
+        String classes = value.getClass().toString();
+        int beginIndex = classes.lastIndexOf(".")+1;
+
+        return classes.substring(beginIndex);
+    }
 }
