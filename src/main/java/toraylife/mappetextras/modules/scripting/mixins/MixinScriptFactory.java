@@ -41,7 +41,7 @@ public abstract class MixinScriptFactory{
         return degrees * Math.PI / 180;
     }
 
-    public String instance(Object value) {
+    public String getClassName(Object value) {
         String classes = value.getClass().toString();
         int beginIndex = classes.lastIndexOf(".")+1;
 
