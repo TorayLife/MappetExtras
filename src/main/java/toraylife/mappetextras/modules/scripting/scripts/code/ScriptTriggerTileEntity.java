@@ -3,8 +3,9 @@ package toraylife.mappetextras.modules.scripting.scripts.code;
 import mchorse.mappet.api.scripts.code.blocks.ScriptTileEntity;
 import mchorse.mappet.tile.TileTrigger;
 import toraylife.mappetextras.modules.scripting.scripts.user.IScriptTrigger;
+import toraylife.mappetextras.modules.scripting.scripts.user.IScriptTriggerTileEntity;
 
-public class ScriptTriggerTileEntity extends ScriptTileEntity {
+public class ScriptTriggerTileEntity extends ScriptTileEntity implements IScriptTriggerTileEntity {
     public ScriptTriggerTileEntity(TileTrigger tile) {
         super(tile);
     }
