@@ -2,13 +2,14 @@ package toraylife.mappetextras.modules.scripting.scripts.code;
 
 import mchorse.mappet.api.scripts.code.blocks.ScriptTileEntity;
 import mchorse.mappet.tile.TileTrigger;
+import toraylife.mappetextras.modules.scripting.scripts.user.IScriptTrigger;
 
 public class ScriptTriggerTileEntity extends ScriptTileEntity {
     public ScriptTriggerTileEntity(TileTrigger tile) {
         super(tile);
     }
 
-    public ScriptTrigger getLeft() {
+    public IScriptTrigger getLeft() {
         return new ScriptTrigger(((TileTrigger)this.getMinecraftTileEntity()).leftClick);
     }
 
@@ -16,7 +17,7 @@ public class ScriptTriggerTileEntity extends ScriptTileEntity {
         ((TileTrigger)this.getMinecraftTileEntity()).leftClick = trigger.trigger;
     }
 
-    public ScriptTrigger getRight() {
+    public IScriptTrigger getRight() {
         return new ScriptTrigger(((TileTrigger)this.getMinecraftTileEntity()).rightClick);
     }
 

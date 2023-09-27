@@ -5,8 +5,9 @@ import mchorse.mappet.api.utils.TargetMode;
 import mchorse.metamorph.api.MorphManager;
 import mchorse.metamorph.api.morphs.AbstractMorph;
 import toraylife.mappetextras.modules.scripting.scripts.code.triggers.utils.ScriptTriggerBlock;
+import toraylife.mappetextras.modules.scripting.scripts.user.triggers.IScriptMorphTriggerBlock;
 
-public class ScriptMorphTriggerBlock extends ScriptTriggerBlock<MorphTriggerBlock> {
+public class ScriptMorphTriggerBlock extends ScriptTriggerBlock<MorphTriggerBlock> implements IScriptMorphTriggerBlock {
 
     public AbstractMorph getMorph() {
         return MorphManager.INSTANCE.morphFromNBT(this.triggerBlock.morph);

@@ -2,8 +2,9 @@ package toraylife.mappetextras.modules.scripting.scripts.code.triggers;
 
 import mchorse.mappet.api.triggers.blocks.ScriptTriggerBlock;
 import toraylife.mappetextras.modules.scripting.scripts.code.triggers.utils.ScriptDataTriggerBlock;
+import toraylife.mappetextras.modules.scripting.scripts.user.triggers.IScriptScriptTriggerBlock;
 
-public class ScriptScriptTriggerBlock extends ScriptDataTriggerBlock<ScriptTriggerBlock> {
+public class ScriptScriptTriggerBlock extends ScriptDataTriggerBlock<ScriptTriggerBlock> implements IScriptScriptTriggerBlock {
 
     public String getFunction() {
         return this.triggerBlock.function;

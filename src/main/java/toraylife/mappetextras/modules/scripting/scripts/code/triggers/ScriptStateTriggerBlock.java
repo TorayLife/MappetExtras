@@ -3,8 +3,9 @@ package toraylife.mappetextras.modules.scripting.scripts.code.triggers;
 import mchorse.mappet.api.triggers.blocks.StateTriggerBlock;
 import mchorse.mappet.api.utils.TargetMode;
 import toraylife.mappetextras.modules.scripting.scripts.code.triggers.utils.ScriptStringTriggerBlock;
+import toraylife.mappetextras.modules.scripting.scripts.user.triggers.IScriptStateTriggerBlock;
 
-public class ScriptStateTriggerBlock extends ScriptStringTriggerBlock<StateTriggerBlock> {
+public class ScriptStateTriggerBlock extends ScriptStringTriggerBlock<StateTriggerBlock> implements IScriptStateTriggerBlock {
 
     public String getTarget() {
         return this.triggerBlock.target.mode.name();

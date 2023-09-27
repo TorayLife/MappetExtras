@@ -17,6 +17,7 @@ public abstract class ScriptTargetConditionBlock<T extends TargetConditionBlock>
     public String getTarget() {
         return this.conditionBlock.target.mode.name();
     }
+
     public void setTarget(String target) {
         this.conditionBlock.target.mode = TargetMode.valueOf(target.toUpperCase());
     }

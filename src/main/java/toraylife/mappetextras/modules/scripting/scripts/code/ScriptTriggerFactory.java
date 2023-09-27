@@ -15,73 +15,79 @@ import toraylife.mappetextras.modules.scripting.scripts.code.triggers.ScriptMorp
 import toraylife.mappetextras.modules.scripting.scripts.code.triggers.ScriptScriptTriggerBlock;
 import toraylife.mappetextras.modules.scripting.scripts.code.triggers.ScriptSoundTriggerBlock;
 import toraylife.mappetextras.modules.scripting.scripts.code.triggers.ScriptStateTriggerBlock;
+import toraylife.mappetextras.modules.scripting.scripts.user.IScriptTrigger;
+import toraylife.mappetextras.modules.scripting.scripts.user.triggers.IScriptCommandTriggerBlock;
+import toraylife.mappetextras.modules.scripting.scripts.user.triggers.IScriptDialogueTriggerBlock;
+import toraylife.mappetextras.modules.scripting.scripts.user.triggers.IScriptEventTriggerBlock;
+import toraylife.mappetextras.modules.scripting.scripts.user.triggers.IScriptMorphTriggerBlock;
+import toraylife.mappetextras.modules.scripting.scripts.user.triggers.IScriptScriptTriggerBlock;
+import toraylife.mappetextras.modules.scripting.scripts.user.triggers.IScriptSoundTriggerBlock;
+import toraylife.mappetextras.modules.scripting.scripts.user.triggers.IScriptStateTriggerBlock;
 
 public class ScriptTriggerFactory {
 
-    public ScriptTrigger createTrigger() {
+    public IScriptTrigger createTrigger() {
         return this.createTrigger(new Trigger());
     }
 
-    public ScriptTrigger createTrigger(Trigger mappetTrigger) {
+    public IScriptTrigger createTrigger(Trigger mappetTrigger) {
         return new ScriptTrigger(mappetTrigger);
     }
 
     // Trigger blocks
-    public ScriptCommandTriggerBlock createCommandTriggerBlock() {
+    public IScriptCommandTriggerBlock createCommandTriggerBlock() {
         return new ScriptCommandTriggerBlock();
     }
 
-    public ScriptCommandTriggerBlock createCommandTriggerBlock(CommandTriggerBlock triggerBlock) {
+    public IScriptCommandTriggerBlock createCommandTriggerBlock(CommandTriggerBlock triggerBlock) {
         return new ScriptCommandTriggerBlock(triggerBlock);
     }
 
-    public ScriptDialogueTriggerBlock createDialogueTriggerBlock() {
+    public IScriptDialogueTriggerBlock createDialogueTriggerBlock() {
         return new ScriptDialogueTriggerBlock();
     }
 
-    public ScriptDialogueTriggerBlock createDialogueTriggerBlock(DialogueTriggerBlock triggerBlock) {
+    public IScriptDialogueTriggerBlock createDialogueTriggerBlock(DialogueTriggerBlock triggerBlock) {
         return new ScriptDialogueTriggerBlock(triggerBlock);
     }
 
-    public ScriptEventTriggerBlock createEventTriggerBlock() {
+    public IScriptEventTriggerBlock createEventTriggerBlock() {
         return new ScriptEventTriggerBlock();
     }
 
-    public ScriptEventTriggerBlock createEventTriggerBlock(EventTriggerBlock triggerBlock) {
+    public IScriptEventTriggerBlock createEventTriggerBlock(EventTriggerBlock triggerBlock) {
         return new ScriptEventTriggerBlock(triggerBlock);
     }
 
-    public ScriptMorphTriggerBlock createMorphTriggerBlock() {
+    public IScriptMorphTriggerBlock createMorphTriggerBlock() {
         return new ScriptMorphTriggerBlock();
     }
 
-    public ScriptMorphTriggerBlock createMorphTriggerBlock(MorphTriggerBlock triggerBlock) {
+    public IScriptMorphTriggerBlock createMorphTriggerBlock(MorphTriggerBlock triggerBlock) {
         return new ScriptMorphTriggerBlock(triggerBlock);
     }
 
-    public ScriptScriptTriggerBlock createScriptTriggerBlock() {
+    public IScriptScriptTriggerBlock createScriptTriggerBlock() {
         return new ScriptScriptTriggerBlock();
     }
 
-    public ScriptScriptTriggerBlock createScriptTriggerBlock(ScriptTriggerBlock triggerBlock) {
+    public IScriptScriptTriggerBlock createScriptTriggerBlock(ScriptTriggerBlock triggerBlock) {
         return new ScriptScriptTriggerBlock(triggerBlock);
     }
 
-    public ScriptSoundTriggerBlock createSoundTriggerBlock() {
+    public IScriptSoundTriggerBlock createSoundTriggerBlock() {
         return new ScriptSoundTriggerBlock();
     }
 
-    public ScriptSoundTriggerBlock createSoundTriggerBlock(SoundTriggerBlock triggerBlock) {
+    public IScriptSoundTriggerBlock createSoundTriggerBlock(SoundTriggerBlock triggerBlock) {
         return new ScriptSoundTriggerBlock(triggerBlock);
     }
 
-    public ScriptStateTriggerBlock createStateTriggerBlock() {
+    public IScriptStateTriggerBlock createStateTriggerBlock() {
         return new ScriptStateTriggerBlock();
     }
 
-    public ScriptStateTriggerBlock createStateTriggerBlock(StateTriggerBlock triggerBlock) {
+    public IScriptStateTriggerBlock createStateTriggerBlock(StateTriggerBlock triggerBlock) {
         return new ScriptStateTriggerBlock(triggerBlock);
     }
-
-
 }

@@ -1,8 +1,9 @@
 package toraylife.mappetextras.modules.scripting.scripts.code;
 
 import mchorse.mappet.api.conditions.Checker;
+import toraylife.mappetextras.modules.scripting.scripts.user.IScriptChecker;
 
-public class ScriptChecker {
+public class ScriptChecker implements IScriptChecker {
     public Checker checker;
 
     public ScriptChecker() {
@@ -18,5 +19,19 @@ public class ScriptChecker {
     }
     public void setMode(String mode) {
         this.checker.mode = Checker.Mode.valueOf(mode.toUpperCase());
+    }
+
+    public String getExpression() {
+        return this.checker.expression;
+    }
+    public void setExpression(String expression) {
+        this.checker.expression = expression;
+    }
+
+    public ScriptCondition getCondition() {
+        return new ScriptCondition(this.checker.condition);
+    }
+    public void setCondition(ScriptCondition condition) {
+        this.checker.condition = condition.condition;
     }
 }

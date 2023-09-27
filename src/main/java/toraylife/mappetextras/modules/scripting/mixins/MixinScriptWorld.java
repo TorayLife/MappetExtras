@@ -4,6 +4,7 @@ import mchorse.mappet.api.scripts.code.ScriptWorld;
 import mchorse.mappet.api.scripts.code.blocks.ScriptTileEntity;
 import mchorse.mappet.api.scripts.user.IScriptWorld;
 import mchorse.mappet.api.scripts.user.blocks.IScriptTileEntity;
+import mchorse.mappet.tile.TileEmitter;
 import mchorse.mappet.tile.TileTrigger;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
@@ -13,6 +14,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import toraylife.mappetextras.modules.scripting.scripts.code.ScriptEmitterTileEntity;
 import toraylife.mappetextras.modules.scripting.scripts.code.ScriptTriggerTileEntity;
 
 @Mixin(value = ScriptWorld.class, remap = false)
@@ -38,6 +40,9 @@ public abstract class MixinScriptWorld {
         // TODO rewrite
         if (tileEntity instanceof TileTrigger) {
             cir.setReturnValue(new ScriptTriggerTileEntity((TileTrigger) tileEntity));
+        }
+        if (tileEntity instanceof TileEmitter) {
+            cir.setReturnValue(new ScriptEmitterTileEntity((TileEmitter) tileEntity));
         }
         else {
             cir.setReturnValue(new ScriptTileEntity(tileEntity));

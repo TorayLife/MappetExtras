@@ -3,10 +3,11 @@ package toraylife.mappetextras.modules.scripting.scripts.code;
 import mchorse.mappet.api.conditions.Condition;
 import mchorse.mappet.api.conditions.blocks.AbstractConditionBlock;
 import toraylife.mappetextras.modules.scripting.scripts.code.conditions.utils.ScriptConditionBlock;
+import toraylife.mappetextras.modules.scripting.scripts.user.IScriptCondition;
 
 import java.util.List;
 
-public class ScriptCondition {
+public class ScriptCondition implements IScriptCondition {
     public Condition condition;
 
     public ScriptCondition() {
