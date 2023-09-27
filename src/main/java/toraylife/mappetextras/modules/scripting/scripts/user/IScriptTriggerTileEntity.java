@@ -12,4 +12,8 @@ public interface IScriptTriggerTileEntity extends IScriptTileEntity {
     IScriptTrigger getRight();
 
     void setRight(ScriptTrigger trigger);
+
+    boolean getCollidable();
+
+    void setCollidable(boolean collidable);
 }
