@@ -2,6 +2,8 @@ package toraylife.mappetextras.modules.main;
 
 import mchorse.mclib.client.gui.utils.keys.IKey;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.event.ClickEvent;
@@ -10,10 +12,13 @@ import net.minecraftforge.common.ForgeVersion;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModContainer;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import toraylife.mappetextras.MappetExtras;
 import toraylife.mappetextras.modules.main.client.gui.VersionChangelogScreen;
 
-public class VersionChecker {
+@SideOnly(Side.CLIENT)
+public class VersionChecker extends Thread {
 
     public ForgeVersion.CheckResult getVersionCheckResult() {
         FMLCommonHandler.instance().findContainerFor(MappetExtras.instance);
@@ -37,7 +42,7 @@ public class VersionChecker {
                 message.appendText(lang.get());
                 TextComponentString viewChangelogString = new TextComponentString(IKey.lang(messageKey + ".outdated_view").get());
                 // 🩼🩼
-                viewChangelogString.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, ""){
+                viewChangelogString.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "") {
                     @Override
                     public Action getAction() {
                         Minecraft.getMinecraft().displayGuiScreen(new VersionChangelogScreen(result));
@@ -54,5 +59,36 @@ public class VersionChecker {
                 break;
         }
         return message;
+    }
+
+    public static void sendMessage(EntityPlayer player, boolean ignoreSettings) {
+        if (!ignoreSettings && !MainModule.getInstance().showVersionUpdateMessage.get()) {
+            return;
+        }
+
+        VersionChecker checker = new VersionChecker();
+        ForgeVersion.CheckResult versionCheckResult = checker.getVersionCheckResult();
+
+        if (!ignoreSettings && MainModule.getInstance().showUpdateOnlyIfOutdated.get() && versionCheckResult.status != ForgeVersion.Status.OUTDATED) {
+            return;
+        }
+
+        ITextComponent message = checker.getUpdateMessage();
+        player.sendMessage(message);
+    }
+
+    @Override
+    public void run() {
+        // 🩼🩼🩼
+        // TODO: Figure out how to rewrite this properly
+        EntityPlayerSP player;
+        while ((player = Minecraft.getMinecraft().player) == null) {
+            try {
+                Thread.sleep(2000L);
+            } catch (InterruptedException exception) {
+                exception.printStackTrace();
+            }
+        }
+        VersionChecker.sendMessage(player, false);
     }
 }
