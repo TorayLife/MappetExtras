@@ -36,8 +36,6 @@ public abstract class MixinGuiScriptPanel
     )
     private static void onCreateScriptContextMenu(Minecraft mc, GuiTextEditor editor, CallbackInfoReturnable<GuiContextMenu> cir, GuiSimpleContextMenu menu)
     {
-            if (!UtilsModule.getInstance().isEnabled()) return;
-
             menu.action(Icons.FAVORITE, IKey.lang("mappetextras.utils_module.beautify"), () -> MixinGuiScriptPanel.onClick(editor));
     }
 
