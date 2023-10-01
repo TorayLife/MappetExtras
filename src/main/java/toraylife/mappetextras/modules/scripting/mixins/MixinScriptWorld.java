@@ -4,6 +4,7 @@ import mchorse.mappet.api.scripts.code.ScriptWorld;
 import mchorse.mappet.api.scripts.code.blocks.ScriptTileEntity;
 import mchorse.mappet.api.scripts.user.IScriptWorld;
 import mchorse.mappet.api.scripts.user.blocks.IScriptTileEntity;
+import mchorse.mappet.tile.TileConditionModel;
 import mchorse.mappet.tile.TileEmitter;
 import mchorse.mappet.tile.TileTrigger;
 import net.minecraft.tileentity.TileEntity;
@@ -14,6 +15,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import toraylife.mappetextras.modules.scripting.scripts.code.ScriptConditionModelTileEntity;
 import toraylife.mappetextras.modules.scripting.scripts.code.ScriptEmitterTileEntity;
 import toraylife.mappetextras.modules.scripting.scripts.code.ScriptTriggerTileEntity;
 
@@ -44,7 +46,9 @@ public abstract class MixinScriptWorld {
         if (tileEntity instanceof TileEmitter) {
             cir.setReturnValue(new ScriptEmitterTileEntity((TileEmitter) tileEntity));
         }
-        else {
+        if (tileEntity instanceof TileConditionModel) {
+            cir.setReturnValue(new ScriptConditionModelTileEntity((TileConditionModel) tileEntity));
+        } else {
             cir.setReturnValue(new ScriptTileEntity(tileEntity));
         }
     }
