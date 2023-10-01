@@ -1,6 +1,7 @@
 package toraylife.mappetextras.modules.scripting.scripts.user.blocks;
 
 import mchorse.mappet.api.scripts.user.blocks.IScriptTileEntity;
+import mchorse.mappet.tile.TileTrigger;
 import toraylife.mappetextras.modules.scripting.scripts.code.ScriptTrigger;
 import toraylife.mappetextras.modules.scripting.scripts.user.IScriptTrigger;
 
@@ -39,4 +40,13 @@ public interface IScriptTriggerTileEntity extends IScriptTileEntity {
      * @param collidable true if the object is collidable, false otherwise
      */
     void setCollidable(boolean collidable);
+
+    /**
+     * Get Minecraft tile entity instance. <b>BEWARE:</b> you need to know the MCP
+     * mappings in order to directly call methods on this instance!
+     *
+     * <p>See {@link IScriptTileEntity} for more usage info.</p>
+     */
+    @Override
+    TileTrigger getMinecraftTileEntity();
 }

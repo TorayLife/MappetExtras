@@ -15,29 +15,29 @@ public class ScriptTriggerTileEntity extends ScriptTileEntity implements IScript
     }
 
     public IScriptTrigger getLeft() {
-        return new ScriptTrigger(((TileTrigger)this.getMinecraftTileEntity()).leftClick);
+        return new ScriptTrigger(this.getMinecraftTileEntity().leftClick);
     }
 
     public void setLeft(ScriptTrigger trigger) {
-        ((TileTrigger)this.getMinecraftTileEntity()).leftClick = trigger.trigger;
+        this.getMinecraftTileEntity().leftClick = trigger.trigger;
     }
 
     public IScriptTrigger getRight() {
-        return new ScriptTrigger(((TileTrigger)this.getMinecraftTileEntity()).rightClick);
+        return new ScriptTrigger(this.getMinecraftTileEntity().rightClick);
     }
 
     public void setRight(ScriptTrigger trigger) {
-        ((TileTrigger)this.getMinecraftTileEntity()).rightClick = trigger.trigger;
+        this.getMinecraftTileEntity().rightClick = trigger.trigger;
     }
 
     @Override
     public boolean getCollidable() {
-        TileTrigger tile = (TileTrigger)this.getMinecraftTileEntity();
+        TileTrigger tile = this.getMinecraftTileEntity();
         ImmutableMap<IProperty<?>, Comparable<?>> properties = tile.getWorld().getBlockState(tile.getPos()).getProperties();
 
         for (IProperty<?> p : properties.keySet()) {
             if (p.equals(BlockTrigger.COLLIDABLE)) {
-               return properties.get(p).equals(true);
+                return properties.get(p).equals(true);
             }
         }
         return false;
@@ -45,7 +45,12 @@ public class ScriptTriggerTileEntity extends ScriptTileEntity implements IScript
 
     @Override
     public void setCollidable(boolean collidable) {
-        TileTrigger tile = (TileTrigger)this.getMinecraftTileEntity();
+        TileTrigger tile = this.getMinecraftTileEntity();
         tile.getWorld().setBlockState(tile.getPos(), tile.getWorld().getBlockState(tile.getPos()).withProperty(BlockTrigger.COLLIDABLE, collidable));
+    }
+
+    @Override
+    public TileTrigger getMinecraftTileEntity() {
+        return (TileTrigger) super.getMinecraftTileEntity();
     }
 }

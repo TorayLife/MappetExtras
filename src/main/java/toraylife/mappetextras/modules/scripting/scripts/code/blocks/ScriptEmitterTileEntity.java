@@ -14,11 +14,11 @@ public class ScriptEmitterTileEntity extends ScriptTileEntity implements IScript
 
 
     public ScriptChecker getChecker() {
-        return new ScriptChecker(((TileEmitter)this.getMinecraftTileEntity()).getChecker());
+        return new ScriptChecker(this.getMinecraftTileEntity().getChecker());
     }
 
     public void setChecker(IScriptChecker checker) {
-        TileEmitter tile = (TileEmitter) this.getMinecraftTileEntity();
+        TileEmitter tile = this.getMinecraftTileEntity();
 
         /* TODO: Rewrite with access transformer */
         PacketEditEmitter packetEditEmitter = new PacketEditEmitter(tile);
@@ -28,13 +28,13 @@ public class ScriptEmitterTileEntity extends ScriptTileEntity implements IScript
 
     @Override
     public float getRadius() {
-        TileEmitter tile = (TileEmitter) this.getMinecraftTileEntity();
+        TileEmitter tile = this.getMinecraftTileEntity();
         return tile.getRadius();
     }
 
     @Override
     public void setRadius(float radius) {
-        TileEmitter tile = (TileEmitter) this.getMinecraftTileEntity();
+        TileEmitter tile = this.getMinecraftTileEntity();
 
         /* TODO: Rewrite with access transformer */
         PacketEditEmitter packetEditEmitter = new PacketEditEmitter(tile);
@@ -44,13 +44,13 @@ public class ScriptEmitterTileEntity extends ScriptTileEntity implements IScript
 
     @Override
     public int getUpdate() {
-        TileEmitter tile = (TileEmitter) this.getMinecraftTileEntity();
+        TileEmitter tile = this.getMinecraftTileEntity();
         return tile.getUpdate();
     }
 
     @Override
     public void setUpdate(int update) {
-        TileEmitter tile = (TileEmitter) this.getMinecraftTileEntity();
+        TileEmitter tile = this.getMinecraftTileEntity();
 
         /* TODO: Rewrite with access transformer */
         PacketEditEmitter packetEditEmitter = new PacketEditEmitter(tile);
@@ -60,17 +60,22 @@ public class ScriptEmitterTileEntity extends ScriptTileEntity implements IScript
 
     @Override
     public boolean getDisable() {
-        TileEmitter tile = (TileEmitter) this.getMinecraftTileEntity();
+        TileEmitter tile = this.getMinecraftTileEntity();
         return tile.getDisable();
     }
 
     @Override
     public void setDisable(boolean disable) {
-        TileEmitter tile = (TileEmitter) this.getMinecraftTileEntity();
+        TileEmitter tile = this.getMinecraftTileEntity();
 
         /* TODO: Rewrite with access transformer */
         PacketEditEmitter packetEditEmitter = new PacketEditEmitter(tile);
         packetEditEmitter.disable = disable;
         tile.setExpression(packetEditEmitter);
+    }
+
+    @Override
+    public TileEmitter getMinecraftTileEntity() {
+        return (TileEmitter) super.getMinecraftTileEntity();
     }
 }
