@@ -1,12 +1,13 @@
-package toraylife.mappetextras.modules.scripting.scripts.code;
+package toraylife.mappetextras.modules.scripting.scripts.code.blocks;
 
 import com.google.common.collect.ImmutableMap;
 import mchorse.mappet.api.scripts.code.blocks.ScriptTileEntity;
 import mchorse.mappet.blocks.BlockTrigger;
 import mchorse.mappet.tile.TileTrigger;
 import net.minecraft.block.properties.IProperty;
+import toraylife.mappetextras.modules.scripting.scripts.code.ScriptTrigger;
 import toraylife.mappetextras.modules.scripting.scripts.user.IScriptTrigger;
-import toraylife.mappetextras.modules.scripting.scripts.user.IScriptTriggerTileEntity;
+import toraylife.mappetextras.modules.scripting.scripts.user.blocks.IScriptTriggerTileEntity;
 
 public class ScriptTriggerTileEntity extends ScriptTileEntity implements IScriptTriggerTileEntity {
     public ScriptTriggerTileEntity(TileTrigger tile) {

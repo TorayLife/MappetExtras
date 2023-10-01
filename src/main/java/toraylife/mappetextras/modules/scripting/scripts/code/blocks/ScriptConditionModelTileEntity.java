@@ -1,10 +1,11 @@
-package toraylife.mappetextras.modules.scripting.scripts.code;
+package toraylife.mappetextras.modules.scripting.scripts.code.blocks;
 
 import mchorse.mappet.api.scripts.code.blocks.ScriptTileEntity;
 import mchorse.mappet.tile.TileConditionModel;
 import mchorse.mappet.utils.ConditionModel;
+import toraylife.mappetextras.modules.scripting.scripts.code.ScriptConditionModel;
 import toraylife.mappetextras.modules.scripting.scripts.user.IScriptConditionModel;
-import toraylife.mappetextras.modules.scripting.scripts.user.IScriptConditionModelTileEntity;
+import toraylife.mappetextras.modules.scripting.scripts.user.blocks.IScriptConditionModelTileEntity;
 
 import java.util.Arrays;
 import java.util.List;

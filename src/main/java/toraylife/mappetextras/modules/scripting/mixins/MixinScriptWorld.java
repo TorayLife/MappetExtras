@@ -15,9 +15,9 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import toraylife.mappetextras.modules.scripting.scripts.code.ScriptConditionModelTileEntity;
-import toraylife.mappetextras.modules.scripting.scripts.code.ScriptEmitterTileEntity;
-import toraylife.mappetextras.modules.scripting.scripts.code.ScriptTriggerTileEntity;
+import toraylife.mappetextras.modules.scripting.scripts.code.blocks.ScriptConditionModelTileEntity;
+import toraylife.mappetextras.modules.scripting.scripts.code.blocks.ScriptEmitterTileEntity;
+import toraylife.mappetextras.modules.scripting.scripts.code.blocks.ScriptTriggerTileEntity;
 
 @Mixin(value = ScriptWorld.class, remap = false)
 public abstract class MixinScriptWorld {
