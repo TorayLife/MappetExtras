@@ -7,27 +7,27 @@ import toraylife.mappetextras.modules.scripting.scripts.user.triggers.IScriptScr
 public class ScriptScriptTriggerBlock extends ScriptDataTriggerBlock<ScriptTriggerBlock> implements IScriptScriptTriggerBlock {
 
     public String getFunction() {
-        return this.triggerBlock.function;
+        return this.getTriggerBlock().function;
     }
 
     public void setFunction(String function) {
-        this.triggerBlock.function = function;
+        this.getTriggerBlock().function = function;
     }
 
     public String getInlineCode() {
-        return this.triggerBlock.code;
+        return this.getTriggerBlock().code;
     }
 
     public void setInlineCode(String code) {
-        this.triggerBlock.code = code;
+        this.getTriggerBlock().code = code;
     }
 
     public boolean isInline() {
-        return this.triggerBlock.inline;
+        return this.getTriggerBlock().inline;
     }
 
     public void setInline(boolean inline) {
-        this.triggerBlock.inline = inline;
+        this.getTriggerBlock().inline = inline;
     }
 
     public ScriptScriptTriggerBlock() {

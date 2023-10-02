@@ -1,28 +1,11 @@
 package toraylife.mappetextras.modules.scripting.scripts.code;
 
 import mchorse.mappet.api.triggers.Trigger;
-import mchorse.mappet.api.triggers.blocks.CommandTriggerBlock;
-import mchorse.mappet.api.triggers.blocks.DialogueTriggerBlock;
-import mchorse.mappet.api.triggers.blocks.EventTriggerBlock;
-import mchorse.mappet.api.triggers.blocks.MorphTriggerBlock;
-import mchorse.mappet.api.triggers.blocks.ScriptTriggerBlock;
-import mchorse.mappet.api.triggers.blocks.SoundTriggerBlock;
-import mchorse.mappet.api.triggers.blocks.StateTriggerBlock;
-import toraylife.mappetextras.modules.scripting.scripts.code.triggers.ScriptCommandTriggerBlock;
-import toraylife.mappetextras.modules.scripting.scripts.code.triggers.ScriptDialogueTriggerBlock;
-import toraylife.mappetextras.modules.scripting.scripts.code.triggers.ScriptEventTriggerBlock;
-import toraylife.mappetextras.modules.scripting.scripts.code.triggers.ScriptMorphTriggerBlock;
-import toraylife.mappetextras.modules.scripting.scripts.code.triggers.ScriptScriptTriggerBlock;
-import toraylife.mappetextras.modules.scripting.scripts.code.triggers.ScriptSoundTriggerBlock;
-import toraylife.mappetextras.modules.scripting.scripts.code.triggers.ScriptStateTriggerBlock;
+import mchorse.mappet.api.triggers.blocks.*;
+import toraylife.mappetextras.modules.scripting.scripts.code.triggers.*;
 import toraylife.mappetextras.modules.scripting.scripts.user.IScriptTrigger;
-import toraylife.mappetextras.modules.scripting.scripts.user.triggers.IScriptCommandTriggerBlock;
-import toraylife.mappetextras.modules.scripting.scripts.user.triggers.IScriptDialogueTriggerBlock;
-import toraylife.mappetextras.modules.scripting.scripts.user.triggers.IScriptEventTriggerBlock;
-import toraylife.mappetextras.modules.scripting.scripts.user.triggers.IScriptMorphTriggerBlock;
-import toraylife.mappetextras.modules.scripting.scripts.user.triggers.IScriptScriptTriggerBlock;
-import toraylife.mappetextras.modules.scripting.scripts.user.triggers.IScriptSoundTriggerBlock;
-import toraylife.mappetextras.modules.scripting.scripts.user.triggers.IScriptStateTriggerBlock;
+import toraylife.mappetextras.modules.scripting.scripts.user.triggers.*;
+import toraylife.mappetextras.modules.scripting.scripts.user.triggers.utils.IScriptTriggerBlock;
 
 public class ScriptTriggerFactory {
 
@@ -59,6 +42,14 @@ public class ScriptTriggerFactory {
         return new ScriptEventTriggerBlock(triggerBlock);
     }
 
+    public IScriptItemTriggerBlock createItemTriggerBlock() {
+        return new ScriptItemTriggerBlock();
+    }
+
+    public IScriptItemTriggerBlock createItemTriggerBlock(ItemTriggerBlock triggerBlock) {
+        return new ScriptItemTriggerBlock(triggerBlock);
+    }
+
     public IScriptMorphTriggerBlock createMorphTriggerBlock() {
         return new ScriptMorphTriggerBlock();
     }
@@ -89,5 +80,9 @@ public class ScriptTriggerFactory {
 
     public IScriptStateTriggerBlock createStateTriggerBlock(StateTriggerBlock triggerBlock) {
         return new ScriptStateTriggerBlock(triggerBlock);
+    }
+
+    public IScriptTriggerBlock<? extends AbstractTriggerBlock> createTriggerBlock(AbstractTriggerBlock abstractTriggerBlock) {
+        return ScriptTrigger.createTriggerBlock(abstractTriggerBlock);
     }
 }

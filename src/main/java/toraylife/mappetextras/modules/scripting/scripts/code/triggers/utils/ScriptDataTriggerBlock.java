@@ -5,10 +5,10 @@ import mchorse.mappet.api.triggers.blocks.DataTriggerBlock;
 public abstract class ScriptDataTriggerBlock<T extends DataTriggerBlock> extends ScriptStringTriggerBlock<T> {
 
     public String getData() {
-        return this.triggerBlock.customData;
+        return this.getTriggerBlock().customData;
     }
 
     public void setData(String string) {
-        this.triggerBlock.customData = string;
+        this.getTriggerBlock().customData = string;
     }
 }

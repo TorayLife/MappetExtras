@@ -10,25 +10,25 @@ import toraylife.mappetextras.modules.scripting.scripts.user.triggers.IScriptMor
 public class ScriptMorphTriggerBlock extends ScriptTriggerBlock<MorphTriggerBlock> implements IScriptMorphTriggerBlock {
 
     public AbstractMorph getMorph() {
-        return MorphManager.INSTANCE.morphFromNBT(this.triggerBlock.morph);
+        return MorphManager.INSTANCE.morphFromNBT(this.getTriggerBlock().morph);
     }
 
     public void setMorph(AbstractMorph morph) {
-        this.triggerBlock.morph = morph.toNBT();
+        this.getTriggerBlock().morph = morph.toNBT();
     }
 
     public String getTarget() {
-        return this.triggerBlock.target.mode.name();
+        return this.getTriggerBlock().target.mode.name();
     }
     public void setTarget(String target) {
-        this.triggerBlock.target.mode = TargetMode.valueOf(target.toUpperCase());
+        this.getTriggerBlock().target.mode = TargetMode.valueOf(target.toUpperCase());
     }
 
     public String getSelector() {
-        return this.triggerBlock.target.selector;
+        return this.getTriggerBlock().target.selector;
     }
     public void setSelector(String selector) {
-        this.triggerBlock.target.selector = selector;
+        this.getTriggerBlock().target.selector = selector;
     }
 
     public ScriptMorphTriggerBlock() {

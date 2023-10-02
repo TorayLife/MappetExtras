@@ -8,17 +8,17 @@ import toraylife.mappetextras.modules.scripting.scripts.user.triggers.IScriptIte
 public class ScriptItemTriggerBlock extends ScriptTriggerBlock<ItemTriggerBlock> implements IScriptItemTriggerBlock {
 
     public String getTarget() {
-        return this.triggerBlock.target.mode.name();
+        return this.getTriggerBlock().target.mode.name();
     }
     public void setTarget(String target) {
-        this.triggerBlock.target.mode = TargetMode.valueOf(target.toUpperCase());
+        this.getTriggerBlock().target.mode = TargetMode.valueOf(target.toUpperCase());
     }
 
     public String getMode() {
-        return this.triggerBlock.mode.name();
+        return this.getTriggerBlock().mode.name();
     }
     public void setMode(String mode) {
-        this.triggerBlock.mode = ItemTriggerBlock.ItemMode.valueOf(mode.toUpperCase());
+        this.getTriggerBlock().mode = ItemTriggerBlock.ItemMode.valueOf(mode.toUpperCase());
     }
 
     public ScriptItemTriggerBlock() {

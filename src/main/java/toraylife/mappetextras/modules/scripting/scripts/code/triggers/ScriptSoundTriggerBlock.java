@@ -8,10 +8,10 @@ import toraylife.mappetextras.modules.scripting.scripts.user.triggers.IScriptSou
 public class ScriptSoundTriggerBlock extends ScriptStringTriggerBlock<SoundTriggerBlock> implements IScriptSoundTriggerBlock {
 
     public String getTarget() {
-        return this.triggerBlock.target.name();
+        return this.getTriggerBlock().target.name();
     }
     public void setTarget(String target) {
-        this.triggerBlock.target = TargetMode.valueOf(target.toUpperCase());
+        this.getTriggerBlock().target = TargetMode.valueOf(target.toUpperCase());
     }
 
     public ScriptSoundTriggerBlock() {
