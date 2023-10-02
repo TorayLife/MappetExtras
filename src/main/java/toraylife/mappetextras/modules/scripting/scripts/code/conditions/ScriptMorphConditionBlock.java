@@ -17,18 +17,18 @@ public class ScriptMorphConditionBlock extends ScriptTargetConditionBlock<MorphC
     }
 
     public boolean isOnlyName() {
-        return this.conditionBlock.onlyName;
+        return this.getConditionBlock().onlyName;
     }
 
     public void setOnlyName(boolean onlyName) {
-        this.conditionBlock.onlyName = onlyName;
+        this.getConditionBlock().onlyName = onlyName;
     }
 
     public AbstractMorph getMorph() {
-        return MorphManager.INSTANCE.morphFromNBT(this.conditionBlock.morph);
+        return MorphManager.INSTANCE.morphFromNBT(this.getConditionBlock().morph);
     }
 
     public void setMorph(AbstractMorph morph) {
-        this.conditionBlock.morph = morph.toNBT();
+        this.getConditionBlock().morph = morph.toNBT();
     }
 }

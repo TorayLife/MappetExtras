@@ -15,11 +15,11 @@ public class ScriptWorldTimeConditionBlock extends ScriptConditionBlock<WorldTim
     }
 
     public String getTime() {
-        return this.conditionBlock.check.name();
+        return this.getConditionBlock().check.name();
     }
 
     public void setTime(String time) {
-        this.conditionBlock.check = WorldTimeConditionBlock.TimeCheck.valueOf(time.toUpperCase());
+        this.getConditionBlock().check = WorldTimeConditionBlock.TimeCheck.valueOf(time.toUpperCase());
     }
 
     public int getMax() {

@@ -15,10 +15,10 @@ public class ScriptDialogueConditionBlock extends ScriptTargetConditionBlock<Dia
     }
 
     public String getMarker() {
-        return this.conditionBlock.marker;
+        return this.getConditionBlock().marker;
     }
 
     public void setMarker(String marker) {
-        this.conditionBlock.marker = marker;
+        this.getConditionBlock().marker = marker;
     }
 }

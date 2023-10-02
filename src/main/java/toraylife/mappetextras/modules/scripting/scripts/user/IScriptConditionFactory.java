@@ -129,4 +129,9 @@ public interface IScriptConditionFactory {
      * Creates a new {@link IScriptItemConditionBlock} based on the given mappet {@link ItemConditionBlock} object.
      */
     IScriptItemConditionBlock createItemConditionBlock(ItemConditionBlock conditionBlock);
+
+    /**
+     * Creates a new {@link IScriptConditionBlock} based on the given mappet {@link AbstractConditionBlock} object.
+     */
+    IScriptConditionBlock createConditionBlock(AbstractConditionBlock conditionBlock);
 }

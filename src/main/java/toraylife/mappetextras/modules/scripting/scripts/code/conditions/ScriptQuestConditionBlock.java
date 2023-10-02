@@ -15,11 +15,11 @@ public class ScriptQuestConditionBlock extends ScriptTargetConditionBlock<QuestC
     }
 
     public String getCheckType() {
-        return this.conditionBlock.quest.name();
+        return this.getConditionBlock().quest.name();
     }
 
     public void setCheckType(String type) {
-        this.conditionBlock.quest = QuestConditionBlock.QuestCheck.valueOf(type.toUpperCase());
+        this.getConditionBlock().quest = QuestConditionBlock.QuestCheck.valueOf(type.toUpperCase());
     }
 
 }

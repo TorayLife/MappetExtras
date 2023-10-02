@@ -17,19 +17,19 @@ public class ScriptItemConditionBlock extends ScriptTargetConditionBlock<ItemCon
     }
 
     public IScriptItemStack getItemStack() {
-        return ScriptItemStack.create(this.conditionBlock.stack);
+        return ScriptItemStack.create(this.getConditionBlock().stack);
     }
 
     public void setItemStack(IScriptItemStack stack) {
-        this.conditionBlock.stack = stack.getMinecraftItemStack();
+        this.getConditionBlock().stack = stack.getMinecraftItemStack();
     }
 
     public String getCheckType() {
-        return this.conditionBlock.check.name();
+        return this.getConditionBlock().check.name();
     }
 
     public void setCheckType(String type) {
-        this.conditionBlock.check = ItemConditionBlock.ItemCheck.valueOf(type.toUpperCase());
+        this.getConditionBlock().check = ItemConditionBlock.ItemCheck.valueOf(type.toUpperCase());
     }
 
 }

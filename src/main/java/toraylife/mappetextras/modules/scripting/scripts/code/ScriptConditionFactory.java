@@ -2,30 +2,13 @@ package toraylife.mappetextras.modules.scripting.scripts.code;
 
 import mchorse.mappet.api.conditions.Checker;
 import mchorse.mappet.api.conditions.Condition;
-import mchorse.mappet.api.conditions.blocks.ConditionConditionBlock;
-import mchorse.mappet.api.conditions.blocks.DialogueConditionBlock;
-import mchorse.mappet.api.conditions.blocks.ExpressionConditionBlock;
-import mchorse.mappet.api.conditions.blocks.ItemConditionBlock;
-import mchorse.mappet.api.conditions.blocks.MorphConditionBlock;
-import mchorse.mappet.api.conditions.blocks.QuestConditionBlock;
-import mchorse.mappet.api.conditions.blocks.WorldTimeConditionBlock;
-import toraylife.mappetextras.modules.scripting.scripts.code.conditions.ScriptConditionConditionBlock;
-import toraylife.mappetextras.modules.scripting.scripts.code.conditions.ScriptDialogueConditionBlock;
-import toraylife.mappetextras.modules.scripting.scripts.code.conditions.ScriptExpressionConditionBlock;
-import toraylife.mappetextras.modules.scripting.scripts.code.conditions.ScriptItemConditionBlock;
-import toraylife.mappetextras.modules.scripting.scripts.code.conditions.ScriptMorphConditionBlock;
-import toraylife.mappetextras.modules.scripting.scripts.code.conditions.ScriptQuestConditionBlock;
-import toraylife.mappetextras.modules.scripting.scripts.code.conditions.ScriptWorldTimeConditionBlock;
+import mchorse.mappet.api.conditions.blocks.*;
+import toraylife.mappetextras.modules.scripting.scripts.code.conditions.*;
 import toraylife.mappetextras.modules.scripting.scripts.user.IScriptChecker;
 import toraylife.mappetextras.modules.scripting.scripts.user.IScriptCondition;
 import toraylife.mappetextras.modules.scripting.scripts.user.IScriptConditionFactory;
-import toraylife.mappetextras.modules.scripting.scripts.user.conditions.IScriptConditionConditionBlock;
-import toraylife.mappetextras.modules.scripting.scripts.user.conditions.IScriptDialogueConditionBlock;
-import toraylife.mappetextras.modules.scripting.scripts.user.conditions.IScriptExpressionConditionBlock;
-import toraylife.mappetextras.modules.scripting.scripts.user.conditions.IScriptItemConditionBlock;
-import toraylife.mappetextras.modules.scripting.scripts.user.conditions.IScriptMorphConditionBlock;
-import toraylife.mappetextras.modules.scripting.scripts.user.conditions.IScriptQuestConditionBlock;
-import toraylife.mappetextras.modules.scripting.scripts.user.conditions.IScriptWorldTimeConditionBlock;
+import toraylife.mappetextras.modules.scripting.scripts.user.conditions.*;
+import toraylife.mappetextras.modules.scripting.scripts.user.conditions.utils.IScriptConditionBlock;
 
 public class ScriptConditionFactory implements IScriptConditionFactory {
 
@@ -102,4 +85,7 @@ public class ScriptConditionFactory implements IScriptConditionFactory {
         return new ScriptWorldTimeConditionBlock(conditionBlock);
     }
 
+    public IScriptConditionBlock<? extends AbstractConditionBlock> createConditionBlock(AbstractConditionBlock conditionBlock) {
+        return ScriptCondition.createConditionBlock(conditionBlock);
+    }
 }

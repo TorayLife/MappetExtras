@@ -15,10 +15,10 @@ public class ScriptExpressionConditionBlock extends ScriptConditionBlock<Express
     }
 
     public String getExpression() {
-        return this.conditionBlock.expression;
+        return this.getConditionBlock().expression;
     }
 
     public void setExpression(String expression) {
-        this.conditionBlock.expression = expression;
+        this.getConditionBlock().expression = expression;
     }
 }

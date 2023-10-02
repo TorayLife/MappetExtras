@@ -16,10 +16,10 @@ public class ScriptConditionConditionBlock extends ScriptConditionBlock<Conditio
     }
 
     public ScriptCondition getCondition() {
-        return new ScriptCondition(this.conditionBlock.condition);
+        return new ScriptCondition(this.getConditionBlock().condition);
     }
 
     public void setCondition(ScriptCondition condition) {
-        this.conditionBlock.condition = condition.condition;
+        this.getConditionBlock().condition = condition.condition;
     }
 }
