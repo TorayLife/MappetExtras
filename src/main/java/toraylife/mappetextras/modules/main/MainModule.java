@@ -6,17 +6,18 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import toraylife.mappetextras.MappetExtras;
-import toraylife.mappetextras.modules.AbstractModule;
+import toraylife.mappetextras.modules.IModule;
 import toraylife.mappetextras.modules.main.client.gui.ValueVersionCheck;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainModule extends AbstractModule {
+public class MainModule implements IModule {
 
     public ValueBoolean showVersionUpdateMessage;
     public ValueBoolean showUpdateOnlyIfOutdated;
     private static MainModule instance;
+
     public static MainModule getInstance() {
         if (MainModule.instance == null) {
             MainModule.instance = new MainModule();
@@ -56,10 +57,5 @@ public class MainModule extends AbstractModule {
     @Override
     public String getModuleId() {
         return "main";
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
     }
 }

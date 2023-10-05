@@ -19,6 +19,4 @@ public interface IModule {
     List<String> getMixinConfigs();
 
     String getModuleId();
-
-    boolean isEnabled();
 }
