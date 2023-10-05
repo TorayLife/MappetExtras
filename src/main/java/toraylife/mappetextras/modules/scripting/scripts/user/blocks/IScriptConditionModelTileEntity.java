@@ -82,7 +82,7 @@ public interface IScriptConditionModelTileEntity extends IScriptTileEntity {
     /**
      * Retrieves true, if global toggle is enabled.
      */
-    boolean getGlobal();
+    boolean isGlobal();
 
     /**
      * Sets the value of the global toggle.
@@ -92,7 +92,7 @@ public interface IScriptConditionModelTileEntity extends IScriptTileEntity {
     /**
      * Retrieves true, if shadow toggle is enabled.
      */
-    boolean getShadow();
+    boolean isShadow();
 
     /**
      * Sets the value of the shadow toggle.

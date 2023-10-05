@@ -32,7 +32,7 @@ public interface IScriptTriggerTileEntity extends IScriptTileEntity {
      *
      * @return true if the object is collidable, false otherwise
      */
-    boolean getCollidable();
+    boolean isCollidable();
 
     /**
      * Sets whether the object is collidable or not.

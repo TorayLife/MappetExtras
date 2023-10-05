@@ -38,11 +38,11 @@ public class ScriptTrigger implements IScriptTrigger {
         this.trigger.blocks.add(triggerBlock.triggerBlock);
     }
 
-    public IScriptTriggerBlock get(int index) {
+    public IScriptTriggerBlock<? extends AbstractTriggerBlock> get(int index) {
         return ScriptTrigger.createTriggerBlock(this.trigger.blocks.get(index));
     }
 
-    public void set(int index, IScriptTriggerBlock triggerBlock) {
+    public void set(int index, IScriptTriggerBlock<? extends AbstractTriggerBlock> triggerBlock) {
         this.trigger.blocks.set(index, triggerBlock.getTriggerBlock());
     }
 

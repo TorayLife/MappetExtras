@@ -59,7 +59,7 @@ public class ScriptEmitterTileEntity extends ScriptTileEntity implements IScript
     }
 
     @Override
-    public boolean getDisable() {
+    public boolean isDisable() {
         TileEmitter tile = this.getMinecraftTileEntity();
         return tile.getDisable();
     }

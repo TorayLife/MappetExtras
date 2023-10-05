@@ -39,7 +39,7 @@ public interface IScriptEmitterTileEntity extends IScriptTileEntity {
     /**
      * Retrieves true, if "Auto-Disable" option is enabled.
      */
-    boolean getDisable();
+    boolean isDisable();
 
     /**
      * Sets the value of the "Auto-Disable" option.

@@ -72,7 +72,7 @@ public class ScriptConditionModelTileEntity extends ScriptTileEntity implements 
     }
 
     @Override
-    public boolean getGlobal() {
+    public boolean isGlobal() {
         return this.getMinecraftTileEntity().isGlobal;
     }
 
@@ -82,7 +82,7 @@ public class ScriptConditionModelTileEntity extends ScriptTileEntity implements 
     }
 
     @Override
-    public boolean getShadow() {
+    public boolean isShadow() {
         return this.getMinecraftTileEntity().isShadow;
     }
 

@@ -31,7 +31,7 @@ public class ScriptTriggerTileEntity extends ScriptTileEntity implements IScript
     }
 
     @Override
-    public boolean getCollidable() {
+    public boolean isCollidable() {
         TileTrigger tile = this.getMinecraftTileEntity();
         ImmutableMap<IProperty<?>, Comparable<?>> properties = tile.getWorld().getBlockState(tile.getPos()).getProperties();
 

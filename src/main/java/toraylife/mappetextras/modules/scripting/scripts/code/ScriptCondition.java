@@ -24,12 +24,35 @@ public class ScriptCondition implements IScriptCondition {
         return this.condition.blocks.stream().map(ScriptCondition::createConditionBlock).collect(Collectors.toList());
     }
 
-    public void removeBlock(int index) {
+    @Override
+    public void setBlocks(List<IScriptConditionBlock<? extends AbstractConditionBlock>> blocks) {
+        this.condition.blocks.clear();
+        this.condition.blocks.addAll(blocks.stream().map(IScriptConditionBlock::getConditionBlock).collect(Collectors.toList()));
+    }
+
+    @Override
+    public void remove(int index) {
         this.condition.blocks.remove(index);
     }
 
-    public void addBlock(IScriptConditionBlock<? extends AbstractConditionBlock> conditionBlock) {
-        this.condition.blocks.add(conditionBlock.getConditionBlock());
+    @Override
+    public void add(IScriptConditionBlock<? extends AbstractConditionBlock> triggerBlock) {
+        this.condition.blocks.add(triggerBlock.getConditionBlock());
+    }
+
+    @Override
+    public IScriptConditionBlock<? extends AbstractConditionBlock> get(int index) {
+        return createConditionBlock(this.condition.blocks.get(index));
+    }
+
+    @Override
+    public void set(int index, IScriptConditionBlock<? extends AbstractConditionBlock> triggerBlock) {
+        this.condition.blocks.set(index, triggerBlock.getConditionBlock());
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return this.condition.blocks.isEmpty();
     }
 
     public static IScriptConditionBlock<? extends AbstractConditionBlock> createConditionBlock(AbstractConditionBlock abstractConditionBlock) {
