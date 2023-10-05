@@ -50,6 +50,11 @@ public class ScriptTrigger implements IScriptTrigger {
         return this.trigger.isEmpty();
     }
 
+    @Override
+    public Trigger getTrigger() {
+        return this.trigger;
+    }
+
     static public IScriptTriggerBlock<? extends AbstractTriggerBlock> createTriggerBlock(AbstractTriggerBlock abstractTriggerBlock) {
         if (abstractTriggerBlock instanceof CommandTriggerBlock) {
             return new ScriptCommandTriggerBlock((CommandTriggerBlock) abstractTriggerBlock);

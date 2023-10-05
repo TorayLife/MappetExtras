@@ -8,6 +8,7 @@
     "MixinScriptEntity",
     "MixinScriptFactory",
     "MixinScriptInventory",
+    "MixinScriptNpc",
     "MixinScriptPlayer",
     "MixinScriptServer",
     "MixinScriptTileEntity",

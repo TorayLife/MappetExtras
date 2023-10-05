@@ -1,5 +1,6 @@
 package toraylife.mappetextras.modules.scripting.scripts.user;
 
+import mchorse.mappet.api.triggers.Trigger;
 import mchorse.mappet.api.triggers.blocks.AbstractTriggerBlock;
 import toraylife.mappetextras.modules.scripting.scripts.code.triggers.utils.ScriptTriggerBlock;
 import toraylife.mappetextras.modules.scripting.scripts.user.triggers.utils.IScriptTriggerBlock;
@@ -44,4 +45,9 @@ public interface IScriptTrigger {
      * Checks if the blocks list doesn't contain any trigger.
      */
     boolean isEmpty();
+
+    /**
+     * Retrieves the mappet trigger object.
+     */
+    Trigger getTrigger();
 }
