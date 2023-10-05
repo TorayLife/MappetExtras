@@ -5,7 +5,7 @@ import net.minecraft.tileentity.TileEntity;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(value = ScriptTileEntity.class, remap = false)
-public abstract class MixinScriptTileEntity {
+public class MixinScriptTileEntity {
     public ScriptTileEntity create(TileEntity tileEntity){
         return new ScriptTileEntity(tileEntity);
     }
