@@ -5,6 +5,7 @@ import mchorse.mappet.api.scripts.code.ScriptWorld;
 import mchorse.mappet.api.scripts.code.entities.ScriptEntity;
 import mchorse.mappet.api.scripts.code.entities.ScriptPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.launchwrapper.Launch;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import toraylife.mappetextras.modules.main.documentation.MixinTargetName;
@@ -15,6 +16,7 @@ import java.lang.reflect.Field;
 @MixinTargetName("mchorse.mappet.api.scripts.user.entities.IScriptPlayer")
 public abstract class MixinScriptPlayer {
     @Shadow public abstract EntityPlayerMP getMinecraftPlayer();
+    boolean dev = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
 
     /**
      *Inspires the player into the entity. First set the player's gamemode to 3.
@@ -29,7 +31,13 @@ public abstract class MixinScriptPlayer {
 
     public String getLanguage(){
         try {
-            Field language = this.getMinecraftPlayer().getClass().getDeclaredField("field_71148_cg");
+            Field language;
+            if(dev){
+                language = this.getMinecraftPlayer().getClass().getDeclaredField("language");
+            }else{
+                language = this.getMinecraftPlayer().getClass().getDeclaredField("field_71148_cg");
+            }
+
             language.setAccessible(true);
 
             return (String) language.get(this.getMinecraftPlayer());
@@ -48,7 +56,13 @@ public abstract class MixinScriptPlayer {
 
     public int getRespawnInvulnerability(){
         try {
-            Field respawnInvulnerabilityTicks = this.getMinecraftPlayer().getClass().getDeclaredField("field_147101_bU");
+            Field respawnInvulnerabilityTicks;
+            if(dev){
+                respawnInvulnerabilityTicks = this.getMinecraftPlayer().getClass().getDeclaredField("respawnInvulnerabilityTicks");
+            }else{
+                respawnInvulnerabilityTicks = this.getMinecraftPlayer().getClass().getDeclaredField("field_147101_bU");
+            }
+
             respawnInvulnerabilityTicks.setAccessible(true);
 
             return (int) respawnInvulnerabilityTicks.get(this.getMinecraftPlayer());
