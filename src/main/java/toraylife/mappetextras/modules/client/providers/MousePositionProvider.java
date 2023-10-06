@@ -6,7 +6,6 @@ import org.lwjgl.input.Mouse;
 import toraylife.mappetextras.modules.client.ClientData;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
 
 public class MousePositionProvider implements IClientDataProvider{
     @Override
