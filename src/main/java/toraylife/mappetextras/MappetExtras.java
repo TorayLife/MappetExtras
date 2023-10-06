@@ -14,10 +14,10 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import toraylife.mappetextras.modules.IModule;
-import toraylife.mappetextras.modules.scripting.ScriptingModule;
-import toraylife.mappetextras.modules.main.MainModule;
-import toraylife.mappetextras.modules.utils.UtilsModule;
 import toraylife.mappetextras.modules.client.ClientModule;
+import toraylife.mappetextras.modules.main.MainModule;
+import toraylife.mappetextras.modules.scripting.ScriptingModule;
+import toraylife.mappetextras.modules.utils.UtilsModule;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -25,14 +25,13 @@ import java.util.Arrays;
 import java.util.List;
 
 @Mod(
-    modid = MappetExtras.MOD_ID,
-    name = MappetExtras.NAME,
-    version = MappetExtras.VERSION,
-    dependencies = "" +
-        "required-after:mclib@[@MCLIB@,);" +
-        "required-after:mixinbooter[@MIXINBOOTER@,)" +
-        "required-after:mappet@[@MAPPET@,);",
-    updateJSON = "https://raw.githubusercontent.com/TorayLife/MappetExtras/master/version.json"
+        modid = MappetExtras.MOD_ID,
+        name = MappetExtras.NAME,
+        version = MappetExtras.VERSION,
+        dependencies = "required-after:mclib@[@MCLIB@,);" +
+                "required-after:mixinbooter[@MIXINBOOTER@,)" +
+                "required-after:mappet@[@MAPPET@,);",
+        updateJSON = "https://raw.githubusercontent.com/TorayLife/MappetExtras/master/version.json"
 )
 public class MappetExtras {
     public static final String MOD_ID = "mappetextras";
@@ -41,6 +40,8 @@ public class MappetExtras {
     public static final String VERSION = "@VERSION@";
 
     public static final Logger logger = LogManager.getLogger(MOD_ID);
+
+    public static final int mainColor = 0xFFAA00;
 
     public ConfigManager configs;
 
