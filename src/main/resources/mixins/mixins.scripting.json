@@ -8,7 +8,9 @@
     "MixinScriptEntity",
     "MixinScriptFactory",
     "MixinScriptPlayer",
-    "MixinScriptServer"
+    "MixinScriptServer",
+    "MixinScriptVector",
+    "MixinScriptWorld"
   ],
   "client": [
   ],
