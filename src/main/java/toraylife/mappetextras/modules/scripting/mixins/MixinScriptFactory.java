@@ -14,9 +14,11 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import toraylife.mappetextras.modules.scripting.ScriptMath;
 
 @Mixin(value = ScriptFactory.class, remap = false)
 public abstract class MixinScriptFactory{
+    public ScriptMath math = new ScriptMath();
     public IScriptWorld getMappetWorld(World minecraftWorld) {
         return new ScriptWorld(minecraftWorld);
     }
@@ -31,14 +33,6 @@ public abstract class MixinScriptFactory{
 
     public IScriptInventory getMappetInventory(IInventory minecraftInventory){
         return new ScriptInventory(minecraftInventory);
-    }
-
-    public double radiansToDegrees(double radians) {
-        return radians * 180 / Math.PI;
-    }
-
-    public double degreesToRadians(double degrees) {
-        return degrees * Math.PI / 180;
     }
 
     public String getClassName(Object value) {
