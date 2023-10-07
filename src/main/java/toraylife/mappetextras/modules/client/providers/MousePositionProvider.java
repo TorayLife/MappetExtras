@@ -16,8 +16,9 @@ public class MousePositionProvider implements IClientDataProvider{
             x = Mouse.getX();
             y = Mouse.getY();
         }else{
-            x = (int) MouseInfo.getPointerInfo().getLocation().getX();
-            y = (int) MouseInfo.getPointerInfo().getLocation().getY();
+            Point location = MouseInfo.getPointerInfo().getLocation();
+            x = (int) location.getX();
+            y = (int) location.getY();
         }
 
         NBTTagCompound object = new NBTTagCompound();
