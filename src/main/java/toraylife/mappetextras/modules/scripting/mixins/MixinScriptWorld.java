@@ -14,10 +14,21 @@ public abstract class MixinScriptWorld {
     @Shadow
     private World world;
 
+    /**
+     * Gets the biome name at the given block position coordinates.
+     *
+     * @return the name of the biome
+     */
     public String getBiome(int x, int y, int z){
         return world.getBiome(new BlockPos(x, y, z)).getBiomeName();
     }
 
+    /**
+     * Gets the biome name at the position specified by a ScriptVector.
+     *
+     * @param pos the ScriptVector holding the position
+     * @return the name of the biome at that position
+     */
     public String getBiome(ScriptVector pos){
         return this.getBiome((int) pos.x, (int) pos.y, (int) pos.z);
     }
