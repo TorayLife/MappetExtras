@@ -10,13 +10,24 @@ import java.lang.reflect.Field;
 
 @Mixin(value = ScriptPlayer.class, remap = false)
 public abstract class MixinScriptPlayer {
-    @Shadow public abstract EntityPlayerMP getMinecraftPlayer();
+    @Shadow
+    public abstract EntityPlayerMP getMinecraftPlayer();
 
-    public void setSpectating(ScriptEntity entity){
+    /**
+     * Sets the player to spectate the given entity.
+     *
+     * @param entity Entity for the player to spectate
+     */
+    public void setSpectating(ScriptEntity entity) {
         this.getMinecraftPlayer().setSpectatingEntity(entity.getMinecraftEntity());
     }
 
-    public String getLanguage(){
+    /**
+     * Gets the language code this player is using.
+     *
+     * @return The language code
+     */
+    public String getLanguage() {
         try {
             Field field = this.getMinecraftPlayer().getClass().getDeclaredField("language");
             field.setAccessible(true);

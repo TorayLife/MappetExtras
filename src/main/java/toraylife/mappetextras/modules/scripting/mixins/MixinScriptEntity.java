@@ -12,36 +12,66 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(value = ScriptEntity.class, remap = false)
-public abstract class MixinScriptEntity <T extends Entity>{
-    @Shadow protected T entity;
+public abstract class MixinScriptEntity<T extends Entity> {
+    @Shadow
+    protected T entity;
 
-    @Shadow public abstract void setRotations(float pitch, float yaw, float yawHead);
+    @Shadow
+    public abstract void setRotations(float pitch, float yaw, float yawHead);
 
-    public int getAge(){
+    /**
+     * Gets the age of this entity in ticks.
+     *
+     * @return The age in ticks
+     */
+    public int getAge() {
         return this.entity.ticksExisted;
     }
 
-    public void setGlowing(boolean glowing){
+    /**
+     * Sets whether this entity is glowing or not.
+     *
+     * @param glowing True to make this entity glow, false to stop glowing
+     */
+    public void setGlowing(boolean glowing) {
         this.entity.setGlowing(glowing);
     }
 
-    public boolean isGlowing(){
+    /**
+     * Checks if this entity is glowing.
+     *
+     * @return True if glowing, false otherwise
+     */
+    public boolean isGlowing() {
         return this.entity.isGlowing();
     }
 
-    public boolean isSpectated(ScriptPlayer player){
+    /**
+     * Checks if this entity is being spectated by the given player.
+     *
+     * @param player The player to check
+     * @return True if being spectated by the player, false otherwise
+     */
+    public boolean isSpectated(ScriptPlayer player) {
         return this.entity.isSpectatedByPlayer(player.getMinecraftPlayer());
     }
 
-    public void rotateTo(String interpolation, int durationTicks, float pitch, float yaw, float yawHead)
-    {
+    /**
+     * Rotates this entity over the given duration to the target pitch, yaw and yawHead using the given interpolation.
+     *
+     * @param interpolation Interpolation method
+     * @param durationTicks Duration in ticks
+     * @param pitch         Target pitch
+     * @param yaw           Target yaw
+     * @param yawHead       Target yaw of the head
+     */
+    public void rotateTo(String interpolation, int durationTicks, float pitch, float yaw, float yawHead) {
         Interpolation interp = Interpolation.valueOf(interpolation.toUpperCase());
         float startPitch = this.entity.rotationPitch;
         float startYaw = this.entity.rotationYaw;
         float startYawHead = this.entity.getRotationYawHead();
 
-        for (int i = 0; i < durationTicks; i++)
-        {
+        for (int i = 0; i < durationTicks; i++) {
             float progress = (float) i / (float) durationTicks;
             float interpPitch = interp.interpolate(startPitch, pitch, progress);
             float interpYaw = interp.interpolate(startYaw, yaw, progress);
@@ -51,35 +81,73 @@ public abstract class MixinScriptEntity <T extends Entity>{
         }
     }
 
-    public void jump(){
-        ((EntityLiving)this.entity).getJumpHelper().setJumping();
+    /**
+     * Makes this entity jump.
+     */
+    public void jump() {
+        ((EntityLiving) this.entity).getJumpHelper().setJumping();
     }
 
-    public boolean isChild(){
-        return ((EntityLivingBase)this.entity).isChild();
+    /**
+     * Checks if this entity is a child.
+     *
+     * @return True if a child, false otherwise
+     */
+    public boolean isChild() {
+        return ((EntityLivingBase) this.entity).isChild();
     }
 
-    public boolean isDead(){
+    /**
+     * Checks if this entity is dead.
+     *
+     * @return True if dead, false if alive
+     */
+    public boolean isDead() {
         return this.entity.isDead;
     }
 
-    public boolean isSilent(){
+    /**
+     * Checks if this entity is silent.
+     *
+     * @return True if silent, false otherwise
+     */
+    public boolean isSilent() {
         return this.entity.isSilent();
     }
 
-    public void setSilent(boolean silent){
+    /**
+     * Sets whether this entity is silent.
+     *
+     * @param silent True to make silent, false otherwise
+     */
+    public void setSilent(boolean silent) {
         this.entity.setSilent(silent);
     }
 
-    public boolean isAttackable(){
-        return ((EntityLivingBase)this.entity).attackable();
+    /**
+     * Checks if this entity is attackable.
+     *
+     * @return True if attackable, false otherwise
+     */
+    public boolean isAttackable() {
+        return ((EntityLivingBase) this.entity).attackable();
     }
 
-    public boolean isAlive(){
-        return ((EntityLivingBase)this.entity).isEntityAlive();
+    /**
+     * Checks if this entity is alive.
+     *
+     * @return True if alive, false if dead
+     */
+    public boolean isAlive() {
+        return this.entity.isEntityAlive();
     }
 
-    public boolean isUndead(){
-        return ((EntityLivingBase)this.entity).isEntityUndead();
+    /**
+     * Checks if this entity is undead.
+     *
+     * @return True if undead, false otherwise
+     */
+    public boolean isUndead() {
+        return ((EntityLivingBase) this.entity).isEntityUndead();
     }
 }

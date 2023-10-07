@@ -4,6 +4,9 @@ import mchorse.mappet.api.scripts.code.ScriptServer;
 import mchorse.mappet.api.scripts.user.IScriptServer;
 import net.minecraft.server.MinecraftServer;
 import org.spongepowered.asm.mixin.Mixin;
+import scala.actors.threadpool.Arrays;
+
+import java.util.List;
 
 @Mixin(value = ScriptServer.class, remap = false)
 public abstract class MixinScriptServer {
@@ -13,14 +16,29 @@ public abstract class MixinScriptServer {
         return new ScriptServer(server);
     }
 
-    public boolean isSinglePlayer(){
+    /**
+     * Checks if this is a single player.
+     *
+     * @return True if single player, false if multiplayer
+     */
+    public boolean isSinglePlayer() {
         return this.server.isSinglePlayer();
     }
 
-    public boolean isDedicatedServer(){
+    /**
+     * Checks if this server is a dedicated server.
+     *
+     * @return True if dedicated server, false otherwise
+     */
+    public boolean isDedicatedServer() {
         return this.server.isDedicatedServer();
     }
 
+    /**
+     * Gets the opped player names on this server.
+     *
+     * @return List of opped player names
+     */
     public List<String> getOppedPlayerNames() {
         return Arrays.asList(this.server.getPlayerList().getOppedPlayerNames());
     }
