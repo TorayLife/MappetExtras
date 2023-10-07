@@ -10,8 +10,10 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import toraylife.mappetextras.modules.main.documentation.MixinTargetName;
 
 @Mixin(value = ScriptEntity.class, remap = false)
+@MixinTargetName("mchorse.mappet.api.scripts.user.entities.IScriptEntity")
 public abstract class MixinScriptEntity<T extends Entity> {
     @Shadow
     protected T entity;
