@@ -7,8 +7,9 @@ import toraylife.mappetextras.modules.client.ClientData;
 public class ResolutionProvider implements IClientDataProvider{
     @Override
     public NBTTagCompound getData() {
-        int height = Minecraft.getMinecraft().displayHeight;
-        int width = Minecraft.getMinecraft().displayWidth;
+        Minecraft minecraft = Minecraft.getMinecraft();
+        int height = minecraft.displayHeight;
+        int width = minecraft.displayWidth;
 
         NBTTagCompound object = new NBTTagCompound();
         object.setInteger("x", width);
