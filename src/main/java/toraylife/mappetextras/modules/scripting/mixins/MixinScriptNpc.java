@@ -7,7 +7,6 @@ import mchorse.mappet.api.triggers.Trigger;
 import mchorse.mappet.entities.EntityNpc;
 import net.minecraft.util.math.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import toraylife.mappetextras.modules.main.documentation.MixinTargetName;
 import toraylife.mappetextras.modules.scripting.scripts.code.ScriptTrigger;
 import toraylife.mappetextras.modules.scripting.scripts.user.IScriptTrigger;
@@ -27,7 +26,6 @@ public abstract class MixinScriptNpc extends ScriptEntity<EntityNpc> {
      * @param y Y coordinate
      * @param z Z coordinate
      */
-    @Unique
     public void addPatrolPoint(int x, int y, int z) {
         this.addPatrolPoint(x, y, z, null);
     }
@@ -37,7 +35,6 @@ public abstract class MixinScriptNpc extends ScriptEntity<EntityNpc> {
      *
      * @param pos Position vector
      */
-    @Unique
     public void addPatrolPoint(ScriptVector pos) {
         this.addPatrolPoint(pos, null);
     }
@@ -48,7 +45,6 @@ public abstract class MixinScriptNpc extends ScriptEntity<EntityNpc> {
      * @param pos     Position vector
      * @param trigger Trigger for this patrol point
      */
-    @Unique
     public void addPatrolPoint(ScriptVector pos, IScriptTrigger trigger) {
         this.addPatrolPoint((int) pos.x, (int) pos.y, (int) pos.z, trigger);
     }
@@ -61,7 +57,6 @@ public abstract class MixinScriptNpc extends ScriptEntity<EntityNpc> {
      * @param z       Z coordinate
      * @param trigger Trigger for this patrol point
      */
-    @Unique
     public void addPatrolPoint(int x, int y, int z, IScriptTrigger trigger) {
         this.entity.getState().patrol.add(new BlockPos(x, y, z));
         this.entity.getState().patrolTriggers.add(trigger == null ? new Trigger() : trigger.getTrigger());
