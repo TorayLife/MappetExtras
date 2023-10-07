@@ -4,12 +4,15 @@ import mchorse.mappet.api.scripts.code.ScriptServer;
 import mchorse.mappet.api.scripts.user.IScriptServer;
 import net.minecraft.server.MinecraftServer;
 import org.spongepowered.asm.mixin.Mixin;
-import scala.actors.threadpool.Arrays;
+import org.spongepowered.asm.mixin.Shadow;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Mixin(value = ScriptServer.class, remap = false)
 public abstract class MixinScriptServer {
+
+    @Shadow
     protected MinecraftServer server;
 
     protected IScriptServer create(MinecraftServer server) {

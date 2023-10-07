@@ -10,6 +10,8 @@ import toraylife.mappetextras.modules.IModule;
 import toraylife.mappetextras.modules.main.client.gui.ValueVersionCheck;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class MainModule implements IModule {
@@ -51,7 +53,9 @@ public class MainModule implements IModule {
 
     @Override
     public List<String> getMixinConfigs() {
-        return new ArrayList<>();
+        return new ArrayList<>(Collections.singletonList(
+                "mixins/mixins." + this.getModuleId() + ".json"
+        ));
     }
 
     @Override

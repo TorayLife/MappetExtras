@@ -17,7 +17,7 @@ public class MixinDocMethod {
             at = @At(
                     value = "INVOKE",
                     target = "Lmchorse/mclib/client/gui/framework/elements/GuiScrollElement;add(Lmchorse/mclib/client/gui/framework/elements/IGuiElement;)V"
-            )
+            ), remap = false
     )
     private IGuiElement fillIn(IGuiElement par1) {
 
