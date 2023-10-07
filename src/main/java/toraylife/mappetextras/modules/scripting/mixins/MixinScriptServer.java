@@ -21,11 +21,7 @@ public abstract class MixinScriptServer {
         return this.server.isDedicatedServer();
     }
 
-    public String[] getOppedPlayers(){
-        if(this.server.isDedicatedServer()) {
-            return this.server.getPlayerList().getOppedPlayerNames();
-        }else{
-            return null;
-        }
+    public List<String> getOppedPlayerNames() {
+        return Arrays.asList(this.server.getPlayerList().getOppedPlayerNames());
     }
 }
