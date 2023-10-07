@@ -14,11 +14,11 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
-import toraylife.mappetextras.modules.scripting.ScriptMath;
+import toraylife.mappetextras.modules.main.documentation.MixinTargetName;
 
 @Mixin(value = ScriptFactory.class, remap = false)
+@MixinTargetName("mchorse.mappet.api.scripts.code.IScriptFactory")
 public abstract class MixinScriptFactory{
-    public ScriptMath math = new ScriptMath();
     public IScriptWorld getMappetWorld(World minecraftWorld) {
         return new ScriptWorld(minecraftWorld);
     }
