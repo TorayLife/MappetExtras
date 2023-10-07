@@ -24,31 +24,58 @@ public abstract class MixinScriptPlayer {
         }
     }
 
+    /**
+     * Gets the language that this player has set.
+     *
+     * @return the player's language code
+     */
     public String getLanguage(){
-        return ((MixinEntityPlayerMPInterface)this.getMinecraftPlayer()).getLanguage();
+        return ((MixinEntityPlayerMPInterface) this.getMinecraftPlayer()).getLanguage();
     }
 
+    /**
+     * Checks if this player is sleeping.
+     *
+     * @return true if the player is sleeping, false otherwise
+     */
     public boolean isSleeping(){
         return this.getMinecraftPlayer().isPlayerSleeping();
     }
 
+    /**
+     * Gets the player's ping time in milliseconds.
+     *
+     * @return the player's ping time
+     */
     public int getPing(){
         return this.getMinecraftPlayer().ping;
     }
 
+    /**
+     * Gets the number of ticks of respawn invulnerability left for the player.
+     *
+     * @return the ticks of invulnerability remaining
+     */
     public int getRespawnInvulnerability(){
         return ((MixinEntityPlayerMPInterface) this.getMinecraftPlayer()).getRespawnInvulnerabilityTicks();
     }
 
+    /**
+     * Loads the given resource pack for this player.
+     *
+     * @param url the URL of the resource pack
+     * @param hash the hash of the resource pack
+     */
     public void loadResourcePack(String url, String hash) {
         this.getMinecraftPlayer().loadResourcePack(url, hash);
     }
 
+    /**
+     * Gets the ScriptServer instance for this player's server.
+     *
+     * @return the server instance
+     */
     public ScriptServer getServer(){
         return new ScriptServer(this.getMinecraftPlayer().mcServer);
-    }
-
-    public ScriptWorld getWorld(){
-        return new ScriptWorld(this.getMinecraftPlayer().world);
     }
 }
