@@ -6,8 +6,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import toraylife.mappetextras.modules.main.documentation.MixinTargetName;
 
 @Mixin(value = ScriptWorld.class, remap = false)
+@MixinTargetName("mchorse.mappet.api.scripts.user.IScriptWorld")
 public abstract class MixinScriptWorld {
     @Shadow
     private World world;
@@ -17,6 +19,6 @@ public abstract class MixinScriptWorld {
     }
 
     public String getBiome(ScriptVector pos){
-        return world.getBiome(new BlockPos(pos.x, pos.y, pos.z)).getBiomeName();
+        return this.getBiome((int) pos.x, (int) pos.y, (int) pos.z);
     }
 }
