@@ -77,14 +77,14 @@ public class PacketClientData implements IMessage {
                 case USE:
                     break;
                 case GET_WITH_DATA:
-                    NBTTagCompound dataWithAnswer;
+                    NBTTagCompound dataWithResponse;
                     try {
-                        dataWithAnswer = provider.getData(nbtData);
+                        dataWithResponse = provider.getData(nbtData);
                     } catch (IllegalAccessException | NoSuchFieldException e) {
                         throw new RuntimeException(e);
                     }
 
-                    Dispatcher.sendToServer(new PacketClientData(typeEnum, typeAccess, dataWithAnswer));
+                    Dispatcher.sendToServer(new PacketClientData(typeEnum, typeAccess, dataWithResponse));
             }
         }
 
