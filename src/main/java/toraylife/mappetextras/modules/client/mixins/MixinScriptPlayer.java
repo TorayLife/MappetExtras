@@ -10,12 +10,14 @@ import toraylife.mappetextras.modules.client.AccessType;
 import toraylife.mappetextras.modules.client.ClientData;
 import toraylife.mappetextras.modules.client.providers.*;
 import toraylife.mappetextras.modules.client.network.PacketClientData;
+import toraylife.mappetextras.modules.main.documentation.MixinTargetName;
 import toraylife.mappetextras.network.Dispatcher;
 import mchorse.mappet.api.scripts.code.entities.ScriptPlayer;
 
 import java.util.function.Consumer;
 
 @Mixin(value = ScriptPlayer.class, remap = false)
+@MixinTargetName("mchorse.mappet.api.scripts.user.entities.IScriptPlayer")
 public abstract class MixinScriptPlayer{
     @Shadow public abstract EntityPlayerMP getMinecraftPlayer();
 
