@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import toraylife.mappetextras.modules.main.documentation.MixinTargetName;
 
 @Mixin(value = ScriptVector.class, remap = false)
-@MixinTargetName("toraylife.mappetextras.modules.scripting.mixins.MixinScriptVector")
+@MixinTargetName("mchorse.mappet.api.scripts.user.data.ScriptVector")
 public abstract class MixinScriptVector {
     @Shadow
     public abstract ScriptVector multiply(double scalar);
