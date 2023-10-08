@@ -40,7 +40,7 @@ mixin {
 def mixins = new ArrayList<>(Arrays.asList(
         "--tweakClass",
         "org.spongepowered.asm.launch.MixinTweaker",
-));
+))
 
 new ArrayList<>(Arrays.asList(
         'mixins/mixins.utils.json',
@@ -48,7 +48,7 @@ new ArrayList<>(Arrays.asList(
         'mixins/mixins.scripting.json',
         'mixins/mixins.main.json'
 )).forEach {
-    mixins.add("--mixin");
+    mixins.add("--mixin")
     mixins.add(it)
 }
 
@@ -240,7 +240,13 @@ task scriptingJavadocsJson(type: Exec) {
             "toraylife.mappetextras.modules.scripting.scripts.user",
             "toraylife.mappetextras.modules.scripting.mixins",
     ))
-    args "-doclet", "mchorse.utils.doclets.JsonDoclet", "-docletpath", "./run/jsonDoclet.jar", "-sourcepath", "./src/main/java", "-subpackages", subpackages.join(":"), "-verbose"
+    List<String> excluded = new ArrayList(Arrays.asList(
+            "toraylife.mappetextras.modules.scripting.mixins.utils"
+    ))
+    args "-doclet", "mchorse.utils.doclets.JsonDoclet", "-docletpath", "./run/jsonDoclet.jar", "-sourcepath", "./src/main/java",
+            "-subpackages", subpackages.join(":"),
+            "-exclude", excluded.join(":"),
+            "-verbose"
 
     doLast {
         file("src/main/resources/assets/mappetextras/docs.json").setText(file("docs.json").text)
@@ -266,7 +272,7 @@ task compareLangFiles {
         def help = file("src/main/resources/assets/${project.archivesBaseName}/lang/")
         def parse = { File file ->
             def map = new HashMap()
-            def splits = file.text.split("\n");
+            def splits = file.text.split("\n")
 
             for (split in splits) {
                 def index = split.indexOf("=")
@@ -341,7 +347,7 @@ task copyLangStrings {
     doLast {
         def parse = { File file ->
             def map = new HashMap()
-            def splits = file.text.split("\n");
+            def splits = file.text.split("\n")
 
             for (split in splits) {
                 def index = split.indexOf("=")
@@ -365,7 +371,7 @@ task copyLangStrings {
                 def splits = en.text.split("\n")
 
                 for (def i = 0; i < splits.length; i++) {
-                    def str = splits[i];
+                    def str = splits[i]
 
                     if (str.contains("=")) {
                         def index = str.indexOf("=")

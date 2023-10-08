@@ -1,4 +1,4 @@
-package toraylife.mappetextras.modules.scripting.mixins;
+package toraylife.mappetextras.modules.scripting.mixins.utils;
 
 import net.minecraft.entity.player.EntityPlayerMP;
 import org.spongepowered.asm.mixin.Mixin;
