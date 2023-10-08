@@ -25,6 +25,11 @@ mappetextras.main_module.update.button_update_link=Visit mod page
 
 # CLIENT
 
+# SCRIPTING
+mappetextras.config.scripting_module.title=Scripting module
+mappetextras.config.scripting_module.enabled=Enabled
+mappetextras.config.comments.scripting_module.enabled=Determines whether the functionality of the Scripting module will work. (Restart required)
+
 # UTILS
 mappetextras.utils_module.beautify=Beautify
 

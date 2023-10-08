@@ -5,6 +5,7 @@ import mchorse.mappet.api.scripts.code.ScriptWorld;
 import mchorse.mappet.api.scripts.code.blocks.ScriptTileEntity;
 import mchorse.mappet.api.scripts.user.IScriptWorld;
 import mchorse.mappet.api.scripts.user.blocks.IScriptTileEntity;
+import mchorse.mappet.api.scripts.user.data.ScriptVector;
 import mchorse.mappet.tile.TileConditionModel;
 import mchorse.mappet.tile.TileEmitter;
 import mchorse.mappet.tile.TileTrigger;
@@ -35,6 +36,25 @@ public abstract class MixinScriptWorld {
 
     protected IScriptWorld create(World world) {
         return new ScriptWorld(world);
+    }
+
+    /**
+     * Gets the biome name at the given block position coordinates.
+     *
+     * @return the name of the biome
+     */
+    public String getBiome(int x, int y, int z) {
+        return world.getBiome(new BlockPos(x, y, z)).getBiomeName();
+    }
+
+    /**
+     * Gets the biome name at the position specified by a ScriptVector.
+     *
+     * @param pos the ScriptVector holding the position
+     * @return the name of the biome at that position
+     */
+    public String getBiome(ScriptVector pos) {
+        return this.getBiome((int) pos.x, (int) pos.y, (int) pos.z);
     }
 
     @Inject(method = "getTileEntity",

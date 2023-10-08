@@ -13,7 +13,6 @@ import toraylife.mappetextras.modules.client.ClientData;
 import toraylife.mappetextras.modules.client.providers.*;
 import toraylife.mappetextras.network.Dispatcher;
 
-import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -78,9 +77,14 @@ public class PacketClientData implements IMessage {
                 case USE:
                     break;
                 case GET_WITH_DATA:
-                    NBTTagCompound dataWithAnswer = provider.getData(nbtData);
+                    NBTTagCompound dataWithResponse;
+                    try {
+                        dataWithResponse = provider.getData(nbtData);
+                    } catch (IllegalAccessException | NoSuchFieldException e) {
+                        throw new RuntimeException(e);
+                    }
 
-                    Dispatcher.sendToServer(new PacketClientData(typeEnum, typeAccess, dataWithAnswer, dataWithAnswer));
+                    Dispatcher.sendToServer(new PacketClientData(typeEnum, typeAccess, dataWithResponse));
             }
         }
 
@@ -95,6 +99,8 @@ public class PacketClientData implements IMessage {
                     return new MousePositionProvider();
                 case SETTING:
                     return new SettingProvider();
+                case RESOLUTION:
+                    return new ResolutionProvider();
             }
             throw new IllegalArgumentException("Invalid typeEnum");
         }

@@ -7,11 +7,10 @@
   "mixins": [
     "MixinScriptEntity",
     "MixinScriptFactory",
-    "MixinScriptInventory",
     "MixinScriptNpc",
     "MixinScriptPlayer",
     "MixinScriptServer",
-    "MixinScriptTileEntity",
+    "MixinScriptVector",
     "MixinScriptWorld"
   ],
   "client": [

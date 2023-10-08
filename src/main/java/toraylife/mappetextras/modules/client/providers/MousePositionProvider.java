@@ -6,7 +6,6 @@ import org.lwjgl.input.Mouse;
 import toraylife.mappetextras.modules.client.ClientData;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
 
 public class MousePositionProvider implements IClientDataProvider{
     @Override
@@ -17,8 +16,9 @@ public class MousePositionProvider implements IClientDataProvider{
             x = Mouse.getX();
             y = Mouse.getY();
         }else{
-            x = (int) MouseInfo.getPointerInfo().getLocation().getX();
-            y = (int) MouseInfo.getPointerInfo().getLocation().getY();
+            Point location = MouseInfo.getPointerInfo().getLocation();
+            x = (int) location.getX();
+            y = (int) location.getY();
         }
 
         NBTTagCompound object = new NBTTagCompound();

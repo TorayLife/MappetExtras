@@ -9,7 +9,7 @@ public interface IClientDataProvider{
         return new NBTTagCompound();
     }
 
-    default NBTTagCompound getData(NBTTagCompound nbtTagCompound){
+    default NBTTagCompound getData(NBTTagCompound nbtTagCompound) throws NoSuchFieldException, IllegalAccessException {
         return nbtTagCompound;
     }
 }
