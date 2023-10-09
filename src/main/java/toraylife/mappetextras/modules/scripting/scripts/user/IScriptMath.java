@@ -1,4 +1,4 @@
-package toraylife.mappetextras.modules.scripting.user;
+package toraylife.mappetextras.modules.scripting.scripts.user;
 
 public interface IScriptMath {
     /**

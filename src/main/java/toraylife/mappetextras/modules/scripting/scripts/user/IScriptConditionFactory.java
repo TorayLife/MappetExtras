@@ -19,7 +19,7 @@ import toraylife.mappetextras.modules.scripting.scripts.user.conditions.utils.IS
  *     conditionBlock.setTime("RANGE")
  *     conditionBlock.setMax(15000);
  *     conditionBlock.setMin(14000);
- *     condition.addBlock(conditionBlock);
+ *     condition.add(conditionBlock);
  *     checker.setCondition(condition);
  *     tile.setChecker(checker);
  * }

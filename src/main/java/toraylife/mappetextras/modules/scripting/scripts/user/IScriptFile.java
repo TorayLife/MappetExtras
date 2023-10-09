@@ -105,7 +105,7 @@ public interface IScriptFile {
      * <pre>{@code
      *    function main(c)
      *    {
-     *       var file = mappet.getWorldDir().resolve(test.txt");
+     *       var file = mappet.getWorldDir().resolve("test.txt");
      *       file.write("Hello World!");
      *    }
      *  }</pre>
@@ -120,7 +120,7 @@ public interface IScriptFile {
      * <pre>{@code
      *    function main(c)
      *    {
-     *       var file = mappet.getWorldDir().resolve(test.txt");
+     *       var file = mappet.getWorldDir().resolve("test.txt");
      *       file.write("Hello World!");
      *       file.append("\nNew line!");
      *    }
@@ -136,7 +136,7 @@ public interface IScriptFile {
      * <pre>{@code
      *    function main(c)
      *    {
-     *       var file = mappet.getWorldDir().resolve(test.txt");
+     *       var file = mappet.getWorldDir().resolve("test.txt");
      *       c.send(file.read());
      *    }
      *  }</pre>
@@ -151,7 +151,7 @@ public interface IScriptFile {
      * <pre>{@code
      *    function main(c)
      *    {
-     *       var file = mappet.getWorldDir().resolve(test.txt");
+     *       var file = mappet.getWorldDir().resolve("test.txt");
      *       file.clear();
      *    }
      *  }</pre>
@@ -166,7 +166,7 @@ public interface IScriptFile {
      * <pre>{@code
      *    function main(c)
      *    {
-     *       var file = mappet.getWorldDir().resolve(test.txt");
+     *       var file = mappet.getWorldDir().resolve("test.txt");
      *       file.create();
      *    }
      *  }</pre>

@@ -1,6 +1,6 @@
-package toraylife.mappetextras.modules.scripting.code;
+package toraylife.mappetextras.modules.scripting.scripts.code;
 
-import toraylife.mappetextras.modules.scripting.user.IScriptMath;
+import toraylife.mappetextras.modules.scripting.scripts.user.IScriptMath;
 
 public class ScriptMath implements IScriptMath {
     @Override

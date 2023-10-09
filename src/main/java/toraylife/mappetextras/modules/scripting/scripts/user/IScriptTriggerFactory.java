@@ -16,16 +16,16 @@ import toraylife.mappetextras.modules.scripting.scripts.user.triggers.*;
  *
  *     var block = triggerFactory.createCommandTriggerBlock();
  *     block.setString("/say 1");
- *     trigger.addBlock(block);
+ *     trigger.add(block);
  *
  *     var eventBlock = triggerFactory.createEventTriggerBlock();
  *     eventBlock.setString("ab")
- *     trigger.addBlock(eventBlock)
+ *     trigger.add(eventBlock)
  *
  *     var scriptBlock = triggerFactory.createScriptTriggerBlock();
  *     scriptBlock.setInline(true)
  *     scriptBlock.setInlineCode(test + "test(c)")
- *     trigger.addBlock(scriptBlock)
+ *     trigger.add(scriptBlock)
  *
  *     tile.setRight(trigger)
  * }
@@ -44,8 +44,8 @@ import toraylife.mappetextras.modules.scripting.scripts.user.triggers.*;
  *     var trigger = tile.getLeft();
  *     var commandBlock = triggerFactory.createCommandTriggerBlock(trigger.getBlocks()[0]);
  *     commandBlock.setString("/say try again");
- *     trigger.removeBlock(0);
- *     trigger.addBlock(commandBlock);
+ *     trigger.remove(0);
+ *     trigger.add(commandBlock);
  *     tile.setLeft(trigger);
  * }
  * }</pre>
