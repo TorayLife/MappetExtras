@@ -6,10 +6,18 @@
   "mcversion": "${mcversion}",
   "url": "https://github.com/TorayLife/MappetExtras",
   "updateJSON": "//TODO",
-  "authorList": ["TorayLife", "Llama"],
+  "authorList": [
+    "TorayLife",
+    "Llama"
+  ],
   "credits": "Special thanks to McHorse, dyamo, OtakuGamer for helping and supporting!",
   "logoFile": "//TODO",
   "useDependencyInformation": true,
-  "requiredMods": ["mappet"],
-  "dependencies": ["mappet"]
+  "requiredMods": [
+    "mappet",
+    "mixinbooter"
+  ],
+  "dependencies": [
+    "mappet"
+  ]
 }]

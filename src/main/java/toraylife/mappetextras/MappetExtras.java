@@ -29,7 +29,7 @@ import java.util.List;
         name = MappetExtras.NAME,
         version = MappetExtras.VERSION,
         dependencies = "required-after:mclib@[@MCLIB@,);" +
-                "required-after:mixinbooter[@MIXINBOOTER@,)" +
+                "required-after:mixinbooter[@MIXINBOOTER@,);" +
                 "required-after:mappet@[@MAPPET@,);",
         updateJSON = "https://raw.githubusercontent.com/TorayLife/MappetExtras/master/version.json"
 )
