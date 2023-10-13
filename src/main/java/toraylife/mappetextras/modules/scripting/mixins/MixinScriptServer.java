@@ -1,7 +1,6 @@
 package toraylife.mappetextras.modules.scripting.mixins;
 
 import mchorse.mappet.api.scripts.code.ScriptServer;
-import mchorse.mappet.api.scripts.user.IScriptServer;
 import net.minecraft.server.MinecraftServer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -16,10 +15,6 @@ public abstract class MixinScriptServer {
 
     @Shadow
     protected MinecraftServer server;
-
-    protected IScriptServer create(MinecraftServer server) {
-        return new ScriptServer(server);
-    }
 
     /**
      * Checks if this is a single player.

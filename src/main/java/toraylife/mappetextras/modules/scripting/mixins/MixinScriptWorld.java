@@ -3,7 +3,6 @@ package toraylife.mappetextras.modules.scripting.mixins;
 import mchorse.blockbuster.common.tileentity.TileEntityModel;
 import mchorse.mappet.api.scripts.code.ScriptWorld;
 import mchorse.mappet.api.scripts.code.blocks.ScriptTileEntity;
-import mchorse.mappet.api.scripts.user.IScriptWorld;
 import mchorse.mappet.api.scripts.user.blocks.IScriptTileEntity;
 import mchorse.mappet.api.scripts.user.data.ScriptVector;
 import mchorse.mappet.tile.TileConditionModel;
@@ -33,10 +32,6 @@ public abstract class MixinScriptWorld {
     private World world;
     @Shadow
     private BlockPos.MutableBlockPos pos;
-
-    protected IScriptWorld create(World world) {
-        return new ScriptWorld(world);
-    }
 
     /**
      * Gets the biome name at the given block position coordinates.
