@@ -5,7 +5,7 @@
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "https://github.com/TorayLife/MappetExtras",
-  "updateJSON": "//TODO",
+  "updateJSON": "https://raw.githubusercontent.com/TorayLife/MappetExtras/master/version.json",
   "authorList": [
     "TorayLife",
     "Llama"
