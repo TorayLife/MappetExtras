@@ -11,7 +11,9 @@
   "client": [
     "MixinDocEntry",
     "MixinDocMerger",
-    "MixinGuiDocumentationOverlayPanelAccessor"
+    "MixinGuiDocumentationOverlayPanel",
+    "MixinGuiDocumentationOverlayPanelAccessor",
+    "MixinGuiScriptPanel"
   ],
   "server": [
   ]
