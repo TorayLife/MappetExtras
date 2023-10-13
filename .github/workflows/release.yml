@@ -2,7 +2,7 @@ name: release
 on:
   push:
     tags:
-      - 'v*'
+      - '[0-9]+.[0-9]+.[0-9]+'
 jobs:
   build:
     name: Create Release
@@ -40,6 +40,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: 'build/libs/mappetExtras*1.12.2.jar'
-          asset_name: 'mappetExtras*1.12.2.jar'
+          asset_path: build/libs/mappetExtras-${{ github.ref_name }}-1.12.2.jar
+          asset_name: mappetExtras-${{ github.ref_name }}-1.12.2.jar
           asset_content_type: application/java-archive
