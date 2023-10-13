@@ -41,6 +41,7 @@ bin/
 /.git.zip
 run/*
 !run/libs/
+!run/jsonDoclet.jar
 
 src/main/resources/assets/mappetextras/docs.json
 docs.json
