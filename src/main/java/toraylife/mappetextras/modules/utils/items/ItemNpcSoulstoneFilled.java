@@ -21,7 +21,6 @@ import java.util.List;
 
 public class ItemNpcSoulstoneFilled extends Item {
     public ItemNpcSoulstoneFilled(){
-        this.setCreativeTab(Mappet.creativeTab);
         this.setMaxStackSize(1);
     }
 
