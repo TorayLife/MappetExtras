@@ -1,7 +1,7 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "mappetextras:items/npc_picker"
+    "layer0": "mappetextras:items/npc_soulstone_filled/npc_soulstone_filled"
   },
   "display": {
     "thirdperson_righthand": {
