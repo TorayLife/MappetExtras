@@ -34,10 +34,6 @@ public abstract class MixinScriptWorld {
     @Shadow
     private BlockPos.MutableBlockPos pos;
 
-    protected IScriptWorld create(World world) {
-        return new ScriptWorld(world);
-    }
-
     /**
      * Gets the biome name at the given block position coordinates.
      *
