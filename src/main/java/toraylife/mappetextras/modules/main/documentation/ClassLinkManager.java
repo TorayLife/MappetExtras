@@ -8,11 +8,11 @@ import mchorse.mappet.client.gui.utils.overlays.GuiOverlay;
 import mchorse.mappet.client.gui.utils.text.GuiText;
 import mchorse.mclib.client.gui.framework.GuiBase;
 import mchorse.mclib.client.gui.framework.elements.context.GuiSimpleContextMenu;
-import mchorse.mclib.client.gui.utils.Icons;
 import mchorse.mclib.client.gui.utils.keys.IKey;
 import net.minecraft.client.Minecraft;
 import toraylife.mappetextras.MappetExtras;
 import toraylife.mappetextras.modules.main.documentation.mixins.MixinGuiDocumentationOverlayPanelAccessor;
+import toraylife.mappetextras.modules.utils.MPEIcons;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -78,7 +78,7 @@ public class ClassLinkManager {
         GuiSimpleContextMenu menu = new GuiSimpleContextMenu(mc);
         for (DocEntry entry : entries) {
             String key = ((entry instanceof DocMethod) ? entry.parent.getName() + "." : "") + entry.getName();
-            menu.action(Icons.SEARCH, IKey.format("mappet.gui.scripts.context.docs", key), () -> openOverlay(entry), MappetExtras.mainColor);
+            menu.action(MPEIcons.OTHER_GLOSARY, IKey.format("mappet.gui.scripts.context.docs", key), () -> openOverlay(entry), MappetExtras.mainColor);
         }
         return menu;
     }
