@@ -34,3 +34,12 @@ mappetextras.config.comments.scripting_module.enabled=Determines whether the fun
 mappetextras.utils_module.beautify=Beautify
 
 mappetextras.error=§Error
+
+# ITEMS
+item.mappetextras.npc_picker.name=NPC picker
+item.mappetextras.npc_picker.tooltip=This tool allows save NPCs.
+item.mappetextras.npc_picker.message.savednpc=[§6NPC Picker§r] §7NPC is saved under id: §6%s§f
+item.mappetextras.npc_picker.message.notid=[§6NPC Picker§r] §cNPC doesn't have an id.
+
+item.mappetextras.npc_soulstone.name=NPC soulstone
+item.mappetextras.npc_soulstone.tooltip=This tool allows you to save NPC inside an item.

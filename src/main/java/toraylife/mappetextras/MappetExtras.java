@@ -4,6 +4,8 @@ import mchorse.mclib.McLib;
 import mchorse.mclib.config.ConfigBuilder;
 import mchorse.mclib.config.ConfigManager;
 import mchorse.mclib.events.RegisterConfigEvent;
+import net.minecraft.item.Item;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -34,12 +36,19 @@ import java.util.List;
         updateJSON = "https://raw.githubusercontent.com/TorayLife/MappetExtras/master/version.json"
 )
 public class MappetExtras {
+    public MappetExtras() {
+        MinecraftForge.EVENT_BUS.register(new RegisterHandler());
+    }
     public static final String MOD_ID = "mappetextras";
     public static final String NAME = "MappetExtras";
 
     public static final String VERSION = "@VERSION@";
 
     public static final Logger logger = LogManager.getLogger(MOD_ID);
+
+    public static Item npcPicker;
+    public static Item npcSoulstoneEmpty;
+    public static Item npcSoulstoneFilled;
 
     public static final int mainColor = 0xFFAA00;
 
