@@ -9,6 +9,7 @@ import toraylife.mappetextras.modules.IModule;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class UtilsModule implements IModule {
@@ -35,6 +36,8 @@ public class UtilsModule implements IModule {
     @Override
     public void init(FMLInitializationEvent event) {
         MappetExtras.logger.info("Mappet extras utils module init!");
+
+        MPEIcons.register();
     }
 
     @Override
@@ -44,8 +47,8 @@ public class UtilsModule implements IModule {
 
     @Override
     public List<String> getMixinConfigs() {
-        return new ArrayList<>(Arrays.asList(
-            "mixins/mixins." + this.getModuleId() + ".json"
+        return new ArrayList<>(Collections.singletonList(
+                "mixins/mixins." + this.getModuleId() + ".json"
         ));
     }
 
