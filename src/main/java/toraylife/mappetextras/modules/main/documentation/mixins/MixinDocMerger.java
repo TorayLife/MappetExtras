@@ -38,7 +38,7 @@ public abstract class MixinDocMerger {
         InputStream stream = GuiDocumentationOverlayPanel.class.getResourceAsStream("/assets/mappetextras/docs.json");
         Scanner scanner = new Scanner(stream, "UTF-8");
         Docs mappetExtrasDocs = gson.fromJson(scanner.useDelimiter("\\A").next(), Docs.class);
-        mappetExtrasDocs.source = "Mappet Extras";
+        mappetExtrasDocs.source = "MappetExtras";
         mappetExtrasDocs.classes.forEach(clazz -> {
             clazz.source = mappetExtrasDocs.source;
             clazz.methods.forEach(method -> method.source = mappetExtrasDocs.source);
