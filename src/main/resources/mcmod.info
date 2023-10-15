@@ -1,7 +1,7 @@
 [{
   "modid": "mappetextras",
   "name": "MappetExtras",
-  "description": "//TODO",
+  "description": "Addon that contains many useful features for Mappet",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "https://github.com/TorayLife/MappetExtras",
@@ -11,7 +11,7 @@
     "Llama"
   ],
   "credits": "Special thanks to McHorse, dyamo, OtakuGamer for helping and supporting!",
-  "logoFile": "//TODO",
+  "logoFile": "",
   "useDependencyInformation": true,
   "requiredMods": [
     "mappet",
