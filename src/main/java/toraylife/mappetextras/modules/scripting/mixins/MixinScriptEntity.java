@@ -3,7 +3,6 @@ package toraylife.mappetextras.modules.scripting.mixins;
 import mchorse.mappet.CommonProxy;
 import mchorse.mappet.api.scripts.code.entities.ScriptEntity;
 import mchorse.mappet.api.scripts.code.entities.ScriptPlayer;
-import mchorse.mappet.api.scripts.user.entities.IScriptEntity;
 import mchorse.mappet.utils.RunnableExecutionFork;
 import mchorse.mclib.utils.Interpolation;
 import net.minecraft.entity.Entity;
@@ -180,12 +179,5 @@ public abstract class MixinScriptEntity<T extends Entity> {
 
     public boolean getNoClip() {
         return this.entity.noClip;
-    }
-
-    public void onKillEntity(IScriptEntity entity) {
-        Entity target = this.entity;
-        Entity attacker = entity.getMinecraftEntity();
-
-        target.onKillEntity((EntityLivingBase) attacker);
     }
 }
