@@ -1,4 +1,4 @@
-package toraylife.mappetextras.modules.scripting.scripts.user;
+package toraylife.mappetextras.modules.scripting.scripts.user.triggers;
 
 import mchorse.mappet.api.triggers.Trigger;
 import mchorse.mappet.api.triggers.blocks.AbstractTriggerBlock;

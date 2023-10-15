@@ -2,7 +2,7 @@ package toraylife.mappetextras.modules.scripting.scripts.user.blocks;
 
 import mchorse.mappet.api.scripts.user.blocks.IScriptTileEntity;
 import mchorse.mappet.tile.TileEmitter;
-import toraylife.mappetextras.modules.scripting.scripts.user.IScriptChecker;
+import toraylife.mappetextras.modules.scripting.scripts.user.conditions.IScriptChecker;
 
 public interface IScriptEmitterTileEntity extends IScriptTileEntity {
 

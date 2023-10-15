@@ -3,9 +3,9 @@ package toraylife.mappetextras.modules.scripting.scripts.code.blocks;
 import mchorse.mappet.api.scripts.code.blocks.ScriptTileEntity;
 import mchorse.mappet.network.common.blocks.PacketEditEmitter;
 import mchorse.mappet.tile.TileEmitter;
-import toraylife.mappetextras.modules.scripting.scripts.code.ScriptChecker;
-import toraylife.mappetextras.modules.scripting.scripts.user.IScriptChecker;
+import toraylife.mappetextras.modules.scripting.scripts.code.conditions.ScriptChecker;
 import toraylife.mappetextras.modules.scripting.scripts.user.blocks.IScriptEmitterTileEntity;
+import toraylife.mappetextras.modules.scripting.scripts.user.conditions.IScriptChecker;
 
 public class ScriptEmitterTileEntity extends ScriptTileEntity implements IScriptEmitterTileEntity {
     public ScriptEmitterTileEntity(TileEmitter tile) {

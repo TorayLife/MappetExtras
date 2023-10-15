@@ -8,8 +8,8 @@ import mchorse.mappet.entities.EntityNpc;
 import net.minecraft.util.math.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
 import toraylife.mappetextras.modules.main.documentation.MixinTargetName;
-import toraylife.mappetextras.modules.scripting.scripts.code.ScriptTrigger;
-import toraylife.mappetextras.modules.scripting.scripts.user.IScriptTrigger;
+import toraylife.mappetextras.modules.scripting.scripts.code.triggers.ScriptTrigger;
+import toraylife.mappetextras.modules.scripting.scripts.user.triggers.IScriptTrigger;
 
 @Mixin(value = ScriptNpc.class, remap = false)
 @MixinTargetName("mchorse.mappet.api.scripts.user.entities.IScriptNpc")

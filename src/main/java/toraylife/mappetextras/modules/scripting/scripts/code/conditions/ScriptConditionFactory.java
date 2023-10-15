@@ -1,12 +1,8 @@
-package toraylife.mappetextras.modules.scripting.scripts.code;
+package toraylife.mappetextras.modules.scripting.scripts.code.conditions;
 
 import mchorse.mappet.api.conditions.Checker;
 import mchorse.mappet.api.conditions.Condition;
 import mchorse.mappet.api.conditions.blocks.*;
-import toraylife.mappetextras.modules.scripting.scripts.code.conditions.*;
-import toraylife.mappetextras.modules.scripting.scripts.user.IScriptChecker;
-import toraylife.mappetextras.modules.scripting.scripts.user.IScriptCondition;
-import toraylife.mappetextras.modules.scripting.scripts.user.IScriptConditionFactory;
 import toraylife.mappetextras.modules.scripting.scripts.user.conditions.*;
 import toraylife.mappetextras.modules.scripting.scripts.user.conditions.utils.IScriptConditionBlock;
 

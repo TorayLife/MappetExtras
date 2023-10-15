@@ -16,9 +16,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 import org.spongepowered.asm.mixin.Mixin;
 import toraylife.mappetextras.modules.main.documentation.MixinTargetName;
-import toraylife.mappetextras.modules.scripting.scripts.code.ScriptConditionFactory;
 import toraylife.mappetextras.modules.scripting.scripts.code.ScriptFile;
-import toraylife.mappetextras.modules.scripting.scripts.code.ScriptTriggerFactory;
+import toraylife.mappetextras.modules.scripting.scripts.code.conditions.ScriptConditionFactory;
+import toraylife.mappetextras.modules.scripting.scripts.code.triggers.ScriptTriggerFactory;
 import toraylife.mappetextras.modules.scripting.scripts.user.IScriptFile;
 
 import java.nio.file.Paths;

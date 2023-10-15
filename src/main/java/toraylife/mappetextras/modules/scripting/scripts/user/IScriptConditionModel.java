@@ -2,6 +2,7 @@ package toraylife.mappetextras.modules.scripting.scripts.user;
 
 import mchorse.mappet.utils.ConditionModel;
 import mchorse.metamorph.api.morphs.AbstractMorph;
+import toraylife.mappetextras.modules.scripting.scripts.user.conditions.IScriptChecker;
 
 public interface IScriptConditionModel {
     ConditionModel getConditionModel();

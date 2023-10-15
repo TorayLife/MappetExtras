@@ -2,8 +2,8 @@ package toraylife.mappetextras.modules.scripting.scripts.user.blocks;
 
 import mchorse.mappet.api.scripts.user.blocks.IScriptTileEntity;
 import mchorse.mappet.tile.TileTrigger;
-import toraylife.mappetextras.modules.scripting.scripts.code.ScriptTrigger;
-import toraylife.mappetextras.modules.scripting.scripts.user.IScriptTrigger;
+import toraylife.mappetextras.modules.scripting.scripts.code.triggers.ScriptTrigger;
+import toraylife.mappetextras.modules.scripting.scripts.user.triggers.IScriptTrigger;
 
 public interface IScriptTriggerTileEntity extends IScriptTileEntity {
 

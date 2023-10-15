@@ -1,9 +1,7 @@
-package toraylife.mappetextras.modules.scripting.scripts.code;
+package toraylife.mappetextras.modules.scripting.scripts.code.triggers;
 
 import mchorse.mappet.api.triggers.Trigger;
 import mchorse.mappet.api.triggers.blocks.*;
-import toraylife.mappetextras.modules.scripting.scripts.code.triggers.*;
-import toraylife.mappetextras.modules.scripting.scripts.user.IScriptTrigger;
 import toraylife.mappetextras.modules.scripting.scripts.user.triggers.*;
 import toraylife.mappetextras.modules.scripting.scripts.user.triggers.utils.IScriptTriggerBlock;
 

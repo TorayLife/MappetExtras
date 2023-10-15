@@ -1,6 +1,6 @@
-package toraylife.mappetextras.modules.scripting.scripts.user;
+package toraylife.mappetextras.modules.scripting.scripts.user.conditions;
 
-import toraylife.mappetextras.modules.scripting.scripts.code.ScriptCondition;
+import toraylife.mappetextras.modules.scripting.scripts.code.conditions.ScriptCondition;
 
 public interface IScriptChecker {
 

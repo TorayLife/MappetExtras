@@ -1,7 +1,6 @@
 package toraylife.mappetextras.modules.scripting.scripts.code.conditions;
 
 import mchorse.mappet.api.conditions.blocks.ConditionConditionBlock;
-import toraylife.mappetextras.modules.scripting.scripts.code.ScriptCondition;
 import toraylife.mappetextras.modules.scripting.scripts.code.conditions.utils.ScriptConditionBlock;
 import toraylife.mappetextras.modules.scripting.scripts.user.conditions.IScriptConditionConditionBlock;
 

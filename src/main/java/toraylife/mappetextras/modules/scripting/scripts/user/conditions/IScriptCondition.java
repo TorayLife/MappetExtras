@@ -1,4 +1,4 @@
-package toraylife.mappetextras.modules.scripting.scripts.user;
+package toraylife.mappetextras.modules.scripting.scripts.user.conditions;
 
 import mchorse.mappet.api.conditions.blocks.AbstractConditionBlock;
 import toraylife.mappetextras.modules.scripting.scripts.user.conditions.utils.IScriptConditionBlock;

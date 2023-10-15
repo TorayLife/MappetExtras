@@ -1,7 +1,7 @@
-package toraylife.mappetextras.modules.scripting.scripts.code;
+package toraylife.mappetextras.modules.scripting.scripts.code.conditions;
 
 import mchorse.mappet.api.conditions.Checker;
-import toraylife.mappetextras.modules.scripting.scripts.user.IScriptChecker;
+import toraylife.mappetextras.modules.scripting.scripts.user.conditions.IScriptChecker;
 
 public class ScriptChecker implements IScriptChecker {
     public Checker checker;
