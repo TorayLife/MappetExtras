@@ -2,10 +2,9 @@ package toraylife.mappetextras.modules.scripting.scripts.user.triggers;
 
 import mchorse.mappet.api.triggers.Trigger;
 import mchorse.mappet.api.triggers.blocks.*;
-import toraylife.mappetextras.modules.scripting.scripts.user.conditions.utils.IScriptConditionBlock;
 
 /**
- * Using for creating {@link IScriptConditionBlock} objects.
+ * Using for creating {@link IScriptScriptTriggerBlock} objects.
  *
  * <pre>{@code
  * function main(c) {
