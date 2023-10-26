@@ -11,7 +11,8 @@
     "MixinScriptPlayer",
     "MixinScriptServer",
     "MixinScriptVector",
-    "MixinScriptWorld"
+    "MixinScriptWorld",
+    "utils.MixinEntityPlayerMPInterface"
   ],
   "client": [
   ],
