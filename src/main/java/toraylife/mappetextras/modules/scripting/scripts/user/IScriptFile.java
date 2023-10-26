@@ -167,13 +167,28 @@ public interface IScriptFile {
      *    function main(c)
      *    {
      *       var file = mappet.getWorldDir().resolve("test.txt");
-     *       file.create();
+     *       file.createFile();
      *    }
      *  }</pre>
      *
      * <p>Throws {@link IOException} If an I/O error occurs during the operation.</p>
      */
-    void create() throws IOException;
+    void createFile() throws IOException;
+
+    /**
+     * Creates a new directory.
+     *
+     * <pre>{@code
+     *    function main(c)
+     *    {
+     *       var file = mappet.getWorldDir().resolve("testFolder");
+     *       file.createDirectory();
+     *    }
+     *  }</pre>
+     *
+     * <p>Throws {@link IOException} If an I/O error occurs during the operation.</p>
+     */
+    void createDirectory() throws IOException;
 
     /**
      * Copies a file or a directory to new path.

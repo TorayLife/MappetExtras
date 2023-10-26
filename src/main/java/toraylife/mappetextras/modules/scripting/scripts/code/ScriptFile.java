@@ -37,6 +37,9 @@ public class ScriptFile implements IScriptFile {
 
     @Override
     public String getExtension() {
+        if (this.isDirectory()) {
+            return "";
+        }
         return this.getFullName().substring(this.getFullName().lastIndexOf('.'));
     }
 
@@ -57,13 +60,21 @@ public class ScriptFile implements IScriptFile {
 
     @Override
     public void write(String content) throws IOException {
-        Files.createDirectories(this.path);
+        try {
+            Files.createDirectories(this.path.getParent());
+        } catch (IOException ignored) {
+        }
+
         Files.write(this.path, content.getBytes(StandardCharsets.UTF_8));
     }
 
     @Override
     public void append(String content) throws IOException {
-        Files.createDirectories(this.path);
+        try {
+            Files.createDirectories(this.path.getParent());
+        } catch (IOException ignored) {
+        }
+
         Files.write(this.path, content.getBytes(StandardCharsets.UTF_8), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
     }
 
@@ -78,8 +89,19 @@ public class ScriptFile implements IScriptFile {
     }
 
     @Override
-    public void create() throws IOException {
-        Files.createDirectories(this.path);
+    public void createDirectory() throws IOException {
+        try {
+            Files.createDirectories(this.path);
+        } catch (IOException ignored) {
+        }
+    }
+
+    @Override
+    public void createFile() throws IOException {
+        try {
+            Files.createDirectories(this.path.getParent());
+        } catch (IOException ignored) {
+        }
         Files.createFile(this.path);
     }
 
