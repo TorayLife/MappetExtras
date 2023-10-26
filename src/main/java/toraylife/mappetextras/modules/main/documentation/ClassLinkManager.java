@@ -85,7 +85,7 @@ public class ClassLinkManager {
 
     private void openOverlay(DocEntry entry) {
         GuiDocumentationOverlayPanel overlay = new GuiDocumentationOverlayPanel(mc, entry);
-        GuiOverlay.addOverlay(GuiBase.getCurrent(), overlay, 0.7F, 0.9F);
+        GuiOverlay.addOverlay(GuiBase.getCurrent(), overlay, 0.9F, 0.9F);
     }
 
     public void addLinks(GuiText text, Set<DocEntry> searched) {
