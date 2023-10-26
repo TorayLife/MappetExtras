@@ -140,6 +140,9 @@ public interface IScriptModelTileEntity extends IScriptTileEntity {
 
     /**
      * Used to send updated tile entity data to all clients.
+     *
+     * @param merge True to merge with existing data, false to replace
      */
-    void sendToAll();
+
+    void sendToAll(boolean merge);
 }

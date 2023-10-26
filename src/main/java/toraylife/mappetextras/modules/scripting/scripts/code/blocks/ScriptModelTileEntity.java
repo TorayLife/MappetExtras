@@ -112,7 +112,7 @@ public class ScriptModelTileEntity extends ScriptTileEntity implements IScriptMo
     }
 
     @Override
-    public void sendToAll() {
-        Dispatcher.sendToAll(new PacketModifyModelBlock(this.getMinecraftTileEntity().getPos(), this.getMinecraftTileEntity()));
+    public void sendToAll(boolean merge) {
+        Dispatcher.sendToAll(new PacketModifyModelBlock(this.getMinecraftTileEntity().getPos(), this.getMinecraftTileEntity(), merge));
     }
 }
