@@ -2,17 +2,12 @@
 mappetextras.config.title=Mappet Extras
 
 mappetextras.config.main_module.title=Main module
+mappetextras.config.main_module.tooltip=Main module mod options
 
 mappetextras.config.main_module.show_version_update_message=Show version update message
 mappetextras.config.comments.main_module.show_version_update_message=Determines whether Mappet Extras send message about version.
 mappetextras.config.main_module.show_update_only_if_outdated=Send update message only if outdated
 mappetextras.config.comments.main_module.show_update_only_if_outdated=Only show the version update message if the current version is outdated.
-
-mappetextras.config.utils_module.title=Utils module
-
-mappetextras.config.client_module.title=Client module
-
-mappetextras.config.scripting_module.title=Scripting module
 
 # MAIN
 mappetextras.main_module.update.up_to_date=[§6%s§f] §7You have the latest version installed.
@@ -26,14 +21,9 @@ mappetextras.main_module.update.button_update_link=Visit mod page
 # CLIENT
 
 # SCRIPTING
-mappetextras.config.scripting_module.title=Scripting module
-mappetextras.config.scripting_module.enabled=Enabled
-mappetextras.config.comments.scripting_module.enabled=Determines whether the functionality of the Scripting module will work. (Restart required)
 
 # UTILS
-mappetextras.utils_module.beautify=Beautify
-
-mappetextras.error=§Error
+mappetextras.error=§cError
 
 # ITEMS
 item.mappetextras.npc_picker.name=NPC picker
