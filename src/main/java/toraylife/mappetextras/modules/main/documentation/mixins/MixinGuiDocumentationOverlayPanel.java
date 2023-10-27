@@ -54,8 +54,9 @@ public class MixinGuiDocumentationOverlayPanel {
     @Inject(
             method = "parseDocs",
             at = @At(
-                    value = "JUMP",
-                    ordinal = 2
+                    value = "INVOKE_ASSIGN",
+                    target = "Ljava/util/List;add(Ljava/lang/Object;)Z",
+                    ordinal = 5
             ),
             locals = LocalCapture.CAPTURE_FAILHARD,
             remap = false
