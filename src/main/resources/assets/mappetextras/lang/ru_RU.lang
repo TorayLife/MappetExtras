@@ -1,0 +1,35 @@
+# CONFIG
+mappetextras.config.title=Маппет Экстрас
+
+mappetextras.config.main_module.title=Главный модуль
+mappetextras.config.main_module.tooltip=Настройки главного модуля
+
+mappetextras.config.main_module.show_version_update_message=Показывать сообщение об обновлении
+mappetextras.config.comments.main_module.show_version_update_message=Определяет, будет ли выводиться сообщение о версии мода.
+mappetextras.config.main_module.show_update_only_if_outdated=Показывать сообщение об обновлении только если есть новая версия
+mappetextras.config.comments.main_module.show_update_only_if_outdated=Показывает сообщение об обновлении только если текущая версия устарела.
+
+# MAIN
+mappetextras.main_module.update.up_to_date=[§6%s§f] §7У вас установлена последняя версия.
+mappetextras.main_module.update.outdated=[§6%s§f] §7Новая версия §e%s§7 уже доступна (ваша текущая версия §e%s§7).
+mappetextras.main_module.update.outdated_view=§f [§9Посмотреть список обновлений§f]
+mappetextras.main_module.update.outdated_tooltip=§7Нажмите сюда чтобы увидеть обновления
+mappetextras.main_module.update.failed=[§6%s§f] §7Не удалось проверить обновления.
+mappetextras.main_module.update.screen_title=Обновления: Текущая версия - §e%s§f, последняя версия - §e%s§f
+mappetextras.main_module.update.button_update_link=Посетить страницу мода
+
+# CLIENT
+
+# SCRIPTING
+
+# UTILS
+mappetextras.error=§cОшибка
+
+# ITEMS
+item.mappetextras.npc_picker.name=НПС пипетка
+item.mappetextras.npc_picker.tooltip=Этот инструмент позволяет сохранять НПС.
+item.mappetextras.npc_picker.message.savednpc=[§6НПС пипетка§r] §7НПС сохранён с id: §6%s§f
+item.mappetextras.npc_picker.message.notid=[§6НПС пипетка§r] §cУ НПС не установлен id.
+
+item.mappetextras.npc_soulstone.name=НПС камень души
+item.mappetextras.npc_soulstone.tooltip=Этот инструмент позволяет сохранять НПС внутри предмета.
