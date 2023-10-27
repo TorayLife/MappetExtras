@@ -9,6 +9,7 @@ import toraylife.mappetextras.modules.IModule;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class ScriptingModule implements IModule {
@@ -23,7 +24,7 @@ public class ScriptingModule implements IModule {
 
     @Override
     public void addConfigOptions(ConfigBuilder builder) {
-        builder.category("scripting_module");
+
     }
 
     @Override
@@ -43,8 +44,8 @@ public class ScriptingModule implements IModule {
 
     @Override
     public List<String> getMixinConfigs() {
-        return new ArrayList<>(Arrays.asList(
-            "mixins/mixins." + this.getModuleId() + ".json"
+        return new ArrayList<>(Collections.singletonList(
+                "mixins/mixins." + this.getModuleId() + ".json"
         ));
     }
 

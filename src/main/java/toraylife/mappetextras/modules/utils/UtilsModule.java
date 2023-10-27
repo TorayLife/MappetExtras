@@ -8,7 +8,6 @@ import toraylife.mappetextras.MappetExtras;
 import toraylife.mappetextras.modules.IModule;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -25,7 +24,6 @@ public class UtilsModule implements IModule {
 
     @Override
     public void addConfigOptions(ConfigBuilder builder) {
-        builder.category("utils_module");
     }
 
     @Override
