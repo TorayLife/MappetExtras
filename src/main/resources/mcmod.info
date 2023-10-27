@@ -11,7 +11,7 @@
     "Llama"
   ],
   "credits": "Special thanks to McHorse, dyamo, OtakuGamer for helping and supporting!",
-  "logoFile": "",
+  "logoFile": "logo.png",
   "useDependencyInformation": true,
   "requiredMods": [
     "mappet",
