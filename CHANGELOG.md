@@ -1,3 +1,26 @@
+## Version 1.0.1
+
+Here is the first work on bugs.
+
+This version is a hotfix of bugs found in 1.0.0. Fixed bugs with documentation, bugs related to files, added Russian
+localisation.
+
+### Full list of changes:
+
+* Fixes:
+    * Fixed bug that caused `getLanguage` and `getRespawnInvulnerabilityTicks` methods not working.
+    * Fixed the size of the documentation window when opening it via a link within the documentation.
+    * Fixed a bug that caused some standard Mappet methods to be overwritten in the documentation.
+    * Fixed `IScriptFile`.
+    * Fixed `IScriptTriggerFactory` description.
+    * Fixed a bug that caused the documentation sections for triggers and conditions to be duplicated.
+* Breaking changes:
+    * Removed the `create` method from `IScriptFile`. Added `createFile` and `createDirectory` in its place.
+    * The `sendToAll` method of `IScriptModelTileEntity` has been changed to accept a `merge` argument of
+      type `boolean`, which is responsible for whether the morph will change smoothly.
+* Other:
+    * Added Russian localisation.
+
 ## Version 1.0.0
 
 Nobody was waiting for it, but it happened! We, TorayLife and llama_orp, are finally releasing
