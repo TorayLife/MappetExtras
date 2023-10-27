@@ -9,6 +9,7 @@ import toraylife.mappetextras.modules.IModule;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class ClientModule implements IModule {
@@ -23,7 +24,6 @@ public class ClientModule implements IModule {
 
     @Override
     public void addConfigOptions(ConfigBuilder builder) {
-        builder.category("client_module");
     }
 
     @Override
@@ -43,8 +43,8 @@ public class ClientModule implements IModule {
 
     @Override
     public List<String> getMixinConfigs() {
-        return new ArrayList<>(Arrays.asList(
-            "mixins/mixins." + this.getModuleId() + ".json"
+        return new ArrayList<>(Collections.singletonList(
+                "mixins/mixins." + this.getModuleId() + ".json"
         ));
     }
 
