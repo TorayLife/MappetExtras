@@ -1,12 +1,13 @@
 {
     "homepage": "https://github.com/TorayLife/MappetExtras",
     "1.12.2": {
+      "1.0.1": "This version is a hotfix of bugs found in 1.0.0. Fixed bugs with documentation, bugs related to files, added Russian localisation.",
       "1.0.0": "In this version you will find many improvements to the in-game documentation, API for working with Mappet triggers, conditions and blocks, methods for working with the client, expanded API for entities, and a new tool for cloning NPCs!",
       "0.1.0": "Initial version, test github actions"
     },
     "promos": {
-      "1.12.2-latest": "1.0.0",
-      "1.12.2-recommended": "1.0.0"
+      "1.12.2-latest": "1.0.1",
+      "1.12.2-recommended": "1.0.1"
     },
     "inherit": true
 }
