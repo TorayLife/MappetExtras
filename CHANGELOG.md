@@ -20,6 +20,7 @@ localisation.
       type `boolean`, which is responsible for whether the morph will change smoothly.
 * Other:
     * Added Russian localisation.
+    * Small code refactoring was performed.
 
 ## Version 1.0.0
 
