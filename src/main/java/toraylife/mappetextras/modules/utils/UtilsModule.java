@@ -7,10 +7,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import toraylife.mappetextras.MappetExtras;
 import toraylife.mappetextras.modules.IModule;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 public class UtilsModule implements IModule {
 
     private static UtilsModule instance;
@@ -41,13 +37,6 @@ public class UtilsModule implements IModule {
     @Override
     public void postInit(FMLPostInitializationEvent event) {
         MappetExtras.logger.info("Mappet extras utils module postInit!");
-    }
-
-    @Override
-    public List<String> getMixinConfigs() {
-        return new ArrayList<>(Collections.singletonList(
-                "mixins/mixins." + this.getModuleId() + ".json"
-        ));
     }
 
     @Override

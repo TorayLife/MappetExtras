@@ -5,6 +5,8 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public interface IModule {
@@ -16,7 +18,17 @@ public interface IModule {
 
     void postInit(FMLPostInitializationEvent event);
 
-    List<String> getMixinConfigs();
+    default List<String> getMixinConfigs() {
+        return new ArrayList<>(Collections.singletonList(
+                "mixins/mixins." + this.getModuleId() + ".json"
+        ));
+    }
+
+    default List<String> getEarlyMixinConfigs() {
+        return new ArrayList<>(Collections.singletonList(
+                "mixins/mixins.early." + this.getModuleId() + ".json"
+        ));
+    }
 
     String getModuleId();
 }
