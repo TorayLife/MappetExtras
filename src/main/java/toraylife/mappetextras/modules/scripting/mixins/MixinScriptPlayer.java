@@ -7,13 +7,14 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import toraylife.mappetextras.modules.main.documentation.MixinTargetName;
-import toraylife.mappetextras.modules.scripting.mixins.utils.MixinEntityPlayerMPInterface;
+import toraylife.mappetextras.modules.scripting.EntityPlayerMPAccessor;
 
 @Mixin(value = ScriptPlayer.class, remap = false)
 @MixinTargetName("mchorse.mappet.api.scripts.user.entities.IScriptPlayer")
 public abstract class MixinScriptPlayer {
     @Shadow
     public abstract EntityPlayerMP getMinecraftPlayer();
+
 
     /**
      * Inspires the player into the entity. First set the player's gamemode to 3.
@@ -32,7 +33,7 @@ public abstract class MixinScriptPlayer {
      * @return the player's language code
      */
     public String getLanguage() {
-        return ((MixinEntityPlayerMPInterface) this.getMinecraftPlayer()).getLanguage();
+        return ((EntityPlayerMPAccessor) this.getMinecraftPlayer()).getLanguage();
     }
 
     /**
@@ -59,7 +60,7 @@ public abstract class MixinScriptPlayer {
      * @return the ticks of invulnerability remaining
      */
     public int getRespawnInvulnerability() {
-        return ((MixinEntityPlayerMPInterface) this.getMinecraftPlayer()).getRespawnInvulnerabilityTicks();
+        return ((EntityPlayerMPAccessor) this.getMinecraftPlayer()).getRespawnInvulnerabilityTicks();
     }
 
     /**

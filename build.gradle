@@ -42,12 +42,15 @@ def mixins = new ArrayList<>(Arrays.asList(
         "org.spongepowered.asm.launch.MixinTweaker",
 ))
 
-new ArrayList<>(Arrays.asList(
+def mixinFiles = new ArrayList<>(Arrays.asList(
         'mixins/mixins.utils.json',
         'mixins/mixins.client.json',
         'mixins/mixins.scripting.json',
+        'mixins/mixins.early.scripting.json',
         'mixins/mixins.main.json'
-)).forEach {
+))
+
+mixinFiles.forEach {
     mixins.add("--mixin")
     mixins.add(it)
 }
@@ -139,12 +142,17 @@ dependencies {
 }
 
 // Example for how to get properties into the manifest for reading by the runtime...
+
 jar {
     manifest {
         attributes([
-                "Implementation-Title"    : project.name,
-                "Implementation-Version"  : project.version,
-                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+                "Implementation-Title"       : project.name,
+                "Implementation-Version"     : project.version,
+                "Implementation-Timestamp"   : new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                "TweakClass"                 : "org.spongepowered.asm.launch.MixinTweaker",
+                "MixinConfigs"               : mixinFiles.stream().filter { it.contains("early") }.collect(Collectors.joining(",")),
+                "FMLCorePluginContainsFMLMod": true,  // Не забываем указать эти два флага,
+                "ForceLoadAsMod"             : true, // чтобы Forge нормально загрузил и мод, и миксины
         ])
     }
 }
@@ -159,6 +167,8 @@ jar.finalizedBy('reobfJar')
 
 // BY DYAMO BOLSHOY UMNI MALCHEG
 import org.apache.tools.ant.filters.ReplaceTokens
+
+import java.util.stream.Collectors
 
 task processSource(type: Sync) {
     from sourceSets.main.java
