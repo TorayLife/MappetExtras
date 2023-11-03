@@ -8,7 +8,11 @@ import org.spongepowered.asm.mixin.Shadow;
 import toraylife.mappetextras.modules.client.AccessType;
 import toraylife.mappetextras.modules.client.ClientData;
 import toraylife.mappetextras.modules.client.network.PacketClientData;
-import toraylife.mappetextras.modules.client.providers.*;
+import toraylife.mappetextras.modules.client.providers.ClipboardProvider;
+import toraylife.mappetextras.modules.client.providers.MousePositionProvider;
+import toraylife.mappetextras.modules.client.providers.PerspectiveProvider;
+import toraylife.mappetextras.modules.client.providers.SettingProvider;
+import toraylife.mappetextras.modules.client.providers.ResolutionProvider;
 import toraylife.mappetextras.modules.main.documentation.MixinTargetName;
 import toraylife.mappetextras.network.Dispatcher;
 
@@ -17,6 +21,7 @@ import java.util.function.Consumer;
 @Mixin(value = ScriptPlayer.class, remap = false)
 @MixinTargetName("mchorse.mappet.api.scripts.user.entities.IScriptPlayer")
 public abstract class MixinScriptPlayer{
+
     @Shadow public abstract EntityPlayerMP getMinecraftPlayer();
 
     public void setPerspective(Integer perspective){
