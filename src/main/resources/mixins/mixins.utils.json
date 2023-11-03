@@ -8,6 +8,9 @@
     "MixinNpcState"
   ],
   "client": [
+    "scriptPanel.MixinGuiMultiTextElement",
+    "scriptPanel.MixinGuiScriptPanel",
+    "scriptPanel.MixinGuiTextEditor"
   ],
   "server": [
   ]
