@@ -11,7 +11,7 @@ import mchorse.mclib.client.gui.framework.elements.context.GuiSimpleContextMenu;
 import mchorse.mclib.client.gui.utils.keys.IKey;
 import net.minecraft.client.Minecraft;
 import toraylife.mappetextras.MappetExtras;
-import toraylife.mappetextras.modules.main.documentation.mixins.MixinGuiDocumentationOverlayPanelAccessor;
+import toraylife.mappetextras.modules.main.mixins.documentation.MixinGuiDocumentationOverlayPanelAccessor;
 import toraylife.mappetextras.modules.utils.MPEIcons;
 
 import java.util.HashSet;

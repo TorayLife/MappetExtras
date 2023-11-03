@@ -1,4 +1,4 @@
-package toraylife.mappetextras.modules.main.documentation.mixins;
+package toraylife.mappetextras.modules.main.mixins.documentation;
 
 import com.google.gson.Gson;
 import mchorse.mappet.client.gui.scripts.GuiDocumentationOverlayPanel;

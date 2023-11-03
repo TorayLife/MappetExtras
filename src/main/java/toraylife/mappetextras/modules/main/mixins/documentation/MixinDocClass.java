@@ -1,4 +1,4 @@
-package toraylife.mappetextras.modules.main.documentation.mixins;
+package toraylife.mappetextras.modules.main.mixins.documentation;
 
 import mchorse.mappet.client.gui.scripts.utils.documentation.DocClass;
 import mchorse.mappet.client.gui.scripts.utils.documentation.DocMethod;

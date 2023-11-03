@@ -1,19 +1,19 @@
 {
   "required": true,
   "compatibilityLevel": "JAVA_8",
-  "package": "toraylife.mappetextras.modules.main.documentation.mixins",
+  "package": "toraylife.mappetextras.modules.main.mixins",
   "refmap": "mixins.mappetextras.refmap.json",
   "mixinPriority": 1000,
   "mixins": [
-    "MixinDocClass",
-    "MixinDocMethod"
+    "documentation.MixinDocClass",
+    "documentation.MixinDocMethod"
   ],
   "client": [
-    "MixinDocEntry",
-    "MixinDocMerger",
-    "MixinGuiDocumentationOverlayPanel",
-    "MixinGuiDocumentationOverlayPanelAccessor",
-    "MixinGuiScriptPanel"
+    "documentation.MixinDocEntry",
+    "documentation.MixinDocMerger",
+    "documentation.MixinGuiDocumentationOverlayPanel",
+    "documentation.MixinGuiDocumentationOverlayPanelAccessor",
+    "documentation.MixinGuiScriptPanel"
   ],
   "server": [
   ]
