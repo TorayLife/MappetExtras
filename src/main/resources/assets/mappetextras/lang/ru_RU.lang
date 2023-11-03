@@ -9,6 +9,12 @@ mappetextras.config.comments.main_module.show_version_update_message=Опред�
 mappetextras.config.main_module.show_update_only_if_outdated=Показывать сообщение об обновлении только если есть новая версия
 mappetextras.config.comments.main_module.show_update_only_if_outdated=Показывает сообщение об обновлении только если текущая версия устарела.
 
+mappetextras.config.utils_module.title=Модуль утилит
+mappetextras.config.utils_module.tooltip=Настройки модуля утилит
+
+mappetextras.config.utils_module.code_search_color=Цвет поиска по коду
+mappetextras.config.comments.utils_module.code_search_color=Определяет, каким цветом будет выделяться текст при поиске по коду.
+
 # MAIN
 mappetextras.main_module.update.up_to_date=[§6%s§f] §7У вас установлена последняя версия.
 mappetextras.main_module.update.outdated=[§6%s§f] §7Новая версия §e%s§7 уже доступна (ваша текущая версия §e%s§7).
@@ -24,6 +30,13 @@ mappetextras.main_module.update.button_update_link=Посетить страни
 
 # UTILS
 mappetextras.error=§cОшибка
+mappetextras.todo=§cЗАПЛАНИРОВАНО / НЕ РЕАЛИЗОВАНО
+mappetextras.utils.codesearch.search=Искать
+mappetextras.utils.codesearch.replace=Заменить
+mappetextras.utils.codesearch.close=Закрыть
+mappetextras.utils.codesearch.replace_all=Заменить всё
+mappetextras.utils.codesearch.regex=Регулярное выражение
+mappetextras.utils.codesearch.ignore_case=Игнорировать регистр
 
 # ITEMS
 item.mappetextras.npc_picker.name=НПС пипетка
