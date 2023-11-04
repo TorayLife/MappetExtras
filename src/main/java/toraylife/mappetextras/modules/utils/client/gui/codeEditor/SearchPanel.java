@@ -8,10 +8,12 @@ import mchorse.mclib.client.gui.framework.elements.buttons.GuiToggleElement;
 import mchorse.mclib.client.gui.framework.elements.input.GuiTextElement;
 import mchorse.mclib.client.gui.framework.elements.utils.GuiContext;
 import mchorse.mclib.client.gui.utils.Elements;
+import mchorse.mclib.client.gui.utils.Icon;
 import mchorse.mclib.client.gui.utils.Icons;
 import mchorse.mclib.client.gui.utils.keys.IKey;
 import net.minecraft.client.Minecraft;
 import toraylife.mappetextras.modules.utils.MPEIcons;
+import toraylife.mappetextras.modules.utils.UtilsModule;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -25,8 +27,8 @@ public class SearchPanel extends GuiElement {
     public GuiIconElement replaceIcon;
 
 
-    public String searchString;
-    public String replaceString;
+    public String searchString = "";
+    public String replaceString = "";
 
     public GuiTextEditor code;
 
@@ -38,50 +40,43 @@ public class SearchPanel extends GuiElement {
     public GuiToggleElement toggleReplaceAll;
     public GuiToggleElement toggleIgnoreCase;
 
+    public final int COLOR_ON = 0xFF00FF00;
+    public final int COLOR_OFF = 0xFF888888;
+
     public SearchPanel(Minecraft mc, GuiTextEditor code) {
         super(mc);
 
         this.code = code;
 
         GuiIconElement closeIcon = new GuiIconElement(mc, Icons.CLOSE, (b -> this.toggleSearch()));
-        closeIcon.flex().relative(this).anchor(1F, 0F).x(1F, -5).y(5);
         closeIcon.tooltip(IKey.lang("mappetextras.utils.codesearch.close"));
 
-        GuiIconElement regexIcon = new GuiIconElement(mc, MPEIcons.EMOJI_STUCKOUTTONGUE, (b) -> {
-            this.toggleRegexIcon(b);
-            this.toggleRegex.toggled(!this.toggleRegex.isToggled());
-        }).iconColor(0xFF888888).hoverColor(0xFF888888).hovered(Icons.GRAPH);
+        GuiIconElement regexIcon = new GuiIconElement(mc, MPEIcons.FOOD_POOP, (b) -> {
+            this.toggleIcon(b, MPEIcons.EMOJI_COOL, MPEIcons.FOOD_POOP);
+            this.regex = b.iconColor == COLOR_ON;
+        }).iconColor(COLOR_OFF).hoverColor(COLOR_OFF).hovered(Icons.GRAPH);
         regexIcon.tooltip(IKey.lang("mappetextras.utils.codesearch.regex"));
 
-        this.toggleReplaceAll = new GuiToggleElement(mc, IKey.lang("mappetextras.utils.codesearch.replace_all"), (b) -> {
-            this.replaceAll = b.isToggled();
-        });
-        this.toggleReplaceAll.flex().h(20);
+        GuiIconElement ignoreCaseIcon = new GuiIconElement(mc, MPEIcons.KEY_CAPSLOCK, (b) -> {
+            this.toggleIcon(b, MPEIcons.KEY_CAPSLOCK, MPEIcons.KEY_CAPSLOCK);
+            this.ignoreCase = b.iconColor == COLOR_ON;
+        }).iconColor(COLOR_OFF).hoverColor(COLOR_OFF);
+        ignoreCaseIcon.tooltip(IKey.lang("mappetextras.utils.codesearch.ignore_case"));
 
-        this.toggleRegex = new GuiToggleElement(mc, IKey.lang("mappetextras.utils.codesearch.regex"), (b) -> {
-            this.toggleRegexIcon(regexIcon);
-            this.regex = b.isToggled();
-        });
-        this.toggleRegex.flex().h(20);
+        GuiIconElement replaceAllIcon = new GuiIconElement(mc, Icons.ALL_DIRECTIONS, (b) -> {
+            this.toggleIcon(b, Icons.ALL_DIRECTIONS, Icons.ALL_DIRECTIONS);
+            this.replaceAll = b.iconColor == COLOR_ON;
+        }).iconColor(COLOR_OFF).hoverColor(COLOR_OFF);
+        replaceAllIcon.tooltip(IKey.lang("mappetextras.utils.codesearch.replace_all"));
 
-        this.toggleIgnoreCase = new GuiToggleElement(mc, IKey.lang("mappetextras.utils.codesearch.ignore_case"), (b) -> {
-            this.ignoreCase = b.isToggled();
-        });
-        this.toggleIgnoreCase.flex().h(20);
-
-
-        GuiElement rowIcons = Elements.row(mc, 2, Elements.column(mc, 2, Elements.row(mc, 2, regexIcon, this.toggleRegex), toggleReplaceAll, toggleIgnoreCase), closeIcon);
-
+        GuiElement rowIcons = Elements.row(mc, 0, regexIcon, ignoreCaseIcon, replaceAllIcon, closeIcon);
 
         this.search = new GuiTextElement(mc, s -> this.searchString = s);
 
         this.searchIcon = new GuiIconElement(mc, Icons.SEARCH, (b -> search(this.code)));
         searchIcon.tooltip(IKey.lang("mappetextras.utils.codesearch.search"));
 
-        GuiElement searchLabel = Elements.label(IKey.lang("mappetextras.utils.codesearch.search")).marginTop(6);
-        searchLabel.flex().relative(this).w(0.25F);
-
-        GuiElement rowSearch = Elements.row(mc, 2, searchLabel, this.search, this.searchIcon);
+        GuiElement rowSearch = Elements.row(mc, 2, this.search, this.searchIcon);
         rowSearch.flex().relative(this).x(5).y(0.33F, 5).w(1F, -10).h(0.33F, -10);
 
         this.replace = new GuiTextElement(mc, s -> this.replaceString = s);
@@ -89,13 +84,10 @@ public class SearchPanel extends GuiElement {
         this.replaceIcon = new GuiIconElement(mc, Icons.REVERSE, (b -> this.replace(this.code)));
         replaceIcon.tooltip(IKey.lang("mappetextras.utils.codesearch.replace"));
 
-        GuiElement replaceLabel = Elements.label(IKey.lang("mappetextras.utils.codesearch.replace")).marginTop(6);
-        replaceLabel.flex().relative(this).w(0.25F);
-
-        GuiElement rowReplace = Elements.row(mc, 2, replaceLabel, this.replace, this.replaceIcon);
+        GuiElement rowReplace = Elements.row(mc, 2, this.replace, this.replaceIcon);
         rowReplace.flex().relative(this).x(5).y(0.66F, 5).w(1F, -10).h(0.33F, -10);
 
-        GuiElement column = Elements.column(mc, 5, 10, rowIcons, rowSearch, rowReplace);
+        GuiElement column = Elements.column(mc, 5, 5, rowIcons, rowSearch, rowReplace);
         column.flex().relative(this).wh(1F, 1F);
 
         this.add(column);
@@ -103,9 +95,17 @@ public class SearchPanel extends GuiElement {
 
     @Override
     public void draw(GuiContext context) {
-        this.area.draw(0xCC000000);
+        this.area.draw(UtilsModule.getInstance().codeSearchBackgroundColor.get());
 
         super.draw(context);
+
+        if (!this.search.field.isFocused() && this.search.field.getText().isEmpty()) {
+            this.font.drawStringWithShadow(IKey.lang("mappetextras.utils.codesearch.search").get(), (float) (this.search.area.x + 5), (float) (this.search.area.y + 6), 8947848);
+        }
+
+        if (!this.replace.field.isFocused() && this.replace.field.getText().isEmpty()) {
+            this.font.drawStringWithShadow(IKey.lang("mappetextras.utils.codesearch.replace").get(), (float) (this.replace.area.x + 5), (float) (this.replace.area.y + 6), 8947848);
+        }
     }
 
     public void search(GuiTextEditor code) {
@@ -132,12 +132,12 @@ public class SearchPanel extends GuiElement {
 
     public void toggleSearch() {
         this.setVisible(!this.isVisible());
-        ((GuiTextEditorSearchable) this.code).setSearching(this.search.isVisible());
+        ((GuiTextEditorSearchable) this.code).setSearching(this.isVisible());
     }
 
-    public void toggleRegexIcon(GuiIconElement icon) {
-        icon.iconColor(icon.iconColor == 0xFF00FF00 ? 0xFF888888 : 0xFF00FF00);
-        icon.hoverColor(icon.hoverColor == 0xFF00FF00 ? 0xFF888888 : 0xFF00FF00);
-        icon.icon(icon.icon == MPEIcons.EMOJI_STUCKOUTTONGUE ? MPEIcons.EMOJI_CONFUSED : MPEIcons.EMOJI_STUCKOUTTONGUE);
+    public void toggleIcon(GuiIconElement icon, Icon iconOn, Icon iconOff) {
+        icon.iconColor(icon.iconColor == COLOR_ON ? COLOR_OFF : COLOR_ON);
+        icon.hoverColor(icon.hoverColor == COLOR_ON ? COLOR_OFF : COLOR_ON);
+        icon.icon(icon.icon == iconOff ? iconOn : iconOff);
     }
 }
