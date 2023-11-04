@@ -14,6 +14,10 @@ mappetextras.config.utils_module.tooltip=Utils module mod options
 
 mappetextras.config.utils_module.code_search_color=Code search color
 mappetextras.config.comments.utils_module.code_search_color=Defines what colour the text will be highlighted in when searching by code.
+mappetextras.config.utils_module.code_search_background_color=Search panel background color
+mappetextras.config.comments.utils_module.code_search_background_color=Determines what colour the background of the search panel will be.
+mappetextras.config.utils_module.code_search_on_top=Search panel on top
+mappetextras.config.comments.utils_module.code_search_on_top=If enabled, the search bar will be at the top.
 # MAIN
 mappetextras.main_module.update.up_to_date=[§6%s§f] §7You have the latest version installed.
 mappetextras.main_module.update.outdated=[§6%s§f] §7A new version §e%s§7 is now available (your current version is §e%s§7).
@@ -36,6 +40,7 @@ mappetextras.utils.codesearch.close=Close
 mappetextras.utils.codesearch.replace_all=Replace all
 mappetextras.utils.codesearch.regex=Regular expression
 mappetextras.utils.codesearch.ignore_case=Ignore case
+mappetextras.utils.codesearch.search_and_replace=Search and replace
 
 # ITEMS
 item.mappetextras.npc_picker.name=NPC picker

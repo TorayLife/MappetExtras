@@ -1,6 +1,7 @@
 package toraylife.mappetextras.modules.utils;
 
 import mchorse.mclib.config.ConfigBuilder;
+import mchorse.mclib.config.values.ValueBoolean;
 import mchorse.mclib.config.values.ValueInt;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -11,6 +12,8 @@ import toraylife.mappetextras.modules.IModule;
 public class UtilsModule implements IModule {
 
     public ValueInt codeSearchColor;
+    public ValueInt codeSearchBackgroundColor;
+    public ValueBoolean codeSearchOnTop;
 
     private static UtilsModule instance;
 
@@ -26,6 +29,10 @@ public class UtilsModule implements IModule {
         builder.category("utils_module");
         this.codeSearchColor = builder.getInt("code_search_color", 0x22FFFFAA).colorAlpha();
         this.codeSearchColor.clientSide();
+        this.codeSearchBackgroundColor = builder.getInt("code_search_background_color", 0xCC000000).colorAlpha();
+        this.codeSearchBackgroundColor.clientSide();
+        this.codeSearchOnTop = builder.getBoolean("code_search_on_top", false);
+        this.codeSearchOnTop.clientSide();
     }
 
     @Override

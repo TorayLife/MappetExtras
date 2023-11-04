@@ -9,7 +9,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import toraylife.mappetextras.modules.utils.UtilsModule;
 import toraylife.mappetextras.modules.utils.client.gui.codeEditor.GuiTextEditorSearchable;
 
@@ -50,47 +49,51 @@ public abstract class MixinGuiTextEditor extends MixinGuiMultiTextElement implem
         this.pattern = pattern;
     }
 
-    @Inject(method = "drawForeground", at = @At("TAIL"), locals = LocalCapture.CAPTURE_FAILHARD)
+    @Inject(method = "drawForeground", at = @At("TAIL"))
     public void drawForeground(GuiContext context, CallbackInfo ci) {
         if (!isSearching || pattern == null) {
             return;
         }
 
-        int x = this.area.x + this.padding + this.placements;
-        int y = this.area.y + this.padding;
+        int x = this.area.x + this.padding + this.placements - this.horizontal.scroll + 2;
+        int y = this.area.y + this.padding - this.vertical.scroll;
 
-        Matcher matcher = pattern.matcher(this.getText());
+        String text = this.getText();
+        int lastLineBreak = text.lastIndexOf("\n");
+        Matcher matcher = pattern.matcher(text);
 
         while (matcher.find()) {
             int start = matcher.start();
-            int end = matcher.end();
-            int length = end - start;
-            int indexOfLineBreaker = 0;
+            int lineBreakIndex = 0;
             int temp = -1;
             int lines = 0;
-            int lastLineBreak = this.getText().lastIndexOf("\n");
-            while ((temp = this.getText().indexOf("\n", temp + 1)) < start && temp < lastLineBreak) {
-                indexOfLineBreaker = temp;
+            while ((temp = text.indexOf("\n", temp + 1)) < start && temp < lastLineBreak) {
+                lineBreakIndex = temp;
                 lines++;
-                if (this.getText().indexOf("\n", temp + 1) == lastLineBreak) {
-                    indexOfLineBreaker = lastLineBreak;
+                int nextIndex = text.indexOf("\n", temp + 1);
+                if (nextIndex == lastLineBreak && nextIndex < start) {
+                    lineBreakIndex = lastLineBreak;
                     lines++;
                     break;
                 }
             }
-            int drawX = x + (indexOfLineBreaker == 0 ? this.padding : 0) + 2 - this.horizontal.scroll;
-            int drawY = y + lines * this.lineHeight - this.vertical.scroll;
-
-            if (indexOfLineBreaker > start) {
-                drawY -= this.lineHeight;
-                drawX += this.padding;
-            } else {
-                drawX += this.font.getStringWidth(this.getText().substring(indexOfLineBreaker, start));
-            }
-
-            this.drawSelectionArea(drawX, drawY, drawX + this.font.getStringWidth(this.getText().substring(start, end)) - 4, drawY);
+            this.drawSearchArea(x, y, text, lineBreakIndex, lines, start, matcher.end());
         }
         matcher.reset();
+    }
+
+    private void drawSearchArea(int x, int y, String text, int lineBreakIndex, int lines, int start, int end) {
+        int drawX = x + (lineBreakIndex == 0 ? this.padding : 0);
+        int drawY = y + lines * this.lineHeight;
+
+        if (lineBreakIndex > start) {
+            drawY -= this.lineHeight;
+            drawX += this.padding;
+        } else {
+            drawX += this.font.getStringWidth(text.substring(lineBreakIndex, start));
+        }
+
+        this.drawSelectionArea(drawX, drawY, drawX + this.font.getStringWidth(text.substring(start, end)) - 4, drawY);
     }
 
     private void drawSelectionArea(int x1, int y1, int x2, int y2) {
