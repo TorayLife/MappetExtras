@@ -4,7 +4,6 @@ import mchorse.mappet.client.gui.scripts.GuiTextEditor;
 import mchorse.mappet.client.gui.utils.text.undo.TextEditUndo;
 import mchorse.mclib.client.gui.framework.elements.GuiElement;
 import mchorse.mclib.client.gui.framework.elements.buttons.GuiIconElement;
-import mchorse.mclib.client.gui.framework.elements.buttons.GuiToggleElement;
 import mchorse.mclib.client.gui.framework.elements.input.GuiTextElement;
 import mchorse.mclib.client.gui.framework.elements.utils.GuiContext;
 import mchorse.mclib.client.gui.utils.Elements;
@@ -26,6 +25,11 @@ public class SearchPanel extends GuiElement {
     public GuiTextElement replace;
     public GuiIconElement replaceIcon;
 
+    public GuiIconElement closeIcon;
+    public GuiIconElement regexIcon;
+    public GuiIconElement ignoreCaseIcon;
+    public GuiIconElement replaceAllIcon;
+
 
     public String searchString = "";
     public String replaceString = "";
@@ -36,10 +40,6 @@ public class SearchPanel extends GuiElement {
     public boolean replaceAll = false;
     public boolean ignoreCase = false;
 
-    public GuiToggleElement toggleRegex;
-    public GuiToggleElement toggleReplaceAll;
-    public GuiToggleElement toggleIgnoreCase;
-
     public final int COLOR_ON = 0xFF00FF00;
     public final int COLOR_OFF = 0xFF888888;
 
@@ -48,28 +48,28 @@ public class SearchPanel extends GuiElement {
 
         this.code = code;
 
-        GuiIconElement closeIcon = new GuiIconElement(mc, Icons.CLOSE, (b -> this.toggleSearch()));
+        this.closeIcon = new GuiIconElement(mc, Icons.CLOSE, (b -> this.toggleSearch()));
         closeIcon.tooltip(IKey.lang("mappetextras.utils.codesearch.close"));
 
-        GuiIconElement regexIcon = new GuiIconElement(mc, MPEIcons.FOOD_POOP, (b) -> {
-            this.toggleIcon(b, MPEIcons.EMOJI_COOL, MPEIcons.FOOD_POOP);
+        this.regexIcon = new GuiIconElement(mc, MPEIcons.EMOJI_STUCKOUTTONGUE, (b) -> {
+            this.toggleIcon(b, MPEIcons.EMOJI_COOL, MPEIcons.EMOJI_STUCKOUTTONGUE);
             this.regex = b.iconColor == COLOR_ON;
         }).iconColor(COLOR_OFF).hoverColor(COLOR_OFF).hovered(Icons.GRAPH);
         regexIcon.tooltip(IKey.lang("mappetextras.utils.codesearch.regex"));
 
-        GuiIconElement ignoreCaseIcon = new GuiIconElement(mc, MPEIcons.KEY_CAPSLOCK, (b) -> {
+        this.ignoreCaseIcon = new GuiIconElement(mc, MPEIcons.KEY_CAPSLOCK, (b) -> {
             this.toggleIcon(b, MPEIcons.KEY_CAPSLOCK, MPEIcons.KEY_CAPSLOCK);
             this.ignoreCase = b.iconColor == COLOR_ON;
         }).iconColor(COLOR_OFF).hoverColor(COLOR_OFF);
         ignoreCaseIcon.tooltip(IKey.lang("mappetextras.utils.codesearch.ignore_case"));
 
-        GuiIconElement replaceAllIcon = new GuiIconElement(mc, Icons.ALL_DIRECTIONS, (b) -> {
+        this.replaceAllIcon = new GuiIconElement(mc, Icons.ALL_DIRECTIONS, (b) -> {
             this.toggleIcon(b, Icons.ALL_DIRECTIONS, Icons.ALL_DIRECTIONS);
             this.replaceAll = b.iconColor == COLOR_ON;
         }).iconColor(COLOR_OFF).hoverColor(COLOR_OFF);
         replaceAllIcon.tooltip(IKey.lang("mappetextras.utils.codesearch.replace_all"));
 
-        GuiElement rowIcons = Elements.row(mc, 0, regexIcon, ignoreCaseIcon, replaceAllIcon, closeIcon);
+        GuiElement rowIcons = Elements.row(mc, 5, Elements.row(mc, 5, regexIcon, ignoreCaseIcon, replaceAllIcon), closeIcon);
 
         this.search = new GuiTextElement(mc, s -> this.searchString = s);
 
