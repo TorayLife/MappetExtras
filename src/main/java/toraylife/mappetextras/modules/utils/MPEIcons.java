@@ -1,9 +1,8 @@
 package toraylife.mappetextras.modules.utils;
 
-import net.minecraft.util.ResourceLocation;
-
 import mchorse.mclib.client.gui.utils.Icon;
 import mchorse.mclib.client.gui.utils.IconRegistry;
+import net.minecraft.util.ResourceLocation;
 import toraylife.mappetextras.MappetExtras;
 
 public class MPEIcons {
@@ -46,13 +45,14 @@ public class MPEIcons {
     public static final Icon SOLID_LIKE = new Icon(LVICONS, 80, 240);
 
     public static final Icon SOLID_DISLIKE = new Icon(LVICONS, 96, 240);
-
+    public static final Icon HUB = new Icon(LVICONS, 112, 240);
+    public static final Icon GITHUB = new Icon(LVICONS, 128, 240);
 
     public static final Icon OTHER_BRIEFCASE = new Icon(LVICONS, 0, 0);
 
     public static final Icon OTHER_MEDKIT = new Icon(LVICONS, 16, 0);
 
-    public static final Icon OTHER_PURSE = new Icon(LVICONS, 32, 0);
+    public static final Icon OTHER_WALLET = new Icon(LVICONS, 32, 0);
 
     public static final Icon OTHER_HANGER = new Icon(LVICONS, 48, 0);
 
@@ -112,11 +112,14 @@ public class MPEIcons {
 
     public static final Icon ADMINPANEL_VOICE_RED_CROSS = new Icon(LVICONS, 128, 32);
 
-    public static final Icon ADMINPANEL_SPEACKER = new Icon(LVICONS, 144, 32);
+    public static final Icon ADMINPANEL_SPEAKER = new Icon(LVICONS, 144, 32);
 
-    public static final Icon ADMINPANEL_SPEACKER_WHITE_CROSS = new Icon(LVICONS, 160, 32);
+    public static final Icon ADMINPANEL_SPEAKER_WHITE_CROSS = new Icon(LVICONS, 160, 32);
 
-    public static final Icon ADMINPANEL_SPEACKER_RED_CROSS = new Icon(LVICONS, 176, 32);
+    public static final Icon ADMINPANEL_SPEAKER_RED_CROSS = new Icon(LVICONS, 176, 32);
+    public static final Icon ADMINPANEL_SPEAKER_MUTED = new Icon(LVICONS, 192, 32);
+    public static final Icon ADMINPANEL_SPEAKER_LOW = new Icon(LVICONS, 208, 32);
+    public static final Icon ADMINPANEL_SPEAKER_HIGH = new Icon(LVICONS, 224, 32);
 
     public static final Icon TOOLS_SWORD = new Icon(LVICONS, 0, 48);
 
@@ -190,6 +193,8 @@ public class MPEIcons {
 
     public static final Icon CLOTHES_SNEAKERS = new Icon(LVICONS, 192, 80);
 
+    public static final Icon CLOTHES_MOUSTACHE = new Icon(LVICONS, 208, 80);
+
     public static final Icon DEVICE_LAPTOP = new Icon(LVICONS, 0, 96);
 
     public static final Icon DEVICE_COMPUTER = new Icon(LVICONS, 16, 96);
@@ -198,17 +203,17 @@ public class MPEIcons {
 
     public static final Icon DEVICE_DISKDRIVE = new Icon(LVICONS, 48, 96);
 
-    public static final Icon DEVICE_TELEPHONE = new Icon(LVICONS, 64, 96);
+    public static final Icon DEVICE_PHONE = new Icon(LVICONS, 64, 96);
 
     public static final Icon DEVICE_RADIO = new Icon(LVICONS, 80, 96);
 
     public static final Icon DEVICE_CAMERA = new Icon(LVICONS, 96, 96);
 
-    public static final Icon DEVICE_ARCADEMACHINE = new Icon(LVICONS, 112, 96);
+    public static final Icon DEVICE_ARCADE = new Icon(LVICONS, 112, 96);
 
     public static final Icon DEVICE_ANTENNA = new Icon(LVICONS, 128, 96);
 
-    public static final Icon DEVICE_WATCH = new Icon(LVICONS, 144, 96);
+    public static final Icon DEVICE_CLOCK = new Icon(LVICONS, 144, 96);
 
     public static final Icon DEVICE_MOUSE = new Icon(LVICONS, 160, 96);
 
@@ -220,7 +225,7 @@ public class MPEIcons {
 
     public static final Icon DEVICE_HEADPHONES = new Icon(LVICONS, 224, 96);
 
-    public static final Icon DEVICE_COLUMN = new Icon(LVICONS, 240, 96);
+    public static final Icon DEVICE_SPEAKER = new Icon(LVICONS, 240, 96);
 
     public static final Icon COMPUTER_CURSOR = new Icon(LVICONS, 0, 112);
 
@@ -280,8 +285,6 @@ public class MPEIcons {
 
     public static final Icon COMPUTER_NOTE_2 = new Icon(LVICONS, 192, 128);
 
-    public static final Icon COMPUTER_BATTERY = new Icon(LVICONS, 208, 128);
-
     public static final Icon PAINT_PENCIL = new Icon(LVICONS, 0, 144);
 
     public static final Icon PAINT_PENCILERASER = new Icon(LVICONS, 16, 144);
@@ -292,11 +295,13 @@ public class MPEIcons {
 
     public static final Icon PAINT_BRUSH_2 = new Icon(LVICONS, 64, 144);
 
-    public static final Icon PAINT_PIPPETE = new Icon(LVICONS, 80, 144);
+    public static final Icon PAINT_PICKER = new Icon(LVICONS, 80, 144);
 
-    public static final Icon PAINT_POURING = new Icon(LVICONS, 96, 144);
+    public static final Icon PAINT_ERASER = new Icon(LVICONS, 96, 144);
 
-    public static final Icon PAINT_CUT = new Icon(LVICONS, 112, 144);
+    public static final Icon PAINT_POURING = new Icon(LVICONS, 112, 144);
+
+    public static final Icon PAINT_CUT = new Icon(LVICONS, 128, 144);
 
     public static final Icon FOOD_PAN = new Icon(LVICONS, 0, 160);
 
@@ -346,11 +351,12 @@ public class MPEIcons {
 
     public static final Icon FOOD_CIGARETTE = new Icon(LVICONS, 112, 176);
 
-    public static final Icon FOOD_TUBE = new Icon(LVICONS, 128, 176);
+    public static final Icon FOOD_PIPE = new Icon(LVICONS, 128, 176);
 
     public static final Icon FOOD_LIGHTER = new Icon(LVICONS, 144, 176);
 
     public static final Icon FOOD_HOOKAH = new Icon(LVICONS, 160, 176);
+    public static final Icon FOOD_POOP = new Icon(LVICONS, 176, 176);
 
     public static final Icon EMOJI_SMILEY = new Icon(LVICONS, 0, 192);
 
@@ -358,21 +364,22 @@ public class MPEIcons {
 
     public static final Icon EMOJI_STUCKOUTTONGUE = new Icon(LVICONS, 32, 192);
 
-    public static final Icon EMOJI_GRINNING = new Icon(LVICONS, 48, 192);
+    public static final Icon EMOJI_SMIRKING = new Icon(LVICONS, 48, 192);
 
-    public static final Icon EMOJI_CONFUSED = new Icon(LVICONS, 64, 192);
+    public static final Icon EMOJI_COOL = new Icon(LVICONS, 64, 192);
 
     public static final Icon EMOJI_SOB = new Icon(LVICONS, 80, 192);
 
     public static final Icon EMOJI_VERYSOB = new Icon(LVICONS, 96, 192);
 
-    public static final Icon EMOJI_RAGE = new Icon(LVICONS, 112, 192);
+    public static final Icon EMOJI_CONFUSED = new Icon(LVICONS, 112, 192);
+    public static final Icon EMOJI_RAGE = new Icon(LVICONS, 128, 192);
 
-    public static final Icon EMOJI_SKULL_LARGE = new Icon(LVICONS, 128, 192);
+    public static final Icon EMOJI_SKULL_LARGE = new Icon(LVICONS, 144, 192);
 
-    public static final Icon EMOJI_SKULL_MEDIUM = new Icon(LVICONS, 144, 192);
+    public static final Icon EMOJI_SKULL_MEDIUM = new Icon(LVICONS, 160, 192);
 
-    public static final Icon EMOJI_SKULL_SMALL = new Icon(LVICONS, 160, 192);
+    public static final Icon EMOJI_SKULL_SMALL = new Icon(LVICONS, 176, 192);
 
     public static final Icon MONEY_COIN = new Icon(LVICONS, 0, 208);
 
@@ -381,8 +388,6 @@ public class MPEIcons {
     public static final Icon MONEY_BANKNOTES = new Icon(LVICONS, 32, 208);
 
     public static final Icon MONEY_BAGMONEY = new Icon(LVICONS, 48, 208);
-
-    public static final Icon MONEY_CREDIT = new Icon(LVICONS, 64, 208);
 
     //KEYBOARD
 
@@ -628,10 +633,12 @@ public class MPEIcons {
         IconRegistry.register("twitter", TWITTER);
         IconRegistry.register("solid_like", SOLID_LIKE);
         IconRegistry.register("solid_dislike", SOLID_DISLIKE);
+        IconRegistry.register("hub", HUB);
+        IconRegistry.register("github", GITHUB);
 
         IconRegistry.register("other_briefcase", OTHER_BRIEFCASE);
         IconRegistry.register("other_medkit", OTHER_MEDKIT);
-        IconRegistry.register("other_purse", OTHER_PURSE);
+        IconRegistry.register("other_wallet", OTHER_WALLET);
         IconRegistry.register("other_hanger", OTHER_HANGER);
         IconRegistry.register("other_stats", OTHER_STATS);
         IconRegistry.register("other_banner", OTHER_BANNER);
@@ -649,7 +656,6 @@ public class MPEIcons {
         IconRegistry.register("other_backpack", OTHER_BACKPACK);
         IconRegistry.register("other_glosary", OTHER_GLOSARY);
         IconRegistry.register("other_book", OTHER_BOOK);
-        IconRegistry.register("other_glosary", OTHER_GLOSARY);
         IconRegistry.register("other_document", OTHER_DOCUMENT);
         IconRegistry.register("other_candle", OTHER_CANDLE);
         IconRegistry.register("other_hook", OTHER_HOOK);
@@ -663,9 +669,12 @@ public class MPEIcons {
         IconRegistry.register("adminpanel_voice", ADMINPANEL_VOICE);
         IconRegistry.register("adminpanel_white_voice", ADMINPANEL_VOICE_WHITE_CROSS);
         IconRegistry.register("adminpanel_red_voice", ADMINPANEL_VOICE_RED_CROSS);
-        IconRegistry.register("adminpanel_speacker", ADMINPANEL_SPEACKER);
-        IconRegistry.register("adminpanel_speacker_white_cross", ADMINPANEL_SPEACKER_WHITE_CROSS);
-        IconRegistry.register("adminpanel_speacker_red_cross", ADMINPANEL_SPEACKER_RED_CROSS);
+        IconRegistry.register("adminpanel_speaker", ADMINPANEL_SPEAKER);
+        IconRegistry.register("adminpanel_speaker_white_cross", ADMINPANEL_SPEAKER_WHITE_CROSS);
+        IconRegistry.register("adminpanel_speaker_red_cross", ADMINPANEL_SPEAKER_RED_CROSS);
+        IconRegistry.register("adminpanel_speaker_muted", ADMINPANEL_SPEAKER_MUTED);
+        IconRegistry.register("adminpanel_speaker_low", ADMINPANEL_SPEAKER_LOW);
+        IconRegistry.register("adminpanel_speaker_high", ADMINPANEL_SPEAKER_HIGH);
 
         IconRegistry.register("tools_sword", TOOLS_SWORD);
         IconRegistry.register("tools_knife", TOOLS_KNIFE);
@@ -704,40 +713,38 @@ public class MPEIcons {
         IconRegistry.register("clothes_pants", CLOTHES_PANTS);
         IconRegistry.register("clothes_boots", CLOTHES_BOOTS);
         IconRegistry.register("clothes_sneakers", CLOTHES_SNEAKERS);
-        IconRegistry.register("clothes_laptop", DEVICE_LAPTOP);
-        IconRegistry.register("clothes_sneakers", CLOTHES_SNEAKERS);
+        IconRegistry.register("clothes_moustache", CLOTHES_MOUSTACHE);
 
+        IconRegistry.register("device_laptop", DEVICE_LAPTOP);
         IconRegistry.register("device_computer", DEVICE_COMPUTER);
         IconRegistry.register("device_computer_2", DEVICE_COMPUTER_2);
-        IconRegistry.register("device_light", COMPUTER_LIGHT);
         IconRegistry.register("device_diskdrive", DEVICE_DISKDRIVE);
-        IconRegistry.register("device_telephone", DEVICE_TELEPHONE);
+        IconRegistry.register("device_phone", DEVICE_PHONE);
         IconRegistry.register("device_radio", DEVICE_RADIO);
         IconRegistry.register("device_camera", DEVICE_CAMERA);
-        IconRegistry.register("device_arcadeMachine", DEVICE_ARCADEMACHINE);
+        IconRegistry.register("device_arcade", DEVICE_ARCADE);
         IconRegistry.register("device_antenna", DEVICE_ANTENNA);
-        IconRegistry.register("device_watch", DEVICE_WATCH);
+        IconRegistry.register("device_clock", DEVICE_CLOCK);
         IconRegistry.register("device_mouse", DEVICE_MOUSE);
-        IconRegistry.register("device_watch", DEVICE_WATCH);
         IconRegistry.register("device_keyboard", DEVICE_KEYBOARD);
         IconRegistry.register("device_gamepad", DEVICE_GAMEPAD);
         IconRegistry.register("device_microphone", DEVICE_MICROPHONE);
         IconRegistry.register("device_headphones", DEVICE_HEADPHONES);
-        IconRegistry.register("device_column", DEVICE_COLUMN);
-        IconRegistry.register("device_cursor", COMPUTER_CURSOR);
-        IconRegistry.register("device_click", COMPUTER_CLICK);
-        IconRegistry.register("device_shutdown", COMPUTER_SHUTDOWN);
+        IconRegistry.register("device_speaker", DEVICE_SPEAKER);
 
+        IconRegistry.register("computer_light", COMPUTER_LIGHT);
+        IconRegistry.register("computer_cursor", COMPUTER_CURSOR);
+        IconRegistry.register("computer_click", COMPUTER_CLICK);
+        IconRegistry.register("computer_shutdown", COMPUTER_SHUTDOWN);
         IconRegistry.register("computer_settings", COMPUTER_SETTINGS);
         IconRegistry.register("computer_usb", COMPUTER_USB);
         IconRegistry.register("computer_battery_4", COMPUTER_BATTERY_4);
         IconRegistry.register("computer_battery_3", COMPUTER_BATTERY_3);
         IconRegistry.register("computer_battery_2", COMPUTER_BATTERY_2);
         IconRegistry.register("computer_battery_1", COMPUTER_BATTERY_1);
-        IconRegistry.register("computer_battery", COMPUTER_BATTERY);
         IconRegistry.register("computer_battery_charging", COMPUTER_CHARGING);
-        IconRegistry.register("computer_battery_notification", COMPUTER_NOTIFICATION);
-        IconRegistry.register("computer_battery_defender", COMPUTER_DEFENDER);
+        IconRegistry.register("computer_notification", COMPUTER_NOTIFICATION);
+        IconRegistry.register("computer_defender", COMPUTER_DEFENDER);
         IconRegistry.register("computer_home", COMPUTER_HOME);
         IconRegistry.register("computer_mail", COMPUTER_MAIL);
         IconRegistry.register("computer_market", COMPUTER_MARKET);
@@ -760,7 +767,8 @@ public class MPEIcons {
         IconRegistry.register("paint_highlithter", PAINT_HIGHLITGHTER);
         IconRegistry.register("paint_brush", PAINT_BRUSH);
         IconRegistry.register("paint_brush_2", PAINT_BRUSH_2);
-        IconRegistry.register("paint_pippete", PAINT_PIPPETE);
+        IconRegistry.register("paint_picker", PAINT_PICKER);
+        IconRegistry.register("paint_eraser", PAINT_ERASER);
         IconRegistry.register("paint_pouring", PAINT_POURING);
         IconRegistry.register("paint_cut", PAINT_CUT);
 
@@ -788,17 +796,19 @@ public class MPEIcons {
         IconRegistry.register("food_vial", FOOD_VIAL);
         IconRegistry.register("food_potion", FOOD_POTION);
         IconRegistry.register("food_cigarette", FOOD_CIGARETTE);
-        IconRegistry.register("food_tube", FOOD_TUBE);
+        IconRegistry.register("food_pipe", FOOD_PIPE);
         IconRegistry.register("food_lighter", FOOD_LIGHTER);
         IconRegistry.register("food_hookah", FOOD_HOOKAH);
+        IconRegistry.register("food_poop", FOOD_POOP);
 
         IconRegistry.register("emoji_smiley", EMOJI_SMILEY);
         IconRegistry.register("emoji_relaxed", EMOJI_RELAXED);
         IconRegistry.register("emoji_stuckOutTongue", EMOJI_STUCKOUTTONGUE);
-        IconRegistry.register("emoji_grinning", EMOJI_GRINNING);
-        IconRegistry.register("emoji_confused", EMOJI_CONFUSED);
+        IconRegistry.register("emoji_smirking", EMOJI_SMIRKING);
+        IconRegistry.register("emoji_cool", EMOJI_COOL);
         IconRegistry.register("emoji_sob", EMOJI_SOB);
         IconRegistry.register("emoji_verySob", EMOJI_VERYSOB);
+        IconRegistry.register("emoji_confused", EMOJI_CONFUSED);
         IconRegistry.register("emoji_rage", EMOJI_RAGE);
         IconRegistry.register("emoji_skull_large", EMOJI_SKULL_LARGE);
         IconRegistry.register("emoji_skull_medium", EMOJI_SKULL_MEDIUM);
@@ -808,7 +818,6 @@ public class MPEIcons {
         IconRegistry.register("money_coinDollar", MONEY_COINDOLLAR);
         IconRegistry.register("money_banknotes", MONEY_BANKNOTES);
         IconRegistry.register("money_bagMoney", MONEY_BAGMONEY);
-        IconRegistry.register("money_credit", MONEY_CREDIT);
 
         IconRegistry.register("key_escape", KEY_ESCAPE);
         IconRegistry.register("key_f1", KEY_F1);
