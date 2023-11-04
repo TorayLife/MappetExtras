@@ -124,8 +124,7 @@ public class SearchPanel extends GuiElement {
         this.code.selectAll();
         TextEditUndo undo = new TextEditUndo(this.code);
         this.code.deleteSelection();
-
-        code.setText(this.replaceAll ? matcher.replaceAll(replaceString) : matcher.replaceFirst(replaceString));
+        code.writeString(this.replaceAll ? matcher.replaceAll(replaceString) : matcher.replaceFirst(replaceString));
         undo.ready().post(code.getText(), this.code.cursor, this.code.selection);
         ((GuiTextEditorSearchable) this.code).getUndo().pushUndo(undo);
     }
