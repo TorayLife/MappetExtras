@@ -28,7 +28,6 @@ import toraylife.mappetextras.modules.utils.client.gui.codeEditor.GuiTextEditorS
 import toraylife.mappetextras.modules.utils.client.gui.codeEditor.SearchPanel;
 
 import javax.script.ScriptException;
-
 @Mixin(value = GuiScriptPanel.class, remap = false)
 public abstract class MixinGuiScriptPanel extends GuiMappetDashboardPanel {
 

@@ -12,12 +12,14 @@ mappetextras.config.comments.main_module.show_update_only_if_outdated=Only show 
 mappetextras.config.utils_module.title=Utils module
 mappetextras.config.utils_module.tooltip=Utils module mod options
 
-mappetextras.config.utils_module.code_search_color=Code search color
-mappetextras.config.comments.utils_module.code_search_color=Defines what colour the text will be highlighted in when searching by code.
-mappetextras.config.utils_module.code_search_background_color=Search panel background color
-mappetextras.config.comments.utils_module.code_search_background_color=Determines what colour the background of the search panel will be.
-mappetextras.config.utils_module.code_search_on_top=Search panel on top
-mappetextras.config.comments.utils_module.code_search_on_top=If enabled, the search bar will be at the top.
+mappetextras.config.utils_module.code_search.title=Code search
+mappetextras.config.utils_module.code_search.tooltip=Code search options
+mappetextras.config.utils_module.code_search.code_search_color=Highlight color
+mappetextras.config.comments.utils_module.code_search.code_search_color=Defines what colour the text will be highlighted in when searching by code.
+mappetextras.config.utils_module.code_search.code_search_background_color=Panel background color
+mappetextras.config.comments.utils_module.code_search.code_search_background_color=Determines what colour the background of the search panel will be.
+mappetextras.config.utils_module.code_search.code_search_on_top=Panel on top
+mappetextras.config.comments.utils_module.code_search.code_search_on_top=If enabled, the search bar will be at the top.
 
 mappetextras.config.utils_module.beautifier.title=Beautifier
 mappetextras.config.utils_module.beautifier.tooltip=Beautifier (code improver) options
@@ -53,6 +55,7 @@ mappetextras.utils.codesearch.ignore_case=Ignore case
 mappetextras.utils.codesearch.search_and_replace=Search and replace
 
 mappetextras.utils_module.beautify=Beautify
+
 
 # ITEMS
 item.mappetextras.npc_picker.name=NPC picker

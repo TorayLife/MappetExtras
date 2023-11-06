@@ -11,6 +11,7 @@ import toraylife.mappetextras.modules.client.network.PacketClientData;
 import toraylife.mappetextras.modules.client.providers.ClipboardProvider;
 import toraylife.mappetextras.modules.client.providers.MousePositionProvider;
 import toraylife.mappetextras.modules.client.providers.PerspectiveProvider;
+import toraylife.mappetextras.modules.client.providers.SettingProvider;
 import toraylife.mappetextras.modules.client.providers.ResolutionProvider;
 import toraylife.mappetextras.modules.main.documentation.MixinTargetName;
 import toraylife.mappetextras.network.Dispatcher;
@@ -20,6 +21,7 @@ import java.util.function.Consumer;
 @Mixin(value = ScriptPlayer.class, remap = false)
 @MixinTargetName("mchorse.mappet.api.scripts.user.entities.IScriptPlayer")
 public abstract class MixinScriptPlayer{
+
     @Shadow public abstract EntityPlayerMP getMinecraftPlayer();
 
     public void setPerspective(Integer perspective){
@@ -85,6 +87,18 @@ public abstract class MixinScriptPlayer{
         Dispatcher.sendTo(new PacketClientData(ClientData.MOUSEPOSITION, AccessType.GET_WITH_DATA, nbtTagCompound, data), this.getMinecraftPlayer());
     }
 
+    public void getSetting(String key, Consumer<Object> callback) throws NoSuchFieldException, IllegalAccessException {
+        NBTTagCompound data = new NBTTagCompound();
+        data.setString("key", key);
+
+        NBTTagCompound nbtTagCompound = new NBTTagCompound();
+        nbtTagCompound.setString(ClientData.SETTING.toString(), new SettingProvider().getData(data).getString(ClientData.SETTING.toString()));
+
+        PacketClientData.сallBack.put(this.getMinecraftPlayer().getUniqueID(), callback);
+
+        Dispatcher.sendTo(new PacketClientData(ClientData.SETTING, AccessType.GET_WITH_DATA, nbtTagCompound, data), this.getMinecraftPlayer());
+    }
+
     public void setSetting(String key, Object value) {
         NBTTagCompound nbtTagCompound = new NBTTagCompound();
 
@@ -92,16 +106,6 @@ public abstract class MixinScriptPlayer{
         nbtTagCompound.setString("value", value.toString());
 
         Dispatcher.sendTo(new PacketClientData(ClientData.SETTING, AccessType.SET, nbtTagCompound), this.getMinecraftPlayer());
-    }
-
-    public void getSetting(String key, Consumer<Object> callback) {
-        NBTTagCompound nbtTagCompound = new NBTTagCompound();
-
-        nbtTagCompound.setString("key", key);
-
-        PacketClientData.сallBack.put(this.getMinecraftPlayer().getUniqueID(), callback);
-
-        Dispatcher.sendTo(new PacketClientData(ClientData.SETTING, AccessType.GET_WITH_DATA, nbtTagCompound), this.getMinecraftPlayer());
     }
 
     public void getResolution(Consumer<Object> callback) {

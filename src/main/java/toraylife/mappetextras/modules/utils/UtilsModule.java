@@ -22,7 +22,7 @@ public class UtilsModule implements IModule {
     public ValueBoolean beautifierIndentEmptyLines;
     public ValueBoolean beautifierUnindentChainedMethods;
     public ValueBoolean beautifierBreakChainedMethods;
-
+  
     private static UtilsModule instance;
 
     public static UtilsModule getInstance() {
@@ -35,6 +35,8 @@ public class UtilsModule implements IModule {
     @Override
     public void addConfigOptions(ConfigBuilder builder) {
         builder.category("utils_module");
+      
+        builder.category("utils_module.code_search");
         this.codeSearchColor = (ValueInt) builder.getInt("code_search_color", 0x22FFFFAA).colorAlpha().clientSide();
         this.codeSearchBackgroundColor = (ValueInt) builder.getInt("code_search_background_color", 0xCC000000).colorAlpha().clientSide();
         this.codeSearchOnTop = (ValueBoolean) builder.getBoolean("code_search_on_top", false).clientSide();
