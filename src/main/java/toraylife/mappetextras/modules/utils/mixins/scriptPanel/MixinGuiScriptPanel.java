@@ -3,12 +3,9 @@ package toraylife.mappetextras.modules.utils.mixins.scriptPanel;
 import mchorse.mappet.client.gui.GuiMappetDashboard;
 import mchorse.mappet.client.gui.panels.GuiMappetDashboardPanel;
 import mchorse.mappet.client.gui.panels.GuiScriptPanel;
-import mchorse.mappet.client.gui.scripts.GuiRepl;
 import mchorse.mappet.client.gui.scripts.GuiTextEditor;
 import mchorse.mappet.client.gui.utils.text.undo.TextEditUndo;
 import mchorse.mclib.client.gui.framework.elements.buttons.GuiIconElement;
-import mchorse.mclib.client.gui.framework.elements.context.GuiContextMenu;
-import mchorse.mclib.client.gui.framework.elements.context.GuiSimpleContextMenu;
 import mchorse.mclib.client.gui.utils.keys.IKey;
 import mchorse.mclib.utils.Direction;
 import net.minecraft.client.Minecraft;
@@ -18,8 +15,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import toraylife.mappetextras.modules.utils.MPEIcons;
 import toraylife.mappetextras.modules.utils.UtilsModule;
 import toraylife.mappetextras.modules.utils.client.Beautifier;
@@ -34,9 +29,8 @@ public abstract class MixinGuiScriptPanel extends GuiMappetDashboardPanel {
     @Shadow
     public GuiTextEditor code;
 
-    @Shadow
-    public GuiRepl repl;
     public GuiIconElement searchIcon;
+    public GuiIconElement beautifierIcon;
     public SearchPanel search;
 
     public MixinGuiScriptPanel(Minecraft mc, GuiMappetDashboard dashboard) {
@@ -51,40 +45,38 @@ public abstract class MixinGuiScriptPanel extends GuiMappetDashboardPanel {
         this.search.setVisible(false);
         this.editor.add(this.search);
 
-        this.code.keys().ignoreFocus().register(IKey.lang("mappetextras.todo"), Keyboard.KEY_F, this.search::toggleSearch)
+        this.code.keys().ignoreFocus().register(IKey.lang("mappetextras.utils.codesearch.search_and_replace"), Keyboard.KEY_F, this.search::toggleSearch)
                 .category(GuiMappetDashboardPanel.KEYS_CATEGORY)
                 .held(Keyboard.KEY_LCONTROL);
+        this.code.keys().ignoreFocus().register(IKey.lang("mappetextras.utils_module.beautify"), Keyboard.KEY_L, () -> this.onBeautifierAction(this.code))
+                .category(GuiMappetDashboardPanel.KEYS_CATEGORY)
+                .held(Keyboard.KEY_LCONTROL)
+                .held(Keyboard.KEY_LMENU);
 
-        this.searchIcon = new GuiIconElement(mc, MPEIcons.FOOD_PIPE, (b) -> {
-            this.search.toggleSearch();
-        });
+        this.searchIcon = new GuiIconElement(mc, MPEIcons.FOOD_PIPE, (b) -> this.search.toggleSearch());
         this.searchIcon.setVisible(this.data != null && this.allowed && this.code.isVisible());
         this.searchIcon.tooltip(IKey.lang("mappetextras.utils.codesearch.search_and_replace"), Direction.LEFT);
 
+        this.beautifierIcon = new GuiIconElement(mc, MPEIcons.CLOTHES_FAVOUR, (b) -> this.onBeautifierAction(this.code));
+        this.beautifierIcon.setVisible(this.data != null && this.allowed && this.code.isVisible());
+        this.beautifierIcon.tooltip(IKey.lang("mappetextras.utils_module.beautify"), Direction.LEFT);
+
         this.iconBar.add(this.searchIcon);
+        this.iconBar.add(this.beautifierIcon);
     }
 
     @Inject(method = "updateButtons", at = @At("TAIL"), remap = false)
     public void updateButtons(CallbackInfo ci) {
-        if (this.searchIcon == null) {
-            return;
+        if (this.searchIcon != null) {
+            this.searchIcon.setVisible(this.data != null && this.allowed && this.code.isVisible());
         }
-        this.searchIcon.setVisible(this.data != null && this.allowed && this.code.isVisible());
+
+        if (this.beautifierIcon != null) {
+            this.beautifierIcon.setVisible(this.data != null && this.allowed && this.code.isVisible());
+        }
     }
 
-    @Inject(
-            method = "createScriptContextMenu",
-            at = @At(
-                    value = "JUMP"
-            ),
-            locals = LocalCapture.CAPTURE_FAILHARD,
-            remap = false
-    )
-    private static void onCreateScriptContextMenu(Minecraft mc, GuiTextEditor editor, CallbackInfoReturnable<GuiContextMenu> cir, GuiSimpleContextMenu menu) {
-        menu.action(MPEIcons.CLOTHES_FAVOUR, IKey.lang("mappetextras.utils_module.beautify"), () -> MixinGuiScriptPanel.onBeautifierAction(editor));
-    }
-
-    private static void onBeautifierAction(GuiTextEditor editor) {
+    private void onBeautifierAction(GuiTextEditor editor) {
         String formattedCode = "";
         try {
 
