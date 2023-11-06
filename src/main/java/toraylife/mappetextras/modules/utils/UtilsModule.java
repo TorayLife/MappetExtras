@@ -8,12 +8,20 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import toraylife.mappetextras.MappetExtras;
 import toraylife.mappetextras.modules.IModule;
+import toraylife.mappetextras.modules.utils.client.Beautifier;
+
+import javax.script.ScriptException;
 
 public class UtilsModule implements IModule {
 
     public ValueInt codeSearchColor;
     public ValueInt codeSearchBackgroundColor;
     public ValueBoolean codeSearchOnTop;
+
+    public Beautifier beautifier;
+    public ValueBoolean beautifierIndentEmptyLines;
+    public ValueBoolean beautifierUnindentChainedMethods;
+    public ValueBoolean beautifierBreakChainedMethods;
 
     private static UtilsModule instance;
 
@@ -27,12 +35,14 @@ public class UtilsModule implements IModule {
     @Override
     public void addConfigOptions(ConfigBuilder builder) {
         builder.category("utils_module");
-        this.codeSearchColor = builder.getInt("code_search_color", 0x22FFFFAA).colorAlpha();
-        this.codeSearchColor.clientSide();
-        this.codeSearchBackgroundColor = builder.getInt("code_search_background_color", 0xCC000000).colorAlpha();
-        this.codeSearchBackgroundColor.clientSide();
-        this.codeSearchOnTop = builder.getBoolean("code_search_on_top", false);
-        this.codeSearchOnTop.clientSide();
+        this.codeSearchColor = (ValueInt) builder.getInt("code_search_color", 0x22FFFFAA).colorAlpha().clientSide();
+        this.codeSearchBackgroundColor = (ValueInt) builder.getInt("code_search_background_color", 0xCC000000).colorAlpha().clientSide();
+        this.codeSearchOnTop = (ValueBoolean) builder.getBoolean("code_search_on_top", false).clientSide();
+
+        builder.category("utils_module.beautifier");
+        this.beautifierIndentEmptyLines = (ValueBoolean) builder.getBoolean("indent_empty_lines", false).clientSide();
+        this.beautifierUnindentChainedMethods = (ValueBoolean) builder.getBoolean("unindent_chained_methods", false).clientSide();
+        this.beautifierBreakChainedMethods = (ValueBoolean) builder.getBoolean("break_chained_methods", false).clientSide();
     }
 
     @Override
@@ -45,6 +55,12 @@ public class UtilsModule implements IModule {
         MappetExtras.logger.info("Mappet extras utils module init!");
 
         MPEIcons.register();
+
+        try {
+            UtilsModule.getInstance().beautifier = new Beautifier();
+        } catch (ScriptException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

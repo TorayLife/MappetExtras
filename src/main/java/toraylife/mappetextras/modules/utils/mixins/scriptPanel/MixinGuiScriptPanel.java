@@ -5,7 +5,10 @@ import mchorse.mappet.client.gui.panels.GuiMappetDashboardPanel;
 import mchorse.mappet.client.gui.panels.GuiScriptPanel;
 import mchorse.mappet.client.gui.scripts.GuiRepl;
 import mchorse.mappet.client.gui.scripts.GuiTextEditor;
+import mchorse.mappet.client.gui.utils.text.undo.TextEditUndo;
 import mchorse.mclib.client.gui.framework.elements.buttons.GuiIconElement;
+import mchorse.mclib.client.gui.framework.elements.context.GuiContextMenu;
+import mchorse.mclib.client.gui.framework.elements.context.GuiSimpleContextMenu;
 import mchorse.mclib.client.gui.utils.keys.IKey;
 import mchorse.mclib.utils.Direction;
 import net.minecraft.client.Minecraft;
@@ -15,9 +18,16 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import toraylife.mappetextras.modules.utils.MPEIcons;
 import toraylife.mappetextras.modules.utils.UtilsModule;
+import toraylife.mappetextras.modules.utils.client.Beautifier;
+import toraylife.mappetextras.modules.utils.client.BeautifierOptions;
+import toraylife.mappetextras.modules.utils.client.gui.codeEditor.GuiTextEditorSearchable;
 import toraylife.mappetextras.modules.utils.client.gui.codeEditor.SearchPanel;
+
+import javax.script.ScriptException;
 
 @Mixin(value = GuiScriptPanel.class, remap = false)
 public abstract class MixinGuiScriptPanel extends GuiMappetDashboardPanel {
@@ -61,5 +71,46 @@ public abstract class MixinGuiScriptPanel extends GuiMappetDashboardPanel {
             return;
         }
         this.searchIcon.setVisible(this.data != null && this.allowed && this.code.isVisible());
+    }
+
+    @Inject(
+            method = "createScriptContextMenu",
+            at = @At(
+                    value = "JUMP"
+            ),
+            locals = LocalCapture.CAPTURE_FAILHARD,
+            remap = false
+    )
+    private static void onCreateScriptContextMenu(Minecraft mc, GuiTextEditor editor, CallbackInfoReturnable<GuiContextMenu> cir, GuiSimpleContextMenu menu) {
+        menu.action(MPEIcons.CLOTHES_FAVOUR, IKey.lang("mappetextras.utils_module.beautify"), () -> MixinGuiScriptPanel.onBeautifierAction(editor));
+    }
+
+    private static void onBeautifierAction(GuiTextEditor editor) {
+        String formattedCode = "";
+        try {
+
+            UtilsModule module = UtilsModule.getInstance();
+            BeautifierOptions options = Beautifier.getOptions(
+                    module.beautifierIndentEmptyLines.get(),
+                    module.beautifierUnindentChainedMethods.get(),
+                    module.beautifierBreakChainedMethods.get()
+            );
+            formattedCode = UtilsModule.getInstance().beautifier.beautify(editor.getText(), options);
+        } catch (ScriptException | NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+
+        if (formattedCode.isEmpty()) {
+            return;
+        }
+
+        editor.selectAll();
+        TextEditUndo undo = new TextEditUndo(editor);
+        editor.deleteSelection();
+
+        editor.writeString(formattedCode);
+
+        undo.ready().post(editor.getText(), editor.cursor, editor.selection);
+        ((GuiTextEditorSearchable) editor).getUndo().pushUndo(undo);
     }
 }
