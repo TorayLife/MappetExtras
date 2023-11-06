@@ -17,9 +17,11 @@ import net.minecraftforge.common.DimensionManager;
 import org.spongepowered.asm.mixin.Mixin;
 import toraylife.mappetextras.modules.main.documentation.MixinTargetName;
 import toraylife.mappetextras.modules.scripting.scripts.code.ScriptFile;
+import toraylife.mappetextras.modules.scripting.scripts.code.ScriptMath;
 import toraylife.mappetextras.modules.scripting.scripts.code.conditions.ScriptConditionFactory;
 import toraylife.mappetextras.modules.scripting.scripts.code.triggers.ScriptTriggerFactory;
 import toraylife.mappetextras.modules.scripting.scripts.user.IScriptFile;
+import toraylife.mappetextras.modules.scripting.scripts.user.IScriptMath;
 
 import java.nio.file.Paths;
 
@@ -118,5 +120,20 @@ public abstract class MixinScriptFactory{
         int beginIndex = classes.lastIndexOf(".") + 1;
 
         return classes.substring(beginIndex);
+    }
+
+    /**
+     * Returns the ${@link IScriptMath} instance.
+     *
+     * <pre>{@code
+     *    function main(c)
+     *    {
+     *        c.send(mappet.getMath().factorial(5)); // 120
+     *    }
+     * }</pre>
+     */
+
+    public IScriptMath getMath() {
+        return new ScriptMath();
     }
 }
