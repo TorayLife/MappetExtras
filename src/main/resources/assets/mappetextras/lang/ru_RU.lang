@@ -12,12 +12,14 @@ mappetextras.config.comments.main_module.show_update_only_if_outdated=Показ
 mappetextras.config.utils_module.title=Модуль утилит
 mappetextras.config.utils_module.tooltip=Настройки модуля утилит
 
-mappetextras.config.utils_module.code_search_color=Цвет поиска по коду
-mappetextras.config.comments.utils_module.code_search_color=Определяет, каким цветом будет выделяться текст при поиске по коду.
-mappetextras.config.utils_module.code_search_background_color=Цвет фона панели поиска
-mappetextras.config.comments.utils_module.code_search_background_color=Определяет какого цвета будет фон у панели поиска.
-mappetextras.config.utils_module.code_search_on_top=Панель поиска наверху
-mappetextras.config.comments.utils_module.code_search_on_top=Если включено, панель поиска будет располагаться наверху.
+mappetextras.config.utils_module.code_search.title=Поиск по коду
+mappetextras.config.utils_module.code_search.tooltip=Настройки поиска по коду
+mappetextras.config.utils_module.code_search.code_search_color=Цвет подсветки
+mappetextras.config.comments.utils_module.code_search.code_search_color=Определяет, каким цветом будет выделяться текст при поиске по коду.
+mappetextras.config.utils_module.code_search.code_search_background_color=Цвет фона панели 
+mappetextras.config.comments.utils_module.code_search.code_search_background_color=Определяет какого цвета будет фон у панели поиска.
+mappetextras.config.utils_module.code_search.code_search_on_top=Панель наверху
+mappetextras.config.comments.utils_module.code_search.code_search_on_top=Если включено, панель поиска будет располагаться наверху.
 
 # MAIN
 mappetextras.main_module.update.up_to_date=[§6%s§f] §7У вас установлена последняя версия.
