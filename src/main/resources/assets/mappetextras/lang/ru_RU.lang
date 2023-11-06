@@ -21,6 +21,15 @@ mappetextras.config.comments.utils_module.code_search.code_search_background_col
 mappetextras.config.utils_module.code_search.code_search_on_top=Панель наверху
 mappetextras.config.comments.utils_module.code_search.code_search_on_top=Если включено, панель поиска будет располагаться наверху.
 
+mappetextras.config.utils_module.beautifier.title=Улучшалка кода :)
+mappetextras.config.utils_module.beautifier.tooltip=Настройки улучшалки
+mappetextras.config.utils_module.beautifier.indent_empty_lines=Отступы для пустых строк
+mappetextras.config.comments.utils_module.beautifier.indent_empty_lines=Делать отступы для пустых строк
+mappetextras.config.utils_module.beautifier.unindent_chained_methods=Отвязка цепочек методов
+mappetextras.config.comments.utils_module.beautifier.unindent_chained_methods=Не делать отступов для вызовов цепочек методов
+mappetextras.config.utils_module.beautifier.break_chained_methods=Разорвать цепочку методов
+mappetextras.config.comments.utils_module.beautifier.break_chained_methods=Разбивать вызовы цепных методов на последующие строки
+
 # MAIN
 mappetextras.main_module.update.up_to_date=[§6%s§f] §7У вас установлена последняя версия.
 mappetextras.main_module.update.outdated=[§6%s§f] §7Новая версия §e%s§7 уже доступна (ваша текущая версия §e%s§7).
@@ -44,6 +53,8 @@ mappetextras.utils.codesearch.replace_all=Заменить всё
 mappetextras.utils.codesearch.regex=Регулярное выражение
 mappetextras.utils.codesearch.ignore_case=Игнорировать регистр
 mappetextras.utils.codesearch.search_and_replace=Поиск и замена
+
+mappetextras.utils_module.beautify=Улучшалка кода :)
 
 # ITEMS
 item.mappetextras.npc_picker.name=НПС пипетка
