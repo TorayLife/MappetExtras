@@ -8,10 +8,8 @@ import org.spongepowered.asm.mixin.Shadow;
 import toraylife.mappetextras.modules.client.AccessType;
 import toraylife.mappetextras.modules.client.ClientData;
 import toraylife.mappetextras.modules.client.network.PacketClientData;
-import toraylife.mappetextras.modules.client.providers.ClipboardProvider;
-import toraylife.mappetextras.modules.client.providers.MousePositionProvider;
-import toraylife.mappetextras.modules.client.providers.PerspectiveProvider;
-import toraylife.mappetextras.modules.client.providers.ResolutionProvider;
+import toraylife.mappetextras.modules.client.providers.*;
+import toraylife.mappetextras.modules.client.scripts.code.ScriptArmRender;
 import toraylife.mappetextras.modules.main.documentation.MixinTargetName;
 import toraylife.mappetextras.network.Dispatcher;
 
@@ -117,5 +115,21 @@ public abstract class MixinScriptPlayer{
         PacketClientData.сallBack.put(this.getMinecraftPlayer().getUniqueID(), callback);
 
         Dispatcher.sendTo(new PacketClientData(ClientData.RESOLUTION, AccessType.GET, nbtTagCompound), this.getMinecraftPlayer());
+    }
+
+    public String getSetting(String key) throws NoSuchFieldException, IllegalAccessException {
+        NBTTagCompound data = new NBTTagCompound();
+        data.setString("key", key);
+
+        NBTTagCompound nbtTagCompound = new NBTTagCompound();
+        nbtTagCompound.setString(ClientData.SETTING.toString(), new SettingProvider().getData(data).getString(ClientData.SETTING.toString()));
+
+        Dispatcher.sendTo(new PacketClientData(ClientData.SETTING, AccessType.GET_WITH_DATA, nbtTagCompound, data), this.getMinecraftPlayer());
+
+        return new SettingProvider().getData(data).getString(ClientData.SETTING.toString());
+    }
+
+    public ScriptArmRender getArmRender(int hand){
+        return new ScriptArmRender(getMinecraftPlayer(), hand); //0 - main; 1 - off;
     }
 }
