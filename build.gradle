@@ -45,6 +45,7 @@ def mixins = new ArrayList<>(Arrays.asList(
 def mixinFiles = new ArrayList<>(Arrays.asList(
         'mixins/mixins.utils.json',
         'mixins/mixins.client.json',
+        'mixins/mixins.early.client.json',
         'mixins/mixins.scripting.json',
         'mixins/mixins.early.scripting.json',
         'mixins/mixins.main.json'
@@ -60,9 +61,7 @@ minecraft {
     mappings channel: 'snapshot', version: '20171003-1.12'
 
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
-
     //accessTransformer = file('src/main/resources/META-INF/mappet_at.cfg')
-
     // Default run configurations.
     // These can be tweaked, removed, or duplicated as needed.
     runs {
