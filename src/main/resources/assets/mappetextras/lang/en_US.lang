@@ -65,3 +65,12 @@ item.mappetextras.npc_picker.message.notid=[§6NPC Picker§r] §cNPC doesn't hav
 
 item.mappetextras.npc_soulstone.name=NPC soulstone
 item.mappetextras.npc_soulstone.tooltip=This tool allows you to save NPC inside an item.
+
+# TRIGGERS
+mappet.gui.settings.triggers.player_tick=Player: ticking
+mappet.gui.settings.triggers.descriptions.player_tick=This trigger gets triggered when player ticks (same as server ticking, but have a player in its context).
+mappet.gui.settings.triggers.variables.player_tick=N/A
+
+mappet.gui.settings.triggers.player_walking=Player: walking
+mappet.gui.settings.triggers.descriptions.player_walking=This trigger gets triggered every tick when a player moving while standing on ground.
+mappet.gui.settings.triggers.variables.player_walking=§6onGround§r, 1 if player on ground, 0 if not.

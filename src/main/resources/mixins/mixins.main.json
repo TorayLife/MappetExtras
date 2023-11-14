@@ -6,7 +6,8 @@
   "mixinPriority": 1000,
   "mixins": [
     "documentation.MixinDocClass",
-    "documentation.MixinDocMethod"
+    "documentation.MixinDocMethod",
+    "triggers.MixinServerSettings"
   ],
   "client": [
     "documentation.MixinDocEntry",
