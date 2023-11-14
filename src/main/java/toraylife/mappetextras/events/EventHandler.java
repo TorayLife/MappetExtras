@@ -76,7 +76,7 @@ public class EventHandler {
 
         if (event.getHand() == OFF_HAND) {
             ItemRenderer itemRenderer = Minecraft.getMinecraft().getItemRenderer();
-            ItemRendererAccessor itemRendererAccessor = ((ItemRendererAccessor) itemRenderer);
+            ItemRendererAccessor itemRendererAccessor = (ItemRendererAccessor) itemRenderer;
             AbstractClientPlayer abstractclientplayer = Minecraft.getMinecraft().player;
 
             float a = abstractclientplayer.getSwingProgress(event.getPartialTicks());

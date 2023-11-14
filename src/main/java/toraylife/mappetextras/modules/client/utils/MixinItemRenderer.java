@@ -1,6 +1,7 @@
 package toraylife.mappetextras.modules.client.utils;
 
 import net.minecraft.client.renderer.ItemRenderer;
+import net.minecraft.util.EnumHandSide;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import toraylife.mappetextras.modules.client.ItemRendererAccessor;
@@ -13,11 +14,21 @@ public abstract class MixinItemRenderer implements ItemRendererAccessor {
     @Shadow
     private float prevEquippedProgressMainHand;
 
-    public float getPrevEquippedProgressMainHand(){
+    @Shadow
+    protected abstract void renderArmFirstPerson(float p_187456_1_, float p_187456_2_, EnumHandSide p_187456_3_);
+
+    @Override
+    public void invokeRenderArmFirstPerson(float a, float b, EnumHandSide handSide) {
+        this.renderArmFirstPerson(a, b, handSide);
+    }
+
+    @Override
+    public float getPrevEquippedProgressMainHand() {
         return this.prevEquippedProgressMainHand;
     }
 
-    public float getEquippedProgressMainHand(){
+    @Override
+    public float getEquippedProgressMainHand() {
         return this.equippedProgressMainHand;
     }
 }
