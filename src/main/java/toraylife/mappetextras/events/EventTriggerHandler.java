@@ -1,9 +1,13 @@
 package toraylife.mappetextras.events;
 
+import mchorse.mappet.CommonProxy;
 import mchorse.mappet.Mappet;
 import mchorse.mappet.api.triggers.Trigger;
 import mchorse.mappet.api.utils.DataContext;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import toraylife.mappetextras.modules.main.triggers.TriggerAccessor;
@@ -41,6 +45,36 @@ public class EventTriggerHandler {
         context.set("onGround", player.onGround ? 1 : 0);
 
         trigger.trigger(context);
+    }
+
+    @SubscribeEvent
+    public void onLivingJumpEvent(LivingEvent.LivingJumpEvent event) {
+        Trigger trigger = ((TriggerAccessor) Mappet.settings).getEntityJumping();
+
+        EntityLivingBase entity = event.getEntityLiving();
+
+        if (shouldCancelTrigger(trigger) || entity.world.isRemote) {
+            return;
+        }
+
+        CommonProxy.eventHandler.trigger(event, trigger, new DataContext(entity));
+    }
+
+    @SubscribeEvent
+    public void onLivingFallEvent(LivingFallEvent event) {
+        Trigger trigger = ((TriggerAccessor) Mappet.settings).getEntityFalling();
+
+        EntityLivingBase entity = event.getEntityLiving();
+
+        if (shouldCancelTrigger(trigger) || entity.world.isRemote) {
+            return;
+        }
+
+        DataContext context = new DataContext(entity);
+        context.set("distance", event.getDistance());
+        context.set("damageMultiplier", event.getDamageMultiplier());
+
+        CommonProxy.eventHandler.trigger(event, trigger, context);
     }
 
 

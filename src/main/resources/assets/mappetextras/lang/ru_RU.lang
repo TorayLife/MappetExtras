@@ -1,3 +1,5 @@
+#PARSE_ESCAPES
+
 # CONFIG
 mappetextras.config.title=Маппет Экстрас
 
@@ -73,3 +75,11 @@ mappet.gui.settings.triggers.variables.player_tick=N/A
 mappet.gui.settings.triggers.player_walking=Игрок: при ходьбе
 mappet.gui.settings.triggers.descriptions.player_walking=Этот триггер срабатывает каждый тик когда игрок движется.
 mappet.gui.settings.triggers.variables.player_walking=§6onGround§r, 1 если игрок стоит на земле, 0 если нет.
+
+mappet.gui.settings.triggers.living_jump=Живое: при прыжке
+mappet.gui.settings.triggers.descriptions.living_jump=Этот триггер срабатывает когда живая сущность прыгает.
+mappet.gui.settings.triggers.variables.living_jump=N/A
+
+mappet.gui.settings.triggers.living_fall=Живое: при падении
+mappet.gui.settings.triggers.descriptions.living_fall=Этот триггер срабатывает когда живая сущность падает.
+mappet.gui.settings.triggers.variables.living_fall=§6distance§r, расстояние, которое пролетела сущность падая.\n§6damageMultiplier§r, множитель урона от падения.
