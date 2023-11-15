@@ -25,7 +25,6 @@ import toraylife.mappetextras.capabilities.mainHand.MainHandProvider;
 import toraylife.mappetextras.capabilities.offHand.IOffHand;
 import toraylife.mappetextras.capabilities.offHand.OffHand;
 import toraylife.mappetextras.capabilities.offHand.OffHandProvider;
-import toraylife.mappetextras.modules.client.ItemRendererAccessor;
 import toraylife.mappetextras.modules.client.network.PacketProfileCapability;
 import toraylife.mappetextras.modules.main.VersionChecker;
 import toraylife.mappetextras.modules.utils.render.NpcPathRenderer;
@@ -75,26 +74,8 @@ public class EventHandler {
         }
 
         if (event.getHand() == OFF_HAND) {
-            boolean canceled;
-
-            if(Minecraft.getMinecraft().player.getHeldItem(OFF_HAND).isEmpty()){
-                ItemRenderer itemRenderer = Minecraft.getMinecraft().getItemRenderer();
-                ItemRendererAccessor itemRendererAccessor = (ItemRendererAccessor) itemRenderer;
-                AbstractClientPlayer abstractclientplayer = Minecraft.getMinecraft().player;
-
-                float a = abstractclientplayer.getSwingProgress(event.getPartialTicks());
-                float b = 1.0F - (itemRendererAccessor.getPrevEquippedProgressMainHand() + (itemRendererAccessor.getEquippedProgressMainHand() - itemRendererAccessor.getPrevEquippedProgressMainHand()) * event.getPartialTicks());
-
-                itemRendererAccessor.invokeRenderArmFirstPerson(0, 0, EnumHandSide.LEFT);
-
-                canceled = true;
-            }else{
-                handleRotation(offHand);
-
-                canceled = !offHand.isRender();
-            }
-
-            event.setCanceled(canceled);
+            handleRotation(offHand);
+            event.setCanceled(!offHand.isRender());
         }
     }
 
