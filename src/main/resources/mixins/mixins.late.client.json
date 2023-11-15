@@ -1,12 +1,11 @@
 {
   "required": true,
   "compatibilityLevel": "JAVA_8",
-  "package": "toraylife.mappetextras.modules.scripting.mixins.early",
+  "package": "toraylife.mappetextras.modules.client.mixins.late",
   "refmap": "mixins.mappetextras.refmap.json",
-  "priority": 1,
-  "mixinPriority": 100,
+  "mixinPriority": 1000,
   "mixins": [
-    "MixinEntityPlayerMP"
+    "MixinScriptPlayer"
   ],
   "client": [
   ],

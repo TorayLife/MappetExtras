@@ -43,11 +43,11 @@ def mixins = new ArrayList<>(Arrays.asList(
 ))
 
 def mixinFiles = new ArrayList<>(Arrays.asList(
-        'mixins/mixins.utils.json',
-        'mixins/mixins.client.json',
-        'mixins/mixins.scripting.json',
-        'mixins/mixins.early.scripting.json',
-        'mixins/mixins.main.json'
+        'mixins/mixins.late.main.json',
+        'mixins/mixins.late.utils.json',
+        'mixins/mixins.late.client.json',
+        'mixins/mixins.late.scripting.json',
+        'mixins/mixins.early.scripting.json'
 ))
 
 mixinFiles.forEach {
@@ -249,8 +249,8 @@ task scriptingJavadocsJson(type: Exec) {
     executable "javadoc"
     List<String> subpackages = new ArrayList(Arrays.asList(
             "toraylife.mappetextras.modules.scripting.scripts.user",
-            "toraylife.mappetextras.modules.scripting.mixins",
-            "toraylife.mappetextras.modules.client.mixins",
+            "toraylife.mappetextras.modules.scripting.mixins.late",
+            "toraylife.mappetextras.modules.client.mixins.late",
     ))
     List<String> excluded = new ArrayList(Arrays.asList(
             "toraylife.mappetextras.modules.scripting.mixins.utils"

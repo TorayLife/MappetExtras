@@ -20,7 +20,7 @@ public interface IModule {
 
     default List<String> getMixinConfigs() {
         return new ArrayList<>(Collections.singletonList(
-                "mixins/mixins." + this.getModuleId() + ".json"
+                "mixins/mixins.late." + this.getModuleId() + ".json"
         ));
     }
 
