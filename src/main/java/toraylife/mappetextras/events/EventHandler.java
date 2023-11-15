@@ -75,16 +75,26 @@ public class EventHandler {
         }
 
         if (event.getHand() == OFF_HAND) {
-            ItemRenderer itemRenderer = Minecraft.getMinecraft().getItemRenderer();
-            ItemRendererAccessor itemRendererAccessor = (ItemRendererAccessor) itemRenderer;
-            AbstractClientPlayer abstractclientplayer = Minecraft.getMinecraft().player;
+            boolean canceled;
 
-            float a = abstractclientplayer.getSwingProgress(event.getPartialTicks());
-            float b = 1.0F - (itemRendererAccessor.getPrevEquippedProgressMainHand() + (itemRendererAccessor.getEquippedProgressMainHand() - itemRendererAccessor.getPrevEquippedProgressMainHand()) * event.getPartialTicks());
+            if(Minecraft.getMinecraft().player.getHeldItem(OFF_HAND).isEmpty()){
+                ItemRenderer itemRenderer = Minecraft.getMinecraft().getItemRenderer();
+                ItemRendererAccessor itemRendererAccessor = (ItemRendererAccessor) itemRenderer;
+                AbstractClientPlayer abstractclientplayer = Minecraft.getMinecraft().player;
 
-            itemRendererAccessor.invokeRenderArmFirstPerson(a, b, EnumHandSide.LEFT);
-            handleRotation(offHand);
-            event.setCanceled(true);
+                float a = abstractclientplayer.getSwingProgress(event.getPartialTicks());
+                float b = 1.0F - (itemRendererAccessor.getPrevEquippedProgressMainHand() + (itemRendererAccessor.getEquippedProgressMainHand() - itemRendererAccessor.getPrevEquippedProgressMainHand()) * event.getPartialTicks());
+
+                itemRendererAccessor.invokeRenderArmFirstPerson(0, 0, EnumHandSide.LEFT);
+
+                canceled = true;
+            }else{
+                handleRotation(offHand);
+
+                canceled = !offHand.isRender();
+            }
+
+            event.setCanceled(canceled);
         }
     }
 
