@@ -7,4 +7,6 @@ public interface TriggerAccessor {
     Trigger getPlayerTick();
 
     Trigger getPlayerWalking();
+
+    Trigger getPlayerOpenGui();
 }

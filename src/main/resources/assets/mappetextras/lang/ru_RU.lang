@@ -73,3 +73,7 @@ mappet.gui.settings.triggers.variables.player_tick=N/A
 mappet.gui.settings.triggers.player_walking=Игрок: при ходьбе
 mappet.gui.settings.triggers.descriptions.player_walking=Этот триггер срабатывает каждый тик когда игрок движется.
 mappet.gui.settings.triggers.variables.player_walking=§6onGround§r, 1 если игрок стоит на земле, 0 если нет.
+
+mappet.gui.settings.triggers.player_open_gui=Игрок: при открытии GUI
+mappet.gui.settings.triggers.descriptions.player_open_gui=Этот триггер срабатывает когда игрок открывает GUI.
+mappet.gui.settings.triggers.variables.player_open_gui=§6gui§r, название GUI.
