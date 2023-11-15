@@ -166,6 +166,7 @@ jar.finalizedBy('reobfJar')
 
 
 // BY DYAMO BOLSHOY UMNI MALCHEG
+
 import org.apache.tools.ant.filters.ReplaceTokens
 
 import java.util.stream.Collectors
@@ -402,5 +403,34 @@ task copyLangStrings {
         }
 
         print("Done!")
+    }
+}
+
+task setIncludeProvidedOption {
+    inputs.property "date", new Date()
+
+    doLast {
+        includeProvidedOption("Client")
+        includeProvidedOption("Server")
+    }
+}
+
+def includeProvidedOption(String configuration) {
+    // Fuck groovy!
+    def runConfigPath = ".idea/runConfigurations/run" + configuration + ".xml"
+    def xml = new XmlParser(false, true).parse(file(runConfigPath))
+    def toAdd = new XmlParser(false, true).parseText("<option name=\"INCLUDE_PROVIDED_SCOPE\" value=\"true\" />")
+    def children = xml.find { it.name() == "configuration" }.children()
+    if (children.find { it.name() == "option" && it.attribute("name") == "INCLUDE_PROVIDED_SCOPE" } != null) {
+        return
+    }
+    children.add(0, toAdd)
+
+    new XmlNodePrinter(new PrintWriter(new FileWriter(runConfigPath))).print(xml)
+}
+
+tasks.configureEach { task ->
+    if (task.name.contains("genIntellijRuns")) {
+        task.finalizedBy setIncludeProvidedOption
     }
 }
