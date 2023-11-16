@@ -8,14 +8,11 @@ import org.spongepowered.asm.mixin.Shadow;
 import toraylife.mappetextras.modules.client.AccessType;
 import toraylife.mappetextras.modules.client.ClientData;
 import toraylife.mappetextras.modules.client.network.PacketClientData;
-import toraylife.mappetextras.modules.client.providers.ClipboardProvider;
-import toraylife.mappetextras.modules.client.providers.MousePositionProvider;
-import toraylife.mappetextras.modules.client.providers.PerspectiveProvider;
-import toraylife.mappetextras.modules.client.providers.ResolutionProvider;
+import toraylife.mappetextras.modules.client.providers.*;
+import toraylife.mappetextras.modules.client.scripts.code.ScriptArmRender;
+import toraylife.mappetextras.modules.client.scripts.user.IScriptArmRender;
 import toraylife.mappetextras.modules.main.mixins.utils.MixinTargetName;
 import toraylife.mappetextras.network.Dispatcher;
-import toraylife.mappetextras.modules.client.scripts.user.IScriptArmRender;
-import toraylife.mappetextras.modules.client.scripts.code.ScriptArmRender;
 
 import java.util.function.Consumer;
 
@@ -205,7 +202,7 @@ public abstract class MixinScriptPlayer{
      * <pre>{@code
      *    function main(c)
      *    {
-     *        c.player.getResolution((res) => {
+     *        c.player.getResolution(function(res) {
      *            c.send("x: "+res.x)
      *            c.send("y: "+res.y)
      *        });
