@@ -248,6 +248,7 @@ task scriptingJavadocsJson(type: Exec) {
     executable "javadoc"
     List<String> subpackages = new ArrayList(Arrays.asList(
             "toraylife.mappetextras.modules.scripting.scripts.user",
+            "toraylife.mappetextras.modules.client.scripts.user",
             "toraylife.mappetextras.modules.scripting.mixins.late",
             "toraylife.mappetextras.modules.client.mixins.late",
     ))
