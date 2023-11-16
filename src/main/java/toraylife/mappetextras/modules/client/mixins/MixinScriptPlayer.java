@@ -183,14 +183,16 @@ public abstract class MixinScriptPlayer{
      *    }
      * }</pre>
      */
-    public void getSetting(String key, Consumer<Object> callback) {
-        NBTTagCompound nbtTagCompound = new NBTTagCompound();
+    public void getSetting(String key, Consumer<Object> callback) throws NoSuchFieldException, IllegalAccessException{
+        NBTTagCompound data = new NBTTagCompound();
+        data.setString("key", key);
 
-        nbtTagCompound.setString("key", key);
+        NBTTagCompound nbtTagCompound = new NBTTagCompound();
+        nbtTagCompound.setString(ClientData.SETTING.toString(), new SettingProvider().getData(data).getString(ClientData.SETTING.toString()));
 
         PacketClientData.сallBack.put(this.getMinecraftPlayer().getUniqueID(), callback);
 
-        Dispatcher.sendTo(new PacketClientData(ClientData.SETTING, AccessType.GET_WITH_DATA, nbtTagCompound), this.getMinecraftPlayer());
+        Dispatcher.sendTo(new PacketClientData(ClientData.SETTING, AccessType.GET_WITH_DATA, nbtTagCompound, data), this.getMinecraftPlayer());
     }
 
     /**
