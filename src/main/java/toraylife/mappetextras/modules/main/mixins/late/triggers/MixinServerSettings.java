@@ -23,6 +23,11 @@ public abstract class MixinServerSettings implements TriggerAccessor {
     public Trigger playerWalking;
     public Trigger livingJump;
     public Trigger livingFall;
+    public Trigger playerOpenGui;
+
+    public Trigger getPlayerOpenGui(){
+        return this.playerOpenGui;
+    }
 
     public Trigger getPlayerTick() {
         return this.playerTick;
@@ -46,6 +51,7 @@ public abstract class MixinServerSettings implements TriggerAccessor {
         this.playerWalking = this.register("player_walking", "player_walking", new Trigger());
         this.livingJump = this.register("living_jump", "living_jump", new Trigger());
         this.livingFall = this.register("living_fall", "living_fall", new Trigger());
+        this.playerOpenGui = this.register("player_open_gui", "player_open_gui", new Trigger());
 
         Mappet.EVENT_BUS.post(new RegisterServerTriggerEvent((ServerSettings) (Object) this));
     }

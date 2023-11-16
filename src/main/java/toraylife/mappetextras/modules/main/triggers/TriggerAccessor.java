@@ -8,6 +8,8 @@ public interface TriggerAccessor {
 
     Trigger getPlayerWalking();
 
+    Trigger getPlayerOpenGui();
+
     Trigger getEntityJumping();
 
     Trigger getEntityFalling();

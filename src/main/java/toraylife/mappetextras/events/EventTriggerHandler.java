@@ -77,6 +77,19 @@ public class EventTriggerHandler {
         CommonProxy.eventHandler.trigger(event, trigger, context);
     }
 
+    public void onPlayerOpenGui(String gui, EntityPlayer player){
+        Trigger trigger = ((TriggerAccessor) Mappet.settings).getPlayerOpenGui();
+
+        if (shouldCancelTrigger(trigger) || player.world.isRemote) {
+            return;
+        }
+
+        DataContext context = new DataContext(player);
+
+        context.set("gui", gui);
+
+        trigger.trigger(context);
+    }
 
     public boolean shouldCancelTrigger(Trigger trigger) {
         return trigger == null || trigger.isEmpty();
