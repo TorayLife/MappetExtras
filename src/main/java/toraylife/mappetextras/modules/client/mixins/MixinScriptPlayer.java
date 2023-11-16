@@ -12,6 +12,7 @@ import toraylife.mappetextras.modules.client.providers.*;
 import toraylife.mappetextras.modules.client.scripts.code.ScriptArmRender;
 import toraylife.mappetextras.modules.main.documentation.MixinTargetName;
 import toraylife.mappetextras.network.Dispatcher;
+import toraylife.mappetextras.modules.client.scripts.user.IScriptArmRender;
 
 import java.util.function.Consumer;
 
@@ -20,6 +21,17 @@ import java.util.function.Consumer;
 public abstract class MixinScriptPlayer{
     @Shadow public abstract EntityPlayerMP getMinecraftPlayer();
 
+    /**
+     * Set the perspective
+     *
+     * <pre>{@code
+     *    function main(c)
+     *    {
+     *        c.player.setPerspective(2)
+     *    }
+     *  }</pre>
+     *  /**
+     */
     public void setPerspective(Integer perspective){
         NBTTagCompound nbtTagCompound = new NBTTagCompound();
         nbtTagCompound.setInteger(ClientData.PESPECTIVE.toString(), perspective);
@@ -27,6 +39,18 @@ public abstract class MixinScriptPlayer{
         Dispatcher.sendTo(new PacketClientData(ClientData.PESPECTIVE, AccessType.SET, nbtTagCompound), this.getMinecraftPlayer());
     }
 
+    /**
+     * Gets the player's current perspective.
+     *
+     * <pre>{@code
+     *    function main(c)
+     *    {
+     *        c.player.getPerspective(function (perspective){
+     *            c.send(perspective)
+     *        });
+     *    }
+     * }</pre>
+     */
     public void getPerspective(Consumer<Object> callBack){
         NBTTagCompound nbtTagCompound = new NBTTagCompound();
         nbtTagCompound.setInteger( ClientData.PESPECTIVE.toString(), new PerspectiveProvider().getData().getInteger( ClientData.PESPECTIVE.toString() ) );
@@ -36,6 +60,16 @@ public abstract class MixinScriptPlayer{
         Dispatcher.sendTo(new PacketClientData(ClientData.PESPECTIVE, AccessType.GET, nbtTagCompound), this.getMinecraftPlayer());
     }
 
+    /**
+     * Sets the player's clipboard text.
+     *
+     * <pre>{@code
+     *    function main(c)
+     *    {
+     *        c.player.setClipboard("Hello World!");
+     *    }
+     * }</pre>
+     */
     public void setClipboard(String text){
         NBTTagCompound nbtTagCompound = new NBTTagCompound();
         nbtTagCompound.setString(ClientData.CLIPBOARD.toString(), text);
@@ -43,6 +77,18 @@ public abstract class MixinScriptPlayer{
         Dispatcher.sendTo(new PacketClientData(ClientData.CLIPBOARD, AccessType.SET, nbtTagCompound), this.getMinecraftPlayer());
     }
 
+    /**
+     * Gets the text currently on the player's clipboard.
+     *
+     * <pre>{@code
+     *    function main(c)
+     *    {
+     *        c.player.getClipboard(function (clipboard) {
+     *            c.send(clipboard)
+     *        });
+     *    }
+     * }</pre>
+     */
     public void getClipboard(Consumer<Object> callback){
         NBTTagCompound nbtTagCompound = new NBTTagCompound();
         nbtTagCompound.setString( ClientData.CLIPBOARD.toString(), new ClipboardProvider().getData().getString( ClientData.CLIPBOARD.toString() ) );
@@ -52,6 +98,16 @@ public abstract class MixinScriptPlayer{
         Dispatcher.sendTo(new PacketClientData(ClientData.CLIPBOARD, AccessType.GET, nbtTagCompound), this.getMinecraftPlayer());
     }
 
+    /**
+     * Sets the player's mouse position.
+     *
+     * <pre>{@code
+     *    function main(c)
+     *    {
+     *        c.player.setMousePosition(100, 200, false);
+     *    }
+     * }</pre>
+     */
     public void setMousePosition(int x, int y, boolean isInsideWindow){
         NBTTagCompound nbtTagCompound = new NBTTagCompound();
         NBTTagCompound object = new NBTTagCompound();
@@ -64,6 +120,19 @@ public abstract class MixinScriptPlayer{
         Dispatcher.sendTo(new PacketClientData(ClientData.MOUSEPOSITION, AccessType.SET, nbtTagCompound), this.getMinecraftPlayer());
     }
 
+    /**
+     * Gets the player's current mouse position.
+     *
+     * <pre>{@code
+     *    function main(c)
+     *    {
+     *        c.player.getMousePosition(function (mouse) {
+     *            c.send(mouse.x)
+     *            c.send(mouse.y)
+     *        }, false);
+     *    }
+     * }</pre>
+     */
     public void getMousePosition(Consumer<Object> callback, boolean isInsideWindow){
         NBTTagCompound object = new NBTTagCompound();
 
@@ -83,6 +152,16 @@ public abstract class MixinScriptPlayer{
         Dispatcher.sendTo(new PacketClientData(ClientData.MOUSEPOSITION, AccessType.GET_WITH_DATA, nbtTagCompound, data), this.getMinecraftPlayer());
     }
 
+    /**
+     * Sets a client setting.
+     *
+     * <pre>{@code
+     *    function main(c)
+     *    {
+     *        c.player.setSetting("fovSetting", 0);
+     *    }
+     * }</pre>
+     */
     public void setSetting(String key, Object value) {
         NBTTagCompound nbtTagCompound = new NBTTagCompound();
 
@@ -92,6 +171,18 @@ public abstract class MixinScriptPlayer{
         Dispatcher.sendTo(new PacketClientData(ClientData.SETTING, AccessType.SET, nbtTagCompound), this.getMinecraftPlayer());
     }
 
+    /**
+     * Gets a client setting.
+     *
+     * <pre>{@code
+     *    function main(c)
+     *    {
+     *        c.player.getSetting("fovSetting", function(fov) {
+     *            c.send(fov)
+     *        });
+     *    }
+     * }</pre>
+     */
     public void getSetting(String key, Consumer<Object> callback) {
         NBTTagCompound nbtTagCompound = new NBTTagCompound();
 
@@ -102,6 +193,19 @@ public abstract class MixinScriptPlayer{
         Dispatcher.sendTo(new PacketClientData(ClientData.SETTING, AccessType.GET_WITH_DATA, nbtTagCompound), this.getMinecraftPlayer());
     }
 
+    /**
+     * Gets the player's screen resolution.
+     *
+     * <pre>{@code
+     *    function main(c)
+     *    {
+     *        c.player.getResolution((res) => {
+     *            c.send("x: "+res.x)
+     *            c.send("y: "+res.y)
+     *        });
+     *    }
+     * }</pre>
+     */
     public void getResolution(Consumer<Object> callback) {
         NBTTagCompound object = new NBTTagCompound();
 
@@ -117,19 +221,11 @@ public abstract class MixinScriptPlayer{
         Dispatcher.sendTo(new PacketClientData(ClientData.RESOLUTION, AccessType.GET, nbtTagCompound), this.getMinecraftPlayer());
     }
 
-    public String getSetting(String key) throws NoSuchFieldException, IllegalAccessException {
-        NBTTagCompound data = new NBTTagCompound();
-        data.setString("key", key);
-
-        NBTTagCompound nbtTagCompound = new NBTTagCompound();
-        nbtTagCompound.setString(ClientData.SETTING.toString(), new SettingProvider().getData(data).getString(ClientData.SETTING.toString()));
-
-        Dispatcher.sendTo(new PacketClientData(ClientData.SETTING, AccessType.GET_WITH_DATA, nbtTagCompound, data), this.getMinecraftPlayer());
-
-        return new SettingProvider().getData(data).getString(ClientData.SETTING.toString());
-    }
-
+    /**
+     * Gets a {@link IScriptArmRender} main or off - hand; 0 - main; off - 1;.
+     *
+     */
     public ScriptArmRender getArmRender(int hand){
-        return new ScriptArmRender(getMinecraftPlayer(), hand); //0 - main; 1 - off;
+        return new ScriptArmRender(getMinecraftPlayer(), hand);
     }
 }
