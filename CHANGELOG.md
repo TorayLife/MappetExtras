@@ -1,3 +1,33 @@
+## Version 1.1.0
+
+The first full-fledged update of the mod.
+
+This version adds new global triggers, new tools for working with code, fixed some
+UI icons and added new ones, as well as bug fixes.
+
+### Full list of changes:
+
+* Fixes:
+    * `getSetting` now works. At least it should.
+    * Reworked icon names, shifted off-center icons moved to the center.
+    * Made available a method that returns `IScriptMath`.
+* New global triggers:
+    * Player: When ticking
+    * Player: When walking
+    * Player: When opening a GUI
+    * Living: When falling
+    * Living: When jumping
+* New features:
+    * Search and replace by code. Can be opened using the icon in the panel or using the `Ctrl+F` combination. There is
+      customization of appearance in config.
+    * Beautifier (code enhancer). Applied by clicking on an icon in the panel. There are settings in config.
+* API:
+    * Added `IScriptArmRender` which allows you to change the arm renderer: rotate, move, hide the arm. Features will be
+      expanded in the future.
+* Other:
+    * Added some new icons.
+    * Small code refactoring was performed.
+
 ## Version 1.0.1
 
 Here is the first work on bugs.
