@@ -1,12 +1,9 @@
 package toraylife.mappetextras.events;
 
 import mchorse.mappet.Mappet;
-import mchorse.mappet.api.scripts.code.ScriptWorld;
 import mchorse.mappet.api.triggers.Trigger;
 import mchorse.mappet.api.utils.DataContext;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraftforge.client.event.sound.PlaySoundEvent;
-import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import toraylife.mappetextras.modules.main.triggers.TriggerAccessor;

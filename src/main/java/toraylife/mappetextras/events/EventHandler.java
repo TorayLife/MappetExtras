@@ -36,7 +36,7 @@ public class EventHandler {
     }
 
     @SubscribeEvent
-    public void onPlayerOpenInventoryEvent(GuiOpenEvent event) {
+    public void onPlayerOpenGuiEvent(GuiOpenEvent event) {
         if(event.getGui() != null) {
             String stringGui = event.getGui().toString();
 
