@@ -1,3 +1,14 @@
+## Version 1.1.1
+
+This version is a hotfix of bugs found in 1.1.0. Fixed bugs with the documentation and crashes.
+
+### Full list of changes:
+
+* Fixes:
+    * Fixed a bug that caused the server to not start.
+    * Fixed a bug that caused the game to crash when entering multiplayer.
+    * Fixed a bug that caused separate documentation entries to be created instead of adding to existing ones.
+
 ## Version 1.1.0
 
 The first full-fledged update of the mod.
