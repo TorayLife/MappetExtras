@@ -1,15 +1,12 @@
 package toraylife.mappetextras.events;
 
-import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.AbstractClientPlayer;
-import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumHandSide;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.client.event.RenderSpecificHandEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -18,7 +15,6 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import toraylife.mappetextras.modules.client.network.PacketGuiOpenEvent;
 import org.lwjgl.opengl.GL11;
 import toraylife.mappetextras.MappetExtras;
 import toraylife.mappetextras.capabilities.mainHand.IMainHand;
@@ -27,6 +23,7 @@ import toraylife.mappetextras.capabilities.mainHand.MainHandProvider;
 import toraylife.mappetextras.capabilities.offHand.IOffHand;
 import toraylife.mappetextras.capabilities.offHand.OffHand;
 import toraylife.mappetextras.capabilities.offHand.OffHandProvider;
+import toraylife.mappetextras.modules.client.network.PacketGuiOpenEvent;
 import toraylife.mappetextras.modules.client.network.PacketProfileCapability;
 import toraylife.mappetextras.modules.main.VersionChecker;
 import toraylife.mappetextras.modules.utils.render.NpcPathRenderer;
@@ -61,6 +58,7 @@ public class EventHandler {
     }
 
     @SubscribeEvent
+    @SideOnly(Side.CLIENT)
     public void onPlayerOpenGuiEvent(GuiOpenEvent event) {
         if(event.getGui() != null) {
             String stringGui = event.getGui().toString();

@@ -6,6 +6,8 @@ import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import toraylife.mappetextras.capabilities.mainHand.MainHand;
 import toraylife.mappetextras.capabilities.offHand.OffHand;
 
@@ -30,6 +32,7 @@ public class PacketProfileCapability implements IMessage {
 
     public static class ClientHandler extends ClientMessageHandler<PacketProfileCapability> {
         @Override
+        @SideOnly(Side.CLIENT)
         public void run(EntityPlayerSP player, PacketProfileCapability message) {
             int hand = message.profile.getInteger("hand");
 

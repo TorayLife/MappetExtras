@@ -10,11 +10,14 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import toraylife.mappetextras.modules.main.triggers.TriggerAccessor;
 
 public class EventTriggerHandler {
 
     @SubscribeEvent
+    @SideOnly(Side.SERVER)
     public void onPlayerTickEvent(TickEvent.PlayerTickEvent event) {
         Trigger trigger = ((TriggerAccessor) Mappet.settings).getPlayerTick();
 
@@ -28,6 +31,7 @@ public class EventTriggerHandler {
     }
 
     @SubscribeEvent
+    @SideOnly(Side.SERVER)
     public void onPlayerWalkingEvent(TickEvent.PlayerTickEvent event) {
         Trigger trigger = ((TriggerAccessor) Mappet.settings).getPlayerWalking();
 
@@ -48,6 +52,7 @@ public class EventTriggerHandler {
     }
 
     @SubscribeEvent
+    @SideOnly(Side.SERVER)
     public void onLivingJumpEvent(LivingEvent.LivingJumpEvent event) {
         Trigger trigger = ((TriggerAccessor) Mappet.settings).getEntityJumping();
 
@@ -61,6 +66,7 @@ public class EventTriggerHandler {
     }
 
     @SubscribeEvent
+    @SideOnly(Side.SERVER)
     public void onLivingFallEvent(LivingFallEvent event) {
         Trigger trigger = ((TriggerAccessor) Mappet.settings).getEntityFalling();
 
@@ -77,6 +83,7 @@ public class EventTriggerHandler {
         CommonProxy.eventHandler.trigger(event, trigger, context);
     }
 
+    @SideOnly(Side.SERVER)
     public void onPlayerOpenGui(String gui, EntityPlayer player){
         Trigger trigger = ((TriggerAccessor) Mappet.settings).getPlayerOpenGui();
 
