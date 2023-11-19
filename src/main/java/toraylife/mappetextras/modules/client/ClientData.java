@@ -1,7 +1,7 @@
 package toraylife.mappetextras.modules.client;
 
+import mchorse.mappet.api.scripts.user.data.ScriptVector;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.math.Vec2f;
 
 public enum ClientData {
     PESPECTIVE{
@@ -15,7 +15,7 @@ public enum ClientData {
         @Override
         public Object process(NBTTagCompound data) {
             NBTTagCompound pos = data.getCompoundTag(this.name());
-            return new Vec2f(pos.getInteger("x"), pos.getInteger("y"));
+            return new ScriptVector(pos.getInteger("x"), pos.getInteger("y"), 0);
         }
     },
 
@@ -38,7 +38,7 @@ public enum ClientData {
         @Override
         public Object process(NBTTagCompound data) {
             NBTTagCompound display = data.getCompoundTag(this.name());
-            return new Vec2f(display.getInteger("x"), display.getInteger("y"));
+            return new ScriptVector(display.getInteger("x"), display.getInteger("y"), 0);
         }
     };
 
