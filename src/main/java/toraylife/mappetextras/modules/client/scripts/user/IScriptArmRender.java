@@ -1,10 +1,7 @@
 package toraylife.mappetextras.modules.client.scripts.user;
 
 import mchorse.mappet.api.scripts.user.data.ScriptVector;
-import net.minecraft.nbt.NBTTagCompound;
-import toraylife.mappetextras.modules.scripting.scripts.user.IScriptFile;
-
-import java.io.IOException;
+import toraylife.mappetextras.modules.scripting.utils.ScriptVectorAngle;
 
 public interface IScriptArmRender {
     /**
@@ -13,30 +10,29 @@ public interface IScriptArmRender {
      * <pre>{@code
      *    function main(c)
      *    {
-     *       const armRender = c.player.getArmRender(0); //0 - main, 1 - off
+     *        const armRender = c.player.getArmRender(0); //0 - main, 1 - off
      *
-     *       armRender.rotate(-90, 0, 1, 0); // Rotate 90 degrees clockwise around the vertical axis
+     *        armRender.rotate(-90, 0, 1, 0); // Rotate 90 degrees clockwise around the vertical axis
      *    }
      *  }</pre>
      */
     void setRotate(double angle, double x, double y, double z);
     /**
-     * Returns NBT Rotate. Keys: angle, x, y, z.
+     * Return rotate arm.
      *
      * <pre>{@code
      *    function main(c)
      *    {
-     *       const armRender = c.player.getArmRender(0); //0 - main, 1 - off
+     *        const armRender = c.player.getArmRender(0); //0 - main, 1 - off
      *
-     *       c.send(armRender.angle); // returns angle arm
-     *       c.send(armRender.x); // returns x arm
-     *       c.send(armRender.y); // returns y arm
-     *       c.send(armRender.z); // returns z arm
+     *        c.send(armRender.angle); // returns angle arm
+     *        c.send(armRender.x); // returns x arm
+     *        c.send(armRender.y); // returns y arm
+     *        c.send(armRender.z); // returns z arm
      *    }
      *  }</pre>
-     *  @return nbt armRender
      */
-    NBTTagCompound getRotate();
+    ScriptVectorAngle getRotate();
 
     /**
      * Moves the arm through the coordinates
@@ -44,9 +40,9 @@ public interface IScriptArmRender {
      * <pre>{@code
      *    function main(c)
      *    {
-     *       const armRender = c.player.getArmRender(0); //0 - main, 1 - off
+     *        const armRender = c.player.getArmRender(0); //0 - main, 1 - off
      *
-     *       armRender.setPosition(0.3, 0, 0);
+     *        armRender.setPosition(0.3, 0, 0);
      *    }
      *  }</pre>
      */
@@ -57,9 +53,9 @@ public interface IScriptArmRender {
      * <pre>{@code
      *    function main(c)
      *    {
-     *       const armRender = c.player.getArmRender(0); //0 - main, 1 - off
+     *        const armRender = c.player.getArmRender(0); //0 - main, 1 - off
      *
-     *       armRender.setPosition(mappet.vector(0.3, 0, 0));
+     *        armRender.setPosition(mappet.vector(0.3, 0, 0));
      *    }
      *  }</pre>
      */
@@ -70,14 +66,13 @@ public interface IScriptArmRender {
      * <pre>{@code
      *    function main(c)
      *    {
-     *       const armRender = c.player.getArmRender(0); //0 - main, 1 - off
-     *       const position = armRender.getPosition();
+     *        const armRender = c.player.getArmRender(0); //0 - main, 1 - off
+     *        const position = armRender.getPosition();
      *
-     *       c.send("x: "+position.x+", y:"+position.y+", z:"+position.z) // coordinates
+     *        c.send("x: "+position.x+", y:"+position.y+", z:"+position.z) // coordinates
      *    }
      *  }</pre>
      *  /**
-     * @return ScriptVector pos
      */
     ScriptVector getPosition();
 
@@ -87,13 +82,11 @@ public interface IScriptArmRender {
      * <pre>{@code
      *    function main(c)
      *    {
-     *       const armRender = c.player.getArmRender(0); //0 - main, 1 - off
+     *        const armRender = c.player.getArmRender(0); //0 - main, 1 - off
      *
-     *       c.send(armRender.isRender()) // render: boolean
+     *        c.send(armRender.isRender()) // render: boolean
      *    }
      *  }</pre>
-     *
-     * @return render boolean
      */
     boolean isRender();
     /**
@@ -102,12 +95,11 @@ public interface IScriptArmRender {
      * <pre>{@code
      *    function main(c)
      *    {
-     *       const armRender = c.player.getArmRender(0); //0 - main, 1 - off
+     *        const armRender = c.player.getArmRender(0); //0 - main, 1 - off
      *
-     *       armRender.setRender(false)
+     *        armRender.setRender(false)
      *    }
      *  }</pre>
      */
     void setRender(boolean render);
-
 }
