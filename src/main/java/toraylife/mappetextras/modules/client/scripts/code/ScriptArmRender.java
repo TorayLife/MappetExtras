@@ -3,16 +3,16 @@ package toraylife.mappetextras.modules.client.scripts.code;
 import mchorse.mappet.api.scripts.code.entities.ScriptPlayer;
 import mchorse.mappet.api.scripts.user.data.ScriptVector;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.nbt.NBTTagCompound;
 import toraylife.mappetextras.capabilities.mainHand.MainHand;
 import toraylife.mappetextras.capabilities.offHand.OffHand;
 import toraylife.mappetextras.modules.client.network.PacketProfileCapability;
 import toraylife.mappetextras.modules.client.scripts.user.IScriptArmRender;
+import toraylife.mappetextras.modules.scripting.utils.ScriptVectorAngle;
 import toraylife.mappetextras.network.Dispatcher;
 
 public class ScriptArmRender extends ScriptPlayer implements IScriptArmRender{
-    private final MainHand mainHand = new MainHand().get(entity);
-    private final OffHand offHand = new OffHand().get(entity);
+    private final MainHand mainHand = MainHand.get(entity);
+    private final OffHand offHand = OffHand.get(entity);
     private int hand;
 
     public ScriptArmRender(EntityPlayerMP entity, int hand) {
@@ -33,7 +33,7 @@ public class ScriptArmRender extends ScriptPlayer implements IScriptArmRender{
     }
 
     @Override
-    public NBTTagCompound getRotate() {
+    public ScriptVectorAngle getRotate() {
         if(this.hand == 0){
             return this.mainHand.getRotate();
         }else{

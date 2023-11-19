@@ -1,10 +1,10 @@
 package toraylife.mappetextras.events;
 
+import mchorse.mappet.api.scripts.user.data.ScriptVector;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.client.event.RenderSpecificHandEvent;
@@ -25,6 +25,7 @@ import toraylife.mappetextras.capabilities.offHand.OffHand;
 import toraylife.mappetextras.capabilities.offHand.OffHandProvider;
 import toraylife.mappetextras.modules.client.network.PacketGuiOpenEvent;
 import toraylife.mappetextras.modules.client.network.PacketProfileCapability;
+import toraylife.mappetextras.modules.scripting.utils.ScriptVectorAngle;
 import toraylife.mappetextras.modules.main.VersionChecker;
 import toraylife.mappetextras.modules.utils.render.NpcPathRenderer;
 import toraylife.mappetextras.network.Dispatcher;
@@ -117,32 +118,34 @@ public class EventHandler {
     }
 
     private void handleRotation(OffHand offHand) {
-        NBTTagCompound NBTangle = offHand.getRotate();
+        ScriptVectorAngle vectorAngle = offHand.getRotate();
+        ScriptVector pos = offHand.getPosition();
 
-        double angle = NBTangle.getDouble("angle");
-        double x = NBTangle.getDouble("x");
-        double y = NBTangle.getDouble("y");
-        double z = NBTangle.getDouble("z");
+        double angle = vectorAngle.angle;
+        double x = vectorAngle.x;
+        double y = vectorAngle.y;
+        double z = vectorAngle.z;
 
-        double posX = offHand.getPosition().x;
-        double posY = offHand.getPosition().y;
-        double posZ = offHand.getPosition().z;
+        double posX = pos.x;
+        double posY = pos.y;
+        double posZ = pos.z;
 
         GL11.glRotated(angle, x, y, z);
         GL11.glTranslated(posX, posY, posZ);
     }
 
     private void handleRotation(MainHand mainHand) {
-        NBTTagCompound NBTangle = mainHand.getRotate();
+        ScriptVectorAngle vectorAngle = mainHand.getRotate();
+        ScriptVector pos = mainHand.getPosition();
 
-        double angle = NBTangle.getDouble("angle");
-        double x = NBTangle.getDouble("x");
-        double y = NBTangle.getDouble("y");
-        double z = NBTangle.getDouble("z");
+        double angle = vectorAngle.angle;
+        double x = vectorAngle.x;
+        double y = vectorAngle.y;
+        double z = vectorAngle.z;
 
-        double posX = mainHand.getPosition().x;
-        double posY = mainHand.getPosition().y;
-        double posZ = mainHand.getPosition().z;
+        double posX = pos.x;
+        double posY = pos.y;
+        double posZ = pos.z;
 
         GL11.glRotated(angle, x, y, z);
         GL11.glTranslated(posX, posY, posZ);

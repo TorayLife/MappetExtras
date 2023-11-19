@@ -2,10 +2,11 @@ package toraylife.mappetextras.capabilities.offHand;
 
 import mchorse.mappet.api.scripts.user.data.ScriptVector;
 import net.minecraft.nbt.NBTTagCompound;
+import toraylife.mappetextras.modules.scripting.utils.ScriptVectorAngle;
 
 public interface IOffHand {
     // Rotate
-    NBTTagCompound getRotate();
+    ScriptVectorAngle getRotate();
     void setRotate(double angle, double x, double y, double z);
 
     // Render

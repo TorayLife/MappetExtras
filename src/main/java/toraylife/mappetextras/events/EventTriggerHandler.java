@@ -10,15 +10,15 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import toraylife.mappetextras.modules.main.triggers.TriggerAccessor;
 
 public class EventTriggerHandler {
 
     @SubscribeEvent
-    @SideOnly(Side.SERVER)
     public void onPlayerTickEvent(TickEvent.PlayerTickEvent event) {
+        if (Mappet.settings == null) {
+            return;
+        }
         Trigger trigger = ((TriggerAccessor) Mappet.settings).getPlayerTick();
 
         EntityPlayer player = event.player;
@@ -31,8 +31,10 @@ public class EventTriggerHandler {
     }
 
     @SubscribeEvent
-    @SideOnly(Side.SERVER)
     public void onPlayerWalkingEvent(TickEvent.PlayerTickEvent event) {
+        if (Mappet.settings == null) {
+            return;
+        }
         Trigger trigger = ((TriggerAccessor) Mappet.settings).getPlayerWalking();
 
         EntityPlayer player = event.player;
@@ -52,8 +54,10 @@ public class EventTriggerHandler {
     }
 
     @SubscribeEvent
-    @SideOnly(Side.SERVER)
     public void onLivingJumpEvent(LivingEvent.LivingJumpEvent event) {
+        if (Mappet.settings == null) {
+            return;
+        }
         Trigger trigger = ((TriggerAccessor) Mappet.settings).getEntityJumping();
 
         EntityLivingBase entity = event.getEntityLiving();
@@ -66,8 +70,10 @@ public class EventTriggerHandler {
     }
 
     @SubscribeEvent
-    @SideOnly(Side.SERVER)
     public void onLivingFallEvent(LivingFallEvent event) {
+        if (Mappet.settings == null) {
+            return;
+        }
         Trigger trigger = ((TriggerAccessor) Mappet.settings).getEntityFalling();
 
         EntityLivingBase entity = event.getEntityLiving();
@@ -83,8 +89,11 @@ public class EventTriggerHandler {
         CommonProxy.eventHandler.trigger(event, trigger, context);
     }
 
-    @SideOnly(Side.SERVER)
-    public void onPlayerOpenGui(String gui, EntityPlayer player){
+
+    public void onPlayerOpenGui(String gui, EntityPlayer player) {
+        if (Mappet.settings == null) {
+            return;
+        }
         Trigger trigger = ((TriggerAccessor) Mappet.settings).getPlayerOpenGui();
 
         if (shouldCancelTrigger(trigger) || player.world.isRemote) {

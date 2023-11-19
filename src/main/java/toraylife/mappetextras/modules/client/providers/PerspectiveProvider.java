@@ -8,6 +8,7 @@ public class PerspectiveProvider implements IClientDataProvider {
     public NBTTagCompound getData() {
         NBTTagCompound nbtTagCompound = new NBTTagCompound();
         int thirdPersonView = Minecraft.getMinecraft().gameSettings.thirdPersonView;
+
         nbtTagCompound.setInteger(ClientData.PESPECTIVE.toString(), thirdPersonView);
 
         return nbtTagCompound;

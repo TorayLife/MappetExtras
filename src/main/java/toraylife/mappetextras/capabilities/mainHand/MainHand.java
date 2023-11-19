@@ -3,6 +3,7 @@ package toraylife.mappetextras.capabilities.mainHand;
 import mchorse.mappet.api.scripts.user.data.ScriptVector;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+import toraylife.mappetextras.modules.scripting.utils.ScriptVectorAngle;
 
 public class MainHand implements IMainHand {
     private EntityPlayer player;
@@ -35,15 +36,8 @@ public class MainHand implements IMainHand {
 
     //ANGLE
     @Override
-    public NBTTagCompound getRotate() {
-        NBTTagCompound nbt = new NBTTagCompound();
-
-        nbt.setDouble("angle", this.angle);
-        nbt.setDouble("x", this.x);
-        nbt.setDouble("y", this.y);
-        nbt.setDouble("z", this.z);
-
-        return nbt;
+    public ScriptVectorAngle getRotate() {
+        return new ScriptVectorAngle(angle, x, y, z);
     }
 
     @Override
@@ -90,10 +84,10 @@ public class MainHand implements IMainHand {
     {
         NBTTagCompound tag = new NBTTagCompound();
 
-        tag.setDouble("x", this.getRotate().getDouble("x"));
-        tag.setDouble("y", this.getRotate().getDouble("y"));
-        tag.setDouble("z", this.getRotate().getDouble("z"));
-        tag.setDouble("angle", this.getRotate().getDouble("angle"));
+        tag.setDouble("x", this.getRotate().x);
+        tag.setDouble("y", this.getRotate().y);
+        tag.setDouble("z", this.getRotate().z);
+        tag.setDouble("angle", this.getRotate().angle);
 
         tag.setDouble("posX", this.getPosition().x);
         tag.setDouble("posY", this.getPosition().y);
