@@ -1,3 +1,17 @@
+## Version 1.1.2
+
+This version is a hotfix of bugs found in 1.1.1. Fixed bugs with documentation, localization, fixed global triggers (
+again) and hand rendering api.
+
+#### Full list of changes:
+
+* Fixes:
+    * Fixed a bug that caused global triggers to not work in singleplayer.
+    * Fixed localization.
+    * Fixed documentation.
+    * Fixed hand rendering api.
+    * Fixed methods that work with the client side of the game.
+
 ## Version 1.1.1
 
 This version is a hotfix of bugs found in 1.1.0. Fixed bugs with the documentation and crashes.
