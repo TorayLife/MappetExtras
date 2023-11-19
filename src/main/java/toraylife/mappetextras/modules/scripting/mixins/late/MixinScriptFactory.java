@@ -123,7 +123,7 @@ public abstract class MixinScriptFactory{
     }
 
     /**
-     * Returns the ${@link IScriptMath} instance.
+     * Returns the {@link IScriptMath} instance.
      *
      * <pre>{@code
      *    function main(c)
