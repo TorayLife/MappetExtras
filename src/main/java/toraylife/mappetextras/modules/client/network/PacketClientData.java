@@ -28,6 +28,20 @@ public class PacketClientData implements IMessage {
     public PacketClientData() {
     }
 
+    public PacketClientData(ClientData type, AccessType access) {
+        this.type = type;
+        this.access = access;
+        this.nbtTagCompound = new NBTTagCompound();
+        this.nbtData = new NBTTagCompound();
+    }
+
+    public PacketClientData(NBTTagCompound nbtData, ClientData type, AccessType access) {
+        this.type = type;
+        this.access = access;
+        this.nbtTagCompound = new NBTTagCompound();
+        this.nbtData = nbtData;
+    }
+
     public PacketClientData(ClientData type, AccessType access, NBTTagCompound nbtTagCompound) {
         this.type = type;
         this.access = access;

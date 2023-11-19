@@ -53,12 +53,9 @@ public abstract class MixinScriptPlayer{
      * }</pre>
      */
     public void getPerspective(Consumer<Object> callBack){
-        NBTTagCompound nbtTagCompound = new NBTTagCompound();
-        nbtTagCompound.setInteger( ClientData.PESPECTIVE.toString(), new PerspectiveProvider().getData().getInteger( ClientData.PESPECTIVE.toString() ) );
-
         PacketClientData.сallBack.put(this.getMinecraftPlayer().getUniqueID(), callBack);
 
-        Dispatcher.sendTo(new PacketClientData(ClientData.PESPECTIVE, AccessType.GET, nbtTagCompound), this.getMinecraftPlayer());
+        Dispatcher.sendTo(new PacketClientData(ClientData.PESPECTIVE, AccessType.GET), this.getMinecraftPlayer());
     }
 
     /**
@@ -91,12 +88,9 @@ public abstract class MixinScriptPlayer{
      * }</pre>
      */
     public void getClipboard(Consumer<Object> callback){
-        NBTTagCompound nbtTagCompound = new NBTTagCompound();
-        nbtTagCompound.setString( ClientData.CLIPBOARD.toString(), new ClipboardProvider().getData().getString( ClientData.CLIPBOARD.toString() ) );
-
         PacketClientData.сallBack.put(this.getMinecraftPlayer().getUniqueID(), callback);
 
-        Dispatcher.sendTo(new PacketClientData(ClientData.CLIPBOARD, AccessType.GET, nbtTagCompound), this.getMinecraftPlayer());
+        Dispatcher.sendTo(new PacketClientData(ClientData.CLIPBOARD, AccessType.GET), this.getMinecraftPlayer());
     }
 
     /**
@@ -135,14 +129,6 @@ public abstract class MixinScriptPlayer{
      * }</pre>
      */
     public void getMousePosition(Consumer<Object> callback, boolean isInsideWindow){
-        NBTTagCompound object = new NBTTagCompound();
-
-        object.setInteger("x", new MousePositionProvider().getData().getInteger("x"));
-        object.setInteger("y", new MousePositionProvider().getData().getInteger("y"));
-
-        NBTTagCompound nbtTagCompound = new NBTTagCompound();
-
-        nbtTagCompound.setTag(ClientData.MOUSEPOSITION.toString(), object);
 
         NBTTagCompound data = new NBTTagCompound();
 
@@ -150,7 +136,7 @@ public abstract class MixinScriptPlayer{
 
         PacketClientData.сallBack.put(this.getMinecraftPlayer().getUniqueID(), callback);
 
-        Dispatcher.sendTo(new PacketClientData(ClientData.MOUSEPOSITION, AccessType.GET_WITH_DATA, nbtTagCompound, data), this.getMinecraftPlayer());
+        Dispatcher.sendTo(new PacketClientData(data, ClientData.MOUSEPOSITION, AccessType.GET_WITH_DATA), this.getMinecraftPlayer());
     }
 
     /**
@@ -188,12 +174,9 @@ public abstract class MixinScriptPlayer{
         NBTTagCompound data = new NBTTagCompound();
         data.setString("key", key);
 
-        NBTTagCompound nbtTagCompound = new NBTTagCompound();
-        nbtTagCompound.setString(ClientData.SETTING.toString(), new SettingProvider().getData(data).getString(ClientData.SETTING.toString()));
-
         PacketClientData.сallBack.put(this.getMinecraftPlayer().getUniqueID(), callback);
 
-        Dispatcher.sendTo(new PacketClientData(ClientData.SETTING, AccessType.GET_WITH_DATA, nbtTagCompound, data), this.getMinecraftPlayer());
+        Dispatcher.sendTo(new PacketClientData(data, ClientData.SETTING, AccessType.GET_WITH_DATA), this.getMinecraftPlayer());
     }
 
     /**
@@ -210,18 +193,9 @@ public abstract class MixinScriptPlayer{
      * }</pre>
      */
     public void getResolution(Consumer<Object> callback) {
-        NBTTagCompound object = new NBTTagCompound();
-
-        object.setInteger("x", new ResolutionProvider().getData().getInteger("x"));
-        object.setInteger("y", new ResolutionProvider().getData().getInteger("y"));
-
-        NBTTagCompound nbtTagCompound = new NBTTagCompound();
-
-        nbtTagCompound.setTag(ClientData.RESOLUTION.toString(), object);
-
         PacketClientData.сallBack.put(this.getMinecraftPlayer().getUniqueID(), callback);
 
-        Dispatcher.sendTo(new PacketClientData(ClientData.RESOLUTION, AccessType.GET, nbtTagCompound), this.getMinecraftPlayer());
+        Dispatcher.sendTo(new PacketClientData(ClientData.RESOLUTION, AccessType.GET), this.getMinecraftPlayer());
     }
 
     /**
