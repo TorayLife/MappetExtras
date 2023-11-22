@@ -253,7 +253,8 @@ task scriptingJavadocsJson(type: Exec) {
             "toraylife.mappetextras.modules.client.mixins.late",
     ))
     List<String> excluded = new ArrayList(Arrays.asList(
-            "toraylife.mappetextras.modules.scripting.mixins.utils"
+            "toraylife.mappetextras.modules.scripting.mixins.utils",
+            "toraylife.mappetextras.modules.scripting.mixins.late.ignored"
     ))
     args "-doclet", "mchorse.utils.doclets.JsonDoclet", "-docletpath", "./run/jsonDoclet.jar", "-sourcepath", "./src/main/java",
             "-subpackages", subpackages.join(":"),
