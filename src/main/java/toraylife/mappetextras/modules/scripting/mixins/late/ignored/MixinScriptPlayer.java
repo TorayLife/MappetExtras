@@ -1,5 +1,6 @@
 package toraylife.mappetextras.modules.scripting.mixins.late.ignored;
 
+import jdk.nashorn.api.scripting.ScriptObjectMirror;
 import mchorse.mappet.api.scripts.code.entities.ScriptPlayer;
 import mchorse.mappet.api.scripts.code.mappet.MappetUIBuilder;
 import mchorse.mappet.api.scripts.user.mappet.IMappetUIBuilder;
@@ -17,6 +18,8 @@ import toraylife.mappetextras.modules.main.mixins.utils.MixinTargetName;
 import toraylife.mappetextras.modules.scripting.mixins.utils.CallbackableComponent;
 import toraylife.mappetextras.modules.scripting.mixins.utils.UIContextWithCallback;
 
+import java.util.HashMap;
+
 @Mixin(value = ScriptPlayer.class, remap = false)
 @MixinTargetName("mchorse.mappet.api.scripts.user.IScriptPlayer")
 public class MixinScriptPlayer {
@@ -28,10 +31,18 @@ public class MixinScriptPlayer {
     @DiscardMethod
     public void openUI(IMappetUIBuilder in, boolean defaultData, CallbackInfoReturnable<Boolean> cir, MappetUIBuilder builder, ICharacter character, boolean noContext, UI ui, UIContext context) {
         for (UIComponent component : builder.getCurrent().getChildComponents()) {
-            if (component instanceof CallbackableComponent) {
-                CallbackableComponent callbackableComponent = ((CallbackableComponent) component);
-                if (callbackableComponent.hasCallback()) {
-                    ((UIContextWithCallback) context).registerCallback(component.id, callbackableComponent.getCallback());
+            if (!(component instanceof CallbackableComponent)) {
+                continue;
+            }
+
+            CallbackableComponent callbackableComponent = ((CallbackableComponent) component);
+            if (callbackableComponent.hasCallback()) {
+                ((UIContextWithCallback) context).registerCallback(component.id, callbackableComponent.getCallback());
+            }
+            if (callbackableComponent.hasContextCallbacks()) {
+                HashMap<String, ScriptObjectMirror> contextCallbacks = callbackableComponent.getContextCallbacks();
+                for (String key : contextCallbacks.keySet()) {
+                    ((UIContextWithCallback) context).registerCallback(key, contextCallbacks.get(key));
                 }
             }
         }

@@ -3,15 +3,27 @@ package toraylife.mappetextras.modules.scripting.mixins.late.UI;
 import jdk.nashorn.api.scripting.ScriptObjectMirror;
 import mchorse.mappet.api.scripts.user.mappet.IMappetUIContext;
 import mchorse.mappet.api.ui.components.UIComponent;
+import mchorse.mappet.api.ui.components.UIIconButtonComponent;
+import mchorse.mappet.api.ui.utils.UIContextItem;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import toraylife.mappetextras.modules.main.mixins.utils.MixinTargetName;
 import toraylife.mappetextras.modules.scripting.mixins.utils.CallbackableComponent;
 
+import java.util.HashMap;
+import java.util.List;
+
 @Mixin(value = UIComponent.class, remap = false)
 @MixinTargetName("mchorse.mappet.api.ui.components.UIComponent")
-public class MixinUIComponent<T extends UIComponent> implements CallbackableComponent<T> {
+public abstract class MixinUIComponent implements CallbackableComponent<UIComponent> {
 
+    @Shadow
+    protected abstract void change(String... properties);
+
+    @Shadow
+    public List<UIContextItem> context;
     ScriptObjectMirror function;
+    public HashMap<String, ScriptObjectMirror> contextFunctions = new HashMap<>();
 
     /**
      * Add callback function to component, that calls if you call {@link IMappetUIContext#handleCallbacks(mchorse.mappet.api.scripts.user.IScriptEvent)} in handler function.
@@ -83,9 +95,35 @@ public class MixinUIComponent<T extends UIComponent> implements CallbackableComp
      * @param function - function that will be called.
      * @return UIComponent - this component
      */
-    public T callback(ScriptObjectMirror function) {
+    public UIComponent callback(ScriptObjectMirror function) {
         this.function = function;
-        return (T) (Object) this;
+        return (UIComponent) (Object) this;
+    }
+
+
+    /**
+     * Add callback function to component context item.
+     *
+     * <pre>{@code
+     * function main(c) {
+     *     var ui = mappet.createUI().background();
+     *     var label = ui.label("Hello!").id("label").tooltip("Right click me...");
+     *     label.rxy(0.5, 0.5).wh(160, 20).anchor(0.5).labelAnchor(0.5);
+     *     label.context("bubble", "a", "How are you?");
+     *
+     *     label.callback("a", function() {
+     *         label.label("I'm fine, and you?");
+     *     });
+     *
+     *     c.getSubject().openUI(ui);
+     * }
+     * }</pre>
+     *
+     * @param function - function that will be called.
+     */
+    public UIComponent callback(String action, ScriptObjectMirror function) {
+        this.contextFunctions.put(action, function);
+        return (UIComponent) (Object) this;
     }
 
     @Override
@@ -96,7 +134,50 @@ public class MixinUIComponent<T extends UIComponent> implements CallbackableComp
 
     @Override
     @mchorse.mappet.api.ui.utils.DiscardMethod // DO NOT REMOVE
+    public HashMap<String, ScriptObjectMirror> getContextCallbacks() {
+        return this.contextFunctions;
+    }
+
+    @Override
+    @mchorse.mappet.api.ui.utils.DiscardMethod // DO NOT REMOVE
     public boolean hasCallback() {
         return this.function != null;
+    }
+
+    @Override
+    @mchorse.mappet.api.ui.utils.DiscardMethod // DO NOT REMOVE
+    public boolean hasContextCallbacks() {
+        return this.contextFunctions.size() != 0;
+    }
+
+    /**
+     * Add a context menu item with callback.
+     *
+     * <pre>{@code
+     *    function main(c) {
+     *    var ui = mappet.createUI().background();
+     *    var label = ui.label("Hello!").id("label").tooltip("Right click me...");
+     *
+     *    label.rxy(0.5, 0.5).wh(160, 20).anchor(0.5).labelAnchor(0.5);
+     *    label.context("bubble", "a", "How are you?", 0, function() {
+     *         label.label("I'm fine, and you?");
+     *    });
+     *    label.context("remove", "b", "...", 0xff0033, function(c, component, context) {
+     *        context.get("label").label("");
+     *    });
+     *
+     *    c.getSubject().openUI(ui);
+     *    }
+     * }</pre>
+     *
+     * @param icon     Icon ID (see {@link UIIconButtonComponent}).
+     * @param action   Action ID that will be used for handling with {@link IMappetUIContext#getContext()}.
+     * @param label    Label that will be displayed in the context menu item.
+     * @param color    Background color highlight (in RGB hex format).
+     * @param function Function that will be called. (see {@link UIComponent#callback(ScriptObjectMirror)}
+     */
+    public UIComponent context(String icon, String action, String label, int color, ScriptObjectMirror function) {
+        this.contextFunctions.put(action, function);
+        return ((UIComponent) (Object) this).context(icon, action, label, color);
     }
 }

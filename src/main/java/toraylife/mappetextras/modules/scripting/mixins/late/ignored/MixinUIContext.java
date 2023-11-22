@@ -72,6 +72,6 @@ public abstract class MixinUIContext implements UIContextWithCallback {
             return;
         }
 
-        callback.call(null, event, this.getById(last), event.getPlayer().getUIContext(), last);
+        callback.call(null, event, this.last.isEmpty() ? null : this.getById(last), event.getPlayer().getUIContext(), last);
     }
 }
