@@ -11,7 +11,11 @@
     "MixinScriptPlayer",
     "MixinScriptServer",
     "MixinScriptVector",
-    "MixinScriptWorld"
+    "MixinScriptWorld",
+    "ignored.MixinScriptPlayer",
+    "ignored.MixinUIContext",
+    "UI.MixinMappetUIContext",
+    "UI.MixinUIComponent"
   ],
   "client": [
   ],
