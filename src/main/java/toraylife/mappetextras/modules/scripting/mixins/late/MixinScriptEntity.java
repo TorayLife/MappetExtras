@@ -9,9 +9,16 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.DamageSource;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import toraylife.mappetextras.modules.main.mixins.utils.MixinTargetName;
+
+import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 @Mixin(value = ScriptEntity.class, remap = false)
 @MixinTargetName("mchorse.mappet.api.scripts.user.entities.IScriptEntity")
@@ -154,68 +161,46 @@ public abstract class MixinScriptEntity<T extends Entity> {
         return ((EntityLivingBase) this.entity).isEntityUndead();
     }
 
-    /**
-     * Returns the fall distance for this entity.
-     */
     public float getFallDistance() {
         return this.entity.fallDistance;
     }
 
-    /**
-     * Get the entity id.
-     * @return entity id
-     */
     public int getEntityId() {
         return this.entity.getEntityId();
     }
 
-    /**
-     * Set the entity id.
-     * @param id The new entity id
-     */
     public void setEntityId(int id) {
         this.entity.setEntityId(id);
     }
 
-    /**
-     * Get the AI move speed.
-     * @return The current AI move speed
-     */
     public float getAIMoveSpeed() {
         return ((EntityLivingBase) this.entity).getAIMoveSpeed();
     }
 
-    /**
-     * Set the AI move speed.
-     * @param speed The new AI move speed
-     */
     public void setAIMoveSpeed(float speed) {
         ((EntityLivingBase) this.entity).setAIMoveSpeed(speed);
     }
 
-    /**
-     * Set the no clip status of the entity.
-     * @param clip True to enable no clipping
-     */
     public void setNoClip(boolean clip) {
         this.entity.noClip = clip;
     }
 
-    /**
-     * Applies knockback force.
-     * @param power Knockback strength
-     * @param angle Knockback angle angle in radians
-     */
-    public void knockback(int power, float angle) {
-        float angleRadians = angle * (float)Math.PI / 180f;
+    public boolean getNoClip() {
+        return this.entity.noClip;
+    }
 
-        float x = -MathHelper.sin(angleRadians) * power;
-        float z = MathHelper.cos(angleRadians) * power;
+    public void damage(float health, String damageType) throws NoSuchFieldException, IllegalAccessException {
+        damageType = damageType.toUpperCase();
 
-        this.entity.addVelocity(x, 0.1D + power * 0.04D, z);
+        if (this.entity instanceof EntityLivingBase) {
+            return;
+        }
 
-        this.entity.motionX *= 0.6D;
-        this.entity.motionZ *= 0.6D;
-        this.entity.velocityChanged = true;
+        Field field = DamageSource.class.getDeclaredField(damageType);
+        field.setAccessible(true);
+
+        Object value = field.get(new DamageSource(damageType));
+
+        this.entity.attackEntityFrom((DamageSource) value, health);
     }
 }
