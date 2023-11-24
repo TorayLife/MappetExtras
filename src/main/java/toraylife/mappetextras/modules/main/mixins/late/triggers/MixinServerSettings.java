@@ -24,6 +24,8 @@ public abstract class MixinServerSettings implements TriggerAccessor {
     public Trigger livingJump;
     public Trigger livingFall;
     public Trigger playerOpenGui;
+    public Trigger playerEat;
+    public Trigger playerDrink;
 
     public Trigger getPlayerOpenGui(){
         return this.playerOpenGui;
@@ -45,6 +47,14 @@ public abstract class MixinServerSettings implements TriggerAccessor {
         return this.livingFall;
     }
 
+    public Trigger getPlayerEat(){
+        return this.playerEat;
+    }
+
+    public Trigger getPlayerDrink(){
+        return this.playerDrink;
+    }
+
     @Inject(method = "<init>", at = @At("TAIL"), remap = false)
     public void constructor(File file, CallbackInfo ci) {
         this.playerTick = this.register("player_tick", "player_tick", new Trigger());
@@ -52,6 +62,8 @@ public abstract class MixinServerSettings implements TriggerAccessor {
         this.livingJump = this.register("living_jump", "living_jump", new Trigger());
         this.livingFall = this.register("living_fall", "living_fall", new Trigger());
         this.playerOpenGui = this.register("player_open_gui", "player_open_gui", new Trigger());
+        this.playerEat = this.register("player_eat", "player_eat", new Trigger());
+        this.playerDrink = this.register("player_drink", "player_drink", new Trigger());
 
         Mappet.EVENT_BUS.post(new RegisterServerTriggerEvent((ServerSettings) (Object) this));
     }
