@@ -47,6 +47,11 @@ public interface IScriptArmRender {
      *  }</pre>
      */
     void setPosition(double x, double y, double z);
+
+    void setRotations(float pitch, float yaw, float yawHead);
+
+    ScriptVector getRotations();
+
     /**
      * Moves the arm through the coordinates
      *

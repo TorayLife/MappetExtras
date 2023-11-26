@@ -234,6 +234,21 @@ public abstract class MixinScriptPlayer{
      * §7VIGNETTE.
      */
     public ScriptMinecraftHUD getMinecraftHUD(String hud){
-        return new ScriptMinecraftHUD(this.getMinecraftPlayer(), hud);
+        return new ScriptMinecraftHUD(this.getMinecraftPlayer(), hud.toUpperCase());
+    }
+
+
+    public void resetAllHUDs(){
+        String[] huds = new String[]{
+            "ALL", "HELMET", "PORTAL", "CROSSHAIRS", "BOSSHEALTH", "BOSSINFO", "ARMOR", "HEALTH", "FOOD", "AIR", "HOTBAR", "EXPERIENCE", "TEXT", "HEALTHMOUNT", "JUMPBAR", "CHAT", "PLAYER_LIST", "DEBUG", "POTION_ICONS", "SUBTITLES", "FPS_GRAPH", "VIGNETTE"
+        };
+
+        for(String hud : huds){
+            getMinecraftHUD("all").setName(hud);
+
+            getMinecraftHUD("all").setRotate(0, 0, 0, 0);
+            getMinecraftHUD("all").setPosition(0, 0);
+            getMinecraftHUD("all").setRender(true);
+        }
     }
 }

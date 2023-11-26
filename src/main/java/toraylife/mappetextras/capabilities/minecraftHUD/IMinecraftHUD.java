@@ -5,14 +5,14 @@ import net.minecraft.nbt.NBTTagCompound;
 import toraylife.mappetextras.modules.scripting.utils.ScriptVectorAngle;
 
 public interface IMinecraftHUD {
-    public ScriptVector getScale() throws NoSuchFieldException, IllegalAccessException;
-    public void setScale(double x, double y) throws NoSuchFieldException, IllegalAccessException;
-    public ScriptVector getPosition() throws NoSuchFieldException, IllegalAccessException;
-    public void setPosition(double x, double y) throws NoSuchFieldException, IllegalAccessException;
-    public ScriptVectorAngle getRotate() throws NoSuchFieldException, IllegalAccessException;
-    public void setRotate(double angle, double x, double y, double z) throws NoSuchFieldException, IllegalAccessException;
-    public boolean isRender() throws NoSuchFieldException, IllegalAccessException;
-    public void setRender(boolean render) throws NoSuchFieldException, IllegalAccessException;
+    public ScriptVector getScale();
+    public void setScale(double x, double y);
+    public ScriptVector getPosition();
+    public void setPosition(double x, double y);
+    public ScriptVectorAngle getRotate();
+    public void setRotate(double angle, double x, double y, double z);
+    public boolean isRender();
+    public void setRender(boolean render);
     public void setName(String name);
     public String getName();
 

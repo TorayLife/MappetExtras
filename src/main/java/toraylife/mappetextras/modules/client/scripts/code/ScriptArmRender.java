@@ -49,6 +49,17 @@ public class ScriptArmRender extends ScriptPlayer implements IScriptArmRender{
     }
 
     @Override
+    public ScriptVector getRotations(){
+        ScriptVectorAngle rotate = this.getRotate();
+
+        double pitch = Math.atan2(rotate.y, rotate.z);
+        double yaw = Math.atan2(rotate.x, rotate.z);
+        double yawHead = rotate.angle;
+
+        return new ScriptVector(pitch, yaw, yawHead);
+    }
+
+    @Override
     public ScriptVectorAngle getRotate() {
         if(this.hand == 0){
             return this.mainHand.getRotate();

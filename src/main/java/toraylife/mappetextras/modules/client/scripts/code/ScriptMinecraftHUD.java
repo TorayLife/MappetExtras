@@ -12,6 +12,8 @@ import toraylife.mappetextras.modules.client.scripts.user.IScriptMinecraftHUD;
 import toraylife.mappetextras.modules.scripting.utils.ScriptVectorAngle;
 import toraylife.mappetextras.network.Dispatcher;
 
+import java.util.Set;
+
 public class ScriptMinecraftHUD extends ScriptPlayer implements IScriptMinecraftHUD {
     private MinecraftHUD minecraftHUD = MinecraftHUD.get(entity);
     private String name;
@@ -24,82 +26,74 @@ public class ScriptMinecraftHUD extends ScriptPlayer implements IScriptMinecraft
 
     @Override
     public void setPosition(double x, double y){
-        try {
-            this.minecraftHUD.setPosition(x, y);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
+        this.minecraftHUD.setPosition(x, y);
 
         this.sendToCapability();
     }
 
     @Override
     public void setScale(double x, double y){
-        try {
-            this.minecraftHUD.setScale(x, y);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
+        this.minecraftHUD.setScale(x, y);
 
         this.sendToCapability();
     }
 
     @Override
     public void setRotate(double angle, double x, double y, double z){
-        try {
-            this.minecraftHUD.setRotate(angle, x, y, z);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
+        this.minecraftHUD.setRotate(angle, x, y, z);
 
         this.sendToCapability();
     }
 
     @Override
     public ScriptVector getPosition(){
-        try {
-            return this.minecraftHUD.getPosition();
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
+        return this.minecraftHUD.getPosition();
     }
 
     @Override
     public ScriptVector getScale(){
-        try {
-            return this.minecraftHUD.getScale();
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
+        return this.minecraftHUD.getScale();
     }
 
     @Override
     public ScriptVectorAngle getRotate(){
-        try {
-            return this.minecraftHUD.getRotate();
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
+        return this.minecraftHUD.getRotate();
     }
 
     @Override
     public boolean isRender(){
-        try {
-            return this.minecraftHUD.isRender();
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
+        return this.minecraftHUD.isRender();
     }
 
     @Override
     public void setRender(boolean render){
-        try {
-            this.minecraftHUD.setRender(render);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
+        this.minecraftHUD.setRender(render);
 
         this.sendToCapability();
+    }
+
+    @Override
+    public void setRotations(float pitch, float yaw, float yawHead){
+        pitch = (float) Math.toDegrees(pitch);
+        yaw = (float) Math.toDegrees(yaw);
+        double x = Math.cos(yaw) * Math.cos(pitch);
+        double y = Math.sin(pitch);
+        double z = Math.sin(yaw) * Math.cos(pitch);
+
+        float angle = yawHead;
+
+        this.setRotate(angle, x, y, z);
+    }
+
+    @Override
+    public ScriptVector getRotations(){
+        ScriptVectorAngle rotate = this.getRotate();
+
+        double pitch = Math.atan2(rotate.y, rotate.z);
+        double yaw = Math.atan2(rotate.x, rotate.z);
+        double yawHead = rotate.angle;
+
+        return new ScriptVector(pitch, yaw, yawHead);
     }
 
     @Override
@@ -143,10 +137,17 @@ public class ScriptMinecraftHUD extends ScriptPlayer implements IScriptMinecraft
     }
 
     @Override
-    public String[] getAllHUDs(){
-        return new String[]{
-            "ALL", "HELMET", "PORTAL", "CROSSHAIRS", "BOSSHEALTH", "BOSSINFO", "ARMOR", "HEALTH", "FOOD", "AIR", "HOTBAR", "EXPERIENCE", "TEXT", "HEALTHMOUNT", "JUMPBAR", "CHAT", "PLAYER_LIST", "DEBUG", "POTION_ICONS", "SUBTITLES", "FPS_GRAPH", "VIGNETTE"
-        };
+    public Set<String> getAllHUDs(){
+        return this.minecraftHUD.HUDs.keySet();
+    }
+
+    @Override
+    public void reset(){
+        this.setRotate(0, 0, 0, 0);
+        this.setPosition(0, 0);
+        this.setRender(true);
+
+        this.sendToCapability();
     }
 
     private void sendToCapability(){

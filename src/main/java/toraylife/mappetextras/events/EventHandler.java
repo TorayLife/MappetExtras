@@ -2,14 +2,13 @@ package toraylife.mappetextras.events;
 
 import mchorse.mappet.api.scripts.user.data.ScriptVector;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.event.GuiOpenEvent;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.client.event.RenderSpecificHandEvent;
-import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.client.event.*;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
@@ -173,34 +172,30 @@ public class EventHandler {
 
     @SubscribeEvent
     @SideOnly(Side.CLIENT)
-    public void onRenderGuiPre(RenderGameOverlayEvent.Pre event) throws NoSuchFieldException, IllegalAccessException {
+    public void onRenderGuiPre(RenderGameOverlayEvent.Pre event){
         MinecraftHUD minecraftHUD = MinecraftHUD.get(Minecraft.getMinecraft().player);
-        String[] HUDs = new String[]{
-            "ALL", "HELMET", "PORTAL", "CROSSHAIRS", "BOSSHEALTH", "BOSSINFO", "ARMOR", "HEALTH", "FOOD", "AIR", "HOTBAR", "EXPERIENCE", "TEXT", "HEALTHMOUNT", "JUMPBAR", "CHAT", "PLAYER_LIST", "DEBUG", "POTION_ICONS", "SUBTITLES", "FPS_GRAPH", "VIGNETTE"
-        };
 
-        for(String hud : HUDs){
-            if(event.getType() == RenderGameOverlayEvent.ElementType.valueOf(hud))
-            {
-                minecraftHUD.setName(hud);
+        minecraftHUD.setName(event.getType().name());
 
-                boolean render = minecraftHUD.isRender();
-                ScriptVector scale = minecraftHUD.getScale();
-                ScriptVector pos = minecraftHUD.getPosition();
-                ScriptVectorAngle rotate = minecraftHUD.getRotate();
+        boolean render = minecraftHUD.isRender();
+        ScriptVector scale = minecraftHUD.getScale();
+        ScriptVector pos = minecraftHUD.getPosition();
+        ScriptVectorAngle rotate = minecraftHUD.getRotate();
 
-                event.setCanceled(!render);
-                GL11.glPushMatrix();
-                GL11.glRotated(rotate.angle, rotate.x, rotate.y, rotate.z);
-                GL11.glScaled(scale.x, scale.y, scale.z);
-                GL11.glTranslated(pos.x, pos.y, pos.z);
-            }
+        event.setCanceled(!render);
+        if(event.getType() != RenderGameOverlayEvent.ElementType.HOTBAR){
+            GL11.glPushMatrix();
+            GL11.glRotated(rotate.angle, rotate.x, rotate.y, rotate.z);
+            GL11.glScaled(scale.x, scale.y, scale.z);
+            GL11.glTranslated(pos.x, pos.y, pos.z);
         }
     }
 
     @SubscribeEvent
     @SideOnly(Side.CLIENT)
     public void onRenderGuiPost(RenderGameOverlayEvent.Post event){
-        GL11.glPopMatrix();
+        if(event.getType() != RenderGameOverlayEvent.ElementType.HOTBAR) {
+            GL11.glPopMatrix();
+        }
     }
 }

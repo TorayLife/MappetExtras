@@ -6,32 +6,45 @@ import net.minecraft.nbt.NBTTagCompound;
 import toraylife.mappetextras.modules.scripting.utils.ScriptVectorAngle;
 
 import java.lang.reflect.Field;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 public class MinecraftHUD implements IMinecraftHUD{
     private EntityPlayer player;
-    public NBTTagCompound ALL = this.createDefaultNBT();
-    public NBTTagCompound HELMET = this.createDefaultNBT();
-    public NBTTagCompound PORTAL = this.createDefaultNBT();
-    public NBTTagCompound CROSSHAIRS = this.createDefaultNBT();
-    public NBTTagCompound BOSSHEALTH = this.createDefaultNBT();
-    public NBTTagCompound BOSSINFO = this.createDefaultNBT();
-    public NBTTagCompound ARMOR = this.createDefaultNBT();
-    public NBTTagCompound HEALTH = this.createDefaultNBT();
-    public NBTTagCompound FOOD = this.createDefaultNBT();
-    public NBTTagCompound AIR = this.createDefaultNBT();
-    public NBTTagCompound HOTBAR = this.createDefaultNBT();
-    public NBTTagCompound EXPERIENCE = this.createDefaultNBT();
-    public NBTTagCompound TEXT = this.createDefaultNBT();
-    public NBTTagCompound HEALTHMOUNT = this.createDefaultNBT();
-    public NBTTagCompound JUMPBAR = this.createDefaultNBT();
-    public NBTTagCompound CHAT = this.createDefaultNBT();
-    public NBTTagCompound PLAYER_LIST = this.createDefaultNBT();
-    public NBTTagCompound DEBUG = this.createDefaultNBT();
-    public NBTTagCompound POTION_ICONS = this.createDefaultNBT();
-    public NBTTagCompound SUBTITLES = this.createDefaultNBT();
-    public NBTTagCompound FPS_GRAPH = this.createDefaultNBT();
-    public NBTTagCompound VIGNETTE = this.createDefaultNBT();
+    public Map<String, NBTTagCompound> HUDs = this.createHUDs();
+
     public String name;
+
+    private Map<String, NBTTagCompound> createHUDs(){
+        Map<String, NBTTagCompound> map = new HashMap<>();
+
+        map.put("ALL", this.createDefaultNBT());
+        map.put("HELMET", this.createDefaultNBT());
+        map.put("PORTAL", this.createDefaultNBT());
+        map.put("CROSSHAIRS", this.createDefaultNBT());
+        map.put("BOSSHEALTH", this.createDefaultNBT());
+        map.put("BOSSINFO", this.createDefaultNBT());
+        map.put("ARMOR", this.createDefaultNBT());
+        map.put("HEALTH", this.createDefaultNBT());
+        map.put("FOOD", this.createDefaultNBT());
+        map.put("AIR", this.createDefaultNBT());
+        map.put("HOTBAR", this.createDefaultNBT());
+        map.put("EXPERIENCE", this.createDefaultNBT());
+        map.put("TEXT", this.createDefaultNBT());
+        map.put("HEALTHMOUNT", this.createDefaultNBT());
+        map.put("JUMPBAR", this.createDefaultNBT());
+        map.put("CHAT", this.createDefaultNBT());
+        map.put("PLAYER_LIST", this.createDefaultNBT());
+        map.put("DEBUG", this.createDefaultNBT());
+        map.put("POTION_ICONS", this.createDefaultNBT());
+        map.put("SUBTITLES", this.createDefaultNBT());
+        map.put("FPS_GRAPH", this.createDefaultNBT());
+        map.put("VIGNETTE", this.createDefaultNBT());
+
+        return map;
+    }
 
     private NBTTagCompound createDefaultNBT(){
         NBTTagCompound nbtTagCompound = new NBTTagCompound();
@@ -84,22 +97,17 @@ public class MinecraftHUD implements IMinecraftHUD{
         return this.name;
     }
 
-    public NBTTagCompound getHUDName(String name) throws IllegalAccessException, NoSuchFieldException {
-        Field field = this.getClass().getDeclaredField(name);
-        return (NBTTagCompound) field.get(this);
-    }
-
     @Override
-    public ScriptVector getScale() throws NoSuchFieldException, IllegalAccessException {
-        NBTTagCompound hud = this.getHUDName(this.name);
+    public ScriptVector getScale(){
+        NBTTagCompound hud = this.HUDs.get(this.getName());
 
         NBTTagCompound scale = hud.getCompoundTag("scale");
         return new ScriptVector(scale.getDouble("x"), scale.getDouble("y"), 0);
     }
 
     @Override
-    public void setScale(double x, double y) throws NoSuchFieldException, IllegalAccessException {
-        NBTTagCompound hud = this.getHUDName(this.name);
+    public void setScale(double x, double y){
+        NBTTagCompound hud = this.HUDs.get(this.getName());
 
         NBTTagCompound scale = hud.getCompoundTag("scale");
 
@@ -108,8 +116,8 @@ public class MinecraftHUD implements IMinecraftHUD{
     }
 
     @Override
-    public ScriptVector getPosition() throws NoSuchFieldException, IllegalAccessException {
-        NBTTagCompound hud = this.getHUDName(this.name);
+    public ScriptVector getPosition(){
+        NBTTagCompound hud = this.HUDs.get(this.getName());
 
         NBTTagCompound pos = hud.getCompoundTag("position");
 
@@ -117,8 +125,8 @@ public class MinecraftHUD implements IMinecraftHUD{
     }
 
     @Override
-    public void setPosition(double x, double y) throws NoSuchFieldException, IllegalAccessException {
-        NBTTagCompound hud = this.getHUDName(this.name);
+    public void setPosition(double x, double y){
+        NBTTagCompound hud = this.HUDs.get(this.getName());
 
         NBTTagCompound pos = hud.getCompoundTag("position");
 
@@ -127,8 +135,8 @@ public class MinecraftHUD implements IMinecraftHUD{
     }
 
     @Override
-    public ScriptVectorAngle getRotate() throws NoSuchFieldException, IllegalAccessException {
-        NBTTagCompound hud = this.getHUDName(this.name);
+    public ScriptVectorAngle getRotate(){
+        NBTTagCompound hud = this.HUDs.get(this.getName());
 
         NBTTagCompound rotate = hud.getCompoundTag("rotate");
 
@@ -136,8 +144,8 @@ public class MinecraftHUD implements IMinecraftHUD{
     }
 
     @Override
-    public void setRotate(double angle, double x, double y, double z) throws NoSuchFieldException, IllegalAccessException {
-        NBTTagCompound hud = this.getHUDName(this.name);
+    public void setRotate(double angle, double x, double y, double z){
+        NBTTagCompound hud = this.HUDs.get(this.getName());
 
         NBTTagCompound rotate = hud.getCompoundTag("rotate");
 
@@ -148,15 +156,15 @@ public class MinecraftHUD implements IMinecraftHUD{
     }
 
     @Override
-    public boolean isRender() throws NoSuchFieldException, IllegalAccessException {
-        NBTTagCompound hud = this.getHUDName(this.name);
+    public boolean isRender(){
+        NBTTagCompound hud = this.HUDs.get(this.getName());
 
         return hud.getBoolean("render");
     }
 
     @Override
-    public void setRender(boolean render) throws NoSuchFieldException, IllegalAccessException {
-        NBTTagCompound hud = this.getHUDName(this.name);
+    public void setRender(boolean render){
+        NBTTagCompound hud = this.HUDs.get(this.getName());
 
         hud.setBoolean("render", render);
     }
@@ -166,28 +174,28 @@ public class MinecraftHUD implements IMinecraftHUD{
     {
         NBTTagCompound tag = new NBTTagCompound();
 
-        tag.setTag("ALL", this.ALL);
-        tag.setTag("HELMET", this.HELMET);
-        tag.setTag("PORTAL", this.PORTAL);
-        tag.setTag("CROSSHAIRS", this.CROSSHAIRS);
-        tag.setTag("BOSSHEALTH", this.BOSSHEALTH);
-        tag.setTag("BOSSINFO", this.BOSSINFO);
-        tag.setTag("ARMOR", this.ARMOR);
-        tag.setTag("HEALTH", this.HEALTH);
-        tag.setTag("FOOD", this.FOOD);
-        tag.setTag("AIR", this.AIR);
-        tag.setTag("HOTBAR", this.HOTBAR);
-        tag.setTag("EXPERIENCE", this.EXPERIENCE);
-        tag.setTag("TEXT", this.TEXT);
-        tag.setTag("HEALTHMOUNT", this.HEALTHMOUNT);
-        tag.setTag("JUMPBAR", this.JUMPBAR);
-        tag.setTag("CHAT", this.CHAT);
-        tag.setTag("PLAYER_LIST", this.PLAYER_LIST);
-        tag.setTag("DEBUG", this.DEBUG);
-        tag.setTag("POTION_ICONS", this.POTION_ICONS);
-        tag.setTag("SUBTITLES", this.SUBTITLES);
-        tag.setTag("FPS_GRAPH", this.FPS_GRAPH);
-        tag.setTag("VIGNETTE", this.VIGNETTE);
+        tag.setTag("ALL", this.HUDs.get("ALL"));
+        tag.setTag("HELMET", this.HUDs.get("HELMET"));
+        tag.setTag("PORTAL", this.HUDs.get("PORTAL"));
+        tag.setTag("CROSSHAIRS", this.HUDs.get("CROSSHAIRS"));
+        tag.setTag("BOSSHEALTH", this.HUDs.get("BOSSHEALTH"));
+        tag.setTag("BOSSINFO", this.HUDs.get("BOSSINFO"));
+        tag.setTag("ARMOR", this.HUDs.get("ARMOR"));
+        tag.setTag("HEALTH", this.HUDs.get("HEALTH"));
+        tag.setTag("FOOD", this.HUDs.get("FOOD"));
+        tag.setTag("AIR", this.HUDs.get("AIR"));
+        tag.setTag("HOTBAR", this.HUDs.get("HOTBAR"));
+        tag.setTag("EXPERIENCE", this.HUDs.get("EXPERIENCE"));
+        tag.setTag("TEXT", this.HUDs.get("TEXT"));
+        tag.setTag("HEALTHMOUNT", this.HUDs.get("HEALTHMOUNT"));
+        tag.setTag("JUMPBAR", this.HUDs.get("JUMPBAR"));
+        tag.setTag("CHAT", this.HUDs.get("CHAT"));
+        tag.setTag("PLAYER_LIST", this.HUDs.get("PLAYER_LIST"));
+        tag.setTag("DEBUG", this.HUDs.get("DEBUG"));
+        tag.setTag("POTION_ICONS", this.HUDs.get("POTION_ICONS"));
+        tag.setTag("SUBTITLES", this.HUDs.get("SUBTITLES"));
+        tag.setTag("FPS_GRAPH", this.HUDs.get("FPS_GRAPH"));
+        tag.setTag("VIGNETTE", this.HUDs.get("VIGNETTE"));
 
         return tag;
     }
@@ -196,76 +204,76 @@ public class MinecraftHUD implements IMinecraftHUD{
     public void deserializeNBT(NBTTagCompound tag)
     {
         if (tag.hasKey("ALL")) {
-            this.ALL = tag.getCompoundTag("ALL");
+            this.HUDs.put("ALL", tag.getCompoundTag("ALL"));
         }
         if (tag.hasKey("HELMET")) {
-            this.HELMET = tag.getCompoundTag("HELMET");
+            this.HUDs.put("HELMET", tag.getCompoundTag("HELMET"));
         }
         if (tag.hasKey("PORTAL")) {
-            this.PORTAL = tag.getCompoundTag("PORTAL");
+            this.HUDs.put("PORTAL", tag.getCompoundTag("PORTAL"));
         }
         if (tag.hasKey("CROSSHAIRS")) {
-            this.CROSSHAIRS = tag.getCompoundTag("CROSSHAIRS");
+            this.HUDs.put("CROSSHAIRS", tag.getCompoundTag("ALL"));
         }
         if (tag.hasKey("BOSSHEALTH")) {
-            this.BOSSHEALTH = tag.getCompoundTag("BOSSHEALTH");
+            this.HUDs.put("BOSSHEALTH", tag.getCompoundTag("BOSSHEALTH"));
         }
         if (tag.hasKey("BOSSINFO")) {
-            this.BOSSINFO = tag.getCompoundTag("BOSSINFO");
+            this.HUDs.put("BOSSINFO", tag.getCompoundTag("BOSSINFO"));
         }
         if (tag.hasKey("ARMOR")) {
-            this.ARMOR = tag.getCompoundTag("ARMOR");
+            this.HUDs.put("ARMOR", tag.getCompoundTag("ARMOR"));
         }
         if (tag.hasKey("HEALTH")) {
-            this.HEALTH = tag.getCompoundTag("HEALTH");
+            this.HUDs.put("HEALTH", tag.getCompoundTag("HEALTH"));
         }
         if (tag.hasKey("FOOD")) {
-            this.FOOD = tag.getCompoundTag("FOOD");
+            this.HUDs.put("FOOD", tag.getCompoundTag("FOOD"));
         }
         if (tag.hasKey("HEALTH")) {
-            this.ARMOR = tag.getCompoundTag("HEALTH");
+            this.HUDs.put("HEALTH", tag.getCompoundTag("HEALTH"));
         }
         if (tag.hasKey("AIR")) {
-            this.AIR = tag.getCompoundTag("AIR");
+            this.HUDs.put("AIR", tag.getCompoundTag("AIR"));
         }
         if (tag.hasKey("HOTBAR")) {
-            this.HOTBAR = tag.getCompoundTag("HOTBAR");
+            this.HUDs.put("HOTBAR", tag.getCompoundTag("HOTBAR"));
         }
         if (tag.hasKey("EXPERIENCE")) {
-            this.EXPERIENCE = tag.getCompoundTag("EXPERIENCE");
+            this.HUDs.put("EXPERIENCE", tag.getCompoundTag("EXPERIENCE"));
         }
         if (tag.hasKey("TEXT")) {
-            this.TEXT = tag.getCompoundTag("TEXT");
+            this.HUDs.put("TEXT", tag.getCompoundTag("TEXT"));
         }
         if (tag.hasKey("HEALTHMOUNT")) {
-            this.HEALTHMOUNT = tag.getCompoundTag("HEALTHMOUNT");
+            this.HUDs.put("HEALTHMOUNT", tag.getCompoundTag("HEALTHMOUNT"));
         }
         if (tag.hasKey("JUMPBAR")) {
-            this.JUMPBAR = tag.getCompoundTag("JUMPBAR");
+            this.HUDs.put("JUMPBAR", tag.getCompoundTag("JUMPBAR"));
         }
         if (tag.hasKey("CHAT")) {
-            this.CHAT = tag.getCompoundTag("CHAT");
+            this.HUDs.put("CHAT", tag.getCompoundTag("CHAT"));
         }
         if (tag.hasKey("PLAYER_LIST")) {
-            this.PLAYER_LIST = tag.getCompoundTag("PLAYER_LIST");
+            this.HUDs.put("PLAYER_LIST", tag.getCompoundTag("PLAYER_LIST"));
         }
         if (tag.hasKey("DEBUG")) {
-            this.DEBUG = tag.getCompoundTag("DEBUG");
+            this.HUDs.put("DEBUG", tag.getCompoundTag("DEBUG"));
         }
         if (tag.hasKey("POTION_ICONS")) {
-            this.POTION_ICONS = tag.getCompoundTag("POTION_ICONS");
+            this.HUDs.put("POTION_ICONS", tag.getCompoundTag("POTION_ICONS"));
         }
         if (tag.hasKey("PLAYER_LIST")) {
-            this.PLAYER_LIST = tag.getCompoundTag("PLAYER_LIST");
+            this.HUDs.put("PLAYER_LIST", tag.getCompoundTag("PLAYER_LIST"));
         }
         if (tag.hasKey("SUBTITLES")) {
-            this.SUBTITLES = tag.getCompoundTag("SUBTITLES");
+            this.HUDs.put("SUBTITLES", tag.getCompoundTag("SUBTITLES"));
         }
         if (tag.hasKey("FPS_GRAPH")) {
-            this.FPS_GRAPH = tag.getCompoundTag("FPS_GRAPH");
+            this.HUDs.put("FPS_GRAPH", tag.getCompoundTag("FPS_GRAPH"));
         }
         if (tag.hasKey("VIGNETTE")) {
-            this.VIGNETTE = tag.getCompoundTag("VIGNETTE");
+            this.HUDs.put("VIGNETTE", tag.getCompoundTag("VIGNETTE"));
         }
     }
 }

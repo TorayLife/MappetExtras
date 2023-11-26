@@ -3,6 +3,8 @@ package toraylife.mappetextras.modules.client.scripts.user;
 import mchorse.mappet.api.scripts.user.data.ScriptVector;
 import toraylife.mappetextras.modules.scripting.utils.ScriptVectorAngle;
 
+import java.util.Set;
+
 public interface IScriptMinecraftHUD {
     /**
      * Moves the hud through the coordinates
@@ -80,9 +82,30 @@ public interface IScriptMinecraftHUD {
      */
     public boolean isRender();
 
+    public void setRotations(float pitch, float yaw, float yawHead);
+    public ScriptVector getRotations();
+
     void moveTo(String interpolation, int durationTicks, double x, double y);
 
-    public String[] getAllHUDs();
-
     void rotateTo(String interpolation, int durationTicks, double angle, double x, double y, double z);
+
+    /**
+     * get all huds Java array.
+     *
+     * <pre>{@code
+     *    function main(c)
+     *    {
+     *        const minecraftHUD = c.player.getMinecraftHUD("FOOD");
+     *
+     *        var huds = Java.from(minecraftHUD.getAllHUDs());
+     *
+     *        for(var i in huds){
+     *            c.send(huds[i])
+     *        }
+     *    }
+     *  }</pre>
+     */
+    public Set<String> getAllHUDs();
+
+    public void reset();
 }
