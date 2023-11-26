@@ -86,3 +86,11 @@ mappet.gui.settings.triggers.variables.living_jump=N/A
 mappet.gui.settings.triggers.living_fall=Living: fall
 mappet.gui.settings.triggers.descriptions.living_fall=This trigger fires when a living entity falls.
 mappet.gui.settings.triggers.variables.living_fall=§6distance§r, the distance the entity traveled when it fell.\n§6damageMultiplier§r, the damage multiplier of the fall.
+
+mappet.gui.settings.triggers.player_eat=Player: eat
+mappet.gui.settings.triggers.descriptions.player_eat=This trigger fires when the player eats food
+mappet.gui.settings.triggers.variables.player_eat=N/A
+
+mappet.gui.settings.triggers.player_drink=Player: drink
+mappet.gui.settings.triggers.descriptions.player_drink=This trigger fires when the player drink potion
+mappet.gui.settings.triggers.variables.player_drink=N/A

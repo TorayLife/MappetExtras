@@ -6,6 +6,8 @@ import mchorse.mappet.api.triggers.Trigger;
 import mchorse.mappet.api.utils.DataContext;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemFood;
+import net.minecraft.item.ItemPotion;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -105,6 +107,54 @@ public class EventTriggerHandler {
         context.set("gui", gui);
 
         trigger.trigger(context);
+    }
+
+    @SubscribeEvent
+    public void onPlayerEatEvent(TickEvent.PlayerTickEvent event){
+        if (Mappet.settings == null) {
+            return;
+        }
+
+        Trigger trigger = ((TriggerAccessor) Mappet.settings).getPlayerEat();
+
+        EntityPlayer player = event.player;
+
+        if (shouldCancelTrigger(trigger) || player.world.isRemote) {
+            return;
+        }
+
+        boolean isEat = player.getItemInUseCount() > 0 && player.getActiveItemStack().getItem() instanceof ItemFood;
+
+        if(!isEat){
+            return;
+        }
+
+        DataContext context = new DataContext(player);
+
+        trigger.trigger(context);
+    }
+
+    @SubscribeEvent
+    public void onPlayerDrinkEvent(TickEvent.PlayerTickEvent event){
+        if (Mappet.settings == null) {
+            return;
+        }
+
+        Trigger trigger = ((TriggerAccessor) Mappet.settings).getPlayerDrink();
+
+        EntityPlayer player = event.player;
+
+        if (shouldCancelTrigger(trigger) || player.world.isRemote) {
+            return;
+        }
+
+        boolean isDrink = player.getItemInUseCount() > 0 && player.getActiveItemStack().getItem() instanceof ItemPotion;
+
+        if(!isDrink){
+            return;
+        }
+
+        trigger.trigger(new DataContext(player));
     }
 
     public boolean shouldCancelTrigger(Trigger trigger) {

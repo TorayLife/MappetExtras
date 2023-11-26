@@ -87,3 +87,11 @@ mappet.gui.settings.triggers.variables.living_jump=N/A
 mappet.gui.settings.triggers.living_fall=Живое: при падении
 mappet.gui.settings.triggers.descriptions.living_fall=Этот триггер срабатывает когда живая сущность падает.
 mappet.gui.settings.triggers.variables.living_fall=§6distance§r, расстояние, которое пролетела сущность падая.\n§6damageMultiplier§r, множитель урона от падения.
+
+mappet.gui.settings.triggers.player_eat=Игрок: при поедании еды
+mappet.gui.settings.triggers.descriptions.player_eat=Этот триггер срабатывает, когда игрок ест еду.
+mappet.gui.settings.triggers.variables.player_eat=N/A
+
+mappet.gui.settings.triggers.player_drink=Игрок: при питье зелья
+mappet.gui.settings.triggers.descriptions.player_drink=Этот триггер срабатывает, когда игрок выпивает зелье.
+mappet.gui.settings.triggers.variables.player_drink=N/A

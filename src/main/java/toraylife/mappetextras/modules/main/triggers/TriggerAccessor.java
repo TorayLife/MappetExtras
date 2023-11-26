@@ -13,4 +13,6 @@ public interface TriggerAccessor {
     Trigger getEntityJumping();
 
     Trigger getEntityFalling();
+    Trigger getPlayerEat();
+    Trigger getPlayerDrink();
 }
