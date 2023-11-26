@@ -11,12 +11,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import toraylife.mappetextras.capabilities.mainHand.MainHand;
 import toraylife.mappetextras.capabilities.offHand.OffHand;
 
-public class PacketProfileCapability implements IMessage {
+public class PacketArmRenderCapability implements IMessage {
     NBTTagCompound profile;
-    public PacketProfileCapability() {
+    public PacketArmRenderCapability() {
     }
 
-    public PacketProfileCapability(NBTTagCompound profile) {
+    public PacketArmRenderCapability(NBTTagCompound profile) {
         this.profile = profile;
     }
 
@@ -30,10 +30,10 @@ public class PacketProfileCapability implements IMessage {
         ByteBufUtils.writeTag(buf, this.profile);
     }
 
-    public static class ClientHandler extends ClientMessageHandler<PacketProfileCapability> {
+    public static class ClientHandler extends ClientMessageHandler<PacketArmRenderCapability> {
         @Override
         @SideOnly(Side.CLIENT)
-        public void run(EntityPlayerSP player, PacketProfileCapability message) {
+        public void run(EntityPlayerSP player, PacketArmRenderCapability message) {
             int hand = message.profile.getInteger("hand");
 
             if(hand == 0){

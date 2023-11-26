@@ -5,7 +5,7 @@ import mchorse.mappet.api.scripts.user.data.ScriptVector;
 import net.minecraft.entity.player.EntityPlayerMP;
 import toraylife.mappetextras.capabilities.mainHand.MainHand;
 import toraylife.mappetextras.capabilities.offHand.OffHand;
-import toraylife.mappetextras.modules.client.network.PacketProfileCapability;
+import toraylife.mappetextras.modules.client.network.PacketArmRenderCapability;
 import toraylife.mappetextras.modules.client.scripts.user.IScriptArmRender;
 import toraylife.mappetextras.modules.scripting.utils.ScriptVectorAngle;
 import toraylife.mappetextras.network.Dispatcher;
@@ -85,11 +85,11 @@ public class ScriptArmRender extends ScriptPlayer implements IScriptArmRender{
 
     private void sendToCapability(){
         if(this.hand == 0){
-            Dispatcher.sendTo(new PacketProfileCapability(this.mainHand.serializeNBT()), entity);
+            Dispatcher.sendTo(new PacketArmRenderCapability(this.mainHand.serializeNBT()), entity);
         }
 
         if(this.hand == 1){
-            Dispatcher.sendTo(new PacketProfileCapability(this.offHand.serializeNBT()), entity);
+            Dispatcher.sendTo(new PacketArmRenderCapability(this.offHand.serializeNBT()), entity);
         }
     }
 }

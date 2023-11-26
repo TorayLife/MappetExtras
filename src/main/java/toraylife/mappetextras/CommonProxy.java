@@ -8,6 +8,9 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import toraylife.mappetextras.capabilities.mainHand.IMainHand;
 import toraylife.mappetextras.capabilities.mainHand.MainHand;
 import toraylife.mappetextras.capabilities.mainHand.MainHandStorage;
+import toraylife.mappetextras.capabilities.minecraftHUD.IMinecraftHUD;
+import toraylife.mappetextras.capabilities.minecraftHUD.MinecraftHUD;
+import toraylife.mappetextras.capabilities.minecraftHUD.MinecraftHUDStorage;
 import toraylife.mappetextras.capabilities.offHand.IOffHand;
 import toraylife.mappetextras.capabilities.offHand.OffHand;
 import toraylife.mappetextras.capabilities.offHand.OffHandStorage;
@@ -28,6 +31,7 @@ public class CommonProxy {
 
         CapabilityManager.INSTANCE.register(IMainHand.class, new MainHandStorage(), MainHand::new);
         CapabilityManager.INSTANCE.register(IOffHand.class, new OffHandStorage(), OffHand::new);
+        CapabilityManager.INSTANCE.register(IMinecraftHUD.class, new MinecraftHUDStorage(), MinecraftHUD::new);
     }
 
     public void init(FMLInitializationEvent event) {

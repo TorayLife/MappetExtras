@@ -8,8 +8,9 @@ import org.spongepowered.asm.mixin.Shadow;
 import toraylife.mappetextras.modules.client.AccessType;
 import toraylife.mappetextras.modules.client.ClientData;
 import toraylife.mappetextras.modules.client.network.PacketClientData;
-import toraylife.mappetextras.modules.client.providers.*;
 import toraylife.mappetextras.modules.client.scripts.code.ScriptArmRender;
+import toraylife.mappetextras.modules.client.scripts.code.ScriptMinecraftHUD;
+import toraylife.mappetextras.modules.client.scripts.user.IScriptMinecraftHUD;
 import toraylife.mappetextras.modules.client.scripts.user.IScriptArmRender;
 import toraylife.mappetextras.modules.main.mixins.utils.MixinTargetName;
 import toraylife.mappetextras.network.Dispatcher;
@@ -203,6 +204,36 @@ public abstract class MixinScriptPlayer{
      *
      */
     public ScriptArmRender getArmRender(int hand){
-        return new ScriptArmRender(getMinecraftPlayer(), hand);
+        return new ScriptArmRender(this.getMinecraftPlayer(), hand);
+    }
+
+    /**
+     * Gets a {@link IScriptMinecraftHUD} hud.
+     *
+     * §7ALL
+     * §7HELMET
+     * §7PORTAL
+     * §7CROSSHAIRS
+     * §7BOSSHEALTH
+     * §7BOSSINFO
+     * §7ARMOR
+     * §7HEALTH
+     * §7FOOD
+     * §7AIR
+     * §7HOTBAR
+     * §7EXPERIENCE
+     * §7TEXT
+     * §7HEALTHMOUNT
+     * §7JUMPBAR
+     * §7CHAT
+     * §7PLAYER_LIST
+     * §7DEBUG
+     * §7POTION_ICONS
+     * §7SUBTITLES
+     * §7FPS_GRAPH
+     * §7VIGNETTE
+     */
+    public ScriptMinecraftHUD getMinecraftHUD(String hud){
+        return new ScriptMinecraftHUD(this.getMinecraftPlayer(), hud);
     }
 }
