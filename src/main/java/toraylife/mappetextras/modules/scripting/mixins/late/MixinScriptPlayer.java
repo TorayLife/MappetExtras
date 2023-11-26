@@ -4,6 +4,9 @@ import mchorse.mappet.api.scripts.code.ScriptServer;
 import mchorse.mappet.api.scripts.code.entities.ScriptEntity;
 import mchorse.mappet.api.scripts.code.entities.ScriptPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemFood;
+import net.minecraft.item.ItemPotion;
+import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import toraylife.mappetextras.modules.main.mixins.utils.MixinTargetName;
@@ -80,5 +83,29 @@ public abstract class MixinScriptPlayer {
      */
     public ScriptServer getServer() {
         return new ScriptServer(this.getMinecraftPlayer().mcServer);
+    }
+
+    /**
+     * Checks if the player is currently eating food.
+     *
+     * @return True if the player is eating, false otherwise
+     */
+    public boolean isEat(){
+        EntityPlayerMP player = this.getMinecraftPlayer();
+        ItemStack item = player.getActiveItemStack();
+
+        return player.getItemInUseCount() > 0 && item.getItem() instanceof ItemFood;
+    }
+
+    /**
+     * Checks if the player is drinking a potion.
+     *
+     * @return True if the player is drinking a potion, false otherwise
+     */
+    public boolean isDrink(){
+        EntityPlayerMP player = this.getMinecraftPlayer();
+        ItemStack item = player.getActiveItemStack();
+
+        return player.getItemInUseCount() > 0 && item.getItem() instanceof ItemPotion;
     }
 }

@@ -8,9 +8,17 @@ import mchorse.mclib.utils.Interpolation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.DamageSource;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import toraylife.mappetextras.modules.main.mixins.utils.MixinTargetName;
+
+import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 @Mixin(value = ScriptEntity.class, remap = false)
 @MixinTargetName("mchorse.mappet.api.scripts.user.entities.IScriptEntity")
@@ -179,5 +187,20 @@ public abstract class MixinScriptEntity<T extends Entity> {
 
     public boolean getNoClip() {
         return this.entity.noClip;
+    }
+
+    public void damage(float health, String damageType) throws NoSuchFieldException, IllegalAccessException {
+        damageType = damageType.toUpperCase();
+
+        if (this.entity instanceof EntityLivingBase) {
+            return;
+        }
+
+        Field field = DamageSource.class.getDeclaredField(damageType);
+        field.setAccessible(true);
+
+        Object value = field.get(new DamageSource(damageType));
+
+        this.entity.attackEntityFrom((DamageSource) value, health);
     }
 }

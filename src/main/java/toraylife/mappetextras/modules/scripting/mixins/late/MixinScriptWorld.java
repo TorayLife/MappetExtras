@@ -5,12 +5,14 @@ import mchorse.mappet.api.scripts.code.ScriptWorld;
 import mchorse.mappet.api.scripts.code.blocks.ScriptTileEntity;
 import mchorse.mappet.api.scripts.user.blocks.IScriptTileEntity;
 import mchorse.mappet.api.scripts.user.data.ScriptVector;
+import mchorse.mappet.api.scripts.user.entities.IScriptEntity;
 import mchorse.mappet.tile.TileConditionModel;
 import mchorse.mappet.tile.TileEmitter;
 import mchorse.mappet.tile.TileTrigger;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -83,5 +85,29 @@ public abstract class MixinScriptWorld {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public int getLight(int x, int y, int z){
+        return this.world.getLight(new BlockPos(x, y, z));
+    }
+
+    public int getLight(ScriptVector vector){
+        return this.world.getLight(new BlockPos(vector.x, vector.y, vector.z));
+    }
+
+    public int getLight(int x, int y, int z, boolean checkNeighbors){
+        return this.world.getLight(new BlockPos(x, y, z), checkNeighbors);
+    }
+
+    public int getLight(ScriptVector vector, boolean checkNeighbors){
+        return this.world.getLight(new BlockPos(vector.x, vector.y, vector.z), checkNeighbors);
+    }
+
+    public boolean isChunkLoaded(int x, int z) {
+        if (this.world instanceof WorldServer){
+            return ((WorldServer)this.world).getChunkProvider().chunkExists(x >> 4, z >> 4);
+        }
+
+        return (this.world.getChunkProvider().getLoadedChunk(x >> 4, z >> 4) != null);
     }
 }
