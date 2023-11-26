@@ -13,7 +13,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import toraylife.mappetextras.MappetExtras;
 import toraylife.mappetextras.modules.client.network.PacketClientData;
 import toraylife.mappetextras.modules.client.network.PacketGuiOpenEvent;
-import toraylife.mappetextras.modules.client.network.PacketProfileCapability;
+import toraylife.mappetextras.modules.client.network.PacketArmRenderCapability;
+import toraylife.mappetextras.modules.client.network.PacketMinecraftHUDCapability;
 import toraylife.mappetextras.modules.utils.network.PacketTest;
 
 public class Dispatcher {
@@ -23,7 +24,8 @@ public class Dispatcher {
             this.register(PacketClientData.class, PacketClientData.ClientHandler.class, Side.CLIENT);
             this.register(PacketClientData.class, PacketClientData.ServerHandler.class, Side.SERVER);
             this.register(PacketGuiOpenEvent.class, PacketGuiOpenEvent.ServerHandler.class, Side.SERVER);
-            this.register(PacketProfileCapability.class, PacketProfileCapability.ClientHandler.class, Side.CLIENT);
+            this.register(PacketArmRenderCapability.class, PacketArmRenderCapability.ClientHandler.class, Side.CLIENT);
+            this.register(PacketMinecraftHUDCapability.class, PacketMinecraftHUDCapability.ClientHandler.class, Side.CLIENT);
         }
     };
 
