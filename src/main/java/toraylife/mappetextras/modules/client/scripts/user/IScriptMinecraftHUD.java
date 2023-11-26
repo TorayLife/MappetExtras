@@ -79,4 +79,10 @@ public interface IScriptMinecraftHUD {
      * @return true if rendering is on, false otherwise
      */
     public boolean isRender();
+
+    void moveTo(String interpolation, int durationTicks, double x, double y);
+
+    public String[] getAllHUDs();
+
+    void rotateTo(String interpolation, int durationTicks, double angle, double x, double y, double z);
 }

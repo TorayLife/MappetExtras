@@ -102,4 +102,27 @@ public interface IScriptArmRender {
      *  }</pre>
      */
     void setRender(boolean render);
+
+    /**
+     * Moves arm to target position.
+     *
+     * @param interpolation name of interpolation function to use
+     * @param durationTicks duration of movement in ticks
+     * @param x target X coordinate
+     * @param y target Y coordinate
+     * @param z target Z coordinate
+     */
+    public void moveTo(String interpolation, int durationTicks, double x, double y, double z);
+
+    /**
+     * Rotates arm to target orientation.
+     *
+     * @param interpolation name of interpolation function
+     * @param durationTicks duration of rotation in ticks
+     * @param angle target rotation angle in degrees
+     * @param x x coordinate of rotation axis vector
+     * @param y y coordinate of rotation axis vector
+     * @param z z coordinate of rotation axis vector
+     */
+    public void rotateTo(String interpolation, int durationTicks, double angle, double x, double y, double z);
 }

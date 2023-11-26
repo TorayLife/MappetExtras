@@ -191,11 +191,9 @@ public class EventHandler {
 
                 event.setCanceled(!render);
                 GL11.glPushMatrix();
-                GL11.glTranslated(pos.x, pos.y, pos.z);
-                GL11.glPushMatrix();
-                GL11.glScaled(scale.x, scale.y, scale.z);
-                GL11.glPushMatrix();
                 GL11.glRotated(rotate.angle, rotate.x, rotate.y, rotate.z);
+                GL11.glScaled(scale.x, scale.y, scale.z);
+                GL11.glTranslated(pos.x, pos.y, pos.z);
             }
         }
     }
@@ -203,8 +201,6 @@ public class EventHandler {
     @SubscribeEvent
     @SideOnly(Side.CLIENT)
     public void onRenderGuiPost(RenderGameOverlayEvent.Post event){
-        GL11.glPopMatrix();
-        GL11.glPopMatrix();
         GL11.glPopMatrix();
     }
 }

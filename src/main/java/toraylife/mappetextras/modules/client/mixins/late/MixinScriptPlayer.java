@@ -210,28 +210,28 @@ public abstract class MixinScriptPlayer{
     /**
      * Gets a {@link IScriptMinecraftHUD} hud.
      *
-     * §7ALL
-     * §7HELMET
-     * §7PORTAL
-     * §7CROSSHAIRS
-     * §7BOSSHEALTH
-     * §7BOSSINFO
-     * §7ARMOR
-     * §7HEALTH
-     * §7FOOD
-     * §7AIR
-     * §7HOTBAR
-     * §7EXPERIENCE
-     * §7TEXT
-     * §7HEALTHMOUNT
-     * §7JUMPBAR
-     * §7CHAT
-     * §7PLAYER_LIST
-     * §7DEBUG
-     * §7POTION_ICONS
-     * §7SUBTITLES
-     * §7FPS_GRAPH
-     * §7VIGNETTE
+     * §7ALL,
+     * §7HELMET,
+     * §7PORTAL,
+     * §7CROSSHAIRS,
+     * §7BOSSHEALTH,
+     * §7BOSSINFO,
+     * §7ARMOR,
+     * §7HEALTH,
+     * §7FOOD,
+     * §7AIR,
+     * §7HOTBAR,
+     * §7EXPERIENCE,
+     * §7TEXT,
+     * §7HEALTHMOUNT,
+     * §7JUMPBAR,
+     * §7CHAT,
+     * §7PLAYER_LIST,
+     * §7DEBUG,
+     * §7POTION_ICONS,
+     * §7SUBTITLES,
+     * §7FPS_GRAPH,
+     * §7VIGNETTE.
      */
     public ScriptMinecraftHUD getMinecraftHUD(String hud){
         return new ScriptMinecraftHUD(this.getMinecraftPlayer(), hud);
