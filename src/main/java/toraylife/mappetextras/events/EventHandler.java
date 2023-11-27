@@ -3,7 +3,6 @@ package toraylife.mappetextras.events;
 import mchorse.mappet.api.scripts.user.data.ScriptVector;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -26,9 +25,13 @@ import toraylife.mappetextras.capabilities.minecraftHUD.MinecraftHUDProvider;
 import toraylife.mappetextras.capabilities.offHand.IOffHand;
 import toraylife.mappetextras.capabilities.offHand.OffHand;
 import toraylife.mappetextras.capabilities.offHand.OffHandProvider;
+import toraylife.mappetextras.capabilities.shake.IShake;
+import toraylife.mappetextras.capabilities.shake.Shake;
+import toraylife.mappetextras.capabilities.shake.ShakeProvider;
 import toraylife.mappetextras.modules.client.network.PacketGuiOpenEvent;
 import toraylife.mappetextras.modules.client.network.PacketArmRenderCapability;
 import toraylife.mappetextras.modules.client.network.PacketMinecraftHUDCapability;
+import toraylife.mappetextras.modules.client.network.PacketShakeCapability;
 import toraylife.mappetextras.modules.scripting.utils.ScriptVectorAngle;
 import toraylife.mappetextras.modules.main.VersionChecker;
 import toraylife.mappetextras.modules.utils.render.NpcPathRenderer;
@@ -46,6 +49,10 @@ public class EventHandler {
     public static final ResourceLocation MAINHAND = new ResourceLocation(MappetExtras.MOD_ID, "mainHand");
     public static final ResourceLocation OFFHAND = new ResourceLocation(MappetExtras.MOD_ID, "offHand");
     public static final ResourceLocation MINECRAFTHUD = new ResourceLocation(MappetExtras.MOD_ID, "minecraftHUD");
+    public static final ResourceLocation SHAKE = new ResourceLocation(MappetExtras.MOD_ID, "shake");
+
+    public static boolean isReversed = false;
+    public static float animationProgress = 0.0F;
 
     @SubscribeEvent
     public void onPlayerJoinEvent(FMLNetworkEvent.ClientConnectedToServerEvent event) {
@@ -103,14 +110,15 @@ public class EventHandler {
             event.addCapability(MAINHAND, new MainHandProvider());
             event.addCapability(OFFHAND, new OffHandProvider());
             event.addCapability(MINECRAFTHUD, new MinecraftHUDProvider());
+            event.addCapability(SHAKE, new ShakeProvider());
         }
     }
 
     @SubscribeEvent
     @SideOnly(Side.CLIENT)
     public void onRenderHandEvent(RenderSpecificHandEvent event) {
-        MainHand mainHand = new MainHand().get(Minecraft.getMinecraft().player);
-        OffHand offHand = new OffHand().get(Minecraft.getMinecraft().player);
+        MainHand mainHand = MainHand.get(Minecraft.getMinecraft().player);
+        OffHand offHand = OffHand.get(Minecraft.getMinecraft().player);
 
         if (event.getHand() == MAIN_HAND) {
             handleRotation(mainHand);
@@ -161,13 +169,15 @@ public class EventHandler {
     public void onPlayerLoggedInEvent(PlayerEvent.PlayerLoggedInEvent event){
         EntityPlayer player = event.player;
 
-        final IMainHand mainHand = new MainHand().get(player);
-        final IOffHand offHand = new OffHand().get(player);
+        final IMainHand mainHand = MainHand.get(player);
+        final IOffHand offHand = OffHand.get(player);
         final IMinecraftHUD minecraftHUD = MinecraftHUD.get(player);
+        final IShake shake = Shake.get(player);
 
         Dispatcher.sendTo(new PacketArmRenderCapability(mainHand.serializeNBT()), (EntityPlayerMP) player);
         Dispatcher.sendTo(new PacketArmRenderCapability(offHand.serializeNBT()), (EntityPlayerMP) player);
         Dispatcher.sendTo(new PacketMinecraftHUDCapability(minecraftHUD.serializeNBT()), (EntityPlayerMP) player);
+        Dispatcher.sendTo(new PacketShakeCapability(shake.serializeNBT()), (EntityPlayerMP) player);
     }
 
     @SubscribeEvent
@@ -196,6 +206,32 @@ public class EventHandler {
     public void onRenderGuiPost(RenderGameOverlayEvent.Post event){
         if(event.getType() != RenderGameOverlayEvent.ElementType.HOTBAR) {
             GL11.glPopMatrix();
+        }
+    }
+
+    @SubscribeEvent
+    @SideOnly(Side.CLIENT)
+    public void onCameraRender(EntityViewRenderEvent.CameraSetup event) {
+        Shake shake = Shake.get(Minecraft.getMinecraft().player);
+
+        if (shake.isActive()) {
+            this.tickRender(shake);
+            float ticks = animationProgress;
+            float s = 1.0F - (float) shake.getScale() * ticks / 10.0F;
+            GlStateManager.rotate((ticks - (float) shake.getRotate().angle) * (float) shake.getRotation(), (float) shake.getRotate().x, (float) shake.getRotate().y, (float) shake.getRotate().z);
+            GlStateManager.scale(1.0F, 1.0F, s);
+        }
+    }
+
+    public void tickRender(Shake shake) {
+        if (isReversed) {
+            animationProgress = Math.max(animationProgress - (float) shake.getMinus(), 0.0F);
+            if (animationProgress == 0.0F)
+                isReversed = false;
+        } else {
+            animationProgress = Math.min(animationProgress + (float) shake.getPlus(), 1.0F);
+            if (animationProgress == 1.0F)
+                isReversed = true;
         }
     }
 }

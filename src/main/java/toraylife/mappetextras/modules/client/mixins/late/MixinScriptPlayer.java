@@ -9,6 +9,7 @@ import toraylife.mappetextras.modules.client.AccessType;
 import toraylife.mappetextras.modules.client.ClientData;
 import toraylife.mappetextras.modules.client.network.PacketClientData;
 import toraylife.mappetextras.modules.client.scripts.code.ScriptArmRender;
+import toraylife.mappetextras.modules.client.scripts.code.ScriptCamera;
 import toraylife.mappetextras.modules.client.scripts.code.ScriptMinecraftHUD;
 import toraylife.mappetextras.modules.client.scripts.user.IScriptMinecraftHUD;
 import toraylife.mappetextras.modules.client.scripts.user.IScriptArmRender;
@@ -250,5 +251,9 @@ public abstract class MixinScriptPlayer{
             getMinecraftHUD("all").setPosition(0, 0);
             getMinecraftHUD("all").setRender(true);
         }
+    }
+
+    public ScriptCamera getCamera(){
+        return new ScriptCamera(this.getMinecraftPlayer());
     }
 }

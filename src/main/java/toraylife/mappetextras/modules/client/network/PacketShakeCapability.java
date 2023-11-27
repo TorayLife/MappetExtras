@@ -10,13 +10,14 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import toraylife.mappetextras.capabilities.mainHand.MainHand;
 import toraylife.mappetextras.capabilities.offHand.OffHand;
+import toraylife.mappetextras.capabilities.shake.Shake;
 
-public class PacketArmRenderCapability implements IMessage {
+public class PacketShakeCapability implements IMessage {
     NBTTagCompound profile;
-    public PacketArmRenderCapability() {
+    public PacketShakeCapability() {
     }
 
-    public PacketArmRenderCapability(NBTTagCompound profile) {
+    public PacketShakeCapability(NBTTagCompound profile) {
         this.profile = profile;
     }
 
@@ -30,21 +31,13 @@ public class PacketArmRenderCapability implements IMessage {
         ByteBufUtils.writeTag(buf, this.profile);
     }
 
-    public static class ClientHandler extends ClientMessageHandler<PacketArmRenderCapability> {
+    public static class ClientHandler extends ClientMessageHandler<PacketShakeCapability> {
         @Override
         @SideOnly(Side.CLIENT)
-        public void run(EntityPlayerSP player, PacketArmRenderCapability message) {
-            int hand = message.profile.getInteger("hand");
+        public void run(EntityPlayerSP player, PacketShakeCapability message) {
+            Shake shake = Shake.get(player);
 
-            if(hand == 0){
-                MainHand mainHand = MainHand.get(player);
-
-                mainHand.deserializeNBT(message.profile);
-            }else{
-                OffHand offHand = OffHand.get(player);
-
-                offHand.deserializeNBT(message.profile);
-            }
+            shake.deserializeNBT(message.profile);
         }
     }
 }
