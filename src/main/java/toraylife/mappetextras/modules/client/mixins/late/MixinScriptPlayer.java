@@ -16,6 +16,7 @@ import toraylife.mappetextras.modules.client.scripts.user.IScriptArmRender;
 import toraylife.mappetextras.modules.main.mixins.utils.MixinTargetName;
 import toraylife.mappetextras.network.Dispatcher;
 
+import java.util.UUID;
 import java.util.function.Consumer;
 
 @Mixin(value = ScriptPlayer.class, remap = false)
@@ -55,9 +56,10 @@ public abstract class MixinScriptPlayer{
      * }</pre>
      */
     public void getPerspective(Consumer<Object> callBack){
-        PacketClientData.сallBack.put(this.getMinecraftPlayer().getUniqueID(), callBack);
+        UUID uniqueId = UUID.randomUUID();
+        PacketClientData.сallBack.put(uniqueId, callBack);
 
-        Dispatcher.sendTo(new PacketClientData(ClientData.PESPECTIVE, AccessType.GET), this.getMinecraftPlayer());
+        Dispatcher.sendTo(new PacketClientData(ClientData.PESPECTIVE, AccessType.GET, uniqueId), this.getMinecraftPlayer());
     }
 
     /**
@@ -90,9 +92,10 @@ public abstract class MixinScriptPlayer{
      * }</pre>
      */
     public void getClipboard(Consumer<Object> callback){
-        PacketClientData.сallBack.put(this.getMinecraftPlayer().getUniqueID(), callback);
+        UUID uniqueId = UUID.randomUUID();
+        PacketClientData.сallBack.put(uniqueId, callback);
 
-        Dispatcher.sendTo(new PacketClientData(ClientData.CLIPBOARD, AccessType.GET), this.getMinecraftPlayer());
+        Dispatcher.sendTo(new PacketClientData(ClientData.CLIPBOARD, AccessType.GET, uniqueId), this.getMinecraftPlayer());
     }
 
     /**
@@ -136,9 +139,10 @@ public abstract class MixinScriptPlayer{
 
         data.setBoolean("isInsideWindow", isInsideWindow);
 
-        PacketClientData.сallBack.put(this.getMinecraftPlayer().getUniqueID(), callback);
+        UUID uniqueId = UUID.randomUUID();
+        PacketClientData.сallBack.put(uniqueId, callback);
 
-        Dispatcher.sendTo(new PacketClientData(data, ClientData.MOUSEPOSITION, AccessType.GET_WITH_DATA), this.getMinecraftPlayer());
+        Dispatcher.sendTo(new PacketClientData(data, ClientData.MOUSEPOSITION, AccessType.GET_WITH_DATA, uniqueId), this.getMinecraftPlayer());
     }
 
     /**
@@ -176,9 +180,10 @@ public abstract class MixinScriptPlayer{
         NBTTagCompound data = new NBTTagCompound();
         data.setString("key", key);
 
-        PacketClientData.сallBack.put(this.getMinecraftPlayer().getUniqueID(), callback);
+        UUID uniqueId = UUID.randomUUID();
+        PacketClientData.сallBack.put(uniqueId, callback);
 
-        Dispatcher.sendTo(new PacketClientData(data, ClientData.SETTING, AccessType.GET_WITH_DATA), this.getMinecraftPlayer());
+        Dispatcher.sendTo(new PacketClientData(data, ClientData.SETTING, AccessType.GET_WITH_DATA, uniqueId), this.getMinecraftPlayer());
     }
 
     /**
@@ -195,9 +200,10 @@ public abstract class MixinScriptPlayer{
      * }</pre>
      */
     public void getResolution(Consumer<Object> callback) {
-        PacketClientData.сallBack.put(this.getMinecraftPlayer().getUniqueID(), callback);
+        UUID uniqueId = UUID.randomUUID();
+        PacketClientData.сallBack.put(uniqueId, callback);
 
-        Dispatcher.sendTo(new PacketClientData(ClientData.RESOLUTION, AccessType.GET), this.getMinecraftPlayer());
+        Dispatcher.sendTo(new PacketClientData(ClientData.RESOLUTION, AccessType.GET, uniqueId), this.getMinecraftPlayer());
     }
 
     /**

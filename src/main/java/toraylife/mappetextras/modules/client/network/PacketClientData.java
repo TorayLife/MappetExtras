@@ -24,6 +24,7 @@ public class PacketClientData implements IMessage {
     AccessType access;
     NBTTagCompound nbtTagCompound;
     NBTTagCompound nbtData;
+    String uniqueId;
 
     public PacketClientData() {
     }
@@ -35,6 +36,14 @@ public class PacketClientData implements IMessage {
         this.nbtData = new NBTTagCompound();
     }
 
+    public PacketClientData(ClientData type, AccessType access, UUID uniqueId) {
+        this.type = type;
+        this.access = access;
+        this.uniqueId = uniqueId.toString();
+        this.nbtTagCompound = new NBTTagCompound();
+        this.nbtData = new NBTTagCompound();
+    }
+
     public PacketClientData(NBTTagCompound nbtData, ClientData type, AccessType access) {
         this.type = type;
         this.access = access;
@@ -42,11 +51,27 @@ public class PacketClientData implements IMessage {
         this.nbtData = nbtData;
     }
 
+    public PacketClientData(NBTTagCompound nbtData, ClientData type, AccessType access, UUID uniqueId) {
+        this.type = type;
+        this.access = access;
+        this.nbtTagCompound = new NBTTagCompound();
+        this.nbtData = nbtData;
+        this.uniqueId = uniqueId.toString();
+    }
+
     public PacketClientData(ClientData type, AccessType access, NBTTagCompound nbtTagCompound) {
         this.type = type;
         this.access = access;
         this.nbtTagCompound = nbtTagCompound;
         this.nbtData = new NBTTagCompound();
+    }
+
+    public PacketClientData(ClientData type, AccessType access, NBTTagCompound nbtTagCompound, UUID uniqueId) {
+        this.type = type;
+        this.access = access;
+        this.nbtTagCompound = nbtTagCompound;
+        this.nbtData = new NBTTagCompound();
+        this.uniqueId = uniqueId.toString();
     }
 
     public PacketClientData(ClientData type, AccessType access, NBTTagCompound nbtTagCompound, NBTTagCompound nbtData) {
@@ -62,6 +87,7 @@ public class PacketClientData implements IMessage {
         this.access = AccessType.valueOf(ByteBufUtils.readUTF8String(buf)); // Enum access
         this.nbtTagCompound = ByteBufUtils.readTag(buf); // nbtTagCompound
         this.nbtData = ByteBufUtils.readTag(buf); // nbtData
+        this.uniqueId = ByteBufUtils.readUTF8String(buf);
     }
 
     @Override
@@ -70,6 +96,7 @@ public class PacketClientData implements IMessage {
         ByteBufUtils.writeUTF8String(buf, this.access.toString());
         ByteBufUtils.writeTag(buf, this.nbtTagCompound);
         ByteBufUtils.writeTag(buf, this.nbtData);
+        ByteBufUtils.writeUTF8String(buf, this.uniqueId);
     }
 
     public static class ClientHandler extends ClientMessageHandler<PacketClientData> {
@@ -79,13 +106,14 @@ public class PacketClientData implements IMessage {
             AccessType typeAccess = message.access;
             NBTTagCompound value = message.nbtTagCompound;
             NBTTagCompound nbtData = message.nbtData;
+            String uniqueId = message.uniqueId;
             IClientDataProvider provider = createProvider(typeEnum);
 
             switch (typeAccess) {
                 case GET:
                     NBTTagCompound data = provider.getData();
 
-                    Dispatcher.sendToServer(new PacketClientData(typeEnum, typeAccess, data));
+                    Dispatcher.sendToServer(new PacketClientData(typeEnum, typeAccess, data, UUID.fromString(uniqueId)));
                 case SET:
                     provider.setData(value);
                 case USE:
@@ -124,9 +152,10 @@ public class PacketClientData implements IMessage {
         @Override
         public void run(EntityPlayerMP entityPlayerMP, PacketClientData packet) {
             NBTTagCompound value = packet.nbtTagCompound;
+            UUID uniqueId = UUID.fromString(packet.uniqueId);
 
-            сallBack.get( entityPlayerMP.getUniqueID() ).accept(packet.type.process(value));
-            сallBack.remove( entityPlayerMP.getUniqueID() );
+            сallBack.get(uniqueId).accept(packet.type.process(value));
+            сallBack.remove(uniqueId);
         }
     }
 }
