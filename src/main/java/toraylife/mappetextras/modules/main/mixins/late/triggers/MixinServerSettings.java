@@ -26,6 +26,7 @@ public abstract class MixinServerSettings implements TriggerAccessor {
     public Trigger playerOpenGui;
     public Trigger playerEat;
     public Trigger playerDrink;
+    public Trigger playerInventoryEdit;
 
     public Trigger getPlayerOpenGui(){
         return this.playerOpenGui;
@@ -53,6 +54,10 @@ public abstract class MixinServerSettings implements TriggerAccessor {
 
     public Trigger getPlayerDrink(){
         return this.playerDrink;
+    }
+
+    public Trigger getPlayerInventoryEdit(){
+        return this.playerInventoryEdit;
     }
 
     @Inject(method = "<init>", at = @At("TAIL"), remap = false)
