@@ -29,26 +29,12 @@ public class PacketClientData implements IMessage {
     public PacketClientData() {
     }
 
-    public PacketClientData(ClientData type, AccessType access) {
-        this.type = type;
-        this.access = access;
-        this.nbtTagCompound = new NBTTagCompound();
-        this.nbtData = new NBTTagCompound();
-    }
-
     public PacketClientData(ClientData type, AccessType access, UUID uniqueId) {
         this.type = type;
         this.access = access;
-        this.uniqueId = uniqueId.toString();
         this.nbtTagCompound = new NBTTagCompound();
         this.nbtData = new NBTTagCompound();
-    }
-
-    public PacketClientData(NBTTagCompound nbtData, ClientData type, AccessType access) {
-        this.type = type;
-        this.access = access;
-        this.nbtTagCompound = new NBTTagCompound();
-        this.nbtData = nbtData;
+        this.uniqueId = uniqueId.toString();
     }
 
     public PacketClientData(NBTTagCompound nbtData, ClientData type, AccessType access, UUID uniqueId) {
@@ -64,6 +50,7 @@ public class PacketClientData implements IMessage {
         this.access = access;
         this.nbtTagCompound = nbtTagCompound;
         this.nbtData = new NBTTagCompound();
+        this.uniqueId = "uniqueId";
     }
 
     public PacketClientData(ClientData type, AccessType access, NBTTagCompound nbtTagCompound, UUID uniqueId) {
@@ -72,13 +59,6 @@ public class PacketClientData implements IMessage {
         this.nbtTagCompound = nbtTagCompound;
         this.nbtData = new NBTTagCompound();
         this.uniqueId = uniqueId.toString();
-    }
-
-    public PacketClientData(ClientData type, AccessType access, NBTTagCompound nbtTagCompound, NBTTagCompound nbtData) {
-        this.type = type;
-        this.access = access;
-        this.nbtTagCompound = nbtTagCompound;
-        this.nbtData = nbtData;
     }
 
     @Override
