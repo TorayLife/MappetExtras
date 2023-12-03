@@ -17,6 +17,7 @@ import toraylife.mappetextras.modules.utils.items.ItemNpcSoulstoneFilled;
 import java.util.Calendar;
 
 public class RegisterHandler {
+    public static final Calendar calendar = Calendar.getInstance();
     @SubscribeEvent
     public void onItemsRegister(RegistryEvent.Register<Item> event) {
         event.getRegistry().register(MappetExtras.npcPicker = (new ItemNpcPicker()).setRegistryName(new ResourceLocation("mappetextras", "npc_picker")).setUnlocalizedName("mappetextras.npc_picker"));
@@ -34,47 +35,66 @@ public class RegisterHandler {
 
     public ModelResourceLocation getNpcToolTexture(String toolname) {
         String postfix = "";
-        Calendar calendar = Calendar.getInstance();
 
-        if (isWinter(calendar)) {
+        if (isWinter()) {
             postfix = "_winter";
         }
 
-        if (isChristmas(calendar)) {
+        if (isChristmas()) {
             postfix = "_christmas";
-        } else if (isEaster(calendar)) {
+        } else if (isEaster()) {
             postfix = "_easter";
-        } else if (isAprilFoolsDay(calendar)) {
+        } else if (isAprilFoolsDay()) {
             postfix = "_april";
-        } else if (isHalloween(calendar)) {
+        } else if (isHalloween()) {
             postfix = "_halloween";
+        }
+
+        if (isLlamaBirthday()) {
+            postfix = "_llama";
+        }else if (isDemonBirthday()) {
+            postfix = "_demon";
+        } else if (isDyamoBirthday()) {
+            postfix = "_dyamo";
         }
 
         return new ModelResourceLocation(MappetExtras.MOD_ID + ":" + toolname + "/" + toolname + postfix, "inventory");
     }
 
-    public boolean isChristmas(Calendar calendar) {
+    public boolean isChristmas() {
         return calendar.get(Calendar.MONTH) == Calendar.DECEMBER && calendar.get(Calendar.DATE) >= 24 && calendar.get(Calendar.DATE) <= 26;
     }
 
-    public boolean isAprilFoolsDay(Calendar calendar) {
+    public boolean isAprilFoolsDay() {
         return calendar.get(Calendar.MONTH) == Calendar.APRIL && calendar.get(Calendar.DATE) <= 2;
     }
 
-    public boolean isWinter(Calendar calendar) {
+    public boolean isWinter() {
         int month = calendar.get(Calendar.MONTH);
 
         return month == Calendar.DECEMBER || month == Calendar.JANUARY || month == Calendar.FEBRUARY;
     }
 
-    public boolean isEaster(Calendar calendar) {
+    public boolean isEaster() {
         Calendar easterDate = getEasterDate(calendar.get(Calendar.YEAR));
 
         return calendar.get(Calendar.MONTH) == easterDate.get(Calendar.MONTH) && calendar.get(Calendar.DATE) == easterDate.get(Calendar.DATE);
     }
 
-    public boolean isHalloween(Calendar calendar) {
+    public boolean isHalloween() {
         return calendar.get(Calendar.MONTH) == Calendar.OCTOBER && calendar.get(Calendar.DATE) >= 24;
+    }
+
+    public boolean isLlamaBirthday(){
+        return calendar.get(Calendar.MONTH) == Calendar.DECEMBER && calendar.get(Calendar.DATE) == 1;
+    }
+
+    public boolean isDemonBirthday(){
+        return calendar.get(Calendar.MONTH) == Calendar.MAY && calendar.get(Calendar.DATE) == 28;
+    }
+
+    public boolean isDyamoBirthday(){
+        return calendar.get(Calendar.MONTH) == Calendar.APRIL && calendar.get(Calendar.DATE) == 21;
     }
 
     public Calendar getEasterDate(int year) {

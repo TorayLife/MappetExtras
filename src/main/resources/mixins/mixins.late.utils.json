@@ -5,7 +5,8 @@
   "refmap": "mixins.mappetextras.refmap.json",
   "mixinPriority": 1000,
   "mixins": [
-    "MixinNpcState"
+    "MixinNpcState",
+    "MixinRegisterHandler"
   ],
   "client": [
     "scriptPanel.MixinGuiMultiTextElement",
