@@ -9,24 +9,28 @@ import toraylife.mappetextras.modules.main.mixins.utils.MixinTargetName;
 @MixinTargetName("mchorse.mappet.api.scripts.user.data.ScriptVector")
 public abstract class MixinScriptVector {
     @Shadow
-    public abstract ScriptVector multiply(double scalar);
+    public double x;
 
-    protected ScriptVector vector;
+    @Shadow
+    public double y;
+
+    @Shadow
+    public double z;
 
     public double dotProduct(ScriptVector vector3) {
-        return this.vector.x * vector3.x + this.vector.y * vector3.y + this.vector.z * vector3.z;
+        return this.x * vector3.x + this.y * vector3.y + this.z * vector3.z;
     }
 
     public ScriptVector crossProduct(ScriptVector vector3) {
         return new ScriptVector(
-                this.vector.y * vector3.z - this.vector.z * vector3.y,
-                this.vector.z * vector3.x - this.vector.x * vector3.z,
-                this.vector.x * vector3.y - this.vector.y * vector3.x
+                this.y * vector3.z - this.z * vector3.y,
+                this.z * vector3.x - this.x * vector3.z,
+                this.x * vector3.y - this.y * vector3.x
         );
     }
 
     public ScriptVector toAngle(ScriptVector vector3) {
-        ScriptVector subtractVector = this.vector.subtract(vector3);
+        ScriptVector subtractVector = new ScriptVector(this.x, this.y, this.z).subtract(vector3);
 
         double hypotenuse = Math.sqrt(Math.pow(subtractVector.x, 2) + Math.pow(subtractVector.z, 2));
 
@@ -37,7 +41,7 @@ public abstract class MixinScriptVector {
     }
 
     public ScriptVector rotate(double pitch, double yaw) {
-        ScriptVector normalizeVector = this.vector.normalize();
+        ScriptVector normalizeVector = new ScriptVector(this.x, this.y, this.z).normalize();
 
         double radiansPitch = Math.toRadians(-pitch);
         double radiansYaw = Math.toRadians(-yaw);
@@ -58,32 +62,32 @@ public abstract class MixinScriptVector {
         }
 
         return new ScriptVector(
-                this.vector.x + (vector3.x - this.vector.x) * coefficient,
-                this.vector.y + (vector3.y - this.vector.y) * coefficient,
-                this.vector.z + (vector3.z - this.vector.z) * coefficient
+                this.x + (vector3.x - this.x) * coefficient,
+                this.y + (vector3.y - this.y) * coefficient,
+                this.z + (vector3.z - this.z) * coefficient
         );
     }
 
     public ScriptVector vectorMultiply(ScriptVector vector3) {
-        return new ScriptVector(this.vector.x * vector3.x, this.vector.y * vector3.y, this.vector.z * vector3.z);
+        return new ScriptVector(this.x * vector3.x, this.y * vector3.y, this.z * vector3.z);
     }
 
     public ScriptVector divide(ScriptVector vector3) {
-        return new ScriptVector(this.vector.x / vector3.x, this.vector.y / vector3.y, this.vector.z / vector3.z);
+        return new ScriptVector(this.x / vector3.x, this.y / vector3.y, this.z / vector3.z);
     }
 
     public ScriptVector copy() {
-        return this.vector;
+        return new ScriptVector(this.x, this.y, this.z);
     }
 
     public boolean equals(ScriptVector vector3) {
-        return (this.vector.x == vector3.x) && (this.vector.y == vector3.y) && (this.vector.z == vector3.z);
+        return (this.x == vector3.x) && (this.y == vector3.y) && (this.z == vector3.z);
     }
 
     public double distance(ScriptVector vector3) {
-        double dx = this.vector.x - vector3.x;
-        double dy = this.vector.y - vector3.y;
-        double dz = this.vector.z - vector3.z;
+        double dx = this.x - vector3.x;
+        double dy = this.y - vector3.y;
+        double dz = this.z - vector3.z;
 
         return Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2) + Math.pow(dz, 2));
     }

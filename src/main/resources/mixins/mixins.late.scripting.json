@@ -12,6 +12,7 @@
     "MixinScriptServer",
     "MixinScriptVector",
     "MixinScriptWorld",
+    "MixinScriptEvent",
     "ignored.MixinScriptPlayer",
     "ignored.MixinUIContext",
     "UI.MixinMappetUIContext",
