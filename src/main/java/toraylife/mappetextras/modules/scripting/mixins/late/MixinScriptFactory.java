@@ -24,6 +24,7 @@ import toraylife.mappetextras.modules.scripting.scripts.user.IScriptFile;
 import toraylife.mappetextras.modules.scripting.scripts.user.IScriptMath;
 
 import java.nio.file.Paths;
+import java.util.UUID;
 
 @Mixin(value = ScriptFactory.class, remap = false)
 @MixinTargetName("mchorse.mappet.api.scripts.user.IScriptFactory")
@@ -135,5 +136,9 @@ public abstract class MixinScriptFactory{
 
     public IScriptMath getMath() {
         return new ScriptMath();
+    }
+
+    public String createUniqueId(){
+        return UUID.randomUUID().toString();
     }
 }

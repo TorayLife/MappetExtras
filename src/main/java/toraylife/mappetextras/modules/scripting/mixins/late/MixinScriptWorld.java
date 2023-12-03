@@ -110,4 +110,12 @@ public abstract class MixinScriptWorld {
 
         return (this.world.getChunkProvider().getLoadedChunk(x >> 4, z >> 4) != null);
     }
+
+    public void loadChunk(int x, int z){
+        if (this.world instanceof WorldServer){
+            ((WorldServer)this.world).getChunkProvider().loadChunk(x, z);
+        }
+
+        this.world.getChunkProvider().provideChunk(x, z);
+    }
 }
