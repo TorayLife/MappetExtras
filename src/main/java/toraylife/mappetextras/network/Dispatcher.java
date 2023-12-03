@@ -24,6 +24,8 @@ public class Dispatcher {
             this.register(PacketArmRenderCapability.class, PacketArmRenderCapability.ClientHandler.class, Side.CLIENT);
             this.register(PacketMinecraftHUDCapability.class, PacketMinecraftHUDCapability.ClientHandler.class, Side.CLIENT);
             this.register(PacketShakeCapability.class, PacketShakeCapability.ClientHandler.class, Side.CLIENT);
+            this.register(PacketSounds.class, PacketSounds.ClientHandler.class, Side.CLIENT);
+            this.register(PacketTextures.class, PacketTextures.ClientHandler.class, Side.CLIENT);
         }
     };
 
