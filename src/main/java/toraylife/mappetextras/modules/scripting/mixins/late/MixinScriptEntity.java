@@ -8,17 +8,10 @@ import mchorse.mclib.utils.Interpolation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.DamageSource;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import toraylife.mappetextras.modules.main.mixins.utils.MixinTargetName;
-
-import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 
 @Mixin(value = ScriptEntity.class, remap = false)
 @MixinTargetName("mchorse.mappet.api.scripts.user.entities.IScriptEntity")
@@ -196,11 +189,14 @@ public abstract class MixinScriptEntity<T extends Entity> {
             return;
         }
 
-        Field field = DamageSource.class.getDeclaredField(damageType);
-        field.setAccessible(true);
+        this.entity.attackEntityFrom(new DamageSource(damageType), health);
+    }
 
-        Object value = field.get(new DamageSource(damageType));
+    public void setSprinting(boolean spinting){
+        this.entity.setSprinting(spinting);
+    }
 
-        this.entity.attackEntityFrom((DamageSource) value, health);
+    public void setSneaking(boolean sneaking){
+        this.entity.setSneaking(sneaking);
     }
 }

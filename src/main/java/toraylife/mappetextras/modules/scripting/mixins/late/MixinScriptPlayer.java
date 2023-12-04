@@ -7,16 +7,23 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextComponentString;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import toraylife.mappetextras.modules.client.AccessType;
+import toraylife.mappetextras.modules.client.network.PacketSounds;
+import toraylife.mappetextras.modules.client.network.PacketTextures;
 import toraylife.mappetextras.modules.main.mixins.utils.MixinTargetName;
 import toraylife.mappetextras.modules.scripting.mixins.utils.EntityPlayerMPAccessor;
+import toraylife.mappetextras.network.Dispatcher;
 
 @Mixin(value = ScriptPlayer.class, remap = false)
 @MixinTargetName("mchorse.mappet.api.scripts.user.entities.IScriptPlayer")
 public abstract class MixinScriptPlayer {
     @Shadow
     public abstract EntityPlayerMP getMinecraftPlayer();
+    
+    private EntityPlayerMP player = this.getMinecraftPlayer();
 
 
     /**
@@ -25,8 +32,8 @@ public abstract class MixinScriptPlayer {
      * @param entity
      */
     public void setSpectating(ScriptEntity entity) {
-        if (getMinecraftPlayer().interactionManager.getGameType().getID() == 3) {
-            this.getMinecraftPlayer().setSpectatingEntity(entity.getMinecraftEntity());
+        if (this.player.interactionManager.getGameType().getID() == 3) {
+            this.player.setSpectatingEntity(entity.getMinecraftEntity());
         }
     }
 
@@ -36,7 +43,7 @@ public abstract class MixinScriptPlayer {
      * @return the player's language code
      */
     public String getLanguage() {
-        return ((EntityPlayerMPAccessor) this.getMinecraftPlayer()).getLanguage();
+        return ((EntityPlayerMPAccessor) this.player).getLanguage();
     }
 
     /**
@@ -45,7 +52,7 @@ public abstract class MixinScriptPlayer {
      * @return true if the player is sleeping, false otherwise
      */
     public boolean isSleeping() {
-        return this.getMinecraftPlayer().isPlayerSleeping();
+        return this.player.isPlayerSleeping();
     }
 
     /**
@@ -54,7 +61,7 @@ public abstract class MixinScriptPlayer {
      * @return the player's ping time
      */
     public int getPing() {
-        return this.getMinecraftPlayer().ping;
+        return this.player.ping;
     }
 
     /**
@@ -63,7 +70,7 @@ public abstract class MixinScriptPlayer {
      * @return the ticks of invulnerability remaining
      */
     public int getRespawnInvulnerability() {
-        return ((EntityPlayerMPAccessor) this.getMinecraftPlayer()).getRespawnInvulnerabilityTicks();
+        return ((EntityPlayerMPAccessor) this.player).getRespawnInvulnerabilityTicks();
     }
 
     /**
@@ -73,7 +80,7 @@ public abstract class MixinScriptPlayer {
      * @param hash the hash of the resource pack
      */
     public void loadResourcePack(String url, String hash) {
-        this.getMinecraftPlayer().loadResourcePack(url, hash);
+        this.player.loadResourcePack(url, hash);
     }
 
     /**
@@ -82,7 +89,7 @@ public abstract class MixinScriptPlayer {
      * @return the server instance
      */
     public ScriptServer getServer() {
-        return new ScriptServer(this.getMinecraftPlayer().mcServer);
+        return new ScriptServer(this.player.mcServer);
     }
 
     /**
@@ -91,7 +98,7 @@ public abstract class MixinScriptPlayer {
      * @return True if the player is eating, false otherwise
      */
     public boolean isEat(){
-        EntityPlayerMP player = this.getMinecraftPlayer();
+        EntityPlayerMP player = this.player;
         ItemStack item = player.getActiveItemStack();
 
         return player.getItemInUseCount() > 0 && item.getItem() instanceof ItemFood;
@@ -103,9 +110,30 @@ public abstract class MixinScriptPlayer {
      * @return True if the player is drinking a potion, false otherwise
      */
     public boolean isDrink(){
-        EntityPlayerMP player = this.getMinecraftPlayer();
-        ItemStack item = player.getActiveItemStack();
+        ItemStack item = this.player.getActiveItemStack();
 
-        return player.getItemInUseCount() > 0 && item.getItem() instanceof ItemPotion;
+        return this.player.getItemInUseCount() > 0 && item.getItem() instanceof ItemPotion;
+    }
+
+    public void soundUpdate(){
+        Dispatcher.sendTo(new PacketSounds(AccessType.UPDATE), this.player);
+    }
+    
+    public void textureUpdate(){
+            Dispatcher.sendTo(new PacketTextures(AccessType.UPDATE), this.player);
+    }
+
+    public boolean isWalking(){
+        return this.player.prevDistanceWalkedModified - this.player.distanceWalkedModified != 0;
+    }
+
+    public String getFacing(){
+        return this.player.getHorizontalFacing().getName();
+    }
+
+    public void disconnect(String reason){
+        if(!this.player.mcServer.isDedicatedServer() && this.player.mcServer.isSinglePlayer()){
+            this.player.connection.disconnect(new TextComponentString(reason));
+        }
     }
 }
