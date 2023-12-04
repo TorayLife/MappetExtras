@@ -8,7 +8,9 @@ import mchorse.mclib.utils.Interpolation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.network.play.server.SPacketAnimation;
 import net.minecraft.util.DamageSource;
+import net.minecraft.world.WorldServer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import toraylife.mappetextras.modules.main.mixins.utils.MixinTargetName;
@@ -198,5 +200,9 @@ public abstract class MixinScriptEntity<T extends Entity> {
 
     public void setSneaking(boolean sneaking){
         this.entity.setSneaking(sneaking);
+    }
+
+    public void playMinecraftAnimation(int type) {
+        ((WorldServer) this.entity.world).getEntityTracker().sendToTrackingAndSelf(this.entity, new SPacketAnimation(this.entity, type));
     }
 }

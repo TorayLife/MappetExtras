@@ -16,6 +16,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 import org.spongepowered.asm.mixin.Mixin;
 import toraylife.mappetextras.modules.main.mixins.utils.MixinTargetName;
+import toraylife.mappetextras.modules.scripting.Constants;
 import toraylife.mappetextras.modules.scripting.scripts.code.ScriptFile;
 import toraylife.mappetextras.modules.scripting.scripts.code.ScriptMath;
 import toraylife.mappetextras.modules.scripting.scripts.code.conditions.ScriptConditionFactory;
@@ -140,5 +141,9 @@ public abstract class MixinScriptFactory{
 
     public String createUniqueId(){
         return UUID.randomUUID().toString();
+    }
+
+    public Constants getConstants(){
+        return Constants.getInstance();
     }
 }
