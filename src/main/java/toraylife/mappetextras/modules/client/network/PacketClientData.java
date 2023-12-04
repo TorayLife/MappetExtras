@@ -50,7 +50,7 @@ public class PacketClientData implements IMessage {
         this.access = access;
         this.nbtTagCompound = nbtTagCompound;
         this.nbtData = new NBTTagCompound();
-        this.uniqueId = "uniqueId";
+        this.uniqueId = "";
     }
 
     public PacketClientData(ClientData type, AccessType access, NBTTagCompound nbtTagCompound, UUID uniqueId) {
@@ -106,7 +106,7 @@ public class PacketClientData implements IMessage {
                         throw new RuntimeException(e);
                     }
 
-                    Dispatcher.sendToServer(new PacketClientData(typeEnum, typeAccess, dataWithResponse));
+                    Dispatcher.sendToServer(new PacketClientData(typeEnum, typeAccess, dataWithResponse, UUID.fromString(uniqueId)));
             }
         }
 
