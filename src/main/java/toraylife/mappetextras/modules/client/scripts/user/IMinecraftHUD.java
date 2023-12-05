@@ -5,7 +5,7 @@ import toraylife.mappetextras.modules.scripting.utils.ScriptVectorAngle;
 
 import java.util.Set;
 
-public interface IScriptMinecraftHUD {
+public interface IMinecraftHUD {
     /**
      * Moves the hud through the coordinates
      *

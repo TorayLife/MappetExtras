@@ -10,8 +10,8 @@ import toraylife.mappetextras.modules.client.ClientData;
 import toraylife.mappetextras.modules.client.network.PacketClientData;
 import toraylife.mappetextras.modules.client.scripts.code.ScriptArmRender;
 import toraylife.mappetextras.modules.client.scripts.code.ScriptCamera;
-import toraylife.mappetextras.modules.client.scripts.code.ScriptMinecraftHUD;
-import toraylife.mappetextras.modules.client.scripts.user.IScriptMinecraftHUD;
+import toraylife.mappetextras.modules.client.scripts.code.MinecraftHUD;
+import toraylife.mappetextras.modules.client.scripts.user.IMinecraftHUD;
 import toraylife.mappetextras.modules.client.scripts.user.IScriptArmRender;
 import toraylife.mappetextras.modules.main.mixins.utils.MixinTargetName;
 import toraylife.mappetextras.network.Dispatcher;
@@ -215,7 +215,7 @@ public abstract class MixinScriptPlayer{
     }
 
     /**
-     * Gets a {@link IScriptMinecraftHUD} hud.
+     * Gets a {@link IMinecraftHUD} hud.
      *
      * §7ALL,
      * §7HELMET,
@@ -240,8 +240,8 @@ public abstract class MixinScriptPlayer{
      * §7FPS_GRAPH,
      * §7VIGNETTE.
      */
-    public ScriptMinecraftHUD getMinecraftHUD(String hud){
-        return new ScriptMinecraftHUD(this.getMinecraftPlayer(), hud.toUpperCase());
+    public MinecraftHUD getMinecraftHUD(String hud){
+        return new MinecraftHUD(this.getMinecraftPlayer(), hud.toUpperCase());
     }
 
 
