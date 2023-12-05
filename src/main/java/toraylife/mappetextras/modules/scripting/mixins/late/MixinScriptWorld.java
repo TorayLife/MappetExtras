@@ -87,22 +87,59 @@ public abstract class MixinScriptWorld {
         }
     }
 
+    /**
+     * Gets the light level at the given block coordinates.
+     *
+     * @param x X coordinate
+     * @param y Y coordinate
+     * @param z Z coordinate
+     * @return Light level (0-15)
+     */
     public int getLight(int x, int y, int z){
         return this.world.getLight(new BlockPos(x, y, z));
     }
 
+    /**
+     * Gets the light level at the given vector coordinates.
+     *
+     * @param vector Coordinate vector
+     * @return Light level (0-15)
+     */
     public int getLight(ScriptVector vector){
         return this.world.getLight(new BlockPos(vector.x, vector.y, vector.z));
     }
 
+    /**
+     * Gets light level at coordinates, optionally checking neighbors.
+     *
+     * @param x X coordinate
+     * @param y Y coordinate
+     * @param z Z coordinate
+     * @param checkNeighbors If should check neighbor blocks
+     * @return Light level (0-15)
+     */
     public int getLight(int x, int y, int z, boolean checkNeighbors){
         return this.world.getLight(new BlockPos(x, y, z), checkNeighbors);
     }
 
+    /**
+     * Gets light level at vector, optionally checking neighbors.
+     *
+     * @param vector Coordinate vector
+     * @param checkNeighbors if should check neighbor blocks
+     * @return Light level (0-15)
+     */
     public int getLight(ScriptVector vector, boolean checkNeighbors){
         return this.world.getLight(new BlockPos(vector.x, vector.y, vector.z), checkNeighbors);
     }
 
+    /**
+     * Checks if a chunk is loaded.
+     *
+     * @param x Chunk X coordinate
+     * @param z Chunk Z coordinate
+     * @return True if loaded, False otherwise
+     */
     public boolean isChunkLoaded(int x, int z) {
         if (this.world instanceof WorldServer){
             return ((WorldServer)this.world).getChunkProvider().chunkExists(x >> 4, z >> 4);
@@ -111,6 +148,12 @@ public abstract class MixinScriptWorld {
         return (this.world.getChunkProvider().getLoadedChunk(x >> 4, z >> 4) != null);
     }
 
+    /**
+     * Loads the given chunk.
+     *
+     * @param x Chunk X coordinate
+     * @param z Chunk Z coordinate
+     */
     public void loadChunk(int x, int z){
         if (this.world instanceof WorldServer){
             ((WorldServer)this.world).getChunkProvider().loadChunk(x, z);

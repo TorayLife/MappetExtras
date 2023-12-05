@@ -115,22 +115,45 @@ public abstract class MixinScriptPlayer {
         return this.player.getItemInUseCount() > 0 && item.getItem() instanceof ItemPotion;
     }
 
+    /**
+     * Sends a packet to update sounds for this player.
+     */
     public void soundUpdate(){
         Dispatcher.sendTo(new PacketSounds(AccessType.UPDATE), this.player);
     }
-    
+
+    /**
+     * Sends a packet to update textures for this player.
+     */
     public void textureUpdate(){
-            Dispatcher.sendTo(new PacketTextures(AccessType.UPDATE), this.player);
+        Dispatcher.sendTo(new PacketTextures(AccessType.UPDATE), this.player);
     }
 
+    /**
+     * Checks if this player is currently walking.
+     *
+     * @return True if walking, false otherwise.
+     */
     public boolean isWalking(){
-        return this.player.prevDistanceWalkedModified - this.player.distanceWalkedModified != 0;
+        return this.player.prevDistanceWalkedModified
+                - this.player.distanceWalkedModified != 0;
     }
 
+    /**
+     * Gets the horizontal facing direction this player is facing as name.
+     *
+     * @return Facing direction name (south, north, east, west).
+     */
     public String getFacing(){
         return this.player.getHorizontalFacing().getName();
     }
 
+    /**
+     * Disconnects this player with the given reason.
+     * Only works in single player.
+     *
+     * @param reason Disconnect reason
+     */
     public void disconnect(String reason){
         if(!this.player.mcServer.isDedicatedServer() && this.player.mcServer.isSinglePlayer()){
             this.player.connection.disconnect(new TextComponentString(reason));

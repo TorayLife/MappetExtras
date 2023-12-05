@@ -12,7 +12,7 @@ public interface IScriptArmRender {
      *    {
      *        const armRender = c.player.getArmRender(0); //0 - main, 1 - off
      *
-     *        armRender.rotate(-90, 0, 1, 0); // Rotate 90 degrees clockwise around the vertical axis
+     *        armRender.setRotate(-90, 0, 1, 0); // Rotate 90 degrees clockwise around the vertical axis
      *    }
      *  }</pre>
      */

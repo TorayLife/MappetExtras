@@ -82,11 +82,42 @@ public interface IScriptMinecraftHUD {
      */
     public boolean isRender();
 
+    /**
+     * Sets the rotation using pitch, yaw, yawHead angles.
+     *
+     * @param pitch The pitch angle
+     * @param yaw The yaw angle
+     * @param yawHead The head yaw angle
+     */
     public void setRotations(float pitch, float yaw, float yawHead);
+
+    /**
+     * Gets the rotations as a ScriptVector (pitch, yaw, yawHead).
+     *
+     * @return The rotation vector
+     */
     public ScriptVector getRotations();
 
+    /**
+     * Moves the HUD position over time using interpolation.
+     *
+     * @param interpolation Interpolation type
+     * @param durationTicks Duration in ticks
+     * @param x Target X position
+     * @param y Target Y position
+     */
     void moveTo(String interpolation, int durationTicks, double x, double y);
 
+    /**
+     * Rotates the HUD over time using interpolation.
+     *
+     * @param interpolation Interpolation type
+     * @param durationTicks Duration in ticks
+     * @param angle Target angle
+     * @param x Target X rotation
+     * @param y Target Y rotation
+     * @param z Target Z rotation
+     */
     void rotateTo(String interpolation, int durationTicks, double angle, double x, double y, double z);
 
     /**

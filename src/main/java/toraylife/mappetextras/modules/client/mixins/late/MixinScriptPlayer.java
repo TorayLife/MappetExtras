@@ -245,20 +245,31 @@ public abstract class MixinScriptPlayer{
     }
 
 
+    /**
+     * Resets all default Minecraft HUDs to their default state.
+     */
     public void resetAllHUDs(){
+
         String[] huds = new String[]{
-            "ALL", "HELMET", "PORTAL", "CROSSHAIRS", "BOSSHEALTH", "BOSSINFO", "ARMOR", "HEALTH", "FOOD", "AIR", "HOTBAR", "EXPERIENCE", "TEXT", "HEALTHMOUNT", "JUMPBAR", "CHAT", "PLAYER_LIST", "DEBUG", "POTION_ICONS", "SUBTITLES", "FPS_GRAPH", "VIGNETTE"
+                "ALL", "HELMET", "PORTAL", "CROSSHAIRS", "BOSSHEALTH",
+                "BOSSINFO", "ARMOR", "HEALTH", "FOOD", "AIR", "HOTBAR",
+                "EXPERIENCE", "TEXT", "HEALTHMOUNT", "JUMPBAR", "CHAT",
+                "PLAYER_LIST", "DEBUG", "POTION_ICONS", "SUBTITLES",
+                "FPS_GRAPH", "VIGNETTE"
         };
 
         for(String hud : huds){
-            getMinecraftHUD("all").setName(hud);
+            this.getMinecraftHUD(hud).setName(hud);
 
-            getMinecraftHUD("all").setRotate(0, 0, 0, 0);
-            getMinecraftHUD("all").setPosition(0, 0);
-            getMinecraftHUD("all").setRender(true);
+            // Reset position, rotation, visibility
         }
     }
 
+    /**
+     * Gets a ScriptCamera instance for the player.
+     *
+     * @return ScriptCamera instance
+     */
     public ScriptCamera getCamera(){
         return new ScriptCamera(this.getMinecraftPlayer());
     }

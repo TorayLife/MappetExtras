@@ -146,8 +146,6 @@ public class ScriptMinecraftHUD extends ScriptPlayer implements IScriptMinecraft
         this.setRotate(0, 0, 0, 0);
         this.setPosition(0, 0);
         this.setRender(true);
-
-        this.sendToCapability();
     }
 
     private void sendToCapability(){
