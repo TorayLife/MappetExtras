@@ -9,6 +9,7 @@
     "MixinRegisterHandler"
   ],
   "client": [
+    "scriptPanel.MixinGuiDocumentationOverlayPanel",
     "scriptPanel.MixinGuiMultiTextElement",
     "scriptPanel.MixinGuiScriptPanel",
     "scriptPanel.MixinGuiTextEditor"

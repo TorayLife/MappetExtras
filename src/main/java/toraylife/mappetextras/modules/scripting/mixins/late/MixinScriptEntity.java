@@ -8,6 +8,7 @@ import mchorse.mclib.utils.Interpolation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.network.play.server.SPacketAnimation;
 import net.minecraft.util.DamageSource;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -85,14 +86,14 @@ public abstract class MixinScriptEntity<T extends Entity> {
     }
 
     /**
-     * Makes this entity jump.
+     * Make this entity jump.
      */
     public void jump() {
         ((EntityLiving) this.entity).getJumpHelper().setJumping();
     }
 
     /**
-     * Checks if this entity is a child.
+     * Check if this entity is a child.
      *
      * @return True if a child, false otherwise
      */
@@ -101,7 +102,7 @@ public abstract class MixinScriptEntity<T extends Entity> {
     }
 
     /**
-     * Checks if this entity is dead.
+     * Check if this entity is dead.
      *
      * @return True if dead, false if alive
      */
@@ -110,7 +111,7 @@ public abstract class MixinScriptEntity<T extends Entity> {
     }
 
     /**
-     * Checks if this entity is silent.
+     * Check if this entity is silent.
      *
      * @return True if silent, false otherwise
      */
@@ -119,7 +120,7 @@ public abstract class MixinScriptEntity<T extends Entity> {
     }
 
     /**
-     * Sets whether this entity is silent.
+     * Set whether this entity is silent.
      *
      * @param silent True to make silent, false otherwise
      */
@@ -128,7 +129,7 @@ public abstract class MixinScriptEntity<T extends Entity> {
     }
 
     /**
-     * Checks if this entity is attackable.
+     * Check if this entity is attackable.
      *
      * @return True if attackable, false otherwise
      */
@@ -137,7 +138,7 @@ public abstract class MixinScriptEntity<T extends Entity> {
     }
 
     /**
-     * Checks if this entity is alive.
+     * Check if this entity is alive.
      *
      * @return True if alive, false if dead
      */
@@ -146,7 +147,7 @@ public abstract class MixinScriptEntity<T extends Entity> {
     }
 
     /**
-     * Checks if this entity is undead.
+     * Check if this entity is undead.
      *
      * @return True if undead, false otherwise
      */
@@ -154,49 +155,120 @@ public abstract class MixinScriptEntity<T extends Entity> {
         return ((EntityLivingBase) this.entity).isEntityUndead();
     }
 
+    /**
+     * Get the fall distance for this entity.
+     *
+     * @return The fall distance
+     */
     public float getFallDistance() {
         return this.entity.fallDistance;
     }
 
+    /**
+     * Get the entity ID for this entity.
+     *
+     * @return The entity ID
+     */
     public int getEntityId() {
         return this.entity.getEntityId();
     }
 
+    /**
+     * Set the entity ID for this entity.
+     *
+     * @param id The entity ID to set
+     */
     public void setEntityId(int id) {
         this.entity.setEntityId(id);
     }
 
+    /**
+     * Get the AI move speed for this living entity.
+     *
+     * @return The AI move speed
+     */
     public float getAIMoveSpeed() {
         return ((EntityLivingBase) this.entity).getAIMoveSpeed();
     }
 
+    /**
+     * Set the AI move speed for this living entity.
+     *
+     * @param speed The move speed to set
+     */
     public void setAIMoveSpeed(float speed) {
         ((EntityLivingBase) this.entity).setAIMoveSpeed(speed);
     }
 
+    /**
+     * Set whether this entity can clip through blocks.
+     *
+     * @param clip True if it can clip, false otherwise
+     */
     public void setNoClip(boolean clip) {
         this.entity.noClip = clip;
     }
 
+    /**
+     * Get whether this entity can clip through blocks.
+     *
+     * @return True if it can clip, false otherwise
+     */
     public boolean getNoClip() {
         return this.entity.noClip;
     }
 
-    public void damage(float health, String damageType) throws NoSuchFieldException, IllegalAccessException {
-        damageType = damageType.toUpperCase();
-
+    /**
+     * Damage this entity on type.
+     *
+     * types:
+     * IN_FIRE,
+     * LIGHTNING_BOLT,
+     * ON_FIRE,
+     * LAVA,
+     * HOT_FLOOR,
+     * IN_WALL,
+     * CRAMMING,
+     * DROWN,
+     * STARVE,
+     * CACTUS,
+     * FALL,
+     * FLY_INTO_WALL,
+     * OUT_OF_WORLD,
+     * GENERIC,
+     * MAGIC,
+     * WITHER,
+     * ANVIL,
+     * FALLING_BLOCK,
+     * DRAGON_BREATH,
+     * FIREWORKS
+     *
+     * @param health Amount of damage
+     * @param damageType Type of damage
+     */
+    public void damage(float health, String damageType) {
         if (this.entity instanceof EntityLivingBase) {
             return;
         }
 
-        this.entity.attackEntityFrom(new DamageSource(damageType), health);
+        this.entity.attackEntityFrom(new DamageSource(damageType.toUpperCase()), health);
     }
 
-    public void setSprinting(boolean spinting){
-        this.entity.setSprinting(spinting);
+    /**
+     * Set whether this entity is sprinting.
+     *
+     * @param sprinting True if sprinting, false otherwise
+     */
+    public void setSprinting(boolean sprinting) {
+        this.entity.setSprinting(sprinting);
     }
 
-    public void setSneaking(boolean sneaking){
+    /**
+     * Set whether this entity is sneaking.
+     *
+     * @param sneaking True if sneaking, false otherwise
+     */
+    public void setSneaking(boolean sneaking) {
         this.entity.setSneaking(sneaking);
     }
 }

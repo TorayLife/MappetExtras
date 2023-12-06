@@ -55,6 +55,7 @@ mappetextras.utils.codesearch.replace_all=Заменить всё
 mappetextras.utils.codesearch.regex=Регулярное выражение
 mappetextras.utils.codesearch.ignore_case=Игнорировать регистр
 mappetextras.utils.codesearch.search_and_replace=Поиск и замена
+mappetextras.utils.saveEntry.save=Сохранить
 
 mappetextras.utils_module.beautify=Улучшалка кода :)
 

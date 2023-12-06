@@ -17,20 +17,38 @@ public abstract class MixinScriptVector {
     @Shadow
     public double z;
 
-    public double dotProduct(ScriptVector vector3) {
-        return this.x * vector3.x + this.y * vector3.y + this.z * vector3.z;
+    /**
+     * Computes dot product with another vector. 
+     *
+     * @param vector The other vector
+     * @return Dot product value
+     */
+    public double dotProduct(ScriptVector vector) {
+        return this.x * vector.x + this.y * vector.y + this.z * vector.z;
     }
 
-    public ScriptVector crossProduct(ScriptVector vector3) {
+    /**
+     * Computes cross product with another vector.
+     *
+     * @param vector The other vector
+     * @return The cross product vector
+     */
+    public ScriptVector crossProduct(ScriptVector vector) {
         return new ScriptVector(
-                this.y * vector3.z - this.z * vector3.y,
-                this.z * vector3.x - this.x * vector3.z,
-                this.x * vector3.y - this.y * vector3.x
+                this.y * vector.z - this.z * vector.y,
+                this.z * vector.x - this.x * vector.z,
+                this.x * vector.y - this.y * vector.x
         );
     }
 
-    public ScriptVector toAngle(ScriptVector vector3) {
-        ScriptVector subtractVector = new ScriptVector(this.x, this.y, this.z).subtract(vector3);
+    /**
+     * Converts this vector to pitch and yaw angles to the given vector.
+     *
+     * @param vector The target vector
+     * @return Vector containing pitch, yaw, 0
+     */
+    public ScriptVector toAngle(ScriptVector vector) {
+        ScriptVector subtractVector = new ScriptVector(this.x, this.y, this.z).subtract(vector);
 
         double hypotenuse = Math.sqrt(Math.pow(subtractVector.x, 2) + Math.pow(subtractVector.z, 2));
 
@@ -40,6 +58,13 @@ public abstract class MixinScriptVector {
         return new ScriptVector(pitch, yaw, 0);
     }
 
+    /**
+     * Rotates this vector by given pitch and yaw angles.
+     *
+     * @param pitch Pitch angle in degrees
+     * @param yaw Yaw angle in degrees
+     * @return The rotated vector
+     */
     public ScriptVector rotate(double pitch, double yaw) {
         ScriptVector normalizeVector = new ScriptVector(this.x, this.y, this.z).normalize();
 
@@ -56,38 +81,74 @@ public abstract class MixinScriptVector {
         return new ScriptVector(x, y, z);
     }
 
-    ScriptVector interpolation(ScriptVector vector3, double coefficient) {
+    /**
+     * Linearly interpolates between this and the given vector.
+     *
+     * @param vector Target vector
+     * @param coefficient Interpolation coefficient
+     * @return The interpolated vector
+     */
+    ScriptVector interpolation(ScriptVector vector, double coefficient) {
         if (coefficient < 0 || coefficient > 1) {
             return null;
         }
 
         return new ScriptVector(
-                this.x + (vector3.x - this.x) * coefficient,
-                this.y + (vector3.y - this.y) * coefficient,
-                this.z + (vector3.z - this.z) * coefficient
+                this.x + (vector.x - this.x) * coefficient,
+                this.y + (vector.y - this.y) * coefficient,
+                this.z + (vector.z - this.z) * coefficient
         );
     }
 
-    public ScriptVector vectorMultiply(ScriptVector vector3) {
-        return new ScriptVector(this.x * vector3.x, this.y * vector3.y, this.z * vector3.z);
+    /**
+     * Multiplies this vector by components of given vector.
+     *
+     * @param vector Vector to multiply
+     * @return Product vector
+     */
+    public ScriptVector vectorMultiply(ScriptVector vector) {
+        return new ScriptVector(this.x * vector.x, this.y * vector.y, this.z * vector.z);
     }
 
-    public ScriptVector divide(ScriptVector vector3) {
-        return new ScriptVector(this.x / vector3.x, this.y / vector3.y, this.z / vector3.z);
+    /**
+     * Divides this vector by components of given vector.
+     *
+     * @param vector Vector to divide by
+     * @return Result vector
+     */
+    public ScriptVector divide(ScriptVector vector) {
+        return new ScriptVector(this.x / vector.x, this.y / vector.y, this.z / vector.z);
     }
 
+    /**
+     * Creates a copy of this vector.
+     *
+     * @return Copy of this vector
+     */
     public ScriptVector copy() {
         return new ScriptVector(this.x, this.y, this.z);
     }
 
-    public boolean equals(ScriptVector vector3) {
-        return (this.x == vector3.x) && (this.y == vector3.y) && (this.z == vector3.z);
+    /**
+     * Checks if this vector equals another vector.
+     *
+     * @param vector The other vector
+     * @return true if equal, false if not
+     */
+    public boolean equals(ScriptVector vector) {
+        return (this.x == vector.x) && (this.y == vector.y) && (this.z == vector.z);
     }
 
-    public double distance(ScriptVector vector3) {
-        double dx = this.x - vector3.x;
-        double dy = this.y - vector3.y;
-        double dz = this.z - vector3.z;
+    /**
+     * Computes distance between this and another vector.
+     *
+     * @param vector The other vector
+     * @return The distance
+     */
+    public double distance(ScriptVector vector) {
+        double dx = this.x - vector.x;
+        double dy = this.y - vector.y;
+        double dz = this.z - vector.z;
 
         return Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2) + Math.pow(dz, 2));
     }

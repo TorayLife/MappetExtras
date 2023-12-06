@@ -138,6 +138,11 @@ public abstract class MixinScriptFactory{
         return new ScriptMath();
     }
 
+    /**
+     * Creates a unique ID string.
+     *
+     * @return A randomly generated UUID string
+     */
     public String createUniqueId(){
         return UUID.randomUUID().toString();
     }

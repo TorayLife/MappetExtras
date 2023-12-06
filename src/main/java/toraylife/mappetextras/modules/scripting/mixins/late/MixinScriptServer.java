@@ -42,4 +42,20 @@ public abstract class MixinScriptServer {
     public List<String> getOppedPlayerNames() {
         return Arrays.asList(this.server.getPlayerList().getOppedPlayerNames());
     }
+
+    /**
+     * Get the difficulty of this server as a string.
+     *
+     * @return Difficulty as string (peaceful, easy, etc).
+     */
+    public String getDifficulty(){
+        return this.server.getDifficulty().toString();
+    }
+
+    /**
+     * Stop this server.
+     */
+    public void stopServer(){
+        this.server.stopServer();
+    }
 }

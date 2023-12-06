@@ -40,6 +40,7 @@ mappetextras.main_module.update.screen_title=Updates: Current version - §e%s§f
 mappetextras.main_module.update.button_update_link=Visit mod page
 
 # CLIENT
+# GUI
 
 # SCRIPTING
 
@@ -53,6 +54,7 @@ mappetextras.utils.codesearch.replace_all=Replace all
 mappetextras.utils.codesearch.regex=Regular expression
 mappetextras.utils.codesearch.ignore_case=Ignore case
 mappetextras.utils.codesearch.search_and_replace=Search and replace
+mappetextras.utils.saveEntry.save=Save
 
 mappetextras.utils_module.beautify=Beautify
 

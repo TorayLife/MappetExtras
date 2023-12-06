@@ -6,18 +6,17 @@ import mchorse.mappet.api.scripts.user.data.ScriptVector;
 import mchorse.mappet.utils.RunnableExecutionFork;
 import mchorse.mclib.utils.Interpolation;
 import net.minecraft.entity.player.EntityPlayerMP;
-import toraylife.mappetextras.capabilities.minecraftHUD.MinecraftHUD;
 import toraylife.mappetextras.modules.client.network.PacketMinecraftHUDCapability;
-import toraylife.mappetextras.modules.client.scripts.user.IScriptMinecraftHUD;
+import toraylife.mappetextras.modules.client.scripts.user.IMinecraftHUD;
 import toraylife.mappetextras.modules.scripting.utils.ScriptVectorAngle;
 import toraylife.mappetextras.network.Dispatcher;
 
 import java.util.Set;
 
-public class ScriptMinecraftHUD extends ScriptPlayer implements IScriptMinecraftHUD {
-    private MinecraftHUD minecraftHUD = MinecraftHUD.get(entity);
+public class MinecraftHUD extends ScriptPlayer implements IMinecraftHUD {
+    private toraylife.mappetextras.capabilities.minecraftHUD.MinecraftHUD minecraftHUD = toraylife.mappetextras.capabilities.minecraftHUD.MinecraftHUD.get(entity);
     private String name;
-    public ScriptMinecraftHUD(EntityPlayerMP entity, String hud) {
+    public MinecraftHUD(EntityPlayerMP entity, String hud) {
         super(entity);
 
         this.name = hud.toUpperCase();
@@ -146,8 +145,6 @@ public class ScriptMinecraftHUD extends ScriptPlayer implements IScriptMinecraft
         this.setRotate(0, 0, 0, 0);
         this.setPosition(0, 0);
         this.setRender(true);
-
-        this.sendToCapability();
     }
 
     private void sendToCapability(){
