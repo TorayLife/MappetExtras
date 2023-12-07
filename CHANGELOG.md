@@ -1,3 +1,57 @@
+## Version 1.2.0
+
+Whoop!
+
+In this version, the scripting API has been expanded (as in every version), adding `IScriptArmRender`, `IScriptCamera`,
+`IScriptCameraShake`, `IMinecraftHUD`,
+`getSetting` and script vectors fixed, added callbacks for UI components.
+
+#### Full list of changes:
+
+* API:
+    * Added `IScriptArmRender`.
+    * Added `IScriptCamera`.
+    * Added `IScriptCameraShake`.
+    * Added `IMinecraftHUD`.
+    * Added methods for `IScriptEntity`:
+        * `setSneaking(boolean flag)`.
+        * `setSprinting(boolean flag)`
+        * `damage(float health, String damageType)`.
+    * Added methods for `IScriptEvent`:
+        * `stopScript()`
+        * `stopScript(String script)`.
+    * Added methods for `IScriptFactory`:
+        * `createUniqueId()`.
+    * Added methods for `IScriptPlayer`:
+        * ``soundUpdate()`.
+        * `isDrink()`
+        * `isEat()`
+        * `textureUpdate()`
+        * `isWalking()`
+        * `getFacing()`
+        * `disconnect(String reason)`
+    * Added methods for `IScriptServer`:
+        * `stopServer()`
+        * `getDifficulty()`.
+    * Added methods for `IScriptWorld`:
+        * `loadChunk(int x, int z)`
+        * `isChunkLoaded(int x, int z)`
+        * `getLight(ScriptVector vector, boolean checkNeighbors)`
+        * `getLight(int x, int y, int z, boolean checkNeighbors)`
+        * `getLight(ScriptVector vector)`
+        * `getLight(int x, int y, int z)`
+    * Added methods for `UIComponent`:
+        * `callback(ScriptObjectMirror function)`
+        * `callback(String action, ScriptObjectMirror function)`.
+    * Added methods for `MappetUIContext`:
+        * `handleCallbacks(IScriptEvent event)`.
+* Fixes:
+    * Fixed operation of `IScriptVector`.
+    * Fixed operation of `getSetting` method.
+* Other:
+    * For some reason textures for birthdays of contributors were added. I still don't understand why it's necessary,
+      but if the guys wanted it, let it be. Those who use MappetExtras as game items - my condolences.
+
 ## Version 1.1.2
 
 This version is a hotfix of bugs found in 1.1.1. Fixed bugs with documentation, localization, fixed global triggers (

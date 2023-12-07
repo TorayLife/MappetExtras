@@ -1,3 +1,57 @@
+## Версия 1.2.0
+
+Опа!
+
+В этой версии было расширено скриптовое АПИ (как и в каждой), добавлены `IScriptArmRender`, `IScriptCamera`,
+`IScriptCameraShake`, `IMinecraftHUD`,
+исправлены `getSetting` и скриптовые векторы, добавлены коллбэки для UI компонентов.
+
+### Полный список изменений:
+
+* API:
+    * Добавлен `IScriptArmRender`
+    * Добавлен `IScriptCamera`
+    * Добавлен `IScriptCameraShake`
+    * Добавлен `IMinecraftHUD`
+    * Добавлены методы для `IScriptEntity`:
+        * `setSneaking(boolean flag)`
+        * `setSprinting(boolean flag)`
+        * `damage(float health, String damageType)`
+    * Добавлены методы для `IScriptEvent`:
+        * `stopScript()`
+        * `stopScript(String script)`
+    * Добавлены методы для `IScriptFactory`:
+        * `createUniqueId()`
+    * Добавлены методы для `IScriptPlayer`:
+        * `soundUpdate()`
+        * `isDrink()`
+        * `isEat()`
+        * `textureUpdate()`
+        * `isWalking()`
+        * `getFacing()`
+        * `disconnect(String reason)`
+    * Добавлены методы для `IScriptServer`:
+        * `stopServer()`
+        * `getDifficulty()`
+    * Добавлены методы для `IScriptWorld`:
+        * `loadChunk(int x, int z)`
+        * `isChunkLoaded(int x, int z)`
+        * `getLight(ScriptVector vector, boolean checkNeighbors)`
+        * `getLight(int x, int y, int z, boolean checkNeighbors)`
+        * `getLight(ScriptVector vector)`
+        * `getLight(int x, int y, int z)`
+    * Добавлены методы для `UIComponent`:
+        * `callback(ScriptObjectMirror function)`
+        * `callback(String action, ScriptObjectMirror function)`
+    * Добавлены методы для `MappetUIContext`:
+        * `handleCallbacks(IScriptEvent event)`
+* Исправления:
+    * Исправлена работа `IScriptVector`.
+    * Исправлена работа метода `getSetting`.
+* Прочее:
+    * Зачем-то были добавлены текстуры для дней рождений контрибьюторов. До сих пор не понимаю нафиг оно надо, но раз
+      ребята захотели - пусть будет. Тем кто использует предметы MappetExtras как игровые - соболезную.
+
 ## Версия 1.1.2
 
 Эта версия - хотфикс багов которые нашли в 1.1.1. Исправлены косяки с документацией, локализацией, починили глобальные
