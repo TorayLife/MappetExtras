@@ -26,7 +26,7 @@ public abstract class MixinUIComponent implements CallbackableComponent<UICompon
     public HashMap<String, ScriptObjectMirror> contextFunctions = new HashMap<>();
 
     /**
-     * Add callback function to component, that calls if you call {@link IMappetUIContext#handleCallbacks(mchorse.mappet.api.scripts.user.IScriptEvent)} in handler function.
+     * Add callback function to component, that calls if you call {@link IMappetUIContext#handleCallbacks(IScriptEvent)} in handler function.
      *
      * <pre>{@code
      * function main(c) {
@@ -46,16 +46,14 @@ public abstract class MixinUIComponent implements CallbackableComponent<UICompon
      *
      * <p>
      * Arguments:
-     * <p>
-     * c - {@link mchorse.mappet.api.scripts.user.IScriptEvent},
-     * <p>
-     * component - this component. Fast replacement for {@link IMappetUIContext#get(String)}.
-     * <p>
-     * context - {@link IMappetUIContext},
-     * <p>
-     * id - {@link String} component id.
      *
-     * </p>
+     * c - {@link mchorse.mappet.api.scripts.user.IScriptEvent},
+     *
+     * component - this component. Fast replacement for {@link IMappetUIContext#get(String)}.
+     *
+     * context - {@link IMappetUIContext},
+     *
+     * id - {@link String} component id.
      *
      * <p>You can also use pre-defined functions:</p>
      *

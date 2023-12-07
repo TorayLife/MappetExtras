@@ -100,3 +100,5 @@ mappet.gui.settings.triggers.variables.player_eat=N/A
 mappet.gui.settings.triggers.player_drink=Player: drink
 mappet.gui.settings.triggers.descriptions.player_drink=This trigger fires when the player drink potion
 mappet.gui.settings.triggers.variables.player_drink=N/A
+
+mappetextras.gui.overlays.ollama=Ollama connections

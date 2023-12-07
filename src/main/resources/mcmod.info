@@ -14,8 +14,7 @@
   "logoFile": "logo.png",
   "useDependencyInformation": true,
   "requiredMods": [
-    "mappet",
-    "mixinbooter"
+    "mappet"
   ],
   "dependencies": [
     "mappet"
