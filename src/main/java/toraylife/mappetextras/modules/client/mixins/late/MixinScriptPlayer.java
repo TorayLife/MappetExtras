@@ -8,11 +8,12 @@ import org.spongepowered.asm.mixin.Shadow;
 import toraylife.mappetextras.modules.client.AccessType;
 import toraylife.mappetextras.modules.client.ClientData;
 import toraylife.mappetextras.modules.client.network.PacketClientData;
-import toraylife.mappetextras.modules.client.scripts.code.ScriptArmRender;
-import toraylife.mappetextras.modules.client.scripts.code.ScriptCamera;
+import toraylife.mappetextras.modules.client.scripts.code.MinecraftArmRender;
+import toraylife.mappetextras.modules.client.scripts.code.MinecraftCamera;
 import toraylife.mappetextras.modules.client.scripts.code.MinecraftHUD;
+import toraylife.mappetextras.modules.client.scripts.user.IMinecraftCamera;
 import toraylife.mappetextras.modules.client.scripts.user.IMinecraftHUD;
-import toraylife.mappetextras.modules.client.scripts.user.IScriptArmRender;
+import toraylife.mappetextras.modules.client.scripts.user.IMinecraftArmRender;
 import toraylife.mappetextras.modules.main.mixins.utils.MixinTargetName;
 import toraylife.mappetextras.network.Dispatcher;
 
@@ -22,7 +23,6 @@ import java.util.function.Consumer;
 @Mixin(value = ScriptPlayer.class, remap = false)
 @MixinTargetName("mchorse.mappet.api.scripts.user.entities.IScriptPlayer")
 public abstract class MixinScriptPlayer{
-
     @Shadow public abstract EntityPlayerMP getMinecraftPlayer();
 
     /**
@@ -77,6 +77,18 @@ public abstract class MixinScriptPlayer{
         nbtTagCompound.setString(ClientData.CLIPBOARD.toString(), text);
 
         Dispatcher.sendTo(new PacketClientData(ClientData.CLIPBOARD, AccessType.SET, nbtTagCompound), this.getMinecraftPlayer());
+    }
+
+    /**
+     * Opens the web link at the given address.
+     *
+     * @param address The web address (URL) to open.
+     */
+    public void openWebLink(String address){
+        NBTTagCompound nbtTagCompound = new NBTTagCompound();
+        nbtTagCompound.setString(ClientData.WEB_LINK.toString(), address);
+
+        Dispatcher.sendTo(new PacketClientData(ClientData.WEB_LINK, AccessType.SET, nbtTagCompound), this.getMinecraftPlayer());
     }
 
     /**
@@ -176,7 +188,7 @@ public abstract class MixinScriptPlayer{
      *    }
      * }</pre>
      */
-    public void getSetting(String key, Consumer<Object> callback) throws NoSuchFieldException, IllegalAccessException{
+    public void getSetting(String key, Consumer<Object> callback) {
         NBTTagCompound data = new NBTTagCompound();
         data.setString("key", key);
 
@@ -207,17 +219,16 @@ public abstract class MixinScriptPlayer{
     }
 
     /**
-     * Gets a {@link IScriptArmRender} main or off - hand; 0 - main; off - 1;.
+     * Gets a {@link IMinecraftArmRender} main or off - hand; 0 - main; off - 1;.
      *
      */
-    public ScriptArmRender getArmRender(int hand){
-        return new ScriptArmRender(this.getMinecraftPlayer(), hand);
+    public MinecraftArmRender getArmRender(int hand){
+        return new MinecraftArmRender(this.getMinecraftPlayer(), hand);
     }
 
     /**
      * Gets a {@link IMinecraftHUD} hud.
      *
-     * §7ALL,
      * §7HELMET,
      * §7PORTAL,
      * §7CROSSHAIRS,
@@ -227,7 +238,6 @@ public abstract class MixinScriptPlayer{
      * §7HEALTH,
      * §7FOOD,
      * §7AIR,
-     * §7HOTBAR,
      * §7EXPERIENCE,
      * §7TEXT,
      * §7HEALTHMOUNT,
@@ -249,19 +259,21 @@ public abstract class MixinScriptPlayer{
      * Resets all default Minecraft HUDs to their default state.
      */
     public void resetAllHUDs(){
-
         String[] huds = new String[]{
-                "ALL", "HELMET", "PORTAL", "CROSSHAIRS", "BOSSHEALTH",
-                "BOSSINFO", "ARMOR", "HEALTH", "FOOD", "AIR", "HOTBAR",
-                "EXPERIENCE", "TEXT", "HEALTHMOUNT", "JUMPBAR", "CHAT",
-                "PLAYER_LIST", "DEBUG", "POTION_ICONS", "SUBTITLES",
-                "FPS_GRAPH", "VIGNETTE"
+            "HELMET", "PORTAL", "CROSSHAIRS", "BOSSHEALTH",
+            "BOSSINFO", "ARMOR", "HEALTH", "AIR", "HOTBAR",
+            "EXPERIENCE", "TEXT", "HEALTHMOUNT", "JUMPBAR", "CHAT",
+            "PLAYER_LIST", "DEBUG", "POTION_ICONS", "SUBTITLES",
+            "FPS_GRAPH", "VIGNETTE"
         };
 
         for(String hud : huds){
             this.getMinecraftHUD(hud).setName(hud);
 
             // Reset position, rotation, visibility
+            this.getMinecraftHUD(hud).setPosition(0, 0);
+            this.getMinecraftHUD(hud).setRotate(0, 0, 0, 0);
+            this.getMinecraftHUD(hud).setRender(false);
         }
     }
 
@@ -270,7 +282,7 @@ public abstract class MixinScriptPlayer{
      *
      * @return ScriptCamera instance
      */
-    public ScriptCamera getCamera(){
-        return new ScriptCamera(this.getMinecraftPlayer());
+    public IMinecraftCamera getCamera(){
+        return new MinecraftCamera(this.getMinecraftPlayer());
     }
 }

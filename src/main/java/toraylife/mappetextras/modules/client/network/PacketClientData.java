@@ -3,7 +3,9 @@ package toraylife.mappetextras.modules.client.network;
 import io.netty.buffer.ByteBuf;
 import mchorse.mclib.network.ClientMessageHandler;
 import mchorse.mclib.network.ServerMessageHandler;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
@@ -95,7 +97,11 @@ public class PacketClientData implements IMessage {
 
                     Dispatcher.sendToServer(new PacketClientData(typeEnum, typeAccess, data, UUID.fromString(uniqueId)));
                 case SET:
-                    provider.setData(value);
+                    try {
+                        provider.setData(value);
+                    } catch (Throwable e) {
+                        throw new RuntimeException(e);
+                    }
                 case USE:
                     break;
                 case GET_WITH_DATA:
@@ -123,6 +129,8 @@ public class PacketClientData implements IMessage {
                     return new SettingProvider();
                 case RESOLUTION:
                     return new ResolutionProvider();
+                case WEB_LINK:
+                    return new WebLinkProvider();
             }
             throw new IllegalArgumentException("Invalid typeEnum");
         }

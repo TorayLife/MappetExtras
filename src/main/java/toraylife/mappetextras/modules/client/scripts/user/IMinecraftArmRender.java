@@ -3,7 +3,7 @@ package toraylife.mappetextras.modules.client.scripts.user;
 import mchorse.mappet.api.scripts.user.data.ScriptVector;
 import toraylife.mappetextras.modules.scripting.utils.ScriptVectorAngle;
 
-public interface IScriptArmRender {
+public interface IMinecraftArmRender {
     /**
      * Rotates the arm (main or off). angle - angle in degrees (positive angle = counterclockwise rotation), and x, y and z - vector around which the rotation is performed.
      *
@@ -48,6 +48,13 @@ public interface IScriptArmRender {
      */
     void setPosition(double x, double y, double z);
 
+    /**
+     * Sets the pitch, yaw, and yawHead rotations.
+     *
+     * @param pitch the pitch in degrees
+     * @param yaw the yaw in degrees
+     * @param yawHead the head yaw in degrees
+     */
     void setRotations(float pitch, float yaw, float yawHead);
 
     ScriptVector getRotations();

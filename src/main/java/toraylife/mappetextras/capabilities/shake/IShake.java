@@ -1,32 +1,24 @@
 package toraylife.mappetextras.capabilities.shake;
 
+import mchorse.mappet.api.scripts.user.data.ScriptVector;
 import net.minecraft.nbt.NBTTagCompound;
 import toraylife.mappetextras.modules.scripting.utils.ScriptVectorAngle;
 
 public interface IShake {
-    //ACTIVE
     void setActive(boolean active);
     boolean isActive();
 
-    //ROTATE
     void setRotate(double angle, double x, double y, double z);
     ScriptVectorAngle getRotate();
 
-    //ROTATION
     void setRotation(double rot);
     double getRotation();
 
-    //SCALE
-    void setScale(double scale);
-    double getScale();
+    void setZoom(double zoom);
+    double getZoom();
 
-    //MINUS
-    void setMinus(double minus);
-    double getMinus();
-
-    //PLUS
-    void setPlus(double plus);
-    double getPlus();
+    void setSpeed(double minus, double plus);
+    ScriptVector getSpeed();
 
     //NBT
     public NBTTagCompound serializeNBT();

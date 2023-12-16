@@ -21,9 +21,8 @@ public class Dispatcher {
             this.register(PacketClientData.class, PacketClientData.ClientHandler.class, Side.CLIENT);
             this.register(PacketClientData.class, PacketClientData.ServerHandler.class, Side.SERVER);
             this.register(PacketGuiOpenEvent.class, PacketGuiOpenEvent.ServerHandler.class, Side.SERVER);
-            this.register(PacketArmRenderCapability.class, PacketArmRenderCapability.ClientHandler.class, Side.CLIENT);
-            this.register(PacketMinecraftHUDCapability.class, PacketMinecraftHUDCapability.ClientHandler.class, Side.CLIENT);
-            this.register(PacketShakeCapability.class, PacketShakeCapability.ClientHandler.class, Side.CLIENT);
+            this.register(PacketRenderWithEntity.class, PacketRenderWithEntity.ClientHandler.class, Side.CLIENT);
+            this.register(PacketCapability.class, PacketCapability.ClientHandler.class, Side.CLIENT);
             this.register(PacketSounds.class, PacketSounds.ClientHandler.class, Side.CLIENT);
             this.register(PacketTextures.class, PacketTextures.ClientHandler.class, Side.CLIENT);
         }

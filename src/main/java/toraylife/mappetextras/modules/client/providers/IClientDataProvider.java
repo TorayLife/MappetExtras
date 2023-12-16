@@ -3,7 +3,7 @@ package toraylife.mappetextras.modules.client.providers;
 import net.minecraft.nbt.NBTTagCompound;
 
 public interface IClientDataProvider{
-    void setData(NBTTagCompound value);
+    void setData(NBTTagCompound value) throws Throwable;
 
     default NBTTagCompound getData() {
         return new NBTTagCompound();

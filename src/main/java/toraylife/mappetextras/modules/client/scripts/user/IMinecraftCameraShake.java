@@ -1,8 +1,29 @@
 package toraylife.mappetextras.modules.client.scripts.user;
 
+import mchorse.mappet.api.scripts.user.data.ScriptVector;
 import toraylife.mappetextras.modules.scripting.utils.ScriptVectorAngle;
 
-public interface IScriptCameraShake {
+/**
+ * CameraShake.
+ *
+ * This interface represents shake camera
+ *
+ * It allows you to make shake, turn, "earthquake" by controlling the camera.
+ *
+ * <pre>{@code
+ *     function main(c)
+ *     {
+ *         const shake = c.player.camera.shake;
+ *
+ *         shake.setActive(true)
+ *         shake.setSpeed(0.1, 0.1)
+ *         shake.setRotation(10)
+ *         shake.setZoom(0)
+ *         shake.setRotate(0.5, 0, 0, 1)
+ *     }
+ * }</pre>
+ */
+public interface IMinecraftCameraShake {
     /**
      * Sets if this component is active.
      *
@@ -48,45 +69,13 @@ public interface IScriptCameraShake {
      */
     double getRotation();
 
-    /**
-     * Sets the scale.
-     *
-     * @param scale The scale factor
-     */
-    void setScale(double scale);
+    void setZoom(double zoom);
 
-    /**
-     * Gets the current scale.
-     *
-     * @return The scale factor
-     */
-    double getScale();
+    double getZoom();
 
-    /**
-     * Sets the minus value.
-     *
-     * @param minus The minus value
-     */
-    void setMinus(double minus);
+    void setSpeed(double minus, double plus);
 
-    /**
-     * Gets the current minus value.
-     *
-     * @return The minus value
-     */
-    double getMinus();
+    void setSpeed(double speed);
 
-    /**
-     * Sets the plus value.
-     *
-     * @param plus The plus value
-     */
-    void setPlus(double plus);
-
-    /**
-     * Gets the current plus value.
-     *
-     * @return The plus value
-     */
-    double getPlus();
+    ScriptVector getSpeed();
 }
