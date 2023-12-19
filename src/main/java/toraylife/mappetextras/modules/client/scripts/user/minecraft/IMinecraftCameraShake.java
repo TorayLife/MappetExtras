@@ -1,4 +1,4 @@
-package toraylife.mappetextras.modules.client.scripts.user;
+package toraylife.mappetextras.modules.client.scripts.user.minecraft;
 
 import mchorse.mappet.api.scripts.user.data.ScriptVector;
 import toraylife.mappetextras.modules.scripting.utils.ScriptVectorAngle;
@@ -78,4 +78,6 @@ public interface IMinecraftCameraShake {
     void setSpeed(double speed);
 
     ScriptVector getSpeed();
+
+    void reset();
 }

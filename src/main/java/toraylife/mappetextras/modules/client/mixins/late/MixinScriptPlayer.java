@@ -8,12 +8,12 @@ import org.spongepowered.asm.mixin.Shadow;
 import toraylife.mappetextras.modules.client.AccessType;
 import toraylife.mappetextras.modules.client.ClientData;
 import toraylife.mappetextras.modules.client.network.PacketClientData;
-import toraylife.mappetextras.modules.client.scripts.code.MinecraftArmRender;
-import toraylife.mappetextras.modules.client.scripts.code.MinecraftCamera;
-import toraylife.mappetextras.modules.client.scripts.code.MinecraftHUD;
-import toraylife.mappetextras.modules.client.scripts.user.IMinecraftCamera;
-import toraylife.mappetextras.modules.client.scripts.user.IMinecraftHUD;
-import toraylife.mappetextras.modules.client.scripts.user.IMinecraftArmRender;
+import toraylife.mappetextras.modules.client.scripts.code.minecraft.MinecraftArmRender;
+import toraylife.mappetextras.modules.client.scripts.code.minecraft.MinecraftCamera;
+import toraylife.mappetextras.modules.client.scripts.code.minecraft.MinecraftHUD;
+import toraylife.mappetextras.modules.client.scripts.user.minecraft.IMinecraftCamera;
+import toraylife.mappetextras.modules.client.scripts.user.minecraft.IMinecraftHUD;
+import toraylife.mappetextras.modules.client.scripts.user.minecraft.IMinecraftArmRender;
 import toraylife.mappetextras.modules.main.mixins.utils.MixinTargetName;
 import toraylife.mappetextras.network.Dispatcher;
 
@@ -222,7 +222,7 @@ public abstract class MixinScriptPlayer{
      * Gets a {@link IMinecraftArmRender} main or off - hand; 0 - main; off - 1;.
      *
      */
-    public MinecraftArmRender getArmRender(int hand){
+    public IMinecraftArmRender getArmRender(int hand){
         return new MinecraftArmRender(this.getMinecraftPlayer(), hand);
     }
 
@@ -261,19 +261,17 @@ public abstract class MixinScriptPlayer{
     public void resetAllHUDs(){
         String[] huds = new String[]{
             "HELMET", "PORTAL", "CROSSHAIRS", "BOSSHEALTH",
-            "BOSSINFO", "ARMOR", "HEALTH", "AIR", "HOTBAR",
+            "BOSSINFO", "ARMOR", "HEALTH", "AIR",
             "EXPERIENCE", "TEXT", "HEALTHMOUNT", "JUMPBAR", "CHAT",
             "PLAYER_LIST", "DEBUG", "POTION_ICONS", "SUBTITLES",
             "FPS_GRAPH", "VIGNETTE"
         };
 
         for(String hud : huds){
-            this.getMinecraftHUD(hud).setName(hud);
+            MinecraftHUD minecraftHUD = this.getMinecraftHUD(hud);
 
-            // Reset position, rotation, visibility
-            this.getMinecraftHUD(hud).setPosition(0, 0);
-            this.getMinecraftHUD(hud).setRotate(0, 0, 0, 0);
-            this.getMinecraftHUD(hud).setRender(false);
+            minecraftHUD.setPosition(0, 0);
+            minecraftHUD.setRotate(0, 0, 0, 0);
         }
     }
 

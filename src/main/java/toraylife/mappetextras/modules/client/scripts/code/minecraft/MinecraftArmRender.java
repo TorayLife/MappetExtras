@@ -1,7 +1,6 @@
-package toraylife.mappetextras.modules.client.scripts.code;
+package toraylife.mappetextras.modules.client.scripts.code.minecraft;
 
 import mchorse.mappet.CommonProxy;
-import mchorse.mappet.api.scripts.code.entities.ScriptPlayer;
 import mchorse.mappet.api.scripts.user.data.ScriptVector;
 import mchorse.mappet.utils.RunnableExecutionFork;
 import mchorse.mclib.utils.Interpolation;
@@ -10,17 +9,20 @@ import toraylife.mappetextras.capabilities.mainHand.MainHand;
 import toraylife.mappetextras.capabilities.offHand.OffHand;
 import toraylife.mappetextras.modules.client.AccessType;
 import toraylife.mappetextras.modules.client.network.PacketCapability;
-import toraylife.mappetextras.modules.client.scripts.user.IMinecraftArmRender;
+import toraylife.mappetextras.modules.client.scripts.user.minecraft.IMinecraftArmRender;
 import toraylife.mappetextras.modules.scripting.utils.ScriptVectorAngle;
 import toraylife.mappetextras.network.Dispatcher;
 
-public class MinecraftArmRender extends ScriptPlayer implements IMinecraftArmRender {
-    private final MainHand mainHand = MainHand.get(entity);
-    private final OffHand offHand = OffHand.get(entity);
-    private int hand;
+public class MinecraftArmRender implements IMinecraftArmRender {
+    private final EntityPlayerMP player;
+    private final MainHand mainHand;
+    private final OffHand offHand;
+    private final int hand;
 
-    public MinecraftArmRender(EntityPlayerMP entity, int hand) {
-        super(entity);
+    public MinecraftArmRender(EntityPlayerMP player, int hand) {
+        this.player = player;
+        this.mainHand = MainHand.get(this.player);
+        this.offHand = OffHand.get(this.player);
 
         this.hand = hand;
     }
@@ -92,6 +94,17 @@ public class MinecraftArmRender extends ScriptPlayer implements IMinecraftArmRen
     }
 
     @Override
+    public ScriptVector getPosition() {
+        if(this.hand == 0){
+            ScriptVector pos = this.mainHand.getPosition();
+            return new ScriptVector(pos.x, pos.y, pos.z);
+        }else{
+            ScriptVector pos = this.offHand.getPosition();
+            return new ScriptVector(pos.x, pos.y, pos.z);
+        }
+    }
+
+    @Override
     public boolean isRender() {
         if(this.hand == 0){
             return this.mainHand.isRender();
@@ -113,11 +126,11 @@ public class MinecraftArmRender extends ScriptPlayer implements IMinecraftArmRen
 
     private void sendToCapability(){
         if(this.hand == 0){
-            Dispatcher.sendTo(new PacketCapability(this.mainHand.serializeNBT(), AccessType.ARM_RENDER), entity);
+            Dispatcher.sendTo(new PacketCapability(this.mainHand.serializeNBT(), AccessType.ARM_RENDER), this.player);
         }
 
         if(this.hand == 1){
-            Dispatcher.sendTo(new PacketCapability(this.offHand.serializeNBT(), AccessType.ARM_RENDER), entity);
+            Dispatcher.sendTo(new PacketCapability(this.offHand.serializeNBT(), AccessType.ARM_RENDER), this.player);
         }
     }
 
@@ -125,9 +138,9 @@ public class MinecraftArmRender extends ScriptPlayer implements IMinecraftArmRen
     public void moveTo(String interpolation, int durationTicks, double x, double y, double z){
         Interpolation interp = Interpolation.valueOf(interpolation.toUpperCase());
 
-        double startX = new MinecraftArmRender(this.entity, this.hand).getPosition().x;
-        double startY = new MinecraftArmRender(this.entity, this.hand).getPosition().y;
-        double startZ = new MinecraftArmRender(this.entity, this.hand).getPosition().z;
+        double startX = new MinecraftArmRender(this.player, this.hand).getPosition().x;
+        double startY = new MinecraftArmRender(this.player, this.hand).getPosition().y;
+        double startZ = new MinecraftArmRender(this.player, this.hand).getPosition().z;
 
         for (int i = 0; i < durationTicks; i++) {
             float progress = (float) i / (float) durationTicks;
@@ -163,5 +176,11 @@ public class MinecraftArmRender extends ScriptPlayer implements IMinecraftArmRen
                 this.setRotate(interpAngle, interpX, interpY, interpZ);
             }));
         }
+    }
+
+    @Override
+    public void reset() {
+        this.setPosition(0, 0, 0);
+        this.setRotate(0, 0, 0, 0);
     }
 }

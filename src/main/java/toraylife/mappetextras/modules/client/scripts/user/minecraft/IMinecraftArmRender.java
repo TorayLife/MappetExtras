@@ -1,4 +1,4 @@
-package toraylife.mappetextras.modules.client.scripts.user;
+package toraylife.mappetextras.modules.client.scripts.user.minecraft;
 
 import mchorse.mappet.api.scripts.user.data.ScriptVector;
 import toraylife.mappetextras.modules.scripting.utils.ScriptVectorAngle;
@@ -124,7 +124,7 @@ public interface IMinecraftArmRender {
      * @param y target Y coordinate
      * @param z target Z coordinate
      */
-    public void moveTo(String interpolation, int durationTicks, double x, double y, double z);
+    void moveTo(String interpolation, int durationTicks, double x, double y, double z);
 
     /**
      * Rotates arm to target orientation.
@@ -136,5 +136,7 @@ public interface IMinecraftArmRender {
      * @param y y coordinate of rotation axis vector
      * @param z z coordinate of rotation axis vector
      */
-    public void rotateTo(String interpolation, int durationTicks, double angle, double x, double y, double z);
+    void rotateTo(String interpolation, int durationTicks, double angle, double x, double y, double z);
+
+    void reset();
 }

@@ -2,10 +2,12 @@ package toraylife.mappetextras.events;
 
 import mchorse.mappet.api.scripts.user.data.ScriptVector;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -72,9 +74,20 @@ public class EventHandler {
     @SideOnly(Side.CLIENT)
     public void onPlayerOpenGuiEvent(GuiOpenEvent event) {
         if (event.getGui() != null) {
-            String gui = event.getGui().toString();
+            NBTTagCompound data = new NBTTagCompound();
+            data.setString("gui", this.processText( event.getGui().toString() ));
 
-            Dispatcher.sendToServer(new PacketGuiOpenEvent(this.processText(gui)));
+            Dispatcher.sendToServer(new PacketEvent(AccessType.OPEN, data));
+        }
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void onPlayerCloseGuiEvent(GuiScreen guiScreen){
+        if (guiScreen != null) {
+            NBTTagCompound data = new NBTTagCompound();
+            data.setString("gui", this.processText( guiScreen.toString() ));
+
+            Dispatcher.sendToServer(new PacketEvent(AccessType.CLOSE, data));
         }
     }
 

@@ -1,28 +1,31 @@
-package toraylife.mappetextras.modules.client.scripts.code;
+package toraylife.mappetextras.modules.client.scripts.code.minecraft;
 
 import mchorse.mappet.CommonProxy;
 import mchorse.mappet.api.scripts.code.entities.ScriptEntity;
-import mchorse.mappet.api.scripts.code.entities.ScriptPlayer;
 import mchorse.mappet.utils.RunnableExecutionFork;
 import mchorse.mclib.utils.Interpolation;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.nbt.NBTTagCompound;
 import toraylife.mappetextras.capabilities.camera.Camera;
 import toraylife.mappetextras.modules.client.AccessType;
+import toraylife.mappetextras.modules.client.ClientData;
 import toraylife.mappetextras.modules.client.network.PacketCapability;
-import toraylife.mappetextras.modules.client.network.PacketRenderWithEntity;
-import toraylife.mappetextras.modules.client.scripts.user.IMinecraftCamera;
-import toraylife.mappetextras.modules.client.scripts.user.IMinecraftCameraShake;
+import toraylife.mappetextras.modules.client.network.PacketClientData;
+import toraylife.mappetextras.modules.client.scripts.user.minecraft.IMinecraftCamera;
+import toraylife.mappetextras.modules.client.scripts.user.minecraft.IMinecraftCameraShake;
 import toraylife.mappetextras.network.Dispatcher;
 
-public class MinecraftCamera extends ScriptPlayer implements IMinecraftCamera {
-    private final Camera camera = Camera.get(entity);
-    public MinecraftCamera(EntityPlayerMP entity) {
-        super(entity);
+public class MinecraftCamera implements IMinecraftCamera {
+    private EntityPlayerMP player;
+    private Camera camera;
+    public MinecraftCamera(EntityPlayerMP player) {
+        this.player = player;
+        this.camera = Camera.get(this.player);
     }
 
     @Override
     public IMinecraftCameraShake getShake(){
-        return new MinecraftCameraShake(entity);
+        return new MinecraftCameraShake(this.player);
     }
 
     @Override
@@ -73,7 +76,10 @@ public class MinecraftCamera extends ScriptPlayer implements IMinecraftCamera {
 
     @Override
     public void setRenderWithEntity(ScriptEntity entity) {
-        Dispatcher.sendTo(new PacketRenderWithEntity(entity.getMinecraftEntity().getEntityId()), this.entity);
+        NBTTagCompound data = new NBTTagCompound();
+        data.setInteger(ClientData.RENDER_WITH_ENTITY.toString(), entity.getMinecraftEntity().getEntityId());
+
+        Dispatcher.sendTo(new PacketClientData(ClientData.RENDER_WITH_ENTITY, AccessType.SET, data), this.player);
     }
 
     @Override
@@ -94,13 +100,18 @@ public class MinecraftCamera extends ScriptPlayer implements IMinecraftCamera {
                 this.setPitch((float) interpPitch);
                 this.setYaw((float) interpYaw);
                 this.setRoll((float) interpRoll);
-
-                this.sendToCapability();
             }));
         }
     }
 
+    @Override
+    public void reset() {
+        this.setPitch(0);
+        this.setYaw(0);
+        this.setRoll(0);
+    }
+
     private void sendToCapability(){
-        Dispatcher.sendTo(new PacketCapability(this.camera.serializeNBT(), AccessType.CAMERA), entity);
+        Dispatcher.sendTo(new PacketCapability(this.camera.serializeNBT(), AccessType.CAMERA), this.player);
     }
 }

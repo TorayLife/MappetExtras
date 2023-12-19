@@ -12,19 +12,19 @@ public abstract class MixinScriptEvent {
     @Shadow
     private String script;
 
-    /**
-     * Stops the execution of the given script.
-     *
-     * @param script The name of the script to stop
-     */
-    public void stopScript(String script){
-        CommonProxy.eventHandler.removeExecutables(script);
-    }
-
-    /**
-     * Stops the execution of this script.
-     */
-    public void stopScript(){
-        CommonProxy.eventHandler.removeExecutables(this.script);
-    }
+//    /**
+//     * Stops the execution of the given script.
+//     *
+//     * @param script The name of the script to stop
+//     */
+//    public void stopScript(String script){
+//        CommonProxy.eventHandler.removeExecutables(script);
+//    }
+//
+//    /**
+//     * Stops the execution of this script.
+//     */
+//    public void stopScript(){
+//        CommonProxy.eventHandler.removeExecutables(this.script);
+//    }
 }

@@ -131,6 +131,8 @@ public class PacketClientData implements IMessage {
                     return new ResolutionProvider();
                 case WEB_LINK:
                     return new WebLinkProvider();
+                case RENDER_WITH_ENTITY:
+                    return new RenderWithEntityProvider();
             }
             throw new IllegalArgumentException("Invalid typeEnum");
         }

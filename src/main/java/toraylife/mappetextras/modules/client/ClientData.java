@@ -47,6 +47,12 @@ public enum ClientData {
         public Object process(NBTTagCompound data) {
             return data.getString(this.name());
         }
+    },
+    RENDER_WITH_ENTITY {
+        @Override
+        public Object process(NBTTagCompound data) {
+            return data.getInteger(this.name());
+        }
     };
 
     ClientData() {

@@ -1,19 +1,20 @@
-package toraylife.mappetextras.modules.client.scripts.code;
+package toraylife.mappetextras.modules.client.scripts.code.minecraft;
 
-import mchorse.mappet.api.scripts.code.entities.ScriptPlayer;
 import mchorse.mappet.api.scripts.user.data.ScriptVector;
 import net.minecraft.entity.player.EntityPlayerMP;
 import toraylife.mappetextras.capabilities.shake.Shake;
 import toraylife.mappetextras.modules.client.AccessType;
 import toraylife.mappetextras.modules.client.network.PacketCapability;
-import toraylife.mappetextras.modules.client.scripts.user.IMinecraftCameraShake;
+import toraylife.mappetextras.modules.client.scripts.user.minecraft.IMinecraftCameraShake;
 import toraylife.mappetextras.modules.scripting.utils.ScriptVectorAngle;
 import toraylife.mappetextras.network.Dispatcher;
 
-public class MinecraftCameraShake extends ScriptPlayer implements IMinecraftCameraShake {
-    private final Shake shake = Shake.get(entity);
-    public MinecraftCameraShake(EntityPlayerMP entity) {
-        super(entity);
+public class MinecraftCameraShake implements IMinecraftCameraShake {
+    private final EntityPlayerMP player;
+    private final Shake shake;
+    public MinecraftCameraShake(EntityPlayerMP player) {
+        this.player = player;
+        this.shake = Shake.get(this.player);
     }
 
     public void setActive(boolean active){
@@ -73,7 +74,14 @@ public class MinecraftCameraShake extends ScriptPlayer implements IMinecraftCame
         return new ScriptVector(this.shake.getSpeed().x, this.shake.getSpeed().y, 0);
     }
 
+    public void reset(){
+        this.setRotate(0, 0, 0, 0);
+        this.setRotation(0);
+        this.setZoom(0);
+        this.setSpeed(0);
+    }
+
     private void sendToCapability(){
-        Dispatcher.sendTo(new PacketCapability(this.shake.serializeNBT(), AccessType.SHAKE), entity);
+        Dispatcher.sendTo(new PacketCapability(this.shake.serializeNBT(), AccessType.SHAKE), this.player);
     }
 }

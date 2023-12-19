@@ -1,7 +1,6 @@
-package toraylife.mappetextras.modules.client.scripts.user;
+package toraylife.mappetextras.modules.client.scripts.user.minecraft;
 
 import mchorse.mappet.api.scripts.code.entities.ScriptEntity;
-import toraylife.mappetextras.modules.client.scripts.code.MinecraftCameraShake;
 
 public interface IMinecraftCamera {
     /**
@@ -76,4 +75,6 @@ public interface IMinecraftCamera {
     void setRenderWithEntity(ScriptEntity entity);
 
     void rotateTo(String interpolation, int durationTicks, double pitch, double yaw, double roll);
+
+    void reset();
 }

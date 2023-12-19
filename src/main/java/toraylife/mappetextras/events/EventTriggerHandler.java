@@ -109,6 +109,23 @@ public class EventTriggerHandler {
         trigger.trigger(context);
     }
 
+    public void onPlayerCloseGui(String gui, EntityPlayer player){
+        if (Mappet.settings == null) {
+            return;
+        }
+        Trigger trigger = ((TriggerAccessor) Mappet.settings).getPlayerCloseGui();
+
+        if (shouldCancelTrigger(trigger) || player.world.isRemote) {
+            return;
+        }
+
+        DataContext context = new DataContext(player);
+
+        context.set("gui", gui);
+
+        trigger.trigger(context);
+    }
+
     @SubscribeEvent
     public void onPlayerEatEvent(TickEvent.PlayerTickEvent event){
         if (Mappet.settings == null) {

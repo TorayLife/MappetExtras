@@ -1,24 +1,25 @@
-package toraylife.mappetextras.modules.client.scripts.code;
+package toraylife.mappetextras.modules.client.scripts.code.minecraft;
 
 import mchorse.mappet.CommonProxy;
-import mchorse.mappet.api.scripts.code.entities.ScriptPlayer;
 import mchorse.mappet.api.scripts.user.data.ScriptVector;
 import mchorse.mappet.utils.RunnableExecutionFork;
 import mchorse.mclib.utils.Interpolation;
 import net.minecraft.entity.player.EntityPlayerMP;
 import toraylife.mappetextras.modules.client.AccessType;
 import toraylife.mappetextras.modules.client.network.PacketCapability;
-import toraylife.mappetextras.modules.client.scripts.user.IMinecraftHUD;
+import toraylife.mappetextras.modules.client.scripts.user.minecraft.IMinecraftHUD;
 import toraylife.mappetextras.modules.scripting.utils.ScriptVectorAngle;
 import toraylife.mappetextras.network.Dispatcher;
 
 import java.util.Set;
 
-public class MinecraftHUD extends ScriptPlayer implements IMinecraftHUD {
-    private toraylife.mappetextras.capabilities.minecraftHUD.MinecraftHUD minecraftHUD = toraylife.mappetextras.capabilities.minecraftHUD.MinecraftHUD.get(entity);
+public class MinecraftHUD implements IMinecraftHUD {
+    private EntityPlayerMP player;
+    private toraylife.mappetextras.capabilities.minecraftHUD.MinecraftHUD minecraftHUD;
     private String name;
     public MinecraftHUD(EntityPlayerMP entity, String hud) {
-        super(entity);
+        this.player = entity;
+        this.minecraftHUD = toraylife.mappetextras.capabilities.minecraftHUD.MinecraftHUD.get(this.player);
 
         this.name = hud.toUpperCase();
     }
@@ -27,18 +28,24 @@ public class MinecraftHUD extends ScriptPlayer implements IMinecraftHUD {
     public void setPosition(double x, double y){
         this.minecraftHUD.setName(this.name);
         this.minecraftHUD.setPosition(x, y);
+
+        this.sendToCapability();
     }
 
     @Override
     public void setScale(double x, double y){
         this.minecraftHUD.setName(this.name);
         this.minecraftHUD.setScale(x, y);
+
+        this.sendToCapability();
     }
 
     @Override
     public void setRotate(double angle, double x, double y, double z){
         this.minecraftHUD.setName(this.name);
         this.minecraftHUD.setRotate(angle, x, y, z);
+
+        this.sendToCapability();
     }
 
     @Override
@@ -146,10 +153,9 @@ public class MinecraftHUD extends ScriptPlayer implements IMinecraftHUD {
     public void reset(){
         this.setRotate(0, 0, 0, 0);
         this.setPosition(0, 0);
-        this.setRender(true);
     }
 
     private void sendToCapability(){
-        Dispatcher.sendTo(new PacketCapability(this.minecraftHUD.serializeNBT(), AccessType.MINECRAFT_HUD), entity);
+        Dispatcher.sendTo(new PacketCapability(this.minecraftHUD.serializeNBT(), AccessType.MINECRAFT_HUD), this.player);
     }
 }

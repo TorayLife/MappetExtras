@@ -10,6 +10,8 @@ public interface TriggerAccessor {
 
     Trigger getPlayerOpenGui();
 
+    Trigger getPlayerCloseGui();
+
     Trigger getEntityJumping();
 
     Trigger getEntityFalling();
