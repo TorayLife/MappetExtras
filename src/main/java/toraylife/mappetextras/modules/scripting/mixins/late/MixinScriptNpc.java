@@ -1,5 +1,6 @@
 package toraylife.mappetextras.modules.scripting.mixins.late;
 
+import mchorse.mappet.api.npcs.NpcState;
 import mchorse.mappet.api.scripts.code.entities.ScriptEntity;
 import mchorse.mappet.api.scripts.code.entities.ScriptNpc;
 import mchorse.mappet.api.scripts.user.data.ScriptVector;
@@ -58,8 +59,10 @@ public abstract class MixinScriptNpc extends ScriptEntity<EntityNpc> {
      * @param trigger Trigger for this patrol point
      */
     public void addPatrolPoint(int x, int y, int z, IScriptTrigger trigger) {
-        this.entity.getState().patrol.add(new BlockPos(x, y, z));
-        this.entity.getState().patrolTriggers.add(trigger == null ? new Trigger() : trigger.getTrigger());
+        NpcState npcState = this.entity.getState();
+        npcState.patrol.add(new BlockPos(x, y, z));
+        npcState.patrolTriggers.add(trigger == null ? new Trigger() : trigger.getTrigger());
+        this.entity.setState(npcState, true);
     }
 
     /**
@@ -72,8 +75,10 @@ public abstract class MixinScriptNpc extends ScriptEntity<EntityNpc> {
      * @param trigger New trigger
      */
     public void setPatrolPoint(int index, int x, int y, int z, IScriptTrigger trigger) {
-        this.entity.getState().patrol.set(index, new BlockPos(x, y, z));
-        this.entity.getState().patrolTriggers.set(index, trigger == null ? new Trigger() : trigger.getTrigger());
+        NpcState npcState = this.entity.getState();
+        npcState.patrol.set(index, new BlockPos(x, y, z));
+        npcState.patrolTriggers.set(index, trigger == null ? new Trigger() : trigger.getTrigger());
+        this.entity.setState(npcState, true);
     }
 
     /**
@@ -112,7 +117,9 @@ public abstract class MixinScriptNpc extends ScriptEntity<EntityNpc> {
      * @param trigger The new initialization trigger
      */
     public void setInitializationTrigger(IScriptTrigger trigger) {
-        this.entity.getState().triggerInitialize = trigger.getTrigger();
+        NpcState npcState = this.entity.getState();
+        npcState.triggerInitialize = trigger.getTrigger();
+        this.entity.setState(npcState, true);
     }
 
     /**
@@ -130,7 +137,9 @@ public abstract class MixinScriptNpc extends ScriptEntity<EntityNpc> {
      * @param trigger The new interaction trigger
      */
     public void setInteractionTrigger(IScriptTrigger trigger) {
-        this.entity.getState().triggerInteract = trigger.getTrigger();
+        NpcState npcState = this.entity.getState();
+        npcState.triggerInteract = trigger.getTrigger();
+        this.entity.setState(npcState, true);
     }
 
     /**
@@ -148,7 +157,9 @@ public abstract class MixinScriptNpc extends ScriptEntity<EntityNpc> {
      * @param trigger The new damaged trigger
      */
     public void setDamagedTrigger(IScriptTrigger trigger) {
-        this.entity.getState().triggerDamaged = trigger.getTrigger();
+        NpcState npcState = this.entity.getState();
+        npcState.triggerDamaged = trigger.getTrigger();
+        this.entity.setState(npcState, true);
     }
 
     /**
@@ -166,7 +177,9 @@ public abstract class MixinScriptNpc extends ScriptEntity<EntityNpc> {
      * @param trigger The new death trigger
      */
     public void setDeathTrigger(IScriptTrigger trigger) {
-        this.entity.getState().triggerDied = trigger.getTrigger();
+        NpcState npcState = this.entity.getState();
+        npcState.triggerDied = trigger.getTrigger();
+        this.entity.setState(npcState, true);
     }
 
     /**
@@ -184,7 +197,9 @@ public abstract class MixinScriptNpc extends ScriptEntity<EntityNpc> {
      * @param trigger The new tick trigger
      */
     public void setTickTrigger(IScriptTrigger trigger) {
-        this.entity.getState().triggerTick = trigger.getTrigger();
+        NpcState npcState = this.entity.getState();
+        npcState.triggerTick = trigger.getTrigger();
+        this.entity.setState(npcState, true);
     }
 
     /**
@@ -202,7 +217,9 @@ public abstract class MixinScriptNpc extends ScriptEntity<EntityNpc> {
      * @param trigger The new target trigger
      */
     public void setTargetTrigger(IScriptTrigger trigger) {
-        this.entity.getState().triggerTarget = trigger.getTrigger();
+        NpcState npcState = this.entity.getState();
+        npcState.triggerTarget = trigger.getTrigger();
+        this.entity.setState(npcState, true);
     }
 
     /**
@@ -220,7 +237,9 @@ public abstract class MixinScriptNpc extends ScriptEntity<EntityNpc> {
      * @param trigger The new collision trigger
      */
     public void setCollisionTrigger(IScriptTrigger trigger) {
-        this.entity.getState().triggerEntityCollision = trigger.getTrigger();
+        NpcState npcState = this.entity.getState();
+        npcState.triggerEntityCollision = trigger.getTrigger();
+        this.entity.setState(npcState, true);
     }
 
     /**
@@ -238,6 +257,8 @@ public abstract class MixinScriptNpc extends ScriptEntity<EntityNpc> {
      * @param trigger The new respawn trigger
      */
     public void setRespawnTrigger(IScriptTrigger trigger) {
-        this.entity.getState().triggerRespawn = trigger.getTrigger();
+        NpcState npcState = this.entity.getState();
+        npcState.triggerRespawn = trigger.getTrigger();
+        this.entity.setState(npcState, true);
     }
 }

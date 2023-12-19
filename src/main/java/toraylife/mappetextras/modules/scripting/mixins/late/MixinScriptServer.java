@@ -66,4 +66,5 @@ public abstract class MixinScriptServer {
     public boolean isServerInOnlineMode() {
         return this.server.isServerInOnlineMode();
     }
+    public ScriptTrigger getGlobalTrigger(String type) {
 }

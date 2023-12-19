@@ -138,16 +138,15 @@ public class MinecraftArmRender implements IMinecraftArmRender {
     public void moveTo(String interpolation, int durationTicks, double x, double y, double z){
         Interpolation interp = Interpolation.valueOf(interpolation.toUpperCase());
 
-        double startX = new MinecraftArmRender(this.player, this.hand).getPosition().x;
-        double startY = new MinecraftArmRender(this.player, this.hand).getPosition().y;
-        double startZ = new MinecraftArmRender(this.player, this.hand).getPosition().z;
+        double startX = this.getPosition().x;
+        double startY = this.getPosition().y;
+        double startZ = this.getPosition().z;
 
         for (int i = 0; i < durationTicks; i++) {
             float progress = (float) i / (float) durationTicks;
             double interpX = interp.interpolate(startX, x, progress);
             double interpY = interp.interpolate(startY, y, progress);
             double interpZ = interp.interpolate(startZ, z, progress);
-
 
             CommonProxy.eventHandler.addExecutable(new RunnableExecutionFork(i, () -> {
                 this.setPosition(interpX, interpY, interpZ);
