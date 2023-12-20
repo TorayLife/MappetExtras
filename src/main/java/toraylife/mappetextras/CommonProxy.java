@@ -5,6 +5,9 @@ import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import toraylife.mappetextras.capabilities.camera.Camera;
+import toraylife.mappetextras.capabilities.camera.CameraStorage;
+import toraylife.mappetextras.capabilities.camera.ICamera;
 import toraylife.mappetextras.capabilities.mainHand.IMainHand;
 import toraylife.mappetextras.capabilities.mainHand.MainHand;
 import toraylife.mappetextras.capabilities.mainHand.MainHandStorage;
@@ -36,6 +39,7 @@ public class CommonProxy {
         CapabilityManager.INSTANCE.register(IOffHand.class, new OffHandStorage(), OffHand::new);
         CapabilityManager.INSTANCE.register(IMinecraftHUD.class, new MinecraftHUDStorage(), MinecraftHUD::new);
         CapabilityManager.INSTANCE.register(IShake.class, new ShakeStorage(), Shake::new);
+        CapabilityManager.INSTANCE.register(ICamera.class, new CameraStorage(), Camera::new);
     }
 
     public void init(FMLInitializationEvent event) {

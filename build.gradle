@@ -47,8 +47,8 @@ def mixinFiles = new ArrayList<>(Arrays.asList(
         'mixins/mixins.late.utils.json',
         'mixins/mixins.late.client.json',
         'mixins/mixins.late.scripting.json',
-        'mixins/mixins.early.client.json',
-        'mixins/mixins.early.scripting.json'
+        'mixins/mixins.early.scripting.json',
+        'mixins/mixins.early.utils.json'
 ))
 
 mixinFiles.forEach {

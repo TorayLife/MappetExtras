@@ -1,25 +1,28 @@
-package toraylife.mappetextras.modules.client.scripts.code;
+package toraylife.mappetextras.modules.client.scripts.code.minecraft;
 
 import mchorse.mappet.CommonProxy;
-import mchorse.mappet.api.scripts.code.entities.ScriptPlayer;
 import mchorse.mappet.api.scripts.user.data.ScriptVector;
 import mchorse.mappet.utils.RunnableExecutionFork;
 import mchorse.mclib.utils.Interpolation;
 import net.minecraft.entity.player.EntityPlayerMP;
 import toraylife.mappetextras.capabilities.mainHand.MainHand;
 import toraylife.mappetextras.capabilities.offHand.OffHand;
-import toraylife.mappetextras.modules.client.network.PacketArmRenderCapability;
-import toraylife.mappetextras.modules.client.scripts.user.IScriptArmRender;
+import toraylife.mappetextras.modules.client.AccessType;
+import toraylife.mappetextras.modules.client.network.PacketCapability;
+import toraylife.mappetextras.modules.client.scripts.user.minecraft.IMinecraftArmRender;
 import toraylife.mappetextras.modules.scripting.utils.ScriptVectorAngle;
 import toraylife.mappetextras.network.Dispatcher;
 
-public class ScriptArmRender extends ScriptPlayer implements IScriptArmRender{
-    private final MainHand mainHand = MainHand.get(entity);
-    private final OffHand offHand = OffHand.get(entity);
-    private int hand;
+public class MinecraftArmRender implements IMinecraftArmRender {
+    private final EntityPlayerMP player;
+    private final MainHand mainHand;
+    private final OffHand offHand;
+    private final int hand;
 
-    public ScriptArmRender(EntityPlayerMP entity, int hand) {
-        super(entity);
+    public MinecraftArmRender(EntityPlayerMP player, int hand) {
+        this.player = player;
+        this.mainHand = MainHand.get(this.player);
+        this.offHand = OffHand.get(this.player);
 
         this.hand = hand;
     }
@@ -91,6 +94,17 @@ public class ScriptArmRender extends ScriptPlayer implements IScriptArmRender{
     }
 
     @Override
+    public ScriptVector getPosition() {
+        if(this.hand == 0){
+            ScriptVector pos = this.mainHand.getPosition();
+            return new ScriptVector(pos.x, pos.y, pos.z);
+        }else{
+            ScriptVector pos = this.offHand.getPosition();
+            return new ScriptVector(pos.x, pos.y, pos.z);
+        }
+    }
+
+    @Override
     public boolean isRender() {
         if(this.hand == 0){
             return this.mainHand.isRender();
@@ -112,11 +126,11 @@ public class ScriptArmRender extends ScriptPlayer implements IScriptArmRender{
 
     private void sendToCapability(){
         if(this.hand == 0){
-            Dispatcher.sendTo(new PacketArmRenderCapability(this.mainHand.serializeNBT()), entity);
+            Dispatcher.sendTo(new PacketCapability(this.mainHand.serializeNBT(), AccessType.ARM_RENDER), this.player);
         }
 
         if(this.hand == 1){
-            Dispatcher.sendTo(new PacketArmRenderCapability(this.offHand.serializeNBT()), entity);
+            Dispatcher.sendTo(new PacketCapability(this.offHand.serializeNBT(), AccessType.ARM_RENDER), this.player);
         }
     }
 
@@ -124,16 +138,15 @@ public class ScriptArmRender extends ScriptPlayer implements IScriptArmRender{
     public void moveTo(String interpolation, int durationTicks, double x, double y, double z){
         Interpolation interp = Interpolation.valueOf(interpolation.toUpperCase());
 
-        double startX = new ScriptArmRender(this.entity, this.hand).getPosition().x;
-        double startY = new ScriptArmRender(this.entity, this.hand).getPosition().y;
-        double startZ = new ScriptArmRender(this.entity, this.hand).getPosition().z;
+        double startX = this.getPosition().x;
+        double startY = this.getPosition().y;
+        double startZ = this.getPosition().z;
 
         for (int i = 0; i < durationTicks; i++) {
             float progress = (float) i / (float) durationTicks;
             double interpX = interp.interpolate(startX, x, progress);
             double interpY = interp.interpolate(startY, y, progress);
             double interpZ = interp.interpolate(startZ, z, progress);
-
 
             CommonProxy.eventHandler.addExecutable(new RunnableExecutionFork(i, () -> {
                 this.setPosition(interpX, interpY, interpZ);
@@ -162,5 +175,11 @@ public class ScriptArmRender extends ScriptPlayer implements IScriptArmRender{
                 this.setRotate(interpAngle, interpX, interpY, interpZ);
             }));
         }
+    }
+
+    @Override
+    public void reset() {
+        this.setPosition(0, 0, 0);
+        this.setRotate(0, 0, 0, 0);
     }
 }

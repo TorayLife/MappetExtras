@@ -40,6 +40,19 @@ public enum ClientData {
             NBTTagCompound display = data.getCompoundTag(this.name());
             return new ScriptVector(display.getInteger("x"), display.getInteger("y"), 0);
         }
+    },
+
+    WEB_LINK {
+        @Override
+        public Object process(NBTTagCompound data) {
+            return data.getString(this.name());
+        }
+    },
+    RENDER_WITH_ENTITY {
+        @Override
+        public Object process(NBTTagCompound data) {
+            return data.getInteger(this.name());
+        }
     };
 
     ClientData() {

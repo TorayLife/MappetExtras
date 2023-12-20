@@ -1,30 +1,33 @@
-package toraylife.mappetextras.modules.client.scripts.code;
+package toraylife.mappetextras.modules.client.scripts.code.minecraft;
 
 import mchorse.mappet.CommonProxy;
-import mchorse.mappet.api.scripts.code.entities.ScriptPlayer;
 import mchorse.mappet.api.scripts.user.data.ScriptVector;
 import mchorse.mappet.utils.RunnableExecutionFork;
 import mchorse.mclib.utils.Interpolation;
 import net.minecraft.entity.player.EntityPlayerMP;
-import toraylife.mappetextras.modules.client.network.PacketMinecraftHUDCapability;
-import toraylife.mappetextras.modules.client.scripts.user.IMinecraftHUD;
+import toraylife.mappetextras.modules.client.AccessType;
+import toraylife.mappetextras.modules.client.network.PacketCapability;
+import toraylife.mappetextras.modules.client.scripts.user.minecraft.IMinecraftHUD;
 import toraylife.mappetextras.modules.scripting.utils.ScriptVectorAngle;
 import toraylife.mappetextras.network.Dispatcher;
 
+import java.util.Objects;
 import java.util.Set;
 
-public class MinecraftHUD extends ScriptPlayer implements IMinecraftHUD {
-    private toraylife.mappetextras.capabilities.minecraftHUD.MinecraftHUD minecraftHUD = toraylife.mappetextras.capabilities.minecraftHUD.MinecraftHUD.get(entity);
+public class MinecraftHUD implements IMinecraftHUD {
+    private EntityPlayerMP player;
+    private toraylife.mappetextras.capabilities.minecraftHUD.MinecraftHUD minecraftHUD;
     private String name;
     public MinecraftHUD(EntityPlayerMP entity, String hud) {
-        super(entity);
+        this.player = entity;
+        this.minecraftHUD = toraylife.mappetextras.capabilities.minecraftHUD.MinecraftHUD.get(this.player);
 
         this.name = hud.toUpperCase();
-        this.minecraftHUD.setName(this.name);
     }
 
     @Override
     public void setPosition(double x, double y){
+        this.minecraftHUD.setName(this.name);
         this.minecraftHUD.setPosition(x, y);
 
         this.sendToCapability();
@@ -32,6 +35,7 @@ public class MinecraftHUD extends ScriptPlayer implements IMinecraftHUD {
 
     @Override
     public void setScale(double x, double y){
+        this.minecraftHUD.setName(this.name);
         this.minecraftHUD.setScale(x, y);
 
         this.sendToCapability();
@@ -39,6 +43,7 @@ public class MinecraftHUD extends ScriptPlayer implements IMinecraftHUD {
 
     @Override
     public void setRotate(double angle, double x, double y, double z){
+        this.minecraftHUD.setName(this.name);
         this.minecraftHUD.setRotate(angle, x, y, z);
 
         this.sendToCapability();
@@ -46,26 +51,31 @@ public class MinecraftHUD extends ScriptPlayer implements IMinecraftHUD {
 
     @Override
     public ScriptVector getPosition(){
+        this.minecraftHUD.setName(this.name);
         return this.minecraftHUD.getPosition();
     }
 
     @Override
     public ScriptVector getScale(){
+        this.minecraftHUD.setName(this.name);
         return this.minecraftHUD.getScale();
     }
 
     @Override
     public ScriptVectorAngle getRotate(){
+        this.minecraftHUD.setName(this.name);
         return this.minecraftHUD.getRotate();
     }
 
     @Override
     public boolean isRender(){
+        this.minecraftHUD.setName(this.name);
         return this.minecraftHUD.isRender();
     }
 
     @Override
     public void setRender(boolean render){
+        this.minecraftHUD.setName(this.name);
         this.minecraftHUD.setRender(render);
 
         this.sendToCapability();
@@ -106,7 +116,6 @@ public class MinecraftHUD extends ScriptPlayer implements IMinecraftHUD {
             double interpX = interp.interpolate(startX, x, progress);
             double interpY = interp.interpolate(startY, y, progress);
 
-
             CommonProxy.eventHandler.addExecutable(new RunnableExecutionFork(i, () -> {
                 this.setPosition(interpX, interpY);
             }));
@@ -123,11 +132,10 @@ public class MinecraftHUD extends ScriptPlayer implements IMinecraftHUD {
 
         for (int i = 0; i < durationTicks; i++) {
             float progress = (float) i / (float) durationTicks;
-            double interpAngle = interp.interpolate(startAngle, x, progress);
-            double interpX = interp.interpolate(startX, y, progress);
+            double interpAngle = interp.interpolate(startAngle, angle, progress);
+            double interpX = interp.interpolate(startX, x, progress);
             double interpY = interp.interpolate(startY, y, progress);
-            double interpZ = interp.interpolate(startZ, y, progress);
-
+            double interpZ = interp.interpolate(startZ, z, progress);
 
             CommonProxy.eventHandler.addExecutable(new RunnableExecutionFork(i, () -> {
                 this.setRotate(interpAngle, interpX, interpY, interpZ);
@@ -144,10 +152,9 @@ public class MinecraftHUD extends ScriptPlayer implements IMinecraftHUD {
     public void reset(){
         this.setRotate(0, 0, 0, 0);
         this.setPosition(0, 0);
-        this.setRender(true);
     }
 
     private void sendToCapability(){
-        Dispatcher.sendTo(new PacketMinecraftHUDCapability(this.minecraftHUD.serializeNBT()), entity);
+        Dispatcher.sendTo(new PacketCapability(this.minecraftHUD.serializeNBT(), AccessType.MINECRAFT_HUD), this.player);
     }
 }

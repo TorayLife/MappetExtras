@@ -81,6 +81,10 @@ mappet.gui.settings.triggers.player_open_gui=Игрок: при открытии
 mappet.gui.settings.triggers.descriptions.player_open_gui=Этот триггер срабатывает когда игрок открывает GUI.
 mappet.gui.settings.triggers.variables.player_open_gui=§6gui§r, название GUI.
 
+mappet.gui.settings.triggers.player_close_gui=Игрок: при закрытии GUI
+mappet.gui.settings.triggers.descriptions.player_close_gui=Этот триггер срабатывает когда игрок закрывает GUI.
+mappet.gui.settings.triggers.variables.player_close_gui=§6gui§r, название GUI.
+
 mappet.gui.settings.triggers.living_jump=Живое: при прыжке
 mappet.gui.settings.triggers.descriptions.living_jump=Этот триггер срабатывает когда живая сущность прыгает.
 mappet.gui.settings.triggers.variables.living_jump=N/A

@@ -1,5 +1,6 @@
 package toraylife.mappetextras.capabilities.shake;
 
+import mchorse.mappet.api.scripts.user.data.ScriptVector;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import toraylife.mappetextras.modules.scripting.utils.ScriptVectorAngle;
@@ -20,7 +21,7 @@ public class Shake implements IShake{
 
     private float rotation;
 
-    private float scale;
+    private float zoom;
 
     private float minus;
     private float plus;
@@ -73,33 +74,24 @@ public class Shake implements IShake{
     }
 
     @Override
-    public void setPlus(double plus){
+    public void setSpeed(double minus, double plus){
+        this.minus = (float) minus;
         this.plus = (float) plus;
     }
 
     @Override
-    public double getPlus(){
-        return this.plus;
+    public ScriptVector getSpeed(){
+        return new ScriptVector(this.minus, this.plus, 0);
     }
 
     @Override
-    public void setMinus(double minus){
-        this.minus = (float) minus;
+    public void setZoom(double zoom){
+        this.zoom = (float) zoom;
     }
 
     @Override
-    public double getMinus(){
-        return this.minus;
-    }
-
-    @Override
-    public void setScale(double scale){
-        this.scale = (float) scale;
-    }
-
-    @Override
-    public double getScale(){
-        return this.scale;
+    public double getZoom(){
+        return this.zoom;
     }
 
     @Override
@@ -113,9 +105,9 @@ public class Shake implements IShake{
         tag.setDouble("z", this.getRotate().z);
         tag.setDouble("angle", this.getRotate().angle);
         tag.setDouble("rotation", this.getRotation());
-        tag.setDouble("scale", this.getScale());
-        tag.setDouble("minus", this.getMinus());
-        tag.setDouble("plus", this.getPlus());
+        tag.setDouble("zoom", this.getZoom());
+        tag.setDouble("minus", this.getSpeed().x);
+        tag.setDouble("plus", this.getSpeed().y);
 
         return tag;
     }
@@ -143,8 +135,8 @@ public class Shake implements IShake{
             this.rotation = (float) tag.getDouble("rotation");
         }
 
-        if (tag.hasKey("scale")) {
-            this.scale = (float) tag.getDouble("scale");
+        if (tag.hasKey("zoom")) {
+            this.zoom = (float) tag.getDouble("zoom");
         }
 
         if (tag.hasKey("minus")) {

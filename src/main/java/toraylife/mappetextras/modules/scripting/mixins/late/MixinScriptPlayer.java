@@ -140,15 +140,6 @@ public abstract class MixinScriptPlayer {
     }
 
     /**
-     * Gets the horizontal facing direction this player is facing as name.
-     *
-     * @return Facing direction name (south, north, east, west).
-     */
-    public String getFacing(){
-        return this.player.getHorizontalFacing().getName();
-    }
-
-    /**
      * Disconnects this player with the given reason.
      * Only works in single player.
      *
