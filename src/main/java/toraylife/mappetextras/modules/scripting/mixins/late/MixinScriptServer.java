@@ -67,4 +67,6 @@ public abstract class MixinScriptServer {
         return this.server.isServerInOnlineMode();
     }
     public ScriptTrigger getGlobalTrigger(String type) {
+        return new ScriptTrigger(Mappet.settings.registered.get(type));
+    }
 }

@@ -240,7 +240,7 @@ public abstract class MixinScriptFactory{
      * §7TUTORIAL_STEP
      * §7USE_NATIVE_TRANSPORT
      * §7USE_VBO
-     * §7VIEW_BOBBIN
+     * §7VIEW_BOBBING
      * </p>
      */
     public Constants getConstants(){

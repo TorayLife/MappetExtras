@@ -11,6 +11,7 @@ import toraylife.mappetextras.modules.client.scripts.user.minecraft.IMinecraftHU
 import toraylife.mappetextras.modules.scripting.utils.ScriptVectorAngle;
 import toraylife.mappetextras.network.Dispatcher;
 
+import java.util.Objects;
 import java.util.Set;
 
 public class MinecraftHUD implements IMinecraftHUD {
@@ -115,7 +116,6 @@ public class MinecraftHUD implements IMinecraftHUD {
             double interpX = interp.interpolate(startX, x, progress);
             double interpY = interp.interpolate(startY, y, progress);
 
-
             CommonProxy.eventHandler.addExecutable(new RunnableExecutionFork(i, () -> {
                 this.setPosition(interpX, interpY);
             }));
@@ -132,11 +132,10 @@ public class MinecraftHUD implements IMinecraftHUD {
 
         for (int i = 0; i < durationTicks; i++) {
             float progress = (float) i / (float) durationTicks;
-            double interpAngle = interp.interpolate(startAngle, x, progress);
-            double interpX = interp.interpolate(startX, y, progress);
+            double interpAngle = interp.interpolate(startAngle, angle, progress);
+            double interpX = interp.interpolate(startX, x, progress);
             double interpY = interp.interpolate(startY, y, progress);
-            double interpZ = interp.interpolate(startZ, y, progress);
-
+            double interpZ = interp.interpolate(startZ, z, progress);
 
             CommonProxy.eventHandler.addExecutable(new RunnableExecutionFork(i, () -> {
                 this.setRotate(interpAngle, interpX, interpY, interpZ);
