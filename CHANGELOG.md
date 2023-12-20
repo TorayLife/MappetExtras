@@ -1,3 +1,28 @@
+## Version 1.2.1
+
+Hotfix after 2 weeks is a new record.
+
+This version once again fixed `getSetting` and `setSetting`, fixed `MinecraftHUD`, renamed `ScriptCamera`,
+`ScriptCameraShake`, `ScriptArmRender`, added constants and `openWebLink`. Bugs added.
+
+#### Full list of changes:
+
+* API:
+    *
+    Renamed `ScriptCamera`, `ScriptCameraShake`, `ScriptArmRender` -> `MinecraftCamera`, `MinecraftCameraShake`, `MinecraftArmRender`.
+    * Added constants
+    * Added method for `IScriptPlayer`:
+        * `openWebLink(String url)`.
+    * Added method for `IScriptServer`:
+        * `isServerInOnOnlineMode()`.
+* Fixes:
+    * Fixed `getSetting` and `setSetting` again.
+    * Fixed `MinecraftHUD`.
+    * Fixed a bug with models
+    * Fixed methods that interact with NPS.
+* New triggers:
+    * Added trigger Player: when closing GUI (Doesn't work :D)
+
 ## Version 1.2.0
 
 Whoop!

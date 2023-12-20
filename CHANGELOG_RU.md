@@ -1,3 +1,29 @@
+## Версия 1.2.1
+
+Хотфикс спустя 2 недели - это новый рекорд.
+
+В этой версии в очередной раз починили `getSetting` и `setSetting`, исправлен `MinecraftHUD`,
+переименованы `ScriptCamera`,
+`ScriptCameraShake`, `ScriptArmRender`, добавлены константы и `openWebLink`. Добавлены баги.
+
+### Полный список изменений:
+
+* API:
+    *
+    Переименованы `ScriptCamera`, `ScriptCameraShake`, `ScriptArmRender` -> `MinecraftCamera`, `MinecraftCameraShake`, `MinecraftArmRender`
+    * Добавлены константы
+    * Добавлен метод для `IScriptPlayer`:
+        * `openWebLink(String url)`
+    * Добавлен метод для `IScriptServer`:
+        * `isServerInOnlineMode()`
+* Исправления:
+    * Опять починили `getSetting` и `setSetting`
+    * Исправлен `MinecraftHUD`
+    * Исправлен баг с моделями
+    * исправлена работа методов которые взаимодействуют с НПС.
+* Новые триггеры:
+    * Добавлен триггер Игрок: при закрытии GUI (Не работает :D)
+
 ## Версия 1.2.0
 
 Опа!

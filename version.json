@@ -1,6 +1,7 @@
 {
     "homepage": "https://github.com/TorayLife/MappetExtras",
     "1.12.2": {
+      "1.2.1": "This version once again fixed getSetting and setSetting, fixed MinecraftHUD, renamed ScriptCamera, ScriptCameraShake, ScriptArmRender, added constants and openWebLink. Bugs added.",
       "1.2.0": "In this version, the scripting API has been expanded (as in every version), adding IScriptArmRender, IScriptCamera, IScriptCameraShake, IMinecraftHUD, getSetting and script vectors fixed, added callbacks for UI components.",
       "1.1.2": "This version os a hotfix of bugs found in 1.1.1. Fixed bugs with the documentation, global triggers, arm render API.",
       "1.1.1": "This version is a hotfix of bugs found in 1.1.0. Fixed bugs with the documentation and crashes.",
@@ -10,8 +11,8 @@
       "0.1.0": "Initial version, test github actions"
     },
     "promos": {
-      "1.12.2-latest": "1.2.0",
-      "1.12.2-recommended": "1.2.0"
+      "1.12.2-latest": "1.2.1",
+      "1.12.2-recommended": "1.2.1"
     },
     "inherit": true
 }
