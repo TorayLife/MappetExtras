@@ -10,6 +10,8 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import toraylife.mappetextras.modules.client.AccessType;
 import toraylife.mappetextras.modules.client.ClientData;
 import toraylife.mappetextras.modules.client.providers.*;
@@ -83,6 +85,7 @@ public class PacketClientData implements IMessage {
 
     public static class ClientHandler extends ClientMessageHandler<PacketClientData> {
         @Override
+        @SideOnly(Side.CLIENT)
         public void run(EntityPlayerSP player, PacketClientData message) {
             ClientData typeEnum = message.type;
             AccessType typeAccess = message.access;

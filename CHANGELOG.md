@@ -1,3 +1,13 @@
+## Version 1.2.2
+
+Hotfix after a couple hours :3
+
+In this version the server crash on startup has been fixed.
+
+### Full list of changes:
+* Fixes:
+    * Fixed server crash on startup.
+
 ## Version 1.2.1
 
 Hotfix after 2 weeks is a new record.

@@ -260,6 +260,7 @@ public class EventHandler {
     }
 
     @SubscribeEvent
+    @SideOnly(Side.CLIENT)
     public void onPreRenderGame(EntityViewRenderEvent.CameraSetup event) {
         Camera camera = Camera.get(Minecraft.getMinecraft().player);
 

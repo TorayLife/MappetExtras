@@ -2,6 +2,7 @@ package toraylife.mappetextras.modules.client.network;
 
 import io.netty.buffer.ByteBuf;
 import mchorse.mclib.network.ClientMessageHandler;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
@@ -46,45 +47,19 @@ public class PacketCapability implements IMessage {
 
             switch (type){
                 case ARM_RENDER:
-                    this.armRender(player, message);
+                    int hand = message.profile.getInteger("hand");
+
+                    if(hand == 0){
+                        MainHand.get(Minecraft.getMinecraft().player).deserializeNBT(message.profile);
+                    }else{
+                        OffHand.get(Minecraft.getMinecraft().player).deserializeNBT(message.profile);
+                    }
                 case CAMERA:
-                    this.camera(player, message);
+                    Camera.get(Minecraft.getMinecraft().player).deserializeNBT(message.profile);
                 case MINECRAFT_HUD:
-                    this.minecraftHUD(player, message);
+                    MinecraftHUD.get(Minecraft.getMinecraft().player).deserializeNBT(message.profile);
                 case SHAKE:
-                    this.shake(player, message);
-            }
-        }
-
-        private void shake(EntityPlayerSP player, PacketCapability message){
-            Shake shake = Shake.get(player);
-
-            shake.deserializeNBT(message.profile);
-        }
-
-        private void minecraftHUD(EntityPlayerSP player, PacketCapability message){
-            MinecraftHUD minecraftHUD = MinecraftHUD.get(player);
-
-            minecraftHUD.deserializeNBT(message.profile);
-        }
-
-        private void camera(EntityPlayerSP player, PacketCapability message){
-            Camera camera = Camera.get(player);
-
-            camera.deserializeNBT(message.profile);
-        }
-
-        private void armRender(EntityPlayerSP player, PacketCapability message){
-            int hand = message.profile.getInteger("hand");
-
-            if(hand == 0){
-                MainHand mainHand = MainHand.get(player);
-
-                mainHand.deserializeNBT(message.profile);
-            }else{
-                OffHand offHand = OffHand.get(player);
-
-                offHand.deserializeNBT(message.profile);
+                    Shake.get(Minecraft.getMinecraft().player).deserializeNBT(message.profile);
             }
         }
     }
