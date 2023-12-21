@@ -1,12 +1,14 @@
 ## Version 1.2.2
 
-Hotfix after a couple hours :3
+Hotfix :3
 
-In this version the server crash on startup has been fixed.
+In this version were fixed server crashes at startup and normal game if the scripting engine is not installed.
 
 ### Full list of changes:
 * Fixes:
     * Fixed server crash on startup.
+    * Fixed crash if Nashorn is not installed (why would you want an addon without a scripting engine? Are you
+      fuckheads?).
 
 ## Version 1.2.1
 
