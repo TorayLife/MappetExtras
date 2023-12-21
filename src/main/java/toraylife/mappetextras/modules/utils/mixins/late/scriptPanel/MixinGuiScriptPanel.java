@@ -58,7 +58,7 @@ public abstract class MixinGuiScriptPanel extends GuiMappetDashboardPanel {
         this.searchIcon.tooltip(IKey.lang("mappetextras.utils.codesearch.search_and_replace"), Direction.LEFT);
 
         this.beautifierIcon = new GuiIconElement(mc, MPEIcons.CLOTHES_FAVOUR, (b) -> this.onBeautifierAction(this.code));
-        this.beautifierIcon.setVisible(this.data != null && this.allowed && this.code.isVisible());
+        this.beautifierIcon.setVisible(this.data != null && this.allowed && this.code.isVisible() && UtilsModule.getInstance().beautifier != null);
         this.beautifierIcon.tooltip(IKey.lang("mappetextras.utils_module.beautify"), Direction.LEFT);
 
         this.iconBar.add(this.searchIcon);
@@ -72,12 +72,17 @@ public abstract class MixinGuiScriptPanel extends GuiMappetDashboardPanel {
         }
 
         if (this.beautifierIcon != null) {
-            this.beautifierIcon.setVisible(this.data != null && this.allowed && this.code.isVisible());
+            this.beautifierIcon.setVisible(this.data != null && this.allowed && this.code.isVisible() && UtilsModule.getInstance().beautifier != null);
         }
     }
 
     private void onBeautifierAction(GuiTextEditor editor) {
         String formattedCode = "";
+
+        if (UtilsModule.getInstance().beautifier == null) {
+            return;
+        }
+
         try {
 
             UtilsModule module = UtilsModule.getInstance();

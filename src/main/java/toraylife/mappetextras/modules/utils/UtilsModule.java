@@ -60,8 +60,7 @@ public class UtilsModule implements IModule {
 
         try {
             UtilsModule.getInstance().beautifier = new Beautifier();
-        } catch (ScriptException e) {
-            throw new RuntimeException(e);
+        } catch (ScriptException ignored) {
         }
     }
 
