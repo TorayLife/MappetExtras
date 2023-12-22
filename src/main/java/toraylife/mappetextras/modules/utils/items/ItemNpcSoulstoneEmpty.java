@@ -1,6 +1,5 @@
 package toraylife.mappetextras.modules.utils.items;
 
-import mchorse.mappet.Mappet;
 import mchorse.mappet.entities.EntityNpc;
 import mchorse.mclib.client.gui.utils.keys.IKey;
 import net.minecraft.client.util.ITooltipFlag;
@@ -12,7 +11,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;

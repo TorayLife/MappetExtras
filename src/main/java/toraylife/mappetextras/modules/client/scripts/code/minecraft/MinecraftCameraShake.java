@@ -2,8 +2,8 @@ package toraylife.mappetextras.modules.client.scripts.code.minecraft;
 
 import mchorse.mappet.api.scripts.user.data.ScriptVector;
 import net.minecraft.entity.player.EntityPlayerMP;
+import toraylife.mappetextras.capabilities.CapabilitiesType;
 import toraylife.mappetextras.capabilities.shake.Shake;
-import toraylife.mappetextras.modules.client.AccessType;
 import toraylife.mappetextras.modules.client.network.PacketCapability;
 import toraylife.mappetextras.modules.client.scripts.user.minecraft.IMinecraftCameraShake;
 import toraylife.mappetextras.modules.scripting.utils.ScriptVectorAngle;
@@ -82,6 +82,6 @@ public class MinecraftCameraShake implements IMinecraftCameraShake {
     }
 
     private void sendToCapability(){
-        Dispatcher.sendTo(new PacketCapability(this.shake.serializeNBT(), AccessType.SHAKE), this.player);
+        Dispatcher.sendTo(new PacketCapability(this.shake.serializeNBT(), CapabilitiesType.SHAKE), this.player);
     }
 }

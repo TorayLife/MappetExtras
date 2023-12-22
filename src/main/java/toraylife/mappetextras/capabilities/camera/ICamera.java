@@ -1,6 +1,5 @@
 package toraylife.mappetextras.capabilities.camera;
 
-import mchorse.mappet.api.scripts.user.data.ScriptVector;
 import net.minecraft.nbt.NBTTagCompound;
 
 public interface ICamera {

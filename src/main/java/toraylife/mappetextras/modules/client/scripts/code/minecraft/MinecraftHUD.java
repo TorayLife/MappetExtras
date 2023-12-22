@@ -5,13 +5,12 @@ import mchorse.mappet.api.scripts.user.data.ScriptVector;
 import mchorse.mappet.utils.RunnableExecutionFork;
 import mchorse.mclib.utils.Interpolation;
 import net.minecraft.entity.player.EntityPlayerMP;
-import toraylife.mappetextras.modules.client.AccessType;
+import toraylife.mappetextras.capabilities.CapabilitiesType;
 import toraylife.mappetextras.modules.client.network.PacketCapability;
 import toraylife.mappetextras.modules.client.scripts.user.minecraft.IMinecraftHUD;
 import toraylife.mappetextras.modules.scripting.utils.ScriptVectorAngle;
 import toraylife.mappetextras.network.Dispatcher;
 
-import java.util.Objects;
 import java.util.Set;
 
 public class MinecraftHUD implements IMinecraftHUD {
@@ -155,6 +154,6 @@ public class MinecraftHUD implements IMinecraftHUD {
     }
 
     private void sendToCapability(){
-        Dispatcher.sendTo(new PacketCapability(this.minecraftHUD.serializeNBT(), AccessType.MINECRAFT_HUD), this.player);
+        Dispatcher.sendTo(new PacketCapability(this.minecraftHUD.serializeNBT(), CapabilitiesType.MINECRAFT_HUD), this.player);
     }
 }

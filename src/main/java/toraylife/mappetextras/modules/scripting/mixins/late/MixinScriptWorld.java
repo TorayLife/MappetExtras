@@ -5,7 +5,6 @@ import mchorse.mappet.api.scripts.code.ScriptWorld;
 import mchorse.mappet.api.scripts.code.blocks.ScriptTileEntity;
 import mchorse.mappet.api.scripts.user.blocks.IScriptTileEntity;
 import mchorse.mappet.api.scripts.user.data.ScriptVector;
-import mchorse.mappet.api.scripts.user.entities.IScriptEntity;
 import mchorse.mappet.tile.TileConditionModel;
 import mchorse.mappet.tile.TileEmitter;
 import mchorse.mappet.tile.TileTrigger;

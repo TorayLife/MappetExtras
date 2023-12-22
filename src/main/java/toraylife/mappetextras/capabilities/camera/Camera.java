@@ -1,6 +1,5 @@
 package toraylife.mappetextras.capabilities.camera;
 
-import mchorse.mappet.api.scripts.user.data.ScriptVector;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 

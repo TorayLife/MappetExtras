@@ -2,7 +2,6 @@ package toraylife.mappetextras.modules.utils.mixins.late.scriptPanel;
 
 import mchorse.mappet.client.gui.scripts.GuiDocumentationOverlayPanel;
 import mchorse.mappet.client.gui.scripts.utils.documentation.DocEntry;
-import mchorse.mappet.client.gui.scripts.utils.documentation.DocMethod;
 import mchorse.mappet.client.gui.utils.overlays.GuiOverlayPanel;
 import mchorse.mclib.client.gui.framework.elements.buttons.GuiIconElement;
 import mchorse.mclib.client.gui.utils.Icons;

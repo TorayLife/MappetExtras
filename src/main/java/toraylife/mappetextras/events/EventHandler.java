@@ -18,23 +18,24 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 import toraylife.mappetextras.MappetExtras;
+import toraylife.mappetextras.capabilities.CapabilitiesType;
+import toraylife.mappetextras.capabilities.IHand;
 import toraylife.mappetextras.capabilities.camera.Camera;
 import toraylife.mappetextras.capabilities.camera.CameraProvider;
 import toraylife.mappetextras.capabilities.camera.ICamera;
-import toraylife.mappetextras.capabilities.mainHand.IMainHand;
 import toraylife.mappetextras.capabilities.mainHand.MainHand;
 import toraylife.mappetextras.capabilities.mainHand.MainHandProvider;
 import toraylife.mappetextras.capabilities.minecraftHUD.IMinecraftHUD;
 import toraylife.mappetextras.capabilities.minecraftHUD.MinecraftHUD;
 import toraylife.mappetextras.capabilities.minecraftHUD.MinecraftHUDProvider;
-import toraylife.mappetextras.capabilities.offHand.IOffHand;
 import toraylife.mappetextras.capabilities.offHand.OffHand;
 import toraylife.mappetextras.capabilities.offHand.OffHandProvider;
 import toraylife.mappetextras.capabilities.shake.IShake;
 import toraylife.mappetextras.capabilities.shake.Shake;
 import toraylife.mappetextras.capabilities.shake.ShakeProvider;
 import toraylife.mappetextras.modules.client.AccessType;
-import toraylife.mappetextras.modules.client.network.*;
+import toraylife.mappetextras.modules.client.network.PacketCapability;
+import toraylife.mappetextras.modules.client.network.PacketEvent;
 import toraylife.mappetextras.modules.scripting.utils.ScriptVectorAngle;
 import toraylife.mappetextras.modules.main.VersionChecker;
 import toraylife.mappetextras.modules.utils.render.NpcPathRenderer;
@@ -141,54 +142,36 @@ public class EventHandler {
     }
 
     private void handleRotation(OffHand offHand) {
-        ScriptVectorAngle vectorAngle = offHand.getRotate();
+        ScriptVectorAngle rotate = offHand.getRotate();
         ScriptVector pos = offHand.getPosition();
 
-        double angle = vectorAngle.angle;
-        double x = vectorAngle.x;
-        double y = vectorAngle.y;
-        double z = vectorAngle.z;
-
-        double posX = pos.x;
-        double posY = pos.y;
-        double posZ = pos.z;
-
-        GL11.glRotated(angle, x, y, z);
-        GL11.glTranslated(posX, posY, posZ);
+        GL11.glRotated(rotate.angle, rotate.x, rotate.y, rotate.z);
+        GL11.glTranslated(pos.x, pos.y, pos.z);
     }
 
     private void handleRotation(MainHand mainHand) {
-        ScriptVectorAngle vectorAngle = mainHand.getRotate();
+        ScriptVectorAngle rotate = mainHand.getRotate();
         ScriptVector pos = mainHand.getPosition();
 
-        double angle = vectorAngle.angle;
-        double x = vectorAngle.x;
-        double y = vectorAngle.y;
-        double z = vectorAngle.z;
-
-        double posX = pos.x;
-        double posY = pos.y;
-        double posZ = pos.z;
-
-        GL11.glRotated(angle, x, y, z);
-        GL11.glTranslated(posX, posY, posZ);
+        GL11.glRotated(rotate.angle, rotate.x, rotate.y, rotate.z);
+        GL11.glTranslated(pos.x, pos.y, pos.z);
     }
 
     @SubscribeEvent
     public void onPlayerLoggedInEvent(PlayerEvent.PlayerLoggedInEvent event) {
         EntityPlayer player = event.player;
 
-        final IMainHand mainHand = MainHand.get(player);
-        final IOffHand offHand = OffHand.get(player);
+        final IHand mainHand = MainHand.get(player);
+        final IHand offHand = OffHand.get(player);
         final IMinecraftHUD minecraftHUD = MinecraftHUD.get(player);
         final IShake shake = Shake.get(player);
         final ICamera camera = Camera.get(player);
 
-        Dispatcher.sendTo(new PacketCapability(mainHand.serializeNBT(), AccessType.ARM_RENDER), (EntityPlayerMP) player);
-        Dispatcher.sendTo(new PacketCapability(offHand.serializeNBT(), AccessType.ARM_RENDER), (EntityPlayerMP) player);
-        Dispatcher.sendTo(new PacketCapability(minecraftHUD.serializeNBT(), AccessType.MINECRAFT_HUD), (EntityPlayerMP) player);
-        Dispatcher.sendTo(new PacketCapability(shake.serializeNBT(), AccessType.SHAKE), (EntityPlayerMP) player);
-        Dispatcher.sendTo(new PacketCapability(camera.serializeNBT(), AccessType.CAMERA), (EntityPlayerMP) player);
+        Dispatcher.sendTo(new PacketCapability(mainHand.serializeNBT(), CapabilitiesType.ARM_RENDER), (EntityPlayerMP) player);
+        Dispatcher.sendTo(new PacketCapability(offHand.serializeNBT(), CapabilitiesType.ARM_RENDER), (EntityPlayerMP) player);
+        Dispatcher.sendTo(new PacketCapability(minecraftHUD.serializeNBT(), CapabilitiesType.MINECRAFT_HUD), (EntityPlayerMP) player);
+        Dispatcher.sendTo(new PacketCapability(shake.serializeNBT(), CapabilitiesType.SHAKE), (EntityPlayerMP) player);
+        Dispatcher.sendTo(new PacketCapability(camera.serializeNBT(), CapabilitiesType.CAMERA), (EntityPlayerMP) player);
     }
 
     @SubscribeEvent

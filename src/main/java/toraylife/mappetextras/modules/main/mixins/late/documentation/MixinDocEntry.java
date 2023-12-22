@@ -11,7 +11,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import toraylife.mappetextras.modules.main.documentation.ClassLinkManager;
 
-
 @Mixin(value = DocEntry.class, remap = false)
 public abstract class MixinDocEntry {
 

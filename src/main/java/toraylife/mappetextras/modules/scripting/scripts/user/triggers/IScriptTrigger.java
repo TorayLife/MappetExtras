@@ -8,7 +8,6 @@ import toraylife.mappetextras.modules.scripting.scripts.user.triggers.utils.IScr
 import java.util.List;
 
 public interface IScriptTrigger {
-
     /**
      * Retrieves the list of condition blocks.
      *

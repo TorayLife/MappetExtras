@@ -3,7 +3,6 @@ package toraylife.mappetextras.modules.scripting.scripts.user.conditions;
 import toraylife.mappetextras.modules.scripting.scripts.code.conditions.ScriptCondition;
 
 public interface IScriptChecker {
-
     /**
      * Returns the mode of the checker.
      */
