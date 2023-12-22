@@ -24,6 +24,7 @@ public class Dispatcher {
             this.register(PacketCapability.class, PacketCapability.ClientHandler.class, Side.CLIENT);
             this.register(PacketSounds.class, PacketSounds.ClientHandler.class, Side.CLIENT);
             this.register(PacketTextures.class, PacketTextures.ClientHandler.class, Side.CLIENT);
+            this.register(PacketNPCStateChange.class, PacketNPCStateChange.ClientHandler.class, Side.CLIENT);
         }
     };
 

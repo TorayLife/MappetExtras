@@ -1,13 +1,26 @@
 package toraylife.mappetextras.modules.client.mixins.late;
 
+import mchorse.mappet.api.npcs.NpcState;
+import mchorse.mappet.api.scripts.code.entities.ScriptEntity;
 import mchorse.mappet.api.scripts.code.entities.ScriptPlayer;
+import mchorse.mappet.api.scripts.user.entities.IScriptEntity;
+import mchorse.mappet.api.scripts.user.entities.IScriptNpc;
+import mchorse.mappet.api.scripts.user.entities.IScriptPlayer;
+import mchorse.mappet.entities.EntityNpc;
+import mchorse.metamorph.api.MorphManager;
+import mchorse.metamorph.api.morphs.AbstractMorph;
+import mchorse.metamorph.network.common.survival.PacketMorphPlayer;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import toraylife.mappetextras.capabilities.morphLocal.MorphLocal;
+import toraylife.mappetextras.capabilities.morphLocal.MorphLocalProvider;
 import toraylife.mappetextras.modules.client.AccessType;
 import toraylife.mappetextras.modules.client.ClientData;
 import toraylife.mappetextras.modules.client.network.PacketClientData;
+import toraylife.mappetextras.modules.client.network.PacketNPCStateChange;
 import toraylife.mappetextras.modules.client.scripts.code.minecraft.MinecraftArmRender;
 import toraylife.mappetextras.modules.client.scripts.code.minecraft.MinecraftCamera;
 import toraylife.mappetextras.modules.client.scripts.code.minecraft.MinecraftHUD;
@@ -17,6 +30,8 @@ import toraylife.mappetextras.modules.client.scripts.user.minecraft.IMinecraftAr
 import toraylife.mappetextras.modules.main.mixins.utils.MixinTargetName;
 import toraylife.mappetextras.network.Dispatcher;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import java.util.function.Consumer;
 
@@ -282,5 +297,31 @@ public abstract class MixinScriptPlayer{
      */
     public IMinecraftCamera getCamera(){
         return new MinecraftCamera(this.getMinecraftPlayer());
+    }
+
+    public void applyMorphLocally(IScriptEntity entity, AbstractMorph morph) {
+        MorphLocal.get(this.getMinecraftPlayer()).applyMorphLocally(entity.getMinecraftEntity(), morph);
+    }
+
+    public void removeMorphLocally(IScriptEntity entity) {
+        MorphLocal.get(this.getMinecraftPlayer()).removeMorphLocally(entity.getMinecraftEntity());
+    }
+
+    public AbstractMorph getMorphLocally(IScriptEntity entity) {
+        NBTTagCompound morph = MorphLocal.get(this.getMinecraftPlayer()).getMorph(entity.getMinecraftEntity().getEntityId());
+
+        return morph == null ? null : MorphManager.INSTANCE.morphFromNBT(morph);
+    }
+
+    public ArrayList<IScriptEntity> getEntitiesWithLocalMorph() {
+        ArrayList<IScriptEntity> arrayList = new ArrayList<>();
+        List<Integer> ids = MorphLocal.get(this.getMinecraftPlayer()).getIds();
+
+        for(int i = 0; i < ids.size(); i ++) {
+            Entity entity = this.getMinecraftPlayer().world.getEntityByID(ids.get(i));
+            arrayList.add(ScriptEntity.create(entity));
+        }
+
+        return arrayList;
     }
 }

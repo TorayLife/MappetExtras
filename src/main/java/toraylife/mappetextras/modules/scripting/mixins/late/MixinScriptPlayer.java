@@ -3,6 +3,7 @@ package toraylife.mappetextras.modules.scripting.mixins.late;
 import mchorse.mappet.api.scripts.code.ScriptServer;
 import mchorse.mappet.api.scripts.code.entities.ScriptEntity;
 import mchorse.mappet.api.scripts.code.entities.ScriptPlayer;
+import mchorse.metamorph.api.morphs.AbstractMorph;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemPotion;

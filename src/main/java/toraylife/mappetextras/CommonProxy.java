@@ -14,6 +14,9 @@ import toraylife.mappetextras.capabilities.mainHand.MainHandStorage;
 import toraylife.mappetextras.capabilities.minecraftHUD.IMinecraftHUD;
 import toraylife.mappetextras.capabilities.minecraftHUD.MinecraftHUD;
 import toraylife.mappetextras.capabilities.minecraftHUD.MinecraftHUDStorage;
+import toraylife.mappetextras.capabilities.morphLocal.IMorphLocal;
+import toraylife.mappetextras.capabilities.morphLocal.MorphLocal;
+import toraylife.mappetextras.capabilities.morphLocal.MorphLocalStorage;
 import toraylife.mappetextras.capabilities.offHand.IOffHand;
 import toraylife.mappetextras.capabilities.offHand.OffHand;
 import toraylife.mappetextras.capabilities.offHand.OffHandStorage;
@@ -40,6 +43,7 @@ public class CommonProxy {
         CapabilityManager.INSTANCE.register(IMinecraftHUD.class, new MinecraftHUDStorage(), MinecraftHUD::new);
         CapabilityManager.INSTANCE.register(IShake.class, new ShakeStorage(), Shake::new);
         CapabilityManager.INSTANCE.register(ICamera.class, new CameraStorage(), Camera::new);
+        CapabilityManager.INSTANCE.register(IMorphLocal.class, new MorphLocalStorage(), MorphLocal::new);
     }
 
     public void init(FMLInitializationEvent event) {

@@ -1,6 +1,18 @@
 package toraylife.mappetextras.events;
 
+import mchorse.mappet.api.npcs.NpcState;
+import mchorse.mappet.api.scripts.code.ScriptFactory;
+import mchorse.mappet.api.scripts.code.entities.ScriptEntity;
 import mchorse.mappet.api.scripts.user.data.ScriptVector;
+import mchorse.mappet.api.scripts.user.entities.IScriptEntity;
+import mchorse.mappet.api.scripts.user.entities.IScriptNpc;
+import mchorse.mappet.api.scripts.user.entities.IScriptPlayer;
+import mchorse.mappet.api.scripts.user.nbt.INBTCompound;
+import mchorse.mappet.entities.EntityNpc;
+import mchorse.mappet.network.common.npc.PacketNpcStateChange;
+import mchorse.metamorph.api.MorphManager;
+import mchorse.metamorph.api.morphs.AbstractMorph;
+import mchorse.metamorph.network.common.survival.PacketMorphPlayer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
@@ -13,6 +25,7 @@ import net.minecraftforge.client.event.*;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -27,6 +40,9 @@ import toraylife.mappetextras.capabilities.mainHand.MainHandProvider;
 import toraylife.mappetextras.capabilities.minecraftHUD.IMinecraftHUD;
 import toraylife.mappetextras.capabilities.minecraftHUD.MinecraftHUD;
 import toraylife.mappetextras.capabilities.minecraftHUD.MinecraftHUDProvider;
+import toraylife.mappetextras.capabilities.morphLocal.IMorphLocal;
+import toraylife.mappetextras.capabilities.morphLocal.MorphLocal;
+import toraylife.mappetextras.capabilities.morphLocal.MorphLocalProvider;
 import toraylife.mappetextras.capabilities.offHand.IOffHand;
 import toraylife.mappetextras.capabilities.offHand.OffHand;
 import toraylife.mappetextras.capabilities.offHand.OffHandProvider;
@@ -34,11 +50,15 @@ import toraylife.mappetextras.capabilities.shake.IShake;
 import toraylife.mappetextras.capabilities.shake.Shake;
 import toraylife.mappetextras.capabilities.shake.ShakeProvider;
 import toraylife.mappetextras.modules.client.AccessType;
-import toraylife.mappetextras.modules.client.network.*;
+import toraylife.mappetextras.modules.client.network.PacketCapability;
+import toraylife.mappetextras.modules.client.network.PacketEvent;
+import toraylife.mappetextras.modules.client.network.PacketNPCStateChange;
 import toraylife.mappetextras.modules.scripting.utils.ScriptVectorAngle;
 import toraylife.mappetextras.modules.main.VersionChecker;
 import toraylife.mappetextras.modules.utils.render.NpcPathRenderer;
 import toraylife.mappetextras.network.Dispatcher;
+
+import java.util.List;
 
 import static net.minecraft.util.EnumHand.MAIN_HAND;
 import static net.minecraft.util.EnumHand.OFF_HAND;
@@ -50,6 +70,7 @@ public class EventHandler {
     public static final ResourceLocation MINECRAFTHUD = new ResourceLocation(MappetExtras.MOD_ID, "minecraftHUD");
     public static final ResourceLocation SHAKE = new ResourceLocation(MappetExtras.MOD_ID, "shake");
     public static final ResourceLocation CAMERA = new ResourceLocation(MappetExtras.MOD_ID, "camera");
+    public static final ResourceLocation MORPH_LOCAL = new ResourceLocation("mappetextras", "morph_local");
 
     public static boolean isReversed = false;
     public static float animationProgress = 0.0F;
@@ -120,6 +141,7 @@ public class EventHandler {
             event.addCapability(MINECRAFTHUD, new MinecraftHUDProvider());
             event.addCapability(SHAKE, new ShakeProvider());
             event.addCapability(CAMERA, new CameraProvider());
+            event.addCapability(MORPH_LOCAL, new MorphLocalProvider());
         }
     }
 
@@ -183,12 +205,30 @@ public class EventHandler {
         final IMinecraftHUD minecraftHUD = MinecraftHUD.get(player);
         final IShake shake = Shake.get(player);
         final ICamera camera = Camera.get(player);
+        final IMorphLocal morphLocal = MorphLocal.get(player);
 
         Dispatcher.sendTo(new PacketCapability(mainHand.serializeNBT(), AccessType.ARM_RENDER), (EntityPlayerMP) player);
         Dispatcher.sendTo(new PacketCapability(offHand.serializeNBT(), AccessType.ARM_RENDER), (EntityPlayerMP) player);
         Dispatcher.sendTo(new PacketCapability(minecraftHUD.serializeNBT(), AccessType.MINECRAFT_HUD), (EntityPlayerMP) player);
         Dispatcher.sendTo(new PacketCapability(shake.serializeNBT(), AccessType.SHAKE), (EntityPlayerMP) player);
         Dispatcher.sendTo(new PacketCapability(camera.serializeNBT(), AccessType.CAMERA), (EntityPlayerMP) player);
+        Dispatcher.sendTo(new PacketCapability(morphLocal.serializeNBT(), AccessType.MORPH_LOCAL), (EntityPlayerMP) player);
+    }
+
+    @SubscribeEvent
+    public void onPlayerLogInEvent(PlayerEvent.PlayerLoggedInEvent event) {
+        MorphLocal morphLocal = MorphLocal.get(event.player);
+        List<Integer> ids = morphLocal.getIds();
+        for (int id : ids) {
+            Entity entity = event.player.world.getEntityByID(id);
+            NBTTagCompound morph = morphLocal.getMorph(id);
+
+            if(ScriptEntity.create(entity).getMorph().toNBT().equals(morph)) {
+                return;
+            }
+
+            morphLocal.applyMorphLocally(event.player.world.getEntityByID(id), MorphManager.INSTANCE.morphFromNBT( morph ));
+        }
     }
 
     @SubscribeEvent
