@@ -53,6 +53,18 @@ public enum ClientData {
         public Object process(NBTTagCompound data) {
             return data.getInteger(this.name());
         }
+    },
+    TEXTURE {
+        @Override
+        public Object process(NBTTagCompound data) {
+            return data.getString(this.name());
+        }
+    },
+    SOUND {
+        @Override
+        public Object process(NBTTagCompound data) {
+            return data.getString(this.name());
+        }
     };
 
     ClientData() {

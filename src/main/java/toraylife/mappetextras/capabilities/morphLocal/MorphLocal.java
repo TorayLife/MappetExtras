@@ -43,6 +43,10 @@ public class MorphLocal implements IMorphLocal {
 
     @Override
     public void applyMorphLocally(Entity entity, AbstractMorph morph) {
+        if(entity == null){
+            return;
+        }
+
         IScriptEntity scriptEntity = ScriptEntity.create(entity);
         int id = -1;
         if (scriptEntity instanceof IScriptPlayer) {
@@ -73,6 +77,10 @@ public class MorphLocal implements IMorphLocal {
 
     @Override
     public void removeMorphLocally(Entity entity) {
+        if(entity == null) {
+            return;
+        }
+
         IScriptEntity scriptEntity = ScriptEntity.create(entity);
         int id = -1;
         if (scriptEntity instanceof IScriptPlayer) {
@@ -83,9 +91,7 @@ public class MorphLocal implements IMorphLocal {
             id = entity.getEntityId();
 
             NpcState state = ((EntityNpc) entity).getState();
-            AbstractMorph morph = ((EntityNpc) entity).getMorph();
-
-            state.morph = morph;
+            state.morph = ((EntityNpc) entity).getMorph();
 
             Dispatcher.sendTo(new PacketNpcStateChange(id, state), (EntityPlayerMP) this.player);
         }

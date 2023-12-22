@@ -223,11 +223,7 @@ public class EventHandler {
             Entity entity = event.player.world.getEntityByID(id);
             NBTTagCompound morph = morphLocal.getMorph(id);
 
-            if(ScriptEntity.create(entity).getMorph().toNBT().equals(morph)) {
-                return;
-            }
-
-            morphLocal.applyMorphLocally(event.player.world.getEntityByID(id), MorphManager.INSTANCE.morphFromNBT( morph ));
+            morphLocal.applyMorphLocally(entity, MorphManager.INSTANCE.morphFromNBT( morph ));
         }
     }
 

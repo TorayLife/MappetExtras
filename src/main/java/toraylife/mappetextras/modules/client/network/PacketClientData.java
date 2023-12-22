@@ -113,6 +113,12 @@ public class PacketClientData implements IMessage {
                     }
 
                     Dispatcher.sendToServer(new PacketClientData(typeEnum, typeAccess, dataWithResponse, UUID.fromString(uniqueId)));
+                case UPDATE:
+                    try {
+                        provider.setData();
+                    } catch (Throwable e) {
+                        throw new RuntimeException(e);
+                    }
             }
         }
 
@@ -133,6 +139,10 @@ public class PacketClientData implements IMessage {
                     return new WebLinkProvider();
                 case RENDER_WITH_ENTITY:
                     return new RenderWithEntityProvider();
+                case SOUND:
+                    return new SoundProvider();
+                case TEXTURE:
+                    return new TextureProvider();
             }
             throw new IllegalArgumentException("Invalid typeEnum");
         }

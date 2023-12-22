@@ -314,14 +314,14 @@ public abstract class MixinScriptPlayer{
     }
 
     public ArrayList<IScriptEntity> getEntitiesWithLocalMorph() {
-        ArrayList<IScriptEntity> arrayList = new ArrayList<>();
+        ArrayList<IScriptEntity> entities = new ArrayList<>();
         List<Integer> ids = MorphLocal.get(this.getMinecraftPlayer()).getIds();
 
         for(int i = 0; i < ids.size(); i ++) {
             Entity entity = this.getMinecraftPlayer().world.getEntityByID(ids.get(i));
-            arrayList.add(ScriptEntity.create(entity));
+            entities.add(ScriptEntity.create(entity));
         }
 
-        return arrayList;
+        return entities;
     }
 }

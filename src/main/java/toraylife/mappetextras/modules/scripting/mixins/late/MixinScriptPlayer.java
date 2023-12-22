@@ -3,17 +3,17 @@ package toraylife.mappetextras.modules.scripting.mixins.late;
 import mchorse.mappet.api.scripts.code.ScriptServer;
 import mchorse.mappet.api.scripts.code.entities.ScriptEntity;
 import mchorse.mappet.api.scripts.code.entities.ScriptPlayer;
-import mchorse.metamorph.api.morphs.AbstractMorph;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.TextComponentString;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import toraylife.mappetextras.modules.client.AccessType;
-import toraylife.mappetextras.modules.client.network.PacketSounds;
-import toraylife.mappetextras.modules.client.network.PacketTextures;
+import toraylife.mappetextras.modules.client.ClientData;
+import toraylife.mappetextras.modules.client.network.PacketClientData;
 import toraylife.mappetextras.modules.main.mixins.utils.MixinTargetName;
 import toraylife.mappetextras.modules.scripting.mixins.utils.EntityPlayerMPAccessor;
 import toraylife.mappetextras.network.Dispatcher;
@@ -120,14 +120,14 @@ public abstract class MixinScriptPlayer {
      * Sends a packet to update sounds for this player.
      */
     public void soundUpdate(){
-        Dispatcher.sendTo(new PacketSounds(AccessType.UPDATE), this.player);
+        Dispatcher.sendTo(new PacketClientData(ClientData.SOUND, AccessType.UPDATE, new NBTTagCompound()), this.player);
     }
 
     /**
      * Sends a packet to update textures for this player.
      */
     public void textureUpdate(){
-        Dispatcher.sendTo(new PacketTextures(AccessType.UPDATE), this.player);
+        Dispatcher.sendTo(new PacketClientData(ClientData.TEXTURE, AccessType.UPDATE, new NBTTagCompound()), this.player);
     }
 
     /**
