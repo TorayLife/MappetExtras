@@ -3,10 +3,9 @@ package toraylife.mappetextras.capabilities.offHand;
 import mchorse.mappet.api.scripts.user.data.ScriptVector;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
-import toraylife.mappetextras.capabilities.IHand;
 import toraylife.mappetextras.modules.scripting.utils.ScriptVectorAngle;
 
-public class OffHand implements IHand {
+public class OffHand implements IOffHand {
     private EntityPlayer player;
     private double x;
     private double y;
@@ -23,7 +22,7 @@ public class OffHand implements IHand {
 
     public static OffHand get(EntityPlayer player)
     {
-        IHand offHandCapability = player == null ? null : player.getCapability(OffHandProvider.OFF, null);
+        IOffHand offHandCapability = player == null ? null : player.getCapability(OffHandProvider.OFF, null);
 
         if (offHandCapability instanceof OffHand)
         {

@@ -6,13 +6,12 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
-import toraylife.mappetextras.capabilities.IHand;
 
 public class MainHandProvider implements ICapabilitySerializable<NBTBase>{
-    @CapabilityInject(IHand.class)
-    public static final Capability<IHand> MAIN = null;
+    @CapabilityInject(IMainHand.class)
+    public static final Capability<IMainHand> MAIN = null;
 
-    private IHand instance = MAIN.getDefaultInstance();
+    private IMainHand instance = MAIN.getDefaultInstance();
 
     @Override
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
@@ -34,7 +33,7 @@ public class MainHandProvider implements ICapabilitySerializable<NBTBase>{
         MAIN.getStorage().readNBT(MAIN, instance, null, nbt);
     }
 
-    public static IHand getHandler(Entity entity) {
+    public static IMainHand getHandler(Entity entity) {
         if (entity.hasCapability(MAIN, EnumFacing.DOWN))
             return entity.getCapability(MAIN, EnumFacing.DOWN);
         return null;

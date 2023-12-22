@@ -19,15 +19,16 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 import toraylife.mappetextras.MappetExtras;
 import toraylife.mappetextras.capabilities.CapabilitiesType;
-import toraylife.mappetextras.capabilities.IHand;
 import toraylife.mappetextras.capabilities.camera.Camera;
 import toraylife.mappetextras.capabilities.camera.CameraProvider;
 import toraylife.mappetextras.capabilities.camera.ICamera;
+import toraylife.mappetextras.capabilities.mainHand.IMainHand;
 import toraylife.mappetextras.capabilities.mainHand.MainHand;
 import toraylife.mappetextras.capabilities.mainHand.MainHandProvider;
 import toraylife.mappetextras.capabilities.minecraftHUD.IMinecraftHUD;
 import toraylife.mappetextras.capabilities.minecraftHUD.MinecraftHUD;
 import toraylife.mappetextras.capabilities.minecraftHUD.MinecraftHUDProvider;
+import toraylife.mappetextras.capabilities.offHand.IOffHand;
 import toraylife.mappetextras.capabilities.offHand.OffHand;
 import toraylife.mappetextras.capabilities.offHand.OffHandProvider;
 import toraylife.mappetextras.capabilities.shake.IShake;
@@ -161,8 +162,8 @@ public class EventHandler {
     public void onPlayerLoggedInEvent(PlayerEvent.PlayerLoggedInEvent event) {
         EntityPlayer player = event.player;
 
-        final IHand mainHand = MainHand.get(player);
-        final IHand offHand = OffHand.get(player);
+        final IMainHand mainHand = MainHand.get(player);
+        final IOffHand offHand = OffHand.get(player);
         final IMinecraftHUD minecraftHUD = MinecraftHUD.get(player);
         final IShake shake = Shake.get(player);
         final ICamera camera = Camera.get(player);

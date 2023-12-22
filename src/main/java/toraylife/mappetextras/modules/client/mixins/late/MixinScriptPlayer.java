@@ -3,6 +3,7 @@ package toraylife.mappetextras.modules.client.mixins.late;
 import mchorse.mappet.api.scripts.code.entities.ScriptPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntitySkull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import toraylife.mappetextras.modules.client.AccessType;
