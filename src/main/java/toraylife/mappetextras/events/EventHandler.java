@@ -130,15 +130,27 @@ public class EventHandler {
     public void onRenderHandEvent(RenderSpecificHandEvent event) {
         MainHand mainHand = MainHand.get(Minecraft.getMinecraft().player);
         OffHand offHand = OffHand.get(Minecraft.getMinecraft().player);
+        ScriptVector mPos = mainHand.getPosition();
+        ScriptVectorAngle mRotate = mainHand.getRotate();
+        ScriptVector oPos = offHand.getPosition();
+        ScriptVectorAngle oRotate = offHand.getRotate();
 
         if (event.getHand() == MAIN_HAND) {
-            handleRotation(mainHand);
+            if(!mainHand.isRender() || (mPos.x == 0 && mPos.y == 0 && mPos.z == 0 && mRotate.angle == 0 && mRotate.x == 0 && mRotate.y == 0 && mRotate.z == 0)){
+                return;
+            }
+
             event.setCanceled(!mainHand.isRender());
+            handleRotation(mainHand);
         }
 
         if (event.getHand() == OFF_HAND) {
-            handleRotation(offHand);
+            if(!offHand.isRender() || (oPos.x == 0 && oPos.y == 0 && oPos.z == 0 && oRotate.angle == 0 && oRotate.x == 0 && oRotate.y == 0 && oRotate.z == 0)){
+                return;
+            }
+
             event.setCanceled(!offHand.isRender());
+            handleRotation(offHand);
         }
     }
 
@@ -187,6 +199,10 @@ public class EventHandler {
         ScriptVector pos = minecraftHUD.getPosition();
         ScriptVectorAngle rotate = minecraftHUD.getRotate();
 
+        if(event.getType() == RenderGameOverlayEvent.ElementType.HOTBAR || event.getType() == RenderGameOverlayEvent.ElementType.ALL) {
+            return;
+        }
+
         if(!render){
             event.setCanceled(!render);
             return;
@@ -206,6 +222,10 @@ public class EventHandler {
     public void onRenderGuiPost(RenderGameOverlayEvent.Post event) {
         MinecraftHUD minecraftHUD = MinecraftHUD.get(Minecraft.getMinecraft().player);
         boolean render = minecraftHUD.isRender();
+
+        if(event.getType() == RenderGameOverlayEvent.ElementType.HOTBAR || event.getType() == RenderGameOverlayEvent.ElementType.ALL) {
+            return;
+        }
 
         if(!render){
             event.setCanceled(!render);

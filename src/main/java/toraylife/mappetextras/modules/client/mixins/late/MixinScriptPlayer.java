@@ -3,7 +3,6 @@ package toraylife.mappetextras.modules.client.mixins.late;
 import mchorse.mappet.api.scripts.code.entities.ScriptPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntitySkull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import toraylife.mappetextras.modules.client.AccessType;
@@ -259,7 +258,7 @@ public abstract class MixinScriptPlayer{
     /**
      * Resets all default Minecraft HUDs to their default state.
      */
-    public void resetAllHUDs(){
+    public void resetAllMinecraftHUDs(){
         String[] huds = new String[]{
             "HELMET", "PORTAL", "CROSSHAIRS", "BOSSHEALTH",
             "BOSSINFO", "ARMOR", "HEALTH", "AIR",

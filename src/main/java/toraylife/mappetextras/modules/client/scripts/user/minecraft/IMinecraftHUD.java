@@ -5,6 +5,9 @@ import toraylife.mappetextras.modules.scripting.utils.ScriptVectorAngle;
 
 import java.util.Set;
 
+/**
+ * WARNING: hud "CROSSHAIRS" does not work well with ModularWarfare mod, so disable its rendering
+ */
 public interface IMinecraftHUD {
     /**
      * Moves the hud through the coordinates
@@ -119,24 +122,6 @@ public interface IMinecraftHUD {
      * @param z Target Z rotation
      */
     void rotateTo(String interpolation, int durationTicks, double angle, double x, double y, double z);
-
-    /**
-     * get all huds Java array.
-     *
-     * <pre>{@code
-     *    function main(c)
-     *    {
-     *        const minecraftHUD = c.player.getMinecraftHUD("FOOD");
-     *
-     *        var huds = Java.from(minecraftHUD.getAllHUDs());
-     *
-     *        for(var i in huds){
-     *            c.send(huds[i])
-     *        }
-     *    }
-     *  }</pre>
-     */
-    public Set<String> getAllHUDs();
 
     public void reset();
 }

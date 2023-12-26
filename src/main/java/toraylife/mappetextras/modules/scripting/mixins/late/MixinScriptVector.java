@@ -1,6 +1,7 @@
 package toraylife.mappetextras.modules.scripting.mixins.late;
 
 import mchorse.mappet.api.scripts.user.data.ScriptVector;
+import mchorse.mclib.utils.Interpolation;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import toraylife.mappetextras.modules.main.mixins.utils.MixinTargetName;
@@ -47,7 +48,7 @@ public abstract class MixinScriptVector {
      * @param vector The target vector
      * @return Vector containing pitch, yaw, 0
      */
-    public ScriptVector toAngle(ScriptVector vector) {
+    public ScriptVector toRotations(ScriptVector vector) {
         ScriptVector subtractVector = new ScriptVector(this.x, this.y, this.z).subtract(vector);
 
         double hypotenuse = Math.sqrt(Math.pow(subtractVector.x, 2) + Math.pow(subtractVector.z, 2));
@@ -56,6 +57,17 @@ public abstract class MixinScriptVector {
         double yaw = -Math.atan2(subtractVector.x, subtractVector.z) * 180 / Math.PI;
 
         return new ScriptVector(pitch, yaw, 0);
+    }
+
+    public double getAngle(ScriptVector vector) {
+        ScriptVector vectorMultiply = this.vectorMultiply((ScriptVector) ((Object)this));
+        double mag2 = (this.x * this.x) + (this.y * this.y)+(this.z * this.z);
+
+        ScriptVector otherVectorMultiply = this.vectorMultiply(vector);
+        double vmag2 = otherVectorMultiply.x + otherVectorMultiply.y + otherVectorMultiply.z;
+
+        double dot = this.dotProduct(vector);
+        return Math.acos(dot/Math.sqrt(mag2*vmag2));
     }
 
     /**
@@ -75,10 +87,7 @@ public abstract class MixinScriptVector {
         double y = normalizeVector.y * Math.cos(radiansPitch) - normalizeVector.z * Math.sin(radiansPitch);
         double z = normalizeVector.y * Math.sin(radiansPitch) + normalizeVector.z * Math.cos(radiansPitch);
 
-        x = x * Math.cos(radiansYaw) + z * Math.sin(radiansYaw);
-        z = x * -Math.sin(radiansYaw) + z * Math.cos(radiansYaw);
-
-        return new ScriptVector(x, y, z);
+        return new ScriptVector(x * Math.cos(radiansYaw) + z * Math.sin(radiansYaw), y, x * -Math.sin(radiansYaw) + z * Math.cos(radiansYaw));
     }
 
     /**
@@ -88,7 +97,7 @@ public abstract class MixinScriptVector {
      * @param coefficient Interpolation coefficient
      * @return The interpolated vector
      */
-    ScriptVector interpolation(ScriptVector vector, double coefficient) {
+    public ScriptVector interpolation(ScriptVector vector, double coefficient) {
         if (coefficient < 0 || coefficient > 1) {
             return null;
         }
@@ -99,6 +108,7 @@ public abstract class MixinScriptVector {
                 this.z + (vector.z - this.z) * coefficient
         );
     }
+
 
     /**
      * Multiplies this vector by components of given vector.
@@ -149,6 +159,19 @@ public abstract class MixinScriptVector {
         double dx = this.x - vector.x;
         double dy = this.y - vector.y;
         double dz = this.z - vector.z;
+
+        return Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2) + Math.pow(dz, 2));
+    }
+
+    /**
+     * Computes distance between this and another vector.
+     *
+     * @return The distance
+     */
+    public double distance(double x, double y, double z) {
+        double dx = this.x - x;
+        double dy = this.y - y;
+        double dz = this.z - z;
 
         return Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2) + Math.pow(dz, 2));
     }

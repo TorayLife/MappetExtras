@@ -21,7 +21,7 @@ public class MinecraftHUD implements IMinecraftHUD {
         this.player = entity;
         this.minecraftHUD = toraylife.mappetextras.capabilities.minecraftHUD.MinecraftHUD.get(this.player);
 
-        this.name = hud.toUpperCase();
+        this.name = hud;
     }
 
     @Override
@@ -142,10 +142,6 @@ public class MinecraftHUD implements IMinecraftHUD {
         }
     }
 
-    @Override
-    public Set<String> getAllHUDs(){
-        return this.minecraftHUD.HUDs.keySet();
-    }
 
     @Override
     public void reset(){

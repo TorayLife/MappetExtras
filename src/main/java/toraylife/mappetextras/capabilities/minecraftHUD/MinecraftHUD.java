@@ -213,7 +213,7 @@ public class MinecraftHUD implements IMinecraftHUD{
             this.HUDs.put("PORTAL", tag.getCompoundTag("PORTAL"));
         }
         if (tag.hasKey("CROSSHAIRS")) {
-            this.HUDs.put("CROSSHAIRS", tag.getCompoundTag("ALL"));
+            this.HUDs.put("CROSSHAIRS", tag.getCompoundTag("CROSSHAIRS"));
         }
         if (tag.hasKey("BOSSHEALTH")) {
             this.HUDs.put("BOSSHEALTH", tag.getCompoundTag("BOSSHEALTH"));
