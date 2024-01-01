@@ -63,7 +63,12 @@ public class UtilsModule implements IModule {
 
         MPEIcons.register();
 
-        UtilsModule.getInstance().beautifier = new Beautifier();
+        TaskLoop.getInstance().start(backgroundThreadsCount.get());
+
+        try {
+            UtilsModule.getInstance().beautifier = new Beautifier();
+        } catch (ScriptException ignored) {
+        }
     }
 
     @Override
