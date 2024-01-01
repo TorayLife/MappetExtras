@@ -8,14 +8,14 @@
   "updateJSON": "https://raw.githubusercontent.com/TorayLife/MappetExtras/master/version.json",
   "authorList": [
     "TorayLife",
-    "Llama"
+    "Llama",
+    "dyamo"
   ],
   "credits": "Special thanks to McHorse, dyamo, OtakuGamer for helping and supporting!",
   "logoFile": "logo.png",
   "useDependencyInformation": true,
   "requiredMods": [
-    "mappet",
-    "mixinbooter"
+    "mappet"
   ],
   "dependencies": [
     "mappet"

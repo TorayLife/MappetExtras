@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import toraylife.mappetextras.MappetExtras;
 import toraylife.mappetextras.modules.IModule;
 import toraylife.mappetextras.modules.utils.client.Beautifier;
+import toraylife.mappetextras.modules.utils.tasks.TaskLoop;
 
 import javax.script.ScriptException;
 
@@ -22,6 +23,8 @@ public class UtilsModule implements IModule {
     public ValueBoolean beautifierIndentEmptyLines;
     public ValueBoolean beautifierUnindentChainedMethods;
     public ValueBoolean beautifierBreakChainedMethods;
+
+    public ValueInt backgroundThreadsCount;
   
     private static UtilsModule instance;
 
@@ -45,6 +48,9 @@ public class UtilsModule implements IModule {
         this.beautifierIndentEmptyLines = (ValueBoolean) builder.getBoolean("indent_empty_lines", false).clientSide();
         this.beautifierUnindentChainedMethods = (ValueBoolean) builder.getBoolean("unindent_chained_methods", false).clientSide();
         this.beautifierBreakChainedMethods = (ValueBoolean) builder.getBoolean("break_chained_methods", false).clientSide();
+
+        builder.category("utils_module.tasks");
+        this.backgroundThreadsCount = builder.getInt("background_threads_count", 3);
     }
 
     @Override
@@ -57,6 +63,8 @@ public class UtilsModule implements IModule {
         MappetExtras.logger.info("Mappet extras utils module init!");
 
         MPEIcons.register();
+
+        TaskLoop.getInstance().start(backgroundThreadsCount.get());
 
         try {
             UtilsModule.getInstance().beautifier = new Beautifier();
