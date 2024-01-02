@@ -15,6 +15,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import toraylife.mappetextras.modules.client.AccessType;
 import toraylife.mappetextras.modules.client.ClientData;
 import toraylife.mappetextras.modules.client.providers.*;
+import toraylife.mappetextras.modules.utils.tasks.TaskContext;
 import toraylife.mappetextras.network.Dispatcher;
 
 import java.util.HashMap;
@@ -23,7 +24,8 @@ import java.util.UUID;
 import java.util.function.Consumer;
 
 public class PacketClientData implements IMessage {
-    public static final Map<UUID, Consumer<Object>> сallBack = new HashMap<>();
+    public static final Map<UUID, Consumer<Object>> callbacks = new HashMap<>();
+    public static final Map<UUID, TaskContext<?>> taskResolves = new HashMap<>();
     ClientData type;
     AccessType access;
     NBTTagCompound nbtTagCompound;
@@ -147,8 +149,14 @@ public class PacketClientData implements IMessage {
             NBTTagCompound value = packet.nbtTagCompound;
             UUID uniqueId = UUID.fromString(packet.uniqueId);
 
-            сallBack.get(uniqueId).accept(packet.type.process(value));
-            сallBack.remove(uniqueId);
+			if (callbacks.containsKey(uniqueId)) {
+				callbacks.get(uniqueId).accept(packet.type.process(value));
+				callbacks.remove(uniqueId);
+			}
+			else if (taskResolves.containsKey(uniqueId)) {
+				taskResolves.get(uniqueId).resolve(packet.type.process(value));
+				taskResolves.remove(uniqueId);
+			}
         }
     }
 }

@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import toraylife.mappetextras.modules.utils.tasks.ContextualizedSyncTaskDefinition;
+import toraylife.mappetextras.modules.utils.tasks.SyncTaskScheduleDefinition;
 import toraylife.mappetextras.modules.utils.tasks.TaskLoop;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -16,12 +16,12 @@ public class MixinEventHandler {
 
 	@Inject(method = "onServerTick", at = @At(value = "INVOKE", target = "Ljava/util/Set;clear()V"))
 	public void onServerTick(TickEvent.ServerTickEvent event, CallbackInfo ci) {
-		ConcurrentLinkedQueue<ContextualizedSyncTaskDefinition> asyncTaskQueue = TaskLoop.getInstance().getAsyncTaskQueue();
+		ConcurrentLinkedQueue<SyncTaskScheduleDefinition> asyncTaskQueue = TaskLoop.getInstance().getSyncTaskScheduleDefinitionQueue();
 
-		ContextualizedSyncTaskDefinition queuedContextualizedTaskDefinition = asyncTaskQueue.poll();
+		SyncTaskScheduleDefinition queuedContextualizedTaskDefinition = asyncTaskQueue.poll();
 
 		if (queuedContextualizedTaskDefinition != null) {
-			queuedContextualizedTaskDefinition.run();
+			queuedContextualizedTaskDefinition.schedule();
 		}
 	}
 

@@ -15,6 +15,8 @@ import toraylife.mappetextras.modules.client.scripts.user.minecraft.IMinecraftCa
 import toraylife.mappetextras.modules.client.scripts.user.minecraft.IMinecraftHUD;
 import toraylife.mappetextras.modules.client.scripts.user.minecraft.IMinecraftArmRender;
 import toraylife.mappetextras.modules.main.mixins.utils.MixinTargetName;
+import toraylife.mappetextras.modules.utils.tasks.Task;
+import toraylife.mappetextras.modules.utils.tasks.TaskLoop;
 import toraylife.mappetextras.network.Dispatcher;
 
 import java.util.UUID;
@@ -57,7 +59,7 @@ public abstract class MixinScriptPlayer{
      */
     public void getPerspective(Consumer<Object> callBack){
         UUID uniqueId = UUID.randomUUID();
-        PacketClientData.сallBack.put(uniqueId, callBack);
+        PacketClientData.callbacks.put(uniqueId, callBack);
 
         Dispatcher.sendTo(new PacketClientData(ClientData.PESPECTIVE, AccessType.GET, uniqueId), this.getMinecraftPlayer());
     }
@@ -105,7 +107,7 @@ public abstract class MixinScriptPlayer{
      */
     public void getClipboard(Consumer<Object> callback){
         UUID uniqueId = UUID.randomUUID();
-        PacketClientData.сallBack.put(uniqueId, callback);
+        PacketClientData.callbacks.put(uniqueId, callback);
 
         Dispatcher.sendTo(new PacketClientData(ClientData.CLIPBOARD, AccessType.GET, uniqueId), this.getMinecraftPlayer());
     }
@@ -152,7 +154,7 @@ public abstract class MixinScriptPlayer{
         data.setBoolean("isInsideWindow", isInsideWindow);
 
         UUID uniqueId = UUID.randomUUID();
-        PacketClientData.сallBack.put(uniqueId, callback);
+        PacketClientData.callbacks.put(uniqueId, callback);
 
         Dispatcher.sendTo(new PacketClientData(data, ClientData.MOUSEPOSITION, AccessType.GET_WITH_DATA, uniqueId), this.getMinecraftPlayer());
     }
@@ -182,23 +184,30 @@ public abstract class MixinScriptPlayer{
      * <pre>{@code
      *    function main(c)
      *    {
-     *        c.player.getSetting("fovSetting", function(fov) {
-     *            c.send(fov)
-     *        });
+     *        c.player.getSetting("fovSetting")
+     *            .then(function(fov) {
+     *                c.send(fov)
+     *            });
      *    }
      * }</pre>
      */
-    public void getSetting(String key, Consumer<Object> callback) {
-        NBTTagCompound data = new NBTTagCompound();
-        data.setString("key", key);
+    public Task<Void, Object> getSetting(String key) {
+	    return TaskLoop.getInstance()
+			    .first(t -> {
+				    NBTTagCompound data = new NBTTagCompound();
+				    data.setString("key", key);
 
-        UUID uniqueId = UUID.randomUUID();
-        PacketClientData.сallBack.put(uniqueId, callback);
+				    UUID uniqueId = UUID.randomUUID();
+				    PacketClientData.taskResolves.put(uniqueId, t);
 
-        Dispatcher.sendTo(new PacketClientData(data, ClientData.SETTING, AccessType.GET_WITH_DATA, uniqueId), this.getMinecraftPlayer());
+				    Dispatcher.sendTo(new PacketClientData(data, ClientData.SETTING, AccessType.GET_WITH_DATA, uniqueId), this.getMinecraftPlayer());
+
+				    return t.waitForResolve();
+			    });
     }
 
-    /**
+
+	/**
      * Gets the player's screen resolution.
      *
      * <pre>{@code
@@ -213,7 +222,7 @@ public abstract class MixinScriptPlayer{
      */
     public void getResolution(Consumer<Object> callback) {
         UUID uniqueId = UUID.randomUUID();
-        PacketClientData.сallBack.put(uniqueId, callback);
+        PacketClientData.callbacks.put(uniqueId, callback);
 
         Dispatcher.sendTo(new PacketClientData(ClientData.RESOLUTION, AccessType.GET, uniqueId), this.getMinecraftPlayer());
     }

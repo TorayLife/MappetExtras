@@ -2,38 +2,52 @@ package toraylife.mappetextras.modules.utils.tasks;
 
 import mchorse.mappet.CommonProxy;
 import mchorse.mappet.utils.RunnableExecutionFork;
+import org.apache.commons.lang3.NotImplementedException;
 
 import java.util.function.Function;
 
-public class SyncTask<TSupply, TResult> extends Task<TSupply, TResult> {
+public class SyncTask<TConsume, TResult> extends Task<TConsume, TResult> {
 
-	public SyncTask(Function<TaskContext<TSupply>, TResult> executable, TaskDelayTime delayTime) {
+	public SyncTask(Function<TaskContext<TConsume>, TaskResult<TResult>> executable, TaskDelayTime delayTime) {
 		super(executable, delayTime);
 	}
 
-	public SyncTask(Function<TaskContext<TSupply>, TResult> executable) {
+	public SyncTask(Function<TaskContext<TConsume>, TaskResult<TResult>> executable) {
 		super(executable);
 	}
 
-	public SyncTask(Task<Void, ?> initTask, Function<TaskContext<TSupply>, TResult> executable, TaskDelayTime delayTime) {
+	public SyncTask(Task<Void, ?> initTask, Function<TaskContext<TConsume>, TaskResult<TResult>> executable, TaskDelayTime delayTime) {
 		super(initTask, executable, delayTime);
 	}
 
-	public SyncTask(Task<Void, ?> initTask, Function<TaskContext<TSupply>, TResult> executable) {
+	public SyncTask(Task<Void, ?> initTask, Function<TaskContext<TConsume>, TaskResult<TResult>> executable) {
 		super(initTask, executable);
 	}
 
 
 	@Override
-	public void run(TaskContext<TSupply> taskContext) {
+	public void schedule(TaskContext<TConsume> taskContext) {
 		Runnable scriptRunnable = () -> {
-			TResult result = getExecutable().apply(taskContext);
+			TaskResult<TResult> taskResult = getExecutable().apply(taskContext);
 
-			Task<TResult, ?> nextTask = this.getNextTask();
-			TaskContext<TResult> nextTaskContext = new TaskContext<>(taskContext.getScriptContext(), result);
 
-			if (nextTask != null) {
-				nextTask.run(nextTaskContext);
+			if (taskResult == null || taskResult instanceof ValueTaskResult<?>) {
+				ValueTaskResult<TResult> valueResult = (ValueTaskResult<TResult>) taskResult;
+				TResult resultValue = taskResult != null ? valueResult.getValue() : null;
+				this.getNextTask().schedule(
+						new TaskContext<>(this.getNextTask(), taskContext.getScriptContext(), resultValue)
+				);
+			}
+			else if (taskResult instanceof DelegateTaskResult<?>) {
+				DelegateTaskResult<TResult> delegateResult = (DelegateTaskResult<TResult>) taskResult;
+				Task<?, TResult> delegateTask = delegateResult.getDelegateTask();
+				delegateTask.setNextTask(this.getNextTask());
+				delegateTask.getInitTask().schedule(
+						new TaskContext<>(delegateTask.getInitTask(), taskContext.getScriptContext(), null)
+				);
+			}
+			else {
+				throw new NotImplementedException("Unknown Task result type");
 			}
 		};
 
