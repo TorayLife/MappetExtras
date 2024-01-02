@@ -1,5 +1,6 @@
 package toraylife.mappetextras.modules.utils.tasks;
 
+import jdk.nashorn.internal.runtime.Undefined;
 import org.apache.commons.lang3.NotImplementedException;
 
 import java.util.concurrent.TimeUnit;
@@ -32,7 +33,11 @@ public class AsyncTask<TConsume, TResult> extends Task<TConsume, TResult> {
 	@Override
 	public void schedule(TaskContext<TConsume> taskContext) {
 		TaskLoop.getInstance().getExecutorService().schedule(() -> {
-			TaskResult<TResult> taskResult = this.getExecutable().apply(taskContext);
+			Object objectResult = this.getExecutable().apply(taskContext);
+			if (objectResult instanceof Undefined) {
+				objectResult = null;
+			}
+			TaskResult<TResult> taskResult = (TaskResult<TResult>) objectResult;
 
 			if (this.getNextTask() == null) {
 				return;
@@ -54,6 +59,7 @@ public class AsyncTask<TConsume, TResult> extends Task<TConsume, TResult> {
 						delegateTask.getInitTask(),
 						new TaskContext<>(delegateTask.getInitTask(), taskContext.getScriptContext(), null)
 				);
+				delegateTask.setInitTask(this.getInitTask());
 			}
 			else {
 				throw new NotImplementedException("Unknown Task result type");
