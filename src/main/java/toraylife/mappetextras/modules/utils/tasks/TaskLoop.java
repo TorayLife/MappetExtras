@@ -9,7 +9,7 @@ public class TaskLoop {
 	private static final TaskLoop instance = new TaskLoop();
 
 	private ScheduledExecutorService executorService;
-	private final ConcurrentLinkedQueue<ContextualizedSyncTaskDefinition> asyncTaskQueue = new ConcurrentLinkedQueue<>();
+	private final ConcurrentLinkedQueue<SyncTaskScheduleDefinition> asyncTaskQueue = new ConcurrentLinkedQueue<>();
 
 
 	private TaskLoop() {}
@@ -20,28 +20,36 @@ public class TaskLoop {
 	}
 
 
-	public static <TResult> Task<Void, TResult> begin(Function<TaskContext<Void>, TResult> taskExecutable) {
+	public <TResult> Task<Void, TResult> first(Function<TaskContext<Void>, TaskResult<TResult>> taskExecutable) {
 		SyncTask<Void, TResult> task = new SyncTask<>(taskExecutable);
 		task.setInitTask(task);
 		return task;
 	}
 
-	public static <TResult> Task<Void, TResult> beginAsync(Function<TaskContext<Void>, TResult> taskExecutable) {
+	public <TResult> Task<Void, TResult> firstAsync(Function<TaskContext<Void>, TaskResult<TResult>> taskExecutable) {
 		AsyncTask<Void, TResult> task = new AsyncTask<>(taskExecutable);
 		task.setInitTask(task);
 		return task;
 	}
 
+	public DelayedTaskBuilder<Void> firstWaitTicks(int ticks) {
+		return new DelayedTaskBuilder<>(null, new TaskDelayTime(ticks, TaskDelayTime.Unit.TICKS));
+	}
 
-	public void start(int threadsCount) {
-		this.executorService = Executors.newScheduledThreadPool(threadsCount);
+	public DelayedTaskBuilder<Void> firstWaitMillis(int millis) {
+		return new DelayedTaskBuilder<>(null, new TaskDelayTime(millis, TaskDelayTime.Unit.MILLIS));
+	}
+
+
+	public void start(int threads) {
+		this.executorService = Executors.newScheduledThreadPool(threads);
 	}
 
 	public ScheduledExecutorService getExecutorService() {
 		return executorService;
 	}
 
-	public ConcurrentLinkedQueue<ContextualizedSyncTaskDefinition> getAsyncTaskQueue() {
+	public ConcurrentLinkedQueue<SyncTaskScheduleDefinition> getSyncTaskScheduleDefinitionQueue() {
 		return asyncTaskQueue;
 	}
 
