@@ -1,8 +1,8 @@
 package toraylife.mappetextras.modules.utils.tasks;
 
+import jdk.nashorn.internal.runtime.Undefined;
 import mchorse.mappet.CommonProxy;
 import mchorse.mappet.utils.RunnableExecutionFork;
-import org.apache.commons.lang3.NotImplementedException;
 
 import java.util.function.Function;
 
@@ -28,8 +28,15 @@ public class SyncTask<TConsume, TResult> extends Task<TConsume, TResult> {
 	@Override
 	public void schedule(TaskContext<TConsume> taskContext) {
 		Runnable scriptRunnable = () -> {
-			TaskResult<TResult> taskResult = getExecutable().apply(taskContext);
+			Object objectResult = getExecutable().apply(taskContext);
+			if (objectResult instanceof Undefined) {
+				objectResult = null;
+			}
+			TaskResult<TResult> taskResult = (TaskResult<TResult>) objectResult;
 
+			if (this.getNextTask() == null) {
+				return;
+			}
 
 			if (taskResult == null || taskResult instanceof ValueTaskResult<?>) {
 				ValueTaskResult<TResult> valueResult = (ValueTaskResult<TResult>) taskResult;
@@ -37,17 +44,17 @@ public class SyncTask<TConsume, TResult> extends Task<TConsume, TResult> {
 				this.getNextTask().schedule(
 						new TaskContext<>(this.getNextTask(), taskContext.getScriptContext(), resultValue)
 				);
-			}
-			else if (taskResult instanceof DelegateTaskResult<?>) {
+			} else if (taskResult instanceof DelegateTaskResult<?>) {
 				DelegateTaskResult<TResult> delegateResult = (DelegateTaskResult<TResult>) taskResult;
 				Task<?, TResult> delegateTask = delegateResult.getDelegateTask();
 				delegateTask.setNextTask(this.getNextTask());
 				delegateTask.getInitTask().schedule(
 						new TaskContext<>(delegateTask.getInitTask(), taskContext.getScriptContext(), null)
 				);
+				delegateTask.setInitTask(this.getInitTask());
 			}
 			else {
-				throw new NotImplementedException("Unknown Task result type");
+				//throw new NotImplementedException("Unknown Task result type");
 			}
 		};
 
