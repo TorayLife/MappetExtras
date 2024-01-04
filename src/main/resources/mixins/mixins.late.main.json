@@ -5,16 +5,13 @@
   "refmap": "mixins.mappetextras.refmap.json",
   "mixinPriority": 1000,
   "mixins": [
-    "documentation.MixinDocClass",
     "documentation.MixinDocMethod",
     "triggers.MixinServerSettings"
   ],
   "client": [
     "documentation.MixinDocEntry",
     "documentation.MixinDocMerger",
-    "documentation.MixinGuiDocumentationOverlayPanel",
-    "documentation.MixinGuiDocumentationOverlayPanelAccessor",
-    "documentation.MixinGuiScriptPanel"
+    "documentation.MixinGuiDocumentationOverlayPanel"
   ],
   "server": [
   ]

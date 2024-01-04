@@ -11,7 +11,6 @@ import mchorse.mclib.client.gui.framework.elements.context.GuiSimpleContextMenu;
 import mchorse.mclib.client.gui.utils.keys.IKey;
 import net.minecraft.client.Minecraft;
 import toraylife.mappetextras.MappetExtras;
-import toraylife.mappetextras.modules.main.mixins.late.documentation.MixinGuiDocumentationOverlayPanelAccessor;
 import toraylife.mappetextras.modules.utils.MPEIcons;
 
 import java.util.HashSet;
@@ -59,7 +58,7 @@ public class ClassLinkManager {
         String className = parts[0];
         String methodName = parts.length > 1 ? parts[1] : "";
 
-        for (DocClass docClass : MixinGuiDocumentationOverlayPanelAccessor.getFieldDocs().classes) {
+        for (DocClass docClass : GuiDocumentationOverlayPanel.docs.classes) {
             if (docClass.getName().equals(className)) {
                 if (methodName.isEmpty()) {
                     return docClass;
