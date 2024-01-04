@@ -23,7 +23,7 @@ public abstract class MixinScriptPlayer {
     @Shadow
     public abstract EntityPlayerMP getMinecraftPlayer();
     
-    private EntityPlayerMP player = this.getMinecraftPlayer();
+    private final EntityPlayerMP player = this.getMinecraftPlayer();
 
 
     /**
@@ -127,16 +127,6 @@ public abstract class MixinScriptPlayer {
      */
     public void textureUpdate(){
         Dispatcher.sendTo(new PacketTextures(AccessType.UPDATE), this.player);
-    }
-
-    /**
-     * Checks if this player is currently walking.
-     *
-     * @return True if walking, false otherwise.
-     */
-    public boolean isWalking(){
-        return this.player.prevDistanceWalkedModified
-                - this.player.distanceWalkedModified != 0;
     }
 
     /**

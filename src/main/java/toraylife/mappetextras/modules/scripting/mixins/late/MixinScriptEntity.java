@@ -276,7 +276,17 @@ public abstract class MixinScriptEntity<T extends Entity> {
      *
      * @return Facing direction name (south, north, east, west).
      */
-    public String getFacing(){
+    public String getFacing() {
         return this.entity.getHorizontalFacing().getName();
+    }
+
+    /**
+     * Checks if this entity is currently walking.
+     *
+     * @return True if walking, false otherwise.
+     */
+    public boolean isWalking() {
+        return this.entity.prevDistanceWalkedModified
+                - this.entity.distanceWalkedModified != 0;
     }
 }
