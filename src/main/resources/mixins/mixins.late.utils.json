@@ -9,6 +9,8 @@
     "MixinRegisterHandler"
   ],
   "client": [
+    "MixinTileConditionModelRenderer",
+    "MixinTileModelRenderer",
     "scriptPanel.MixinGuiDocumentationOverlayPanel",
     "scriptPanel.MixinGuiMultiTextElement",
     "scriptPanel.MixinGuiScriptPanel",
