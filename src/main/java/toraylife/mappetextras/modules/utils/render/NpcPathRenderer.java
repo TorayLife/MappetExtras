@@ -28,7 +28,7 @@ public class NpcPathRenderer {
 
     public boolean shouldRenderDebugPath() {
         GameSettings settings = Minecraft.getMinecraft().gameSettings;
-        return settings.showDebugInfo && !settings.hideGUI;
+        return settings.showDebugInfo && !settings.hideGUI && Minecraft.getMinecraft().player.isCreative();
     }
 
     public void renderNpcPaths(RenderWorldLastEvent event) {

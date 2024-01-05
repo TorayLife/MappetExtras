@@ -1,3 +1,17 @@
+## Version 1.3.0
+
+Muppet has been updated - everyone is updated! Now only works with mappet version `0.9`!
+
+In this version it was turned off the display of debugging overlays for blocks if the player is not in creative, as well
+as changed the
+compatible version of the Muppet.
+
+#### Full list of changes:
+
+* Fixes:
+    * Turned off rendering overlay on blocks if player is not in creative.
+    * `isWalking` method moved from `IScriptPlayer` to `IScriptEntity`.
+
 ## Version 1.2.2
 
 Hotfix :3
@@ -5,6 +19,7 @@ Hotfix :3
 In this version were fixed server crashes at startup and normal game if the scripting engine is not installed.
 
 ### Full list of changes:
+
 * Fixes:
     * Fixed server crash on startup.
     * Fixed crash if Nashorn is not installed (why would you want an addon without a scripting engine? Are you
@@ -21,7 +36,7 @@ This version once again fixed `getSetting` and `setSetting`, fixed `MinecraftHUD
 
 * API:
     *
-    Renamed `ScriptCamera`, `ScriptCameraShake`, `ScriptArmRender` -> `MinecraftCamera`, `MinecraftCameraShake`, `MinecraftArmRender`.
+  Renamed `ScriptCamera`, `ScriptCameraShake`, `ScriptArmRender` -> `MinecraftCamera`, `MinecraftCameraShake`, `MinecraftArmRender`.
     * Added constants
     * Added method for `IScriptPlayer`:
         * `openWebLink(String url)`.
