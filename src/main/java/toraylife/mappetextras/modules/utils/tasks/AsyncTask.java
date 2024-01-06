@@ -39,11 +39,7 @@ public class AsyncTask<TConsume, TResult> extends Task<TConsume, TResult> {
 			}
 			TaskResult<TResult> taskResult = (TaskResult<TResult>) objectResult;
 
-			if (this.getNextTask() == null) {
-				return;
-			}
-
-			if (taskResult == null || taskResult instanceof ValueTaskResult<?>) {
+			if ((taskResult == null || taskResult instanceof ValueTaskResult<?>) && this.getNextTask() != null) {
 				ValueTaskResult<TResult> valueResult = (ValueTaskResult<TResult>) taskResult;
 				TResult resultValue = valueResult != null ? valueResult.getValue() : null;
 				scheduleNextTask(
@@ -54,15 +50,18 @@ public class AsyncTask<TConsume, TResult> extends Task<TConsume, TResult> {
 			else if (taskResult instanceof DelegateTaskResult<?>) {
 				DelegateTaskResult<TResult> delegateResult = (DelegateTaskResult<TResult>) taskResult;
 				Task<?, TResult> delegateTask = delegateResult.getDelegateTask();
-				delegateTask.setNextTask(this.getNextTask());
-				scheduleNextTask(
-						delegateTask.getInitTask(),
-						new TaskContext<>(delegateTask.getInitTask(), taskContext.getScriptContext(), null)
-				);
+
+				Task<Void, ?> actualNextTask = delegateTask.getInitTask();
 				delegateTask.setInitTask(this.getInitTask());
+				delegateTask.setNextTask(this.getNextTask());
+
+				scheduleNextTask(
+						actualNextTask,
+						new TaskContext<>(actualNextTask, taskContext.getScriptContext(), null)
+				);
 			}
 			else {
-				throw new NotImplementedException("Unknown Task result type");
+//				throw new NotImplementedException("Unknown Task result type");
 			}
 		}, this.getDelayTime().toMillis().getDelay(), TimeUnit.MILLISECONDS);
 	}
