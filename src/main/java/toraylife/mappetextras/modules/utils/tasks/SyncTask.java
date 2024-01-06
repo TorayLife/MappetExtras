@@ -34,11 +34,7 @@ public class SyncTask<TConsume, TResult> extends Task<TConsume, TResult> {
 			}
 			TaskResult<TResult> taskResult = (TaskResult<TResult>) objectResult;
 
-			if (this.getNextTask() == null) {
-				return;
-			}
-
-			if (taskResult == null || taskResult instanceof ValueTaskResult<?>) {
+			if ((taskResult == null || taskResult instanceof ValueTaskResult<?>) && this.getNextTask() != null) {
 				ValueTaskResult<TResult> valueResult = (ValueTaskResult<TResult>) taskResult;
 				TResult resultValue = taskResult != null ? valueResult.getValue() : null;
 				this.getNextTask().schedule(
@@ -47,11 +43,14 @@ public class SyncTask<TConsume, TResult> extends Task<TConsume, TResult> {
 			} else if (taskResult instanceof DelegateTaskResult<?>) {
 				DelegateTaskResult<TResult> delegateResult = (DelegateTaskResult<TResult>) taskResult;
 				Task<?, TResult> delegateTask = delegateResult.getDelegateTask();
-				delegateTask.setNextTask(this.getNextTask());
-				delegateTask.getInitTask().schedule(
-						new TaskContext<>(delegateTask.getInitTask(), taskContext.getScriptContext(), null)
-				);
+
+				Task<Void, ?> actualNextTask = delegateTask.getInitTask();
 				delegateTask.setInitTask(this.getInitTask());
+				delegateTask.setNextTask(this.getNextTask());
+
+				actualNextTask.schedule(
+						new TaskContext<>(actualNextTask, taskContext.getScriptContext(), null)
+				);
 			}
 			else {
 				//throw new NotImplementedException("Unknown Task result type");
