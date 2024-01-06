@@ -20,17 +20,19 @@ public class TaskLoop {
 	}
 
 
-	public <TResult> Task<Void, TResult> first(Function<TaskContext<Void>, TaskResult<TResult>> taskExecutable) {
+	public <TResult> Task<Void, TResult> first(Function<TaskContext<Void>, TResult> taskExecutable) {
 		SyncTask<Void, TResult> task = new SyncTask<>(taskExecutable);
 		task.setInitTask(task);
 		return task;
 	}
 
-	public <TResult> Task<Void, TResult> firstAsync(Function<TaskContext<Void>, TaskResult<TResult>> taskExecutable) {
+
+	public <TResult> Task<Void, TResult> firstAsync(Function<TaskContext<Void>, TResult> taskExecutable) {
 		AsyncTask<Void, TResult> task = new AsyncTask<>(taskExecutable);
 		task.setInitTask(task);
 		return task;
 	}
+
 
 	public DelayedTaskBuilder<Void> firstWaitTicks(int ticks) {
 		return new DelayedTaskBuilder<>(null, new TaskDelayTime(ticks, TaskDelayTime.Unit.TICKS));

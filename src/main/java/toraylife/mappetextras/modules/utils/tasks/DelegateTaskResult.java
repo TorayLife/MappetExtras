@@ -1,6 +1,6 @@
 package toraylife.mappetextras.modules.utils.tasks;
 
-public class DelegateTaskResult<TDelegateResult> implements TaskResult<TDelegateResult> {
+public class DelegateTaskResult<TDelegateResult> implements TaskResult {
 	private final Task<?, TDelegateResult> delegateTask;
 
 
