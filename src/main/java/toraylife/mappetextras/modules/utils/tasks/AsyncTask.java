@@ -1,67 +1,57 @@
 package toraylife.mappetextras.modules.utils.tasks;
 
-import jdk.nashorn.internal.runtime.Undefined;
-import org.apache.commons.lang3.NotImplementedException;
-
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 
 public class AsyncTask<TConsume, TResult> extends Task<TConsume, TResult> {
 
-	public AsyncTask(Function<TaskContext<TConsume>, TaskResult<TResult>> executable,
-	                 TaskDelayTime delayTime) {
+	public AsyncTask(Function<TaskContext<TConsume>, TResult> executable, TaskDelayTime delayTime) {
 		super(executable, delayTime);
 	}
 
-	public AsyncTask(Function<TaskContext<TConsume>, TaskResult<TResult>> executable) {
+	public AsyncTask(Function<TaskContext<TConsume>, TResult> executable) {
 		super(executable);
 	}
 
 	public AsyncTask(Task<Void, ?> initTask,
-	                 Function<TaskContext<TConsume>, TaskResult<TResult>> executable,
+	                 Function<TaskContext<TConsume>, TResult> executable,
 	                 TaskDelayTime delayTime) {
 		super(initTask, executable, delayTime);
 	}
 
-	public AsyncTask(Task<Void, ?> initTask,
-	                 Function<TaskContext<TConsume>, TaskResult<TResult>> executable) {
+	public AsyncTask(Task<Void, ?> initTask, Function<TaskContext<TConsume>, TResult> executable) {
 		super(initTask, executable);
 	}
 
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public void schedule(TaskContext<TConsume> taskContext) {
 		TaskLoop.getInstance().getExecutorService().schedule(() -> {
-			Object objectResult = this.getExecutable().apply(taskContext);
-			if (objectResult instanceof Undefined) {
-				objectResult = null;
-			}
-			TaskResult<TResult> taskResult = (TaskResult<TResult>) objectResult;
+			TResult resultValue = this.getExecutable().apply(taskContext);
+			TaskResult taskResult = taskContext.getResult();
 
-			if ((taskResult == null || taskResult instanceof ValueTaskResult<?>) && this.getNextTask() != null) {
-				ValueTaskResult<TResult> valueResult = (ValueTaskResult<TResult>) taskResult;
-				TResult resultValue = valueResult != null ? valueResult.getValue() : null;
-				scheduleNextTask(
-						this.getNextTask(),
-						new TaskContext<>(this.getNextTask(), taskContext.getScriptContext(), resultValue)
-				);
-			}
-			else if (taskResult instanceof DelegateTaskResult<?>) {
+			Task<TResult, ?> nextTask = this.getNextTask();
+
+			if (taskResult instanceof DelegateTaskResult<?>) {
 				DelegateTaskResult<TResult> delegateResult = (DelegateTaskResult<TResult>) taskResult;
 				Task<?, TResult> delegateTask = delegateResult.getDelegateTask();
 
 				Task<Void, ?> actualNextTask = delegateTask.getInitTask();
 				delegateTask.setInitTask(this.getInitTask());
-				delegateTask.setNextTask(this.getNextTask());
+				delegateTask.setNextTask(nextTask);
 
 				scheduleNextTask(
 						actualNextTask,
 						new TaskContext<>(actualNextTask, taskContext.getScriptContext(), null)
 				);
 			}
-			else {
-//				throw new NotImplementedException("Unknown Task result type");
+			else if (!(taskResult instanceof UnresolvedTaskResult) && nextTask != null) {
+				scheduleNextTask(
+						nextTask,
+						new TaskContext<>(nextTask, taskContext.getScriptContext(), resultValue)
+				);
 			}
 		}, this.getDelayTime().toMillis().getDelay(), TimeUnit.MILLISECONDS);
 	}
@@ -71,11 +61,11 @@ public class AsyncTask<TConsume, TResult> extends Task<TConsume, TResult> {
 	private void scheduleNextTask(Task nextTask, TaskContext nextTaskContext) {
 		if (nextTask instanceof AsyncTask) {
 			nextTask.schedule(nextTaskContext);
-		} else {
-			SyncTaskScheduleDefinition resultContext = new SyncTaskScheduleDefinition(
-					(SyncTask<?, ?>) nextTask,
-					nextTaskContext
-			);
+		}
+		else {
+			SyncTaskScheduleDefinition resultContext =
+					new SyncTaskScheduleDefinition((SyncTask<?, ?>) nextTask, nextTaskContext);
+
 			TaskLoop.getInstance().getSyncTaskScheduleDefinitionQueue().offer(resultContext);
 		}
 	}

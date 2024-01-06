@@ -5,49 +5,54 @@ import mchorse.mappet.api.scripts.user.IScriptEvent;
 public class TaskContext<TPreviousResult> {
 	private final Task<TPreviousResult, ?> task;
 	private final IScriptEvent scriptContext;
-	private final TPreviousResult result;
+	private final TPreviousResult previousResult;
+	private TaskResult result;
 
 
 	public TaskContext(Task<TPreviousResult, ?> task, IScriptEvent scriptContext, TPreviousResult previousResult) {
 		this.task = task;
 		this.scriptContext = scriptContext;
-		this.result = previousResult;
+		this.previousResult = previousResult;
 	}
 
 
 	public TPreviousResult getPreviousResult() {
-		return result;
+		return previousResult;
 	}
 
 	public IScriptEvent getScriptContext() {
 		return scriptContext;
 	}
 
-
-	public <TResult> TaskResult<TResult> result(TResult result) {
-		return new ValueTaskResult<>(result);
+	TaskResult getResult() {
+		return result;
 	}
 
-	public <TResult> TaskResult<TResult> delegate(Task<?, TResult> delegateTask) {
-		return new DelegateTaskResult<>(delegateTask);
+
+	public <TResult> TResult delegate(Task<?, TResult> delegateTask) {
+		this.result = new DelegateTaskResult<>(delegateTask);
+		return null;
 	}
 
-	public <TExpectedResult> TaskResult<TExpectedResult> waitForResolve() {
-		return new UnresolvedTaskResult<>();
+	public <TExpectedResult> TExpectedResult waitForResolve() {
+		this.result = new UnresolvedTaskResult();
+		return null;
 	}
 
 	@SuppressWarnings("unchecked")
-	public <TResult> void resolve(TResult result) {
+	public <TResult> void resolve(TResult resultValue) {
+		if (!(this.result instanceof UnresolvedTaskResult)) {
+			throw new IllegalStateException("Task should wait for resolve before actual resolving");
+		}
+
 		Task<TResult, ?> nextTask = (Task<TResult, ?>) task.getNextTask();
-		TaskContext<TResult> nextTaskContext = new TaskContext<>(nextTask, scriptContext, result);
+		TaskContext<TResult> nextTaskContext = new TaskContext<>(nextTask, scriptContext, resultValue);
 
 		if (nextTask instanceof AsyncTask) {
 			nextTask.schedule(nextTaskContext);
 		} else {
-			SyncTaskScheduleDefinition resultContext = new SyncTaskScheduleDefinition(
-					(SyncTask<?, ?>) nextTask,
-					nextTaskContext
-			);
+			SyncTaskScheduleDefinition resultContext =
+					new SyncTaskScheduleDefinition((SyncTask<?, ?>) nextTask, nextTaskContext);
 			TaskLoop.getInstance().getSyncTaskScheduleDefinitionQueue().offer(resultContext);
 		}
 	}

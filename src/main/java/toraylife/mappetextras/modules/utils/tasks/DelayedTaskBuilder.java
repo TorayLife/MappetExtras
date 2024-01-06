@@ -13,9 +13,7 @@ public class DelayedTaskBuilder<TConsume> {
 	}
 
 
-	public <TNextResult> Task<TConsume, TNextResult> then(
-			Function<TaskContext<TConsume>, TaskResult<TNextResult>> taskExecutable
-	) {
+	public <TNextResult> Task<TConsume, TNextResult> then(Function<TaskContext<TConsume>, TNextResult> taskExecutable) {
 		Task<Void, ?> initTask = null;
 		if (this.previousTask != null) {
 			initTask = this.previousTask.getInitTask();
@@ -33,9 +31,8 @@ public class DelayedTaskBuilder<TConsume> {
 		return nextTask;
 	}
 
-	public <TNextResult> Task<TConsume, TNextResult> thenAsync(
-			Function<TaskContext<TConsume>, TaskResult<TNextResult>> taskExecutable
-	) {
+
+	public <TNextResult> Task<TConsume, TNextResult> thenAsync(Function<TaskContext<TConsume>, TNextResult> taskExecutable) {
 		Task<Void, ?> initTask = null;
 		if (this.previousTask != null) {
 			initTask = this.previousTask.getInitTask();

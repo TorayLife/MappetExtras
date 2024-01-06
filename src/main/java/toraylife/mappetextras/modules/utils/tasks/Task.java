@@ -7,27 +7,25 @@ import java.util.function.Function;
 public abstract class Task<TConsume, TResult> {
 	private Task<Void, ?> initTask = null;
 	private Task<TResult, ?> nextTask;
-	private final Function<TaskContext<TConsume>, TaskResult<TResult>> executable;
+	private final Function<TaskContext<TConsume>, TResult> executable;
 	private TaskDelayTime delayTime = new TaskDelayTime(0, TaskDelayTime.Unit.MILLIS);
 
-	protected Task(Function<TaskContext<TConsume>, TaskResult<TResult>> executable) {
+	protected Task(Function<TaskContext<TConsume>, TResult> executable) {
 		this.executable = executable;
 	}
 
-	protected Task(Function<TaskContext<TConsume>, TaskResult<TResult>> executable,
-	               TaskDelayTime delayTime) {
+	protected Task(Function<TaskContext<TConsume>, TResult> executable, TaskDelayTime delayTime) {
 		this(executable);
 		this.delayTime = delayTime;
 	}
 
-	protected Task(Task<Void, ?> initTask,
-	               Function<TaskContext<TConsume>, TaskResult<TResult>> executable) {
+	protected Task(Task<Void, ?> initTask, Function<TaskContext<TConsume>, TResult> executable) {
 		this(executable);
 		this.initTask = initTask;
 	}
 
 	protected Task(Task<Void, ?> initTask,
-	               Function<TaskContext<TConsume>, TaskResult<TResult>> executable,
+	               Function<TaskContext<TConsume>, TResult> executable,
 	               TaskDelayTime delayTime) {
 		this(executable, delayTime);
 		this.initTask = initTask;
@@ -37,7 +35,7 @@ public abstract class Task<TConsume, TResult> {
 	public abstract void schedule(TaskContext<TConsume> taskContext);
 
 
-	public <TNextResult> Task<TResult, TNextResult> then(Function<TaskContext<TResult>, TaskResult<TNextResult>> taskExecutable) {
+	public <TNextResult> Task<TResult, TNextResult> then(Function<TaskContext<TResult>, TNextResult> taskExecutable) {
 		SyncTask<TResult, TNextResult> nextTask = new SyncTask<>(this.initTask, taskExecutable);
 
 		this.setNextTask(nextTask);
@@ -45,7 +43,7 @@ public abstract class Task<TConsume, TResult> {
 		return nextTask;
 	}
 
-	public <TNextResult> Task<TResult, TNextResult> thenAsync(Function<TaskContext<TResult>, TaskResult<TNextResult>> taskExecutable) {
+	public <TNextResult> Task<TResult, TNextResult> thenAsync(Function<TaskContext<TResult>, TNextResult> taskExecutable) {
 		Task<TResult, TNextResult> nextTask = new AsyncTask<>(this.initTask, taskExecutable);
 
 		this.setNextTask(nextTask);
@@ -61,6 +59,7 @@ public abstract class Task<TConsume, TResult> {
 		return new DelayedTaskBuilder<>(this, new TaskDelayTime(millis, TaskDelayTime.Unit.MILLIS));
 	}
 
+
 	public void run(IScriptEvent context) {
 		if (this.initTask != this) {
 			this.initTask.run(context);
@@ -68,6 +67,15 @@ public abstract class Task<TConsume, TResult> {
 		}
 
 		this.schedule(new TaskContext<>(this, context, null));
+	}
+
+	public void run() {
+		if (this.initTask != this) {
+			this.initTask.run();
+			return;
+		}
+
+		this.schedule(new TaskContext<>(this, null, null));
 	}
 
 
@@ -92,7 +100,7 @@ public abstract class Task<TConsume, TResult> {
 		return this.delayTime;
 	}
 
-	public Function<TaskContext<TConsume>, TaskResult<TResult>> getExecutable() {
+	public Function<TaskContext<TConsume>, TResult> getExecutable() {
 		return executable;
 	}
 
