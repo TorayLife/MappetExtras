@@ -272,16 +272,6 @@ public abstract class MixinScriptEntity<T extends Entity> {
     }
 
     /**
-     * Checks if this player is currently walking.
-     *
-     * @return True if walking, false otherwise.
-     */
-    public boolean isWalking(){
-        return this.entity.prevDistanceWalkedModified
-                - this.entity.distanceWalkedModified != 0;
-    }
-
-    /**
      * Gets the horizontal facing direction this entity is facing as name.
      *
      * @return Facing direction name (south, north, east, west).
