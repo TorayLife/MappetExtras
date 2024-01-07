@@ -4,24 +4,12 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 
-public class AsyncTask<TConsume, TResult> extends Task<TConsume, TResult> {
-
-	public AsyncTask(Function<TaskContext<TConsume>, TResult> executable, TaskDelayTime delayTime) {
-		super(executable, delayTime);
-	}
-
-	public AsyncTask(Function<TaskContext<TConsume>, TResult> executable) {
-		super(executable);
-	}
+public class AsyncTask<TConsume, TResult> extends RegularTask<TConsume, TResult> {
 
 	public AsyncTask(Task<Void, ?> initTask,
-	                 Function<TaskContext<TConsume>, TResult> executable,
-	                 TaskDelayTime delayTime) {
-		super(initTask, executable, delayTime);
-	}
-
-	public AsyncTask(Task<Void, ?> initTask, Function<TaskContext<TConsume>, TResult> executable) {
-		super(initTask, executable);
+	                 TaskDelayTime timeoutDelay,
+	                 Function<TaskContext<TConsume>, TResult> executable) {
+		super(Type.ASYNC, initTask, timeoutDelay, executable);
 	}
 
 
@@ -29,44 +17,39 @@ public class AsyncTask<TConsume, TResult> extends Task<TConsume, TResult> {
 	@SuppressWarnings("unchecked")
 	public void schedule(TaskContext<TConsume> taskContext) {
 		TaskLoop.getInstance().getExecutorService().schedule(() -> {
-			TResult resultValue = this.getExecutable().apply(taskContext);
-			TaskResult taskResult = taskContext.getResult();
-
-			Task<TResult, ?> nextTask = this.getNextTask();
+			TResult resultValue = this.executable.apply(taskContext);
+			TaskResult taskResult = taskContext.getCurrentResult();
 
 			if (taskResult instanceof DelegateTaskResult<?>) {
 				DelegateTaskResult<TResult> delegateResult = (DelegateTaskResult<TResult>) taskResult;
 				Task<?, TResult> delegateTask = delegateResult.getDelegateTask();
 
-				Task<Void, ?> actualNextTask = delegateTask.getInitTask();
-				delegateTask.setInitTask(this.getInitTask());
-				delegateTask.setNextTask(nextTask);
+				delegateTask.nextTask = this.nextTask;
 
 				scheduleNextTask(
-						actualNextTask,
-						new TaskContext<>(actualNextTask, taskContext.getScriptContext(), null)
+						delegateTask.initTask,
+						new TaskContext<>(delegateTask.initTask, taskContext.getScriptContext(), null)
 				);
 			}
-			else if (!(taskResult instanceof UnresolvedTaskResult) && nextTask != null) {
+			else if (!(taskResult instanceof UnresolvedTaskResult) && this.nextTask != null) {
 				scheduleNextTask(
-						nextTask,
-						new TaskContext<>(nextTask, taskContext.getScriptContext(), resultValue)
+						this.nextTask,
+						new TaskContext<>(this.nextTask, taskContext.getScriptContext(), resultValue)
 				);
 			}
-		}, this.getDelayTime().toMillis().getDelay(), TimeUnit.MILLISECONDS);
+		}, this.timeoutDelay.toMillis().getDelay(), TimeUnit.MILLISECONDS);
 	}
 
 
 	@SuppressWarnings({"rawtypes", "unchecked"})
 	private void scheduleNextTask(Task nextTask, TaskContext nextTaskContext) {
-		if (nextTask instanceof AsyncTask) {
+		if (nextTask.type == Type.ASYNC) {
 			nextTask.schedule(nextTaskContext);
 		}
 		else {
-			SyncTaskScheduleDefinition resultContext =
-					new SyncTaskScheduleDefinition((SyncTask<?, ?>) nextTask, nextTaskContext);
+			SyncTaskScheduleDefinition scheduleDef = new SyncTaskScheduleDefinition(nextTask, nextTaskContext);
 
-			TaskLoop.getInstance().getSyncTaskScheduleDefinitionQueue().offer(resultContext);
+			TaskLoop.getInstance().getSyncTaskScheduleDefinitionQueue().offer(scheduleDef);
 		}
 	}
 

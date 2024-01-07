@@ -5,30 +5,23 @@ import mchorse.mappet.api.scripts.user.IScriptEvent;
 import java.util.function.Function;
 
 public abstract class Task<TConsume, TResult> {
-	private Task<Void, ?> initTask = null;
-	private Task<TResult, ?> nextTask;
-	private final Function<TaskContext<TConsume>, TResult> executable;
-	private TaskDelayTime delayTime = new TaskDelayTime(0, TaskDelayTime.Unit.MILLIS);
-
-	protected Task(Function<TaskContext<TConsume>, TResult> executable) {
-		this.executable = executable;
+	public enum Type {
+		SYNC, ASYNC
 	}
 
-	protected Task(Function<TaskContext<TConsume>, TResult> executable, TaskDelayTime delayTime) {
-		this(executable);
-		this.delayTime = delayTime;
-	}
+	protected Type type;
+	protected Task<Void, ?> initTask;
+	protected final TaskDelayTime timeoutDelay;
 
-	protected Task(Task<Void, ?> initTask, Function<TaskContext<TConsume>, TResult> executable) {
-		this(executable);
+	protected volatile Task<TResult, ?> nextTask;
+
+
+	protected Task(Type type,
+	               Task<Void, ?> initTask,
+	               TaskDelayTime timeoutDelay) {
+		this.type = type;
 		this.initTask = initTask;
-	}
-
-	protected Task(Task<Void, ?> initTask,
-	               Function<TaskContext<TConsume>, TResult> executable,
-	               TaskDelayTime delayTime) {
-		this(executable, delayTime);
-		this.initTask = initTask;
+		this.timeoutDelay = timeoutDelay;
 	}
 
 
@@ -36,7 +29,7 @@ public abstract class Task<TConsume, TResult> {
 
 
 	public <TNextResult> Task<TResult, TNextResult> then(Function<TaskContext<TResult>, TNextResult> taskExecutable) {
-		SyncTask<TResult, TNextResult> nextTask = new SyncTask<>(this.initTask, taskExecutable);
+		SyncTask<TResult, TNextResult> nextTask = new SyncTask<>(this.initTask, TaskDelayTime.ZERO_TICKS, taskExecutable);
 
 		this.setNextTask(nextTask);
 
@@ -44,12 +37,18 @@ public abstract class Task<TConsume, TResult> {
 	}
 
 	public <TNextResult> Task<TResult, TNextResult> thenAsync(Function<TaskContext<TResult>, TNextResult> taskExecutable) {
-		Task<TResult, TNextResult> nextTask = new AsyncTask<>(this.initTask, taskExecutable);
+		Task<TResult, TNextResult> nextTask = new AsyncTask<>(this.initTask, TaskDelayTime.ZERO_MILLIS, taskExecutable);
 
 		this.setNextTask(nextTask);
 
 		return nextTask;
 	}
+
+
+	public <TAccumulator> LoopTaskBuilder<TResult, TAccumulator> thenLoop(int iterationCount) {
+		return new LoopTaskBuilder<>(this, iterationCount, TaskDelayTime.ZERO_TICKS);
+	}
+
 
 	public DelayedTaskBuilder<TResult> thenWaitTicks(int ticks) {
 		return new DelayedTaskBuilder<>(this, new TaskDelayTime(ticks, TaskDelayTime.Unit.TICKS));
@@ -94,14 +93,6 @@ public abstract class Task<TConsume, TResult> {
 	@SuppressWarnings({"rawtypes", "unchecked"})
 	public void setInitTask(Task initTask) {
 		this.initTask = (Task<Void, ?>) initTask;
-	}
-
-	public TaskDelayTime getDelayTime() {
-		return this.delayTime;
-	}
-
-	public Function<TaskContext<TConsume>, TResult> getExecutable() {
-		return executable;
 	}
 
 }

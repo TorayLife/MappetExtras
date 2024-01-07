@@ -3,29 +3,32 @@ package toraylife.mappetextras.modules.utils.tasks;
 import mchorse.mappet.api.scripts.user.IScriptEvent;
 
 public class TaskContext<TPreviousResult> {
-	private final Task<TPreviousResult, ?> task;
-	private final IScriptEvent scriptContext;
-	private final TPreviousResult previousResult;
-	private TaskResult result;
+	protected Task<TPreviousResult, ?> task;
+	protected IScriptEvent scriptContext;
+	protected TPreviousResult resultValue;
+	protected TaskResult result;
 
 
-	public TaskContext(Task<TPreviousResult, ?> task, IScriptEvent scriptContext, TPreviousResult previousResult) {
+	public TaskContext(Task<TPreviousResult, ?> task,
+	                   IScriptEvent scriptContext,
+	                   TPreviousResult resultValue) {
 		this.task = task;
 		this.scriptContext = scriptContext;
-		this.previousResult = previousResult;
+		this.resultValue = resultValue;
 	}
 
 
-	public TPreviousResult getPreviousResult() {
-		return previousResult;
+	TaskResult getCurrentResult() {
+		return result;
+	}
+
+
+	public TPreviousResult getResult() {
+		return resultValue;
 	}
 
 	public IScriptEvent getScriptContext() {
 		return scriptContext;
-	}
-
-	TaskResult getResult() {
-		return result;
 	}
 
 
@@ -51,10 +54,8 @@ public class TaskContext<TPreviousResult> {
 		if (nextTask instanceof AsyncTask) {
 			nextTask.schedule(nextTaskContext);
 		} else {
-			SyncTaskScheduleDefinition resultContext =
-					new SyncTaskScheduleDefinition((SyncTask<?, ?>) nextTask, nextTaskContext);
-			TaskLoop.getInstance().getSyncTaskScheduleDefinitionQueue().offer(resultContext);
+			SyncTaskScheduleDefinition scheduleDef = new SyncTaskScheduleDefinition(nextTask, nextTaskContext);
+			TaskLoop.getInstance().getSyncTaskScheduleDefinitionQueue().offer(scheduleDef);
 		}
 	}
-
 }

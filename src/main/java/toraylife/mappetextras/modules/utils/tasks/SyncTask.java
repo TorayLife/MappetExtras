@@ -5,22 +5,12 @@ import mchorse.mappet.utils.RunnableExecutionFork;
 
 import java.util.function.Function;
 
-public class SyncTask<TConsume, TResult> extends Task<TConsume, TResult> {
+public class SyncTask<TConsume, TResult> extends RegularTask<TConsume, TResult> {
 
-	public SyncTask(Function<TaskContext<TConsume>, TResult> executable, TaskDelayTime delayTime) {
-		super(executable, delayTime);
-	}
-
-	public SyncTask(Function<TaskContext<TConsume>, TResult> executable) {
-		super(executable);
-	}
-
-	public SyncTask(Task<Void, ?> initTask, Function<TaskContext<TConsume>, TResult> executable, TaskDelayTime delayTime) {
-		super(initTask, executable, delayTime);
-	}
-
-	public SyncTask(Task<Void, ?> initTask, Function<TaskContext<TConsume>, TResult> executable) {
-		super(initTask, executable);
+	public SyncTask(Task<Void, ?> initTask,
+	                TaskDelayTime timeoutDelay,
+	                Function<TaskContext<TConsume>, TResult> executable) {
+		super(Type.SYNC, initTask, timeoutDelay, executable);
 	}
 
 
@@ -28,30 +18,26 @@ public class SyncTask<TConsume, TResult> extends Task<TConsume, TResult> {
 	@SuppressWarnings("unchecked")
 	public void schedule(TaskContext<TConsume> taskContext) {
 		Runnable scriptRunnable = () -> {
-			TResult resultValue = this.getExecutable().apply(taskContext);
-			TaskResult taskResult = taskContext.getResult();
-
-			Task<TResult, ?> nextTask = this.getNextTask();
+			TResult resultValue = this.executable.apply(taskContext);
+			TaskResult taskResult = taskContext.getCurrentResult();
 
 			if (taskResult instanceof DelegateTaskResult<?>) {
 				DelegateTaskResult<TResult> delegateResult = (DelegateTaskResult<TResult>) taskResult;
 				Task<?, TResult> delegateTask = delegateResult.getDelegateTask();
 
-				Task<Void, ?> actualNextTask = delegateTask.getInitTask();
-				delegateTask.setInitTask(this.getInitTask());
-				delegateTask.setNextTask(nextTask);
+				delegateTask.nextTask = this.nextTask;
 
-				actualNextTask.schedule(
-						new TaskContext<>(actualNextTask, taskContext.getScriptContext(), null)
+				delegateTask.initTask.schedule(
+						new TaskContext<>(delegateTask.initTask, taskContext.scriptContext, null)
 				);
 			}
-			else if (!(taskResult instanceof UnresolvedTaskResult) && nextTask != null) {
-				nextTask.schedule(new TaskContext<>(nextTask, taskContext.getScriptContext(), resultValue));
+			else if (!(taskResult instanceof UnresolvedTaskResult) && this.nextTask != null) {
+				this.nextTask.schedule(new TaskContext<>(this.nextTask, taskContext.scriptContext, resultValue));
 			}
 		};
 
 		CommonProxy.eventHandler.addExecutable(
-				new RunnableExecutionFork(getDelayTime().toTicks().getDelay(), scriptRunnable));
+				new RunnableExecutionFork(this.timeoutDelay.toTicks().getDelay(), scriptRunnable));
 	}
 
 }

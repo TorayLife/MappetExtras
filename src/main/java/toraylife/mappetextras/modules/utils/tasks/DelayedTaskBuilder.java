@@ -4,6 +4,7 @@ import java.util.function.Function;
 
 public class DelayedTaskBuilder<TConsume> {
 	private final Task<?, TConsume> previousTask;
+
 	private final TaskDelayTime delayTime;
 
 
@@ -19,7 +20,7 @@ public class DelayedTaskBuilder<TConsume> {
 			initTask = this.previousTask.getInitTask();
 		}
 
-		Task<TConsume, TNextResult> nextTask = new SyncTask<>(initTask, taskExecutable, delayTime);
+		Task<TConsume, TNextResult> nextTask = new SyncTask<>(initTask, delayTime, taskExecutable);
 		if (initTask == null) {
 			nextTask.setInitTask(nextTask);
 		}
@@ -38,7 +39,7 @@ public class DelayedTaskBuilder<TConsume> {
 			initTask = this.previousTask.getInitTask();
 		}
 
-		Task<TConsume, TNextResult> nextTask = new AsyncTask<>(initTask, taskExecutable, delayTime);
+		Task<TConsume, TNextResult> nextTask = new AsyncTask<>(initTask, delayTime, taskExecutable);
 		if (initTask == null) {
 			nextTask.setInitTask(nextTask);
 		}
@@ -48,6 +49,11 @@ public class DelayedTaskBuilder<TConsume> {
 		}
 
 		return nextTask;
+	}
+
+
+	public <TAccumulator> LoopTaskBuilder<TConsume, TAccumulator> thenLoop(int iterationCount) {
+		return new LoopTaskBuilder<>(this.previousTask, iterationCount, this.delayTime);
 	}
 
 }
