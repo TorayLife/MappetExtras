@@ -6,9 +6,11 @@
   "mixinPriority": 1000,
   "mixins": [
     "MixinNpcState",
+    "MixinPacketContentBase",
     "MixinRegisterHandler"
   ],
   "client": [
+    "MixinGuiMappetDashboard",
     "MixinTileConditionModelRenderer",
     "MixinTileModelRenderer",
     "scriptPanel.MixinGuiDocumentationOverlayPanel",
