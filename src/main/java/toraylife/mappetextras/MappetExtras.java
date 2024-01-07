@@ -28,13 +28,13 @@ import java.util.Arrays;
 import java.util.List;
 
 @Mod(
-        modid = MappetExtras.MOD_ID,
-        name = MappetExtras.NAME,
-        version = MappetExtras.VERSION,
-        dependencies = "required-after:mclib@[@MCLIB@,);" +
-                "required-after:mixinbooter[@MIXINBOOTER@,);" +
-                "required-after:mappet@[@MAPPET@,);",
-        updateJSON = "https://raw.githubusercontent.com/TorayLife/MappetExtras/master/version.json"
+    modid = MappetExtras.MOD_ID,
+    name = MappetExtras.NAME,
+    version = MappetExtras.VERSION,
+    dependencies = "required-after:mclib@[@MCLIB@,);" +
+            "required-after:mixinbooter[@MIXINBOOTER@,);" +
+            "required-after:mappet@[@MAPPET@,);",
+    updateJSON = "https://raw.githubusercontent.com/TorayLife/MappetExtras/master/version.json"
 )
 public class MappetExtras {
     public MappetExtras() {

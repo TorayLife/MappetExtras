@@ -187,11 +187,11 @@ public class SettingProvider implements IClientDataProvider {
         } catch (NumberFormatException e) {}
 
         try {
-            return Double.parseDouble(value);
+            return Float.parseFloat(value);
         } catch (NumberFormatException e) {}
 
         try {
-            return Float.parseFloat(value);
+            return Double.parseDouble(value);
         } catch (NumberFormatException e) {}
 
         try {

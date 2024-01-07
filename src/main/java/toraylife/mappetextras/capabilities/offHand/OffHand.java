@@ -5,7 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import toraylife.mappetextras.modules.scripting.utils.ScriptVectorAngle;
 
-public class OffHand implements IOffHand{
+public class OffHand implements IOffHand {
     private EntityPlayer player;
     private double x;
     private double y;

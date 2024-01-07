@@ -1,8 +1,6 @@
 package toraylife.mappetextras.modules.utils.items;
 
 import mchorse.mappet.Mappet;
-import mchorse.mappet.api.scripts.code.items.ScriptItemStack;
-import mchorse.mappet.api.scripts.user.items.IScriptItemStack;
 import mchorse.mappet.entities.EntityNpc;
 import mchorse.mclib.client.gui.utils.keys.IKey;
 import net.minecraft.client.util.ITooltipFlag;

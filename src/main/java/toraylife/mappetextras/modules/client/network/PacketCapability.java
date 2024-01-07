@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import toraylife.mappetextras.capabilities.CapabilitiesType;
 import toraylife.mappetextras.capabilities.camera.Camera;
 import toraylife.mappetextras.capabilities.mainHand.MainHand;
 import toraylife.mappetextras.capabilities.minecraftHUD.MinecraftHUD;
@@ -18,11 +19,11 @@ import toraylife.mappetextras.modules.client.AccessType;
 
 public class PacketCapability implements IMessage {
     NBTTagCompound profile;
-    AccessType type;
+    CapabilitiesType type;
     public PacketCapability() {
     }
 
-    public PacketCapability(NBTTagCompound profile, AccessType type) {
+    public PacketCapability(NBTTagCompound profile, CapabilitiesType type) {
         this.profile = profile;
         this.type = type;
     }
@@ -30,7 +31,7 @@ public class PacketCapability implements IMessage {
     @Override
     public void fromBytes(ByteBuf buf) {
         this.profile = ByteBufUtils.readTag(buf);
-        this.type = AccessType.valueOf(ByteBufUtils.readUTF8String(buf));
+        this.type = CapabilitiesType.valueOf(ByteBufUtils.readUTF8String(buf));
     }
 
     @Override
@@ -43,7 +44,7 @@ public class PacketCapability implements IMessage {
         @Override
         @SideOnly(Side.CLIENT)
         public void run(EntityPlayerSP player, PacketCapability message) {
-            AccessType type = message.type;
+            CapabilitiesType type = message.type;
 
             switch (type){
                 case ARM_RENDER:

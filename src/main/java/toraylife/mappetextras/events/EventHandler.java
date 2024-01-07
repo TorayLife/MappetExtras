@@ -18,6 +18,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 import toraylife.mappetextras.MappetExtras;
+import toraylife.mappetextras.capabilities.CapabilitiesType;
 import toraylife.mappetextras.capabilities.camera.Camera;
 import toraylife.mappetextras.capabilities.camera.CameraProvider;
 import toraylife.mappetextras.capabilities.camera.ICamera;
@@ -34,7 +35,8 @@ import toraylife.mappetextras.capabilities.shake.IShake;
 import toraylife.mappetextras.capabilities.shake.Shake;
 import toraylife.mappetextras.capabilities.shake.ShakeProvider;
 import toraylife.mappetextras.modules.client.AccessType;
-import toraylife.mappetextras.modules.client.network.*;
+import toraylife.mappetextras.modules.client.network.PacketCapability;
+import toraylife.mappetextras.modules.client.network.PacketEvent;
 import toraylife.mappetextras.modules.scripting.utils.ScriptVectorAngle;
 import toraylife.mappetextras.modules.main.VersionChecker;
 import toraylife.mappetextras.modules.utils.render.NpcPathRenderer;
@@ -128,50 +130,44 @@ public class EventHandler {
     public void onRenderHandEvent(RenderSpecificHandEvent event) {
         MainHand mainHand = MainHand.get(Minecraft.getMinecraft().player);
         OffHand offHand = OffHand.get(Minecraft.getMinecraft().player);
+        ScriptVector mPos = mainHand.getPosition();
+        ScriptVectorAngle mRotate = mainHand.getRotate();
+        ScriptVector oPos = offHand.getPosition();
+        ScriptVectorAngle oRotate = offHand.getRotate();
 
         if (event.getHand() == MAIN_HAND) {
-            handleRotation(mainHand);
+            if(!mainHand.isRender() || (mPos.x == 0 && mPos.y == 0 && mPos.z == 0 && mRotate.angle == 0 && mRotate.x == 0 && mRotate.y == 0 && mRotate.z == 0)){
+                return;
+            }
+
             event.setCanceled(!mainHand.isRender());
+            handleRotation(mainHand);
         }
 
         if (event.getHand() == OFF_HAND) {
-            handleRotation(offHand);
+            if(!offHand.isRender() || (oPos.x == 0 && oPos.y == 0 && oPos.z == 0 && oRotate.angle == 0 && oRotate.x == 0 && oRotate.y == 0 && oRotate.z == 0)){
+                return;
+            }
+
             event.setCanceled(!offHand.isRender());
+            handleRotation(offHand);
         }
     }
 
     private void handleRotation(OffHand offHand) {
-        ScriptVectorAngle vectorAngle = offHand.getRotate();
+        ScriptVectorAngle rotate = offHand.getRotate();
         ScriptVector pos = offHand.getPosition();
 
-        double angle = vectorAngle.angle;
-        double x = vectorAngle.x;
-        double y = vectorAngle.y;
-        double z = vectorAngle.z;
-
-        double posX = pos.x;
-        double posY = pos.y;
-        double posZ = pos.z;
-
-        GL11.glRotated(angle, x, y, z);
-        GL11.glTranslated(posX, posY, posZ);
+        GL11.glRotated(rotate.angle, rotate.x, rotate.y, rotate.z);
+        GL11.glTranslated(pos.x, pos.y, pos.z);
     }
 
     private void handleRotation(MainHand mainHand) {
-        ScriptVectorAngle vectorAngle = mainHand.getRotate();
+        ScriptVectorAngle rotate = mainHand.getRotate();
         ScriptVector pos = mainHand.getPosition();
 
-        double angle = vectorAngle.angle;
-        double x = vectorAngle.x;
-        double y = vectorAngle.y;
-        double z = vectorAngle.z;
-
-        double posX = pos.x;
-        double posY = pos.y;
-        double posZ = pos.z;
-
-        GL11.glRotated(angle, x, y, z);
-        GL11.glTranslated(posX, posY, posZ);
+        GL11.glRotated(rotate.angle, rotate.x, rotate.y, rotate.z);
+        GL11.glTranslated(pos.x, pos.y, pos.z);
     }
 
     @SubscribeEvent
@@ -184,11 +180,11 @@ public class EventHandler {
         final IShake shake = Shake.get(player);
         final ICamera camera = Camera.get(player);
 
-        Dispatcher.sendTo(new PacketCapability(mainHand.serializeNBT(), AccessType.ARM_RENDER), (EntityPlayerMP) player);
-        Dispatcher.sendTo(new PacketCapability(offHand.serializeNBT(), AccessType.ARM_RENDER), (EntityPlayerMP) player);
-        Dispatcher.sendTo(new PacketCapability(minecraftHUD.serializeNBT(), AccessType.MINECRAFT_HUD), (EntityPlayerMP) player);
-        Dispatcher.sendTo(new PacketCapability(shake.serializeNBT(), AccessType.SHAKE), (EntityPlayerMP) player);
-        Dispatcher.sendTo(new PacketCapability(camera.serializeNBT(), AccessType.CAMERA), (EntityPlayerMP) player);
+        Dispatcher.sendTo(new PacketCapability(mainHand.serializeNBT(), CapabilitiesType.ARM_RENDER), (EntityPlayerMP) player);
+        Dispatcher.sendTo(new PacketCapability(offHand.serializeNBT(), CapabilitiesType.ARM_RENDER), (EntityPlayerMP) player);
+        Dispatcher.sendTo(new PacketCapability(minecraftHUD.serializeNBT(), CapabilitiesType.MINECRAFT_HUD), (EntityPlayerMP) player);
+        Dispatcher.sendTo(new PacketCapability(shake.serializeNBT(), CapabilitiesType.SHAKE), (EntityPlayerMP) player);
+        Dispatcher.sendTo(new PacketCapability(camera.serializeNBT(), CapabilitiesType.CAMERA), (EntityPlayerMP) player);
     }
 
     @SubscribeEvent
@@ -202,6 +198,10 @@ public class EventHandler {
         ScriptVector scale = minecraftHUD.getScale();
         ScriptVector pos = minecraftHUD.getPosition();
         ScriptVectorAngle rotate = minecraftHUD.getRotate();
+
+        if(event.getType() == RenderGameOverlayEvent.ElementType.HOTBAR || event.getType() == RenderGameOverlayEvent.ElementType.ALL) {
+            return;
+        }
 
         if(!render){
             event.setCanceled(!render);
@@ -222,6 +222,10 @@ public class EventHandler {
     public void onRenderGuiPost(RenderGameOverlayEvent.Post event) {
         MinecraftHUD minecraftHUD = MinecraftHUD.get(Minecraft.getMinecraft().player);
         boolean render = minecraftHUD.isRender();
+
+        if(event.getType() == RenderGameOverlayEvent.ElementType.HOTBAR || event.getType() == RenderGameOverlayEvent.ElementType.ALL) {
+            return;
+        }
 
         if(!render){
             event.setCanceled(!render);

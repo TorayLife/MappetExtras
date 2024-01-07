@@ -258,7 +258,7 @@ public abstract class MixinScriptPlayer{
     /**
      * Resets all default Minecraft HUDs to their default state.
      */
-    public void resetAllHUDs(){
+    public void resetAllMinecraftHUDs(){
         String[] huds = new String[]{
             "HELMET", "PORTAL", "CROSSHAIRS", "BOSSHEALTH",
             "BOSSINFO", "ARMOR", "HEALTH", "AIR",

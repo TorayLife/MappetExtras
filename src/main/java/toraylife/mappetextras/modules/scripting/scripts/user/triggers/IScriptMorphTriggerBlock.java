@@ -1,8 +1,6 @@
 package toraylife.mappetextras.modules.scripting.scripts.user.triggers;
 
 import mchorse.mappet.api.triggers.blocks.MorphTriggerBlock;
-import mchorse.mappet.api.utils.TargetMode;
-import mchorse.metamorph.api.MorphManager;
 import mchorse.metamorph.api.morphs.AbstractMorph;
 import toraylife.mappetextras.modules.scripting.scripts.user.triggers.utils.IScriptTriggerBlock;
 

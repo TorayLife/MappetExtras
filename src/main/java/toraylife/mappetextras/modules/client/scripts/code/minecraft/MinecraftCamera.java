@@ -6,6 +6,7 @@ import mchorse.mappet.utils.RunnableExecutionFork;
 import mchorse.mclib.utils.Interpolation;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
+import toraylife.mappetextras.capabilities.CapabilitiesType;
 import toraylife.mappetextras.capabilities.camera.Camera;
 import toraylife.mappetextras.modules.client.AccessType;
 import toraylife.mappetextras.modules.client.ClientData;
@@ -112,6 +113,6 @@ public class MinecraftCamera implements IMinecraftCamera {
     }
 
     private void sendToCapability(){
-        Dispatcher.sendTo(new PacketCapability(this.camera.serializeNBT(), AccessType.CAMERA), this.player);
+        Dispatcher.sendTo(new PacketCapability(this.camera.serializeNBT(), CapabilitiesType.CAMERA), this.player);
     }
 }

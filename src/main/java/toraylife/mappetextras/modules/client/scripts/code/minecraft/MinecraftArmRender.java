@@ -5,9 +5,9 @@ import mchorse.mappet.api.scripts.user.data.ScriptVector;
 import mchorse.mappet.utils.RunnableExecutionFork;
 import mchorse.mclib.utils.Interpolation;
 import net.minecraft.entity.player.EntityPlayerMP;
+import toraylife.mappetextras.capabilities.CapabilitiesType;
 import toraylife.mappetextras.capabilities.mainHand.MainHand;
 import toraylife.mappetextras.capabilities.offHand.OffHand;
-import toraylife.mappetextras.modules.client.AccessType;
 import toraylife.mappetextras.modules.client.network.PacketCapability;
 import toraylife.mappetextras.modules.client.scripts.user.minecraft.IMinecraftArmRender;
 import toraylife.mappetextras.modules.scripting.utils.ScriptVectorAngle;
@@ -126,11 +126,11 @@ public class MinecraftArmRender implements IMinecraftArmRender {
 
     private void sendToCapability(){
         if(this.hand == 0){
-            Dispatcher.sendTo(new PacketCapability(this.mainHand.serializeNBT(), AccessType.ARM_RENDER), this.player);
+            Dispatcher.sendTo(new PacketCapability(this.mainHand.serializeNBT(), CapabilitiesType.ARM_RENDER), this.player);
         }
 
         if(this.hand == 1){
-            Dispatcher.sendTo(new PacketCapability(this.offHand.serializeNBT(), AccessType.ARM_RENDER), this.player);
+            Dispatcher.sendTo(new PacketCapability(this.offHand.serializeNBT(), CapabilitiesType.ARM_RENDER), this.player);
         }
     }
 

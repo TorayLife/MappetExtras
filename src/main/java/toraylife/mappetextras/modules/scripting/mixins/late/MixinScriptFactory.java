@@ -18,6 +18,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 import org.spongepowered.asm.mixin.Mixin;
+import toraylife.mappetextras.capabilities.minecraftHUD.MinecraftHUD;
 import toraylife.mappetextras.modules.main.mixins.utils.MixinTargetName;
 import toraylife.mappetextras.modules.scripting.scripts.code.ScriptFile;
 import toraylife.mappetextras.modules.scripting.scripts.code.ScriptMath;
@@ -28,6 +29,7 @@ import toraylife.mappetextras.modules.scripting.scripts.user.IScriptMath;
 import toraylife.mappetextras.modules.scripting.utils.Constants;
 
 import java.nio.file.Paths;
+import java.util.Set;
 import java.util.UUID;
 
 @Mixin(value = ScriptFactory.class, remap = false)
@@ -245,5 +247,23 @@ public abstract class MixinScriptFactory{
      */
     public Constants getConstants(){
         return new Constants();
+    }
+
+    /**
+     * get all huds Java array.
+     *
+     * <pre>{@code
+     *    function main(c)
+     *    {
+     *        var huds = Java.from(mappet.getAllMinecraftHUDs());
+     *
+     *        for(var i in huds){
+     *            c.send(huds[i])
+     *        }
+     *    }
+     *  }</pre>
+     */
+    public Set<String> getAllMinecraftHUDs(){
+        return new MinecraftHUD().HUDs.keySet();
     }
 }
