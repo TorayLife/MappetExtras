@@ -6,18 +6,21 @@ import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
 import java.io.InputStreamReader;
+import java.util.Objects;
 
 public class Beautifier {
 
-    private final ScriptEngine engine;
+    public ScriptEngine engine;
 
-    public Beautifier() throws ScriptException {
-        this.engine = ScriptUtils.getEngineByExtension("js");
-
-        // this is needed to make self invoking function modules work
-        // otherwise you won't be able to invoke your function
-        engine.eval("var global = this;");
-        engine.eval(new InputStreamReader(Beautifier.class.getResourceAsStream("/assets/mappetextras/jslibraries/beautify.js")));
+    public Beautifier() {
+        try {
+            this.engine = ScriptUtils.getEngineByExtension("js");
+            // this is needed to make self invoking function modules work
+            // otherwise you won't be able to invoke your function
+            engine.eval("var global = this;");
+            engine.eval(new InputStreamReader(Objects.requireNonNull(Beautifier.class.getResourceAsStream("/assets/mappetextras/jslibraries/beautify.js"))));
+        } catch (Exception ignored) {
+        }
     }
 
     public String beautify(String javascriptCode, BeautifierOptions beautifierOptions) throws ScriptException, NoSuchMethodException {

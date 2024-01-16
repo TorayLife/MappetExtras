@@ -10,8 +10,6 @@ import toraylife.mappetextras.MappetExtras;
 import toraylife.mappetextras.modules.IModule;
 import toraylife.mappetextras.modules.utils.client.Beautifier;
 
-import javax.script.ScriptException;
-
 public class UtilsModule implements IModule {
 
     public ValueInt codeSearchColor;
@@ -58,10 +56,7 @@ public class UtilsModule implements IModule {
 
         MPEIcons.register();
 
-        try {
-            UtilsModule.getInstance().beautifier = new Beautifier();
-        } catch (ScriptException ignored) {
-        }
+        UtilsModule.getInstance().beautifier = new Beautifier();
     }
 
     @Override

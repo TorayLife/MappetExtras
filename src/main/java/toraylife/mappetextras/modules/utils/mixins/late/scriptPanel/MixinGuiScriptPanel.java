@@ -59,6 +59,8 @@ public abstract class MixinGuiScriptPanel extends GuiMappetDashboardPanel {
 
         this.beautifierIcon = new GuiIconElement(mc, MPEIcons.CLOTHES_FAVOUR, (b) -> this.onBeautifierAction(this.code));
         this.beautifierIcon.setVisible(this.data != null && this.allowed && this.code.isVisible() && UtilsModule.getInstance().beautifier != null);
+        this.beautifierIcon.setEnabled(UtilsModule.getInstance().beautifier.engine != null);
+        this.beautifierIcon.disabledColor(0xFF880000);
         this.beautifierIcon.tooltip(IKey.lang("mappetextras.utils_module.beautify"), Direction.LEFT);
 
         this.iconBar.add(this.searchIcon);
@@ -73,6 +75,8 @@ public abstract class MixinGuiScriptPanel extends GuiMappetDashboardPanel {
 
         if (this.beautifierIcon != null) {
             this.beautifierIcon.setVisible(this.data != null && this.allowed && this.code.isVisible() && UtilsModule.getInstance().beautifier != null);
+            this.beautifierIcon.setEnabled(UtilsModule.getInstance().beautifier.engine != null);
+            this.beautifierIcon.disabledColor(0xFF880000);
         }
     }
 
