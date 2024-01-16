@@ -5,21 +5,19 @@ import com.google.gson.JsonObject;
 import mchorse.mappet.api.utils.AbstractData;
 import mchorse.mclib.config.values.GenericValue;
 import mchorse.mclib.config.values.ValueBoolean;
+import mchorse.mclib.config.values.ValueInt;
 import mchorse.mclib.config.values.ValueString;
 import mchorse.mclib.utils.ValueSerializer;
 import net.minecraft.nbt.NBTTagCompound;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ContentType;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
+import toraylife.mappetextras.modules.utils.http.Http;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class OllamaConnection extends AbstractData {
 	public ValueString url = new ValueString("url");
@@ -28,6 +26,7 @@ public class OllamaConnection extends AbstractData {
 	public ValueString systemPrompt = new ValueString("system");
 	public ValueString template = new ValueString("template");
 	public ValueBoolean stream = new ValueBoolean("stream");
+	public ValueInt timeout = new ValueInt("timeout");
 
 	public ValueSerializer serializer;
 
@@ -38,53 +37,121 @@ public class OllamaConnection extends AbstractData {
 		this.systemPrompt.set("");
 		this.template.set("");
 		this.stream.set(true);
+		this.timeout.set(60);
 		this.registerValue(this.url);
 		this.registerValue(this.model);
 		this.registerValue(this.format);
 		this.registerValue(this.systemPrompt);
 		this.registerValue(this.template);
 		this.registerValue(this.stream);
+		this.registerValue(this.timeout);
 	}
 
 	public void registerValue(GenericValue value) {
-		this.serializer.registerJSONValue(value.id, value, true);
+		this.serializer.registerValue(value.id, value.id, value, true, true);
 	}
 
-	public String getResponse(String prompt) {
-		try (CloseableHttpClient client = HttpClients.createDefault()) {
-			HttpPost post = new HttpPost(this.url + "/api/generate");
-			JsonObject json = this.serializer.toJSON().getAsJsonObject();
+	public OllamaResponse getResponse(String prompt, ArrayList<Integer> context) {
+		OllamaResponse response = new OllamaResponse();
+		Gson gson = new Gson();
+		JsonObject json = this.serializer.toJSON().getAsJsonObject();
 
-			json.addProperty("prompt", prompt);
-			// Because of value API bug with alwaysWrite option.
-			json.addProperty("stream", true);
-			if (this.systemPrompt.get().isEmpty()) {
-				json.remove("system");
-			}
-			if (this.template.get().isEmpty()) {
-				json.remove("template");
-			}
+		json.addProperty("prompt", prompt);
+		if (context != null) {
+			json.add("context", gson.toJsonTree(context));
+		}
+		// Because of value API bug with alwaysWrite option.
+		json.addProperty("stream", this.stream.get());
+		if (this.systemPrompt.get().isEmpty()) {
+			json.remove("system");
+		}
+		if (this.template.get().isEmpty()) {
+			json.remove("template");
+		}
 
+		ArrayList<String> responses = new ArrayList<>();
 
-			post.setEntity(new StringEntity(json.toString(), ContentType.APPLICATION_JSON));
-			CloseableHttpResponse httpResponse = client.execute(post);
-			String data = "";
-			InputStream responseBodyStream = httpResponse.getEntity().getContent();
-			ArrayList<OllamaResponse> responses = new ArrayList<>();
-			Gson gson = new Gson();
-			try (BufferedReader reader = new BufferedReader(new InputStreamReader(responseBodyStream, StandardCharsets.UTF_8))) {
-				String line;
-				while ((line = reader.readLine()) != null) {
-					OllamaResponse response = gson.fromJson(line, OllamaResponse.class);
-					responses.add(response);
+		try (InputStream responseBodyStream = Http.post(this.url.get() + "/api/generate", json, this.timeout.get() * 1000)) {
+			BufferedReader reader = new BufferedReader(new InputStreamReader(responseBodyStream, StandardCharsets.UTF_8));
+			String line;
+			while ((line = reader.readLine()) != null) {
+				response = gson.fromJson(line, OllamaResponse.class);
+				responses.add(response.toString());
+				if (!response.error.isEmpty()) {
+					break;
 				}
 			}
-			StringBuilder responseString = new StringBuilder();
-			responses.forEach(response -> responseString.append(response.response));
 
-			return responseString.toString();
+			if (this.stream.get()) {
+				response.response = responses.stream().collect(Collectors.joining());
+			}
+			return response;
+		} catch (IOException e) {
+			e.printStackTrace();
+			response.error = e.getMessage();
+			return response;
+		}
+	}
+
+	public OllamaChatResponse getChatResponse(String prompt, ArrayList<Message> messages) {
+		OllamaChatResponse response = new OllamaChatResponse();
+		Gson gson = new Gson();
+		JsonObject json = this.serializer.toJSON().getAsJsonObject();
+
+		if (messages != null) {
+			messages.add(new Message("user", prompt));
+			json.add("messages", gson.toJsonTree(messages));
+		}
+		// Because of value API bug with alwaysWrite option.
+		json.addProperty("stream", this.stream.get());
+		if (this.systemPrompt.get().isEmpty()) {
+			json.remove("system");
+		} else if (messages != null && messages.size() > 0 && !messages.get(0).role.equals("system")) {
+			messages.add(0, new Message("system", this.systemPrompt.get()));
+		}
+		if (this.template.get().isEmpty()) {
+			json.remove("template");
+		}
+
+		ArrayList<String> responses = new ArrayList<>();
+
+		try (InputStream responseBodyStream = Http.post(this.url.get() + "/api/chat", json, this.timeout.get() * 1000)) {
+			BufferedReader reader = new BufferedReader(new InputStreamReader(responseBodyStream, StandardCharsets.UTF_8));
+			String line;
+			while ((line = reader.readLine()) != null) {
+				response = gson.fromJson(line, OllamaChatResponse.class);
+				responses.add(response.toString());
+				if (!response.error.isEmpty()) {
+					break;
+				}
+			}
+
+			if (this.stream.get()) {
+				response.message.content = String.join("", responses);
+			}
+			return response;
+		} catch (IOException e) {
+			e.printStackTrace();
+			response.error = e.getMessage();
+			return response;
+		}
+	}
+
+	public OllamaModelListResponse getModelList() {
+		OllamaModelListResponse response = new OllamaModelListResponse();
+		Gson gson = new Gson();
+
+		try (InputStream responseBodyStream = Http.get(this.url.get() + "/api/tags", 20000)) {
+			BufferedReader reader = new BufferedReader(new InputStreamReader(responseBodyStream, StandardCharsets.UTF_8));
+			String line;
+			while ((line = reader.readLine()) != null) {
+				response = gson.fromJson(line, OllamaModelListResponse.class);
+			}
+			return response;
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			e.printStackTrace();
+			response.error = e.getMessage();
+			return response;
 		}
 	}
 
@@ -97,6 +164,7 @@ public class OllamaConnection extends AbstractData {
 		tag.setString("system", this.systemPrompt.get());
 		tag.setString("template", this.template.get());
 		tag.setBoolean("stream", this.stream.get());
+		tag.setInteger("timeout", this.timeout.get());
 		return tag;
 	}
 
@@ -105,3 +173,4 @@ public class OllamaConnection extends AbstractData {
 		this.serializer.fromNBT(nbt);
 	}
 }
+

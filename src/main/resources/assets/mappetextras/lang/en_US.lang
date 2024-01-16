@@ -45,7 +45,7 @@ mappetextras.main_module.update.button_update_link=Visit mod page
 # SCRIPTING
 
 # UTILS
-mappetextras.error=§cError
+mappetextras.error=§cError: %s
 mappetextras.todo=§cTO-DO / NOT IMPLEMENTED
 mappetextras.utils.codesearch.search=Search
 mappetextras.utils.codesearch.replace=Replace
@@ -55,6 +55,16 @@ mappetextras.utils.codesearch.regex=Regular expression
 mappetextras.utils.codesearch.ignore_case=Ignore case
 mappetextras.utils.codesearch.search_and_replace=Search and replace
 mappetextras.utils.saveEntry.save=Save
+
+mappetextras.utils.ollama.url=URL
+mappetextras.utils.ollama.model=Model
+mappetextras.utils.ollama.format=Format
+mappetextras.utils.ollama.system=System prompt
+mappetextras.utils.ollama.template=Template
+mappetextras.utils.ollama.stream=Stream
+mappetextras.utils.ollama.send=Send request
+mappetextras.utils.ollama.repl=Console
+
 
 mappetextras.utils_module.beautify=Beautify
 

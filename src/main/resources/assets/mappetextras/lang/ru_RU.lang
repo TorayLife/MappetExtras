@@ -46,7 +46,7 @@ mappetextras.main_module.update.button_update_link=Посетить страни
 # SCRIPTING
 
 # UTILS
-mappetextras.error=§cОшибка
+mappetextras.error=§cОшибка: %s
 mappetextras.todo=§cЗАПЛАНИРОВАНО / НЕ РЕАЛИЗОВАНО
 mappetextras.utils.codesearch.search=Искать
 mappetextras.utils.codesearch.replace=Заменить
