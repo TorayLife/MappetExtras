@@ -7,6 +7,7 @@ import mchorse.mappet.api.scripts.user.mappet.IMappetUIBuilder;
 import mchorse.mappet.api.ui.UI;
 import mchorse.mappet.api.ui.UIContext;
 import mchorse.mappet.api.ui.components.UIComponent;
+import mchorse.mappet.api.ui.components.UIParentComponent;
 import mchorse.mappet.api.ui.utils.DiscardMethod;
 import mchorse.mappet.capabilities.character.ICharacter;
 import org.spongepowered.asm.mixin.Mixin;
@@ -30,7 +31,15 @@ public class MixinScriptPlayer {
     ), locals = LocalCapture.CAPTURE_FAILHARD, remap = false)
     @DiscardMethod
     public void openUI(IMappetUIBuilder in, boolean defaultData, CallbackInfoReturnable<Boolean> cir, MappetUIBuilder builder, ICharacter character, boolean noContext, UI ui, UIContext context) {
-        for (UIComponent component : builder.getCurrent().getChildComponents()) {
+        recursiveHandleCallbacks((UIParentComponent) builder.getCurrent(), context);
+    }
+
+    public void recursiveHandleCallbacks(UIParentComponent builder, UIContext context) {
+        for (UIComponent component : builder.getChildComponents()) {
+            if (component instanceof UIParentComponent) {
+                recursiveHandleCallbacks((UIParentComponent) component, context);
+            }
+
             if (!(component instanceof CallbackableComponent)) {
                 continue;
             }
