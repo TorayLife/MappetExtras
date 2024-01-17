@@ -131,13 +131,10 @@ public abstract class MixinScriptPlayer {
 
     /**
      * Disconnects this player with the given reason.
-     * Only works in single player.
      *
      * @param reason Disconnect reason
      */
     public void disconnect(String reason){
-        if(!this.player.mcServer.isDedicatedServer() && this.player.mcServer.isSinglePlayer()){
-            this.player.connection.disconnect(new TextComponentString(reason));
-        }
+        this.player.connection.disconnect(new TextComponentString(reason));
     }
 }
