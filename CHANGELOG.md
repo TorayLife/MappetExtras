@@ -1,3 +1,27 @@
+## Version 1.3.1
+
+New fixes.
+
+This version has fixed callbacks, the HUD bug, the crashing of beautifier (yup, again), and renamed a few methods.
+
+#### Full list of changes:
+
+* Fixes:
+    * SetSetting has been fixed (not again, but again)
+    * Fixed a crash due to a beautifier in the absence of nashorn (yes, again. Why would you want a scripting addon
+      without a scripting engine?)
+    * UI callbacks now work in layout.
+    * `disconnect` method now works in multiplayer.
+    * Fixed bug with `CROSSHAIRS` hood that caused all hood to disappear.
+* API changes:
+    * MinecraftHUD:
+        * Renamed the `resetAllHUDs` method to `resetAllMinecraftHUDs`.
+    * ScriptVector:
+        * Renamed `toAngle` -> `toRotations` method.
+        * Added `getAngle` and `distance` methods
+* Other:
+    * Some code cleanup
+
 ## Version 1.3.0
 
 Muppet has been updated - everyone is updated! Now only works with mappet version `0.9`!
