@@ -239,13 +239,15 @@ task scriptingJavadocs(type: Javadoc) {
     include "mchorse/mappet/client/gui/utils/graphics/Graphic**"
     include "mchorse/mappet/api/scripts/user/**"
 }
+//Dyamo glupiy malcheg
+import org.apache.tools.ant.taskdefs.condition.Os
 
 task scriptingJavadocsJson(type: Exec) {
     // Writing gradle tasks is PAIN, if you'll ever would need to run this, clone and build:
     // https://github.com/mchorse/jsonDoclet
     //
     // Rename it to jsonDoclet.jar, and place it in the run/ folder
-    executable "javadoc"
+    executable Os.isFamily(Os.FAMILY_WINDOWS) ? "javadoc" : "${org.gradle.internal.jvm.Jvm.current().getJavaHome()}/bin/javadoc"
     List<String> subpackages = new ArrayList(Arrays.asList(
             "toraylife.mappetextras.modules.scripting.scripts.user",
             "toraylife.mappetextras.modules.client.scripts.user",
