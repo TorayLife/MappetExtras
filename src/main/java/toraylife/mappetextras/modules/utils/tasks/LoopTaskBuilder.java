@@ -26,18 +26,19 @@ public class LoopTaskBuilder<TConsume, TAccumulator> {
 		return this;
 	}
 
-	public LoopTaskBuilder<TConsume, TAccumulator> accumulator(TAccumulator accumulator) {
-		this.accumulator = accumulator;
-		return this;
+	@SuppressWarnings("unchecked")
+	public <TNewAccumulator> LoopTaskBuilder<TConsume, TNewAccumulator> accumulator(TNewAccumulator accumulator) {
+		this.accumulator = (TAccumulator) accumulator;
+		return (LoopTaskBuilder<TConsume, TNewAccumulator>) this;
 	}
 
-	public Task<TConsume, TConsume> iterateAsync(Function<LoopTaskContext<TConsume, TAccumulator>, TAccumulator> taskExecutable) {
+	public Task<TConsume, TAccumulator> iterateAsync(LoopTaskExecutable<TConsume, TAccumulator> taskExecutable) {
 		Task<Void, ?> initTask = null;
 		if (this.previousTask != null) {
 			initTask = this.previousTask.getInitTask();
 		}
 
-		Task<TConsume, TConsume> nextTask = new AsyncLoopTask<>(
+		Task<TConsume, TAccumulator> nextTask = new AsyncLoopTask<>(
 				initTask, taskExecutable, this.timeoutDelay,
 				this.iterationCount, this.defaultIntervalDelay, this.accumulator
 		);

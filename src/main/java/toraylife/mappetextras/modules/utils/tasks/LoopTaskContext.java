@@ -59,7 +59,7 @@ public class LoopTaskContext<TResult, TAccumulator> extends TaskContext<TResult>
 	}
 
 	public int getPreviousDelayMillis() {
-		return previousDelay.toTicks().getDelay();
+		return previousDelay.toMillis().getDelay();
 	}
 
 	public void setNextDelayTicks(int ticks) {

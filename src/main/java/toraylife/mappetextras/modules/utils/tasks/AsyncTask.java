@@ -8,17 +8,16 @@ public class AsyncTask<TConsume, TResult> extends RegularTask<TConsume, TResult>
 
 	public AsyncTask(Task<Void, ?> initTask,
 	                 TaskDelayTime timeoutDelay,
-	                 Function<TaskContext<TConsume>, TResult> executable) {
+	                 TaskExecutable<TConsume, TResult> executable) {
 		super(Type.ASYNC, initTask, timeoutDelay, executable);
 	}
 
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public void schedule(TaskContext<TConsume> taskContext) {
 		TaskLoop.getInstance().getExecutorService().schedule(() -> {
-			TResult resultValue = this.executable.apply(taskContext);
-			TaskResult taskResult = taskContext.getCurrentResult();
+			Object objectResult = this.executable.execute(taskContext);
+			TaskResult<TResult> taskResult = TaskResult.from(objectResult);
 
 			if (taskResult instanceof DelegateTaskResult<?>) {
 				DelegateTaskResult<TResult> delegateResult = (DelegateTaskResult<TResult>) taskResult;
@@ -32,9 +31,10 @@ public class AsyncTask<TConsume, TResult> extends RegularTask<TConsume, TResult>
 				);
 			}
 			else if (!(taskResult instanceof UnresolvedTaskResult) && this.nextTask != null) {
+				ValueTaskResult<TResult> valueTaskResult = (ValueTaskResult<TResult>) taskResult;
 				scheduleNextTask(
 						this.nextTask,
-						new TaskContext<>(this.nextTask, taskContext.getScriptContext(), resultValue)
+						new TaskContext<>(this.nextTask, taskContext.getScriptContext(), valueTaskResult.getValue())
 				);
 			}
 		}, this.timeoutDelay.toMillis().getDelay(), TimeUnit.MILLISECONDS);
@@ -47,9 +47,9 @@ public class AsyncTask<TConsume, TResult> extends RegularTask<TConsume, TResult>
 			nextTask.schedule(nextTaskContext);
 		}
 		else {
-			SyncTaskScheduleDefinition scheduleDef = new SyncTaskScheduleDefinition(nextTask, nextTaskContext);
+			SyncTaskScheduleDef scheduleDef = new SyncTaskScheduleDef(nextTask, nextTaskContext);
 
-			TaskLoop.getInstance().getSyncTaskScheduleDefinitionQueue().offer(scheduleDef);
+			TaskLoop.getInstance().getSyncTaskScheduleQueue().offer(scheduleDef);
 		}
 	}
 

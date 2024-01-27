@@ -6,7 +6,6 @@ public class TaskContext<TPreviousResult> {
 	protected Task<TPreviousResult, ?> task;
 	protected IScriptEvent scriptContext;
 	protected TPreviousResult resultValue;
-	protected TaskResult result;
 
 
 	public TaskContext(Task<TPreviousResult, ?> task,
@@ -17,12 +16,6 @@ public class TaskContext<TPreviousResult> {
 		this.resultValue = resultValue;
 	}
 
-
-	TaskResult getCurrentResult() {
-		return result;
-	}
-
-
 	public TPreviousResult getResult() {
 		return resultValue;
 	}
@@ -32,30 +25,28 @@ public class TaskContext<TPreviousResult> {
 	}
 
 
-	public <TResult> TResult delegate(Task<?, TResult> delegateTask) {
-		this.result = new DelegateTaskResult<>(delegateTask);
-		return null;
+	public <TValue> TaskResult<TValue> result(TValue result) {
+		return new ValueTaskResult<>(result);
 	}
 
-	public <TExpectedResult> TExpectedResult waitForResolve() {
-		this.result = new UnresolvedTaskResult();
-		return null;
+	public <TResult> TaskResult<TResult> delegate(Task<?, TResult> delegateTask) {
+		return new DelegateTaskResult<>(delegateTask);
+	}
+
+	public <TExpectedResult> TaskResult<TExpectedResult> waitForResolve() {
+		return new UnresolvedTaskResult<>();
 	}
 
 	@SuppressWarnings("unchecked")
 	public <TResult> void resolve(TResult resultValue) {
-		if (!(this.result instanceof UnresolvedTaskResult)) {
-			throw new IllegalStateException("Task should wait for resolve before actual resolving");
-		}
-
 		Task<TResult, ?> nextTask = (Task<TResult, ?>) task.getNextTask();
 		TaskContext<TResult> nextTaskContext = new TaskContext<>(nextTask, scriptContext, resultValue);
 
 		if (nextTask instanceof AsyncTask) {
 			nextTask.schedule(nextTaskContext);
 		} else {
-			SyncTaskScheduleDefinition scheduleDef = new SyncTaskScheduleDefinition(nextTask, nextTaskContext);
-			TaskLoop.getInstance().getSyncTaskScheduleDefinitionQueue().offer(scheduleDef);
+			SyncTaskScheduleDef scheduleDef = new SyncTaskScheduleDef(nextTask, nextTaskContext);
+			TaskLoop.getInstance().getSyncTaskScheduleQueue().offer(scheduleDef);
 		}
 	}
 }

@@ -3,8 +3,8 @@ package toraylife.mappetextras.modules.utils.tasks;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Function;
 
-public abstract class LoopTask<TResult, TAccumulator> extends Task<TResult, TResult> {
-	protected final Function<LoopTaskContext<TResult, TAccumulator>, TAccumulator> executable;
+public abstract class LoopTask<TResult, TAccumulator> extends Task<TResult, TAccumulator> {
+	protected final LoopTaskExecutable<TResult, TAccumulator> executable;
 	protected final TaskDelayTime defaultIntervalDelay;
 
 
@@ -17,14 +17,15 @@ public abstract class LoopTask<TResult, TAccumulator> extends Task<TResult, TRes
 	protected LoopTask(Type type,
 	                   Task<Void, ?> initTask,
 	                   TaskDelayTime timeoutDelay,
-	                   Function<LoopTaskContext<TResult, TAccumulator>, TAccumulator> executable,
-	                   long iterationCount,
+	                   LoopTaskExecutable<TResult, TAccumulator> executable,
+	                   long initIterationCount,
 	                   TaskDelayTime defaultIntervalDelay,
 	                   TAccumulator initAccumulator) {
 		super(type, initTask, timeoutDelay);
 		this.executable = executable;
-		this.iterationCount = iterationCount;
+		this.iterationCount = initIterationCount;
 		this.defaultIntervalDelay = defaultIntervalDelay;
+		this.nextIntervalDelay = defaultIntervalDelay;
 		this.accumulator = initAccumulator;
 	}
 

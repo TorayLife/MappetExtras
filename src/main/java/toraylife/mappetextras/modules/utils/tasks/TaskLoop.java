@@ -1,5 +1,6 @@
 package toraylife.mappetextras.modules.utils.tasks;
 
+import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -9,7 +10,7 @@ public class TaskLoop {
 	private static final TaskLoop instance = new TaskLoop();
 
 	private ScheduledExecutorService executorService;
-	private final ConcurrentLinkedQueue<SyncTaskScheduleDefinition> asyncTaskQueue = new ConcurrentLinkedQueue<>();
+	private final ConcurrentLinkedQueue<SyncTaskScheduleDef> asyncTaskQueue = new ConcurrentLinkedQueue<>();
 
 
 	private TaskLoop() {}
@@ -20,13 +21,13 @@ public class TaskLoop {
 	}
 
 
-	public <TResult> Task<Void, TResult> first(Function<TaskContext<Void>, TResult> taskExecutable) {
+	public <TResult> Task<Void, TResult> first(TaskExecutable<Void, TResult> taskExecutable) {
 		SyncTask<Void, TResult> task = new SyncTask<>(null, TaskDelayTime.ZERO_TICKS, taskExecutable);
 		task.setInitTask(task);
 		return task;
 	}
 
-	public <TResult> Task<Void, TResult> firstAsync(Function<TaskContext<Void>, TResult> taskExecutable) {
+	public <TResult> Task<Void, TResult> firstAsync(TaskExecutable<Void, TResult> taskExecutable) {
 		AsyncTask<Void, TResult> task = new AsyncTask<>(null, TaskDelayTime.ZERO_MILLIS, taskExecutable);
 		task.setInitTask(task);
 		return task;
@@ -55,7 +56,7 @@ public class TaskLoop {
 		return executorService;
 	}
 
-	public ConcurrentLinkedQueue<SyncTaskScheduleDefinition> getSyncTaskScheduleDefinitionQueue() {
+	public Queue<SyncTaskScheduleDef> getSyncTaskScheduleQueue() {
 		return asyncTaskQueue;
 	}
 

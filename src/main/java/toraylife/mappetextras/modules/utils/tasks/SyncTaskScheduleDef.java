@@ -1,12 +1,12 @@
 package toraylife.mappetextras.modules.utils.tasks;
 
 @SuppressWarnings("rawtypes")
-public class SyncTaskScheduleDefinition {
+public class SyncTaskScheduleDef {
 	private final Task task;
 	private final TaskContext context;
 
 
-	public SyncTaskScheduleDefinition(Task<?, ?> task, TaskContext<?> context) {
+	public SyncTaskScheduleDef(Task<?, ?> task, TaskContext<?> context) {
 		this.task = task;
 		this.context = context;
 	}

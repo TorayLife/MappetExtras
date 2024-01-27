@@ -14,7 +14,7 @@ public class DelayedTaskBuilder<TConsume> {
 	}
 
 
-	public <TNextResult> Task<TConsume, TNextResult> then(Function<TaskContext<TConsume>, TNextResult> taskExecutable) {
+	public <TNextResult> Task<TConsume, TNextResult> then(TaskExecutable<TConsume, TNextResult> taskExecutable) {
 		Task<Void, ?> initTask = null;
 		if (this.previousTask != null) {
 			initTask = this.previousTask.getInitTask();
@@ -33,7 +33,7 @@ public class DelayedTaskBuilder<TConsume> {
 	}
 
 
-	public <TNextResult> Task<TConsume, TNextResult> thenAsync(Function<TaskContext<TConsume>, TNextResult> taskExecutable) {
+	public <TNextResult> Task<TConsume, TNextResult> thenAsync(TaskExecutable<TConsume, TNextResult> taskExecutable) {
 		Task<Void, ?> initTask = null;
 		if (this.previousTask != null) {
 			initTask = this.previousTask.getInitTask();
@@ -52,7 +52,7 @@ public class DelayedTaskBuilder<TConsume> {
 	}
 
 
-	public <TAccumulator> LoopTaskBuilder<TConsume, TAccumulator> thenLoop(int iterationCount) {
+	public LoopTaskBuilder<TConsume, Object> thenLoop(int iterationCount) {
 		return new LoopTaskBuilder<>(this.previousTask, iterationCount, this.delayTime);
 	}
 

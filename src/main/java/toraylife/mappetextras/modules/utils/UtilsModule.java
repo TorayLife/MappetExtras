@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import toraylife.mappetextras.MappetExtras;
 import toraylife.mappetextras.modules.IModule;
 import toraylife.mappetextras.modules.utils.client.Beautifier;
+import toraylife.mappetextras.modules.utils.tasks.TaskLoop;
 
 public class UtilsModule implements IModule {
 
@@ -23,6 +24,7 @@ public class UtilsModule implements IModule {
 
     public ValueInt flatDimensionId;
     public ValueInt voidDimensionId;
+    public ValueInt backgroundThreadsCount;
 
     private static UtilsModule instance;
 
@@ -36,7 +38,7 @@ public class UtilsModule implements IModule {
     @Override
     public void addConfigOptions(ConfigBuilder builder) {
         builder.category("utils_module");
-      
+
         builder.category("utils_module.code_search");
         this.codeSearchColor = (ValueInt) builder.getInt("code_search_color", 0x22FFFFAA).colorAlpha().clientSide();
         this.codeSearchBackgroundColor = (ValueInt) builder.getInt("code_search_background_color", 0xCC000000).colorAlpha().clientSide();
@@ -50,6 +52,7 @@ public class UtilsModule implements IModule {
         builder.category("utils_module.dimensions");
         this.flatDimensionId = builder.getInt("flat_dimension_id", 143);
         this.voidDimensionId = builder.getInt("void_dimension_id", 144);
+        this.backgroundThreadsCount = builder.getInt("background_threads_count", 3);
     }
 
     @Override
@@ -63,12 +66,9 @@ public class UtilsModule implements IModule {
 
         MPEIcons.register();
 
-        TaskLoop.getInstance().start(backgroundThreadsCount.get());
+        UtilsModule.getInstance().beautifier = new Beautifier();
 
-        try {
-            UtilsModule.getInstance().beautifier = new Beautifier();
-        } catch (ScriptException ignored) {
-        }
+        TaskLoop.getInstance().start(backgroundThreadsCount.get());
     }
 
     @Override

@@ -28,7 +28,7 @@ public abstract class Task<TConsume, TResult> {
 	public abstract void schedule(TaskContext<TConsume> taskContext);
 
 
-	public <TNextResult> Task<TResult, TNextResult> then(Function<TaskContext<TResult>, TNextResult> taskExecutable) {
+	public <TNextResult> Task<TResult, TNextResult> then(TaskExecutable<TResult, TNextResult> taskExecutable) {
 		SyncTask<TResult, TNextResult> nextTask = new SyncTask<>(this.initTask, TaskDelayTime.ZERO_TICKS, taskExecutable);
 
 		this.setNextTask(nextTask);
@@ -36,7 +36,7 @@ public abstract class Task<TConsume, TResult> {
 		return nextTask;
 	}
 
-	public <TNextResult> Task<TResult, TNextResult> thenAsync(Function<TaskContext<TResult>, TNextResult> taskExecutable) {
+	public <TNextResult> Task<TResult, TNextResult> thenAsync(TaskExecutable<TResult, TNextResult> taskExecutable) {
 		Task<TResult, TNextResult> nextTask = new AsyncTask<>(this.initTask, TaskDelayTime.ZERO_MILLIS, taskExecutable);
 
 		this.setNextTask(nextTask);

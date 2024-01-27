@@ -9,17 +9,16 @@ public class SyncTask<TConsume, TResult> extends RegularTask<TConsume, TResult> 
 
 	public SyncTask(Task<Void, ?> initTask,
 	                TaskDelayTime timeoutDelay,
-	                Function<TaskContext<TConsume>, TResult> executable) {
+	                TaskExecutable<TConsume, TResult> executable) {
 		super(Type.SYNC, initTask, timeoutDelay, executable);
 	}
 
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public void schedule(TaskContext<TConsume> taskContext) {
 		Runnable scriptRunnable = () -> {
-			TResult resultValue = this.executable.apply(taskContext);
-			TaskResult taskResult = taskContext.getCurrentResult();
+			Object objectResult = this.executable.execute(taskContext);
+			TaskResult<TResult> taskResult = TaskResult.from(objectResult);
 
 			if (taskResult instanceof DelegateTaskResult<?>) {
 				DelegateTaskResult<TResult> delegateResult = (DelegateTaskResult<TResult>) taskResult;
@@ -31,8 +30,9 @@ public class SyncTask<TConsume, TResult> extends RegularTask<TConsume, TResult> 
 						new TaskContext<>(delegateTask.initTask, taskContext.scriptContext, null)
 				);
 			}
-			else if (!(taskResult instanceof UnresolvedTaskResult) && this.nextTask != null) {
-				this.nextTask.schedule(new TaskContext<>(this.nextTask, taskContext.scriptContext, resultValue));
+			else if (taskResult instanceof ValueTaskResult<?> && this.nextTask != null) {
+				ValueTaskResult<TResult> valueTaskResult = (ValueTaskResult<TResult>) taskResult;
+				this.nextTask.schedule(new TaskContext<>(this.nextTask, taskContext.scriptContext, valueTaskResult.getValue()));
 			}
 		};
 
