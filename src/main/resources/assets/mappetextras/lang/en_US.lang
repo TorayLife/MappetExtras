@@ -41,6 +41,19 @@ mappetextras.main_module.update.button_update_link=Visit mod page
 
 # CLIENT
 # GUI
+mappetextras.gui.overlays.dimensions=Dimensions
+mappetextras.gui.panels.dimensions=Dimensions
+mappetextras.gui.dimensions.id=Dimension id
+mappetextras.gui.dimensions.initializeOnStartup=Initialize on startup
+mappetextras.gui.dimensions.worldProvider=World provider
+mappetextras.gui.dimensions.customDimensionSettings=Custom dimension settings
+mappetextras.gui.dimensions.custom.isSurfaceWorld=Is surface world
+mappetextras.gui.dimensions.custom.canDoRainSnowIce=It's raining/generating ice
+mappetextras.gui.dimensions.custom.isFlatWorld=Is flat world
+mappetextras.gui.dimensions.custom.generateStructures=Generate structures
+mappetextras.gui.dimensions.custom.seed=Seed
+mappetextras.gui.dimensions.custom.worldGenerationSettings=World generation settings
+
 
 # SCRIPTING
 
@@ -57,6 +70,9 @@ mappetextras.utils.codesearch.search_and_replace=Search and replace
 mappetextras.utils.saveEntry.save=Save
 
 mappetextras.utils_module.beautify=Beautify
+
+
+
 
 
 # ITEMS
