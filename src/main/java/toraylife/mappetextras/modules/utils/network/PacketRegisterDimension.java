@@ -1,0 +1,46 @@
+package toraylife.mappetextras.modules.utils.network;
+
+import io.netty.buffer.ByteBuf;
+import mchorse.mappet.api.scripts.code.entities.ScriptPlayer;
+import mchorse.mclib.network.ServerMessageHandler;
+import mchorse.mclib.utils.OpHelper;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import toraylife.mappetextras.MappetExtras;
+import toraylife.mappetextras.modules.utils.dimensions.CustomDimensionManager;
+import toraylife.mappetextras.modules.utils.dimensions.Dimension;
+
+public class PacketRegisterDimension implements IMessage {
+
+    public Dimension dimension;
+
+    public PacketRegisterDimension() {
+    }
+    public PacketRegisterDimension(Dimension data) {
+        this.dimension = data;
+    }
+
+    @Override
+    public void fromBytes(ByteBuf buf) {
+        this.dimension = new Dimension();
+        this.dimension.deserializeNBT(ByteBufUtils.readTag(buf));
+    }
+
+    @Override
+    public void toBytes(ByteBuf buf) {
+        ByteBufUtils.writeTag(buf, this.dimension.serializeNBT());
+    }
+
+    public static class ServerHandler extends ServerMessageHandler<PacketRegisterDimension> {
+
+        @Override
+        public void run(EntityPlayerMP player, PacketRegisterDimension message) {
+            Dimension dimensionToRegister = MappetExtras.customDimensionManager.load(message.dimension.getId());
+            if (OpHelper.isPlayerOp(player) && dimensionToRegister != null){
+                dimensionToRegister.register();
+            }
+        }
+    }
+}

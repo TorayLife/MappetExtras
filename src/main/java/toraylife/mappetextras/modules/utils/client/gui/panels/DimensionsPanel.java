@@ -3,7 +3,6 @@ package toraylife.mappetextras.modules.utils.client.gui.panels;
 import mchorse.mappet.api.utils.IContentType;
 import mchorse.mappet.client.gui.GuiMappetDashboard;
 import mchorse.mappet.client.gui.panels.GuiMappetDashboardPanel;
-import mchorse.mclib.client.gui.framework.elements.GuiCollapseSection;
 import mchorse.mclib.client.gui.framework.elements.GuiElement;
 import mchorse.mclib.client.gui.framework.elements.buttons.GuiCirculateElement;
 import mchorse.mclib.client.gui.framework.elements.buttons.GuiIconElement;
@@ -23,6 +22,7 @@ import toraylife.mappetextras.modules.utils.dimensions.FlatDimensionProvider;
 import toraylife.mappetextras.modules.utils.dimensions.Dimension;
 import toraylife.mappetextras.modules.utils.dimensions.VoidDimensionProvider;
 import toraylife.mappetextras.modules.utils.network.PacketChangeDimension;
+import toraylife.mappetextras.modules.utils.network.PacketRegisterDimension;
 import toraylife.mappetextras.network.Dispatcher;
 
 import java.util.ArrayList;
@@ -40,6 +40,7 @@ public class DimensionsPanel extends GuiMappetDashboardPanel<Dimension> {
 
     public DimensionsPanel(Minecraft mc, GuiMappetDashboard dashboard) {
         super(mc, dashboard);
+        this.namesList.setFileIcon(Icons.SPHERE);
         this.dimensionId = new GuiTrackpadElement(mc, t -> this.data.dimensionId.set(t.intValue()));
         this.initializeOnStartup = new GuiToggleElement(mc, IKey.lang("mappetextras.gui.dimensions.initializeOnStartup"), b -> this.data.initializeOnStartup.set(b.isToggled()));
         this.worldProvider = new GuiCirculateElement(mc, this::setWorldProvider);
@@ -57,11 +58,14 @@ public class DimensionsPanel extends GuiMappetDashboardPanel<Dimension> {
         this.editor.add(settings);
 
         this.tpToDimension = new GuiIconElement(mc, Icons.SHIFT_FORWARD, icon -> Dispatcher.sendToServer(new PacketChangeDimension(data.dimensionId.get())));
+        this.tpToDimension.tooltip(IKey.lang("mappetextras.utils.dimensions.tpToDimension"));
         this.tpToOverworld = new GuiIconElement(mc, Icons.SHIFT_BACKWARD, icon -> Dispatcher.sendToServer(new PacketChangeDimension(0)));
+        this.tpToOverworld.tooltip(IKey.lang("mappetextras.utils.dimensions.tpToOverworld"));
         this.registerDimension = new GuiIconElement(mc, MPEIcons.PAINT_PENCIL, icon -> {
             this.save();
-            this.data.register();
+            Dispatcher.sendToServer(new PacketRegisterDimension(this.data));
         });
+        this.registerDimension.tooltip(IKey.lang("mappetextras.utils.dimensions.registerDimension"));
 
         iconBar.add(this.tpToDimension, this.tpToOverworld, this.registerDimension);
 

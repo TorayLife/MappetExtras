@@ -3,6 +3,7 @@ package toraylife.mappetextras.modules.utils.network;
 import io.netty.buffer.ByteBuf;
 import mchorse.mappet.api.scripts.code.entities.ScriptPlayer;
 import mchorse.mclib.network.ServerMessageHandler;
+import mchorse.mclib.utils.OpHelper;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 
@@ -30,7 +31,9 @@ public class PacketChangeDimension implements IMessage {
 
         @Override
         public void run(EntityPlayerMP player, PacketChangeDimension message) {
-            ScriptPlayer.create(player).setDimension(message.dimensionId);
+            if (OpHelper.isPlayerOp(player)) {
+                ScriptPlayer.create(player).setDimension(message.dimensionId);
+            }
         }
     }
 }

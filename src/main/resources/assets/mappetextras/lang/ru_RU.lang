@@ -42,6 +42,14 @@ mappetextras.main_module.update.screen_title=Обновления: Текуща�
 mappetextras.main_module.update.button_update_link=Посетить страницу мода
 
 # CLIENT
+# GUI
+mappetextras.gui.panels.dimensions=Измерения
+mappetextras.gui.dimensions.id=ID измерения
+mappetextras.gui.dimensions.initializeOnStartup=Инициализировать при запуске сервера
+mappetextras.gui.dimensions.worldProvider=Провайдер мира
+mappetextras.utils.dimensions.registerDimension=Инициализировать измерение
+mappetextras.utils.dimensions.tpToDimension=Телепортироваться в измерение
+mappetextras.utils.dimensions.tpToOverworld=Телепортироваться в обычный мир
 
 # SCRIPTING
 
