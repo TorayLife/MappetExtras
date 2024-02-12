@@ -14,30 +14,33 @@ import toraylife.mappetextras.modules.utils.dimensions.Dimension;
 
 public class PacketRegisterDimension implements IMessage {
 
-    public Dimension dimension;
+    public String id;
 
     public PacketRegisterDimension() {
     }
     public PacketRegisterDimension(Dimension data) {
-        this.dimension = data;
+        this.id = data.getId();
+    }
+
+    public PacketRegisterDimension(String id) {
+        this.id = id;
     }
 
     @Override
     public void fromBytes(ByteBuf buf) {
-        this.dimension = new Dimension();
-        this.dimension.deserializeNBT(ByteBufUtils.readTag(buf));
+        this.id = ByteBufUtils.readUTF8String(buf);
     }
 
     @Override
     public void toBytes(ByteBuf buf) {
-        ByteBufUtils.writeTag(buf, this.dimension.serializeNBT());
+        ByteBufUtils.writeUTF8String(buf, this.id);
     }
 
     public static class ServerHandler extends ServerMessageHandler<PacketRegisterDimension> {
 
         @Override
         public void run(EntityPlayerMP player, PacketRegisterDimension message) {
-            Dimension dimensionToRegister = MappetExtras.customDimensionManager.load(message.dimension.getId());
+            Dimension dimensionToRegister = MappetExtras.customDimensionManager.load(message.id);
             if (OpHelper.isPlayerOp(player) && dimensionToRegister != null){
                 dimensionToRegister.register();
             }
