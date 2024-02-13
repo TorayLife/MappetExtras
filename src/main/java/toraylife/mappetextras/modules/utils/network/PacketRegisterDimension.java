@@ -5,6 +5,8 @@ import mchorse.mappet.api.scripts.code.entities.ScriptPlayer;
 import mchorse.mclib.network.ServerMessageHandler;
 import mchorse.mclib.utils.OpHelper;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -42,7 +44,13 @@ public class PacketRegisterDimension implements IMessage {
         public void run(EntityPlayerMP player, PacketRegisterDimension message) {
             Dimension dimensionToRegister = MappetExtras.customDimensionManager.load(message.id);
             if (OpHelper.isPlayerOp(player) && dimensionToRegister != null){
-                dimensionToRegister.register();
+                try {
+                    dimensionToRegister.register();
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                    player.sendStatusMessage(new TextComponentString("Failed to register dimension: " + message.id + "\ncause: " + e.getMessage()), false);
+                }
             }
         }
     }

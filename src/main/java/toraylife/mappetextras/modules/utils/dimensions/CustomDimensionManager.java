@@ -36,8 +36,13 @@ public class CustomDimensionManager extends BaseManager<Dimension> {
         Collection<String> keys = this.getKeys();
         for (String key : keys) {
             Dimension dimension = this.load(key);
-            if (dimension.initializeOnStartup.get()) {
+            if (dimension == null || !dimension.initializeOnStartup.get()) {
+                continue;
+            }
+            try {
                 dimension.register();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }

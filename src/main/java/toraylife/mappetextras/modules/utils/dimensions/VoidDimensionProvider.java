@@ -8,8 +8,9 @@ import net.minecraft.world.gen.ChunkGeneratorFlat;
 import net.minecraft.world.gen.IChunkGenerator;
 
 public class VoidDimensionProvider extends FlatDimensionProvider {
-    public VoidDimensionProvider() {
-        super();
+    @Override
+    public void init() {
+        super.init();
         this.biomeProvider = new BiomeProviderSingle(Biomes.VOID);
     }
 

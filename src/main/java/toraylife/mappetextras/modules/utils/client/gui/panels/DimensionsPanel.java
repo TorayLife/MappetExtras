@@ -12,12 +12,12 @@ import mchorse.mclib.client.gui.utils.Elements;
 import mchorse.mclib.client.gui.utils.Icons;
 import mchorse.mclib.client.gui.utils.keys.IKey;
 import net.minecraft.client.Minecraft;
-import net.minecraft.world.WorldProvider;
-import net.minecraft.world.WorldProviderEnd;
-import net.minecraft.world.WorldProviderHell;
-import net.minecraft.world.WorldProviderSurface;
+import net.minecraft.world.*;
+import net.minecraftforge.common.DimensionManager;
+import toraylife.mappetextras.MappetExtras;
 import toraylife.mappetextras.modules.utils.ContentType;
 import toraylife.mappetextras.modules.utils.MPEIcons;
+import toraylife.mappetextras.modules.utils.dimensions.CustomDimensionManager;
 import toraylife.mappetextras.modules.utils.dimensions.FlatDimensionProvider;
 import toraylife.mappetextras.modules.utils.dimensions.Dimension;
 import toraylife.mappetextras.modules.utils.dimensions.VoidDimensionProvider;
@@ -26,6 +26,7 @@ import toraylife.mappetextras.modules.utils.network.PacketRegisterDimension;
 import toraylife.mappetextras.network.Dispatcher;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class DimensionsPanel extends GuiMappetDashboardPanel<Dimension> {
 
@@ -41,7 +42,10 @@ public class DimensionsPanel extends GuiMappetDashboardPanel<Dimension> {
     public DimensionsPanel(Minecraft mc, GuiMappetDashboard dashboard) {
         super(mc, dashboard);
         this.namesList.setFileIcon(Icons.SPHERE);
-        this.dimensionId = new GuiTrackpadElement(mc, t -> this.data.dimensionId.set(t.intValue()));
+        this.dimensionId = new GuiTrackpadElement(mc, t -> {
+            this.data.dimensionId.set(t.intValue());
+        //    this.registerDimension.setEnabled(DimensionManager.getRegisteredDimensions().entrySet().stream().flatMapToInt(e -> Arrays.stream(e.getValue().toIntArray())).noneMatch(d -> d == t.intValue()));
+        });
         this.initializeOnStartup = new GuiToggleElement(mc, IKey.lang("mappetextras.gui.dimensions.initializeOnStartup"), b -> this.data.initializeOnStartup.set(b.isToggled()));
         this.worldProvider = new GuiCirculateElement(mc, this::setWorldProvider);
         for (String provider : getWorldProviders()) {
@@ -66,6 +70,7 @@ public class DimensionsPanel extends GuiMappetDashboardPanel<Dimension> {
             Dispatcher.sendToServer(new PacketRegisterDimension(this.data));
         });
         this.registerDimension.tooltip(IKey.lang("mappetextras.utils.dimensions.registerDimension"));
+        this.registerDimension.disabledColor(0xFF880000);
 
         iconBar.add(this.tpToDimension, this.tpToOverworld, this.registerDimension);
 
@@ -78,6 +83,7 @@ public class DimensionsPanel extends GuiMappetDashboardPanel<Dimension> {
         if (data == null) {
             return;
         }
+        //this.registerDimension.setEnabled(DimensionManager.getRegisteredDimensions().entrySet().stream().flatMapToInt(e -> Arrays.stream(e.getValue().toIntArray())).noneMatch(d -> d == data.dimensionId.get()));
         this.dimensionId.setValue(data.dimensionId.get());
         this.initializeOnStartup.toggled(data.initializeOnStartup.get());
         this.worldProvider.setValue(getWorldProviders().indexOf(data.worldProvider.getClass().getName()));
