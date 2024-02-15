@@ -50,7 +50,9 @@ public class RegisterHandler {
             postfix = "_halloween";
         }
 
-        if (isLlamaBirthday()) {
+        if (isMappetBirthday()) {
+            postfix = "_mchorse";
+        }else if (isLlamaBirthday()) {
             postfix = "_llama";
         }else if (isDemonBirthday()) {
             postfix = "_demon";
@@ -95,6 +97,10 @@ public class RegisterHandler {
 
     public boolean isDyamoBirthday(){
         return calendar.get(Calendar.MONTH) == Calendar.APRIL && calendar.get(Calendar.DATE) == 21;
+    }
+
+    public boolean isMappetBirthday(){
+        return calendar.get(Calendar.MONTH) == Calendar.SEPTEMBER && calendar.get(Calendar.DATE) >= 13 && calendar.get(Calendar.DATE) <= 15;
     }
 
     public Calendar getEasterDate(int year) {
