@@ -16,7 +16,9 @@ public abstract class MixinRegisterHandler {
     public void getNpcToolTexture(CallbackInfoReturnable<ModelResourceLocation> cir, String postfix, Calendar calendar) {
         toraylife.mappetextras.events.RegisterHandler reg = new toraylife.mappetextras.events.RegisterHandler();
 
-        if(reg.isLlamaBirthday()){
+        if (reg.isMappetBirthday()) {
+            postfix = "_mchorse";
+        }else if(reg.isLlamaBirthday()){
             postfix = "_llama";
         }else if(reg.isDemonBirthday()){
             postfix = "_demon";
