@@ -86,6 +86,10 @@ public class DimensionsPanel extends GuiMappetDashboardPanel<Dimension> {
     public void fill(Dimension data, boolean allowed) {
         super.fill(data, allowed);
         this.settings.setVisible(data != null);
+        this.tpToDimension.setVisible(data != null);
+        this.tpToOverworld.setVisible(data != null);
+        this.registerDimension.setVisible(data != null);
+        this.unregisterDimension.setVisible(data != null);
         if (data == null) {
             return;
         }
