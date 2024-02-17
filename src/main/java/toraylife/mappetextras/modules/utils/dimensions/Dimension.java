@@ -6,18 +6,9 @@ import mchorse.mclib.config.values.ValueBoolean;
 import mchorse.mclib.config.values.ValueInt;
 import mchorse.mclib.utils.ValueSerializer;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.world.DimensionType;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.WorldProviderSurface;
 import net.minecraftforge.common.DimensionManager;
-import toraylife.mappetextras.MappetExtras;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
-
 public class Dimension extends AbstractData {
     public ValueInt dimensionId = new ValueInt("dimensionId");
     public ValueBoolean initializeOnStartup = new ValueBoolean("initializeOnStartup");

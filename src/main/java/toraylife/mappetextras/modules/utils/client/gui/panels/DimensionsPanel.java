@@ -1,5 +1,7 @@
 package toraylife.mappetextras.modules.utils.client.gui.panels;
 
+import mchorse.mappet.CommonProxy;
+import mchorse.mappet.api.scripts.ScriptExecutionFork;
 import mchorse.mappet.api.utils.IContentType;
 import mchorse.mappet.client.gui.GuiMappetDashboard;
 import mchorse.mappet.client.gui.panels.GuiMappetDashboardPanel;
@@ -67,7 +69,8 @@ public class DimensionsPanel extends GuiMappetDashboardPanel<Dimension> {
         this.tpToOverworld.tooltip(IKey.lang("mappetextras.utils.dimensions.tpToOverworld"));
         this.registerDimension = new GuiIconElement(mc, MPEIcons.PAINT_PENCIL, icon -> {
             this.save();
-            Dispatcher.sendToServer(new PacketRegisterDimension(this.data));
+            //TODO rewrite with Task API
+            CommonProxy.eventHandler.addExecutable(new ScriptExecutionFork(null, a-> Dispatcher.sendToServer(new PacketRegisterDimension(this.data.getId())), 5));
         });
         this.registerDimension.tooltip(IKey.lang("mappetextras.utils.dimensions.registerDimension"));
         this.registerDimension.disabledColor(0xFF880000);
