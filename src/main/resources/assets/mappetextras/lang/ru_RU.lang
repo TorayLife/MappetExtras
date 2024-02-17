@@ -116,3 +116,7 @@ mappet.gui.settings.triggers.variables.player_eat=N/A
 mappet.gui.settings.triggers.player_drink=Игрок: при питье зелья
 mappet.gui.settings.triggers.descriptions.player_drink=Этот триггер срабатывает, когда игрок выпивает зелье.
 mappet.gui.settings.triggers.variables.player_drink=N/A
+
+mappet.gui.settings.triggers.player_dimension_change=Игрок: изменение измерения
+mappet.gui.settings.triggers.descriptions.player_dimension_change=Этот триггер срабатывает, когда игрок меняет измерение
+mappet.gui.settings.triggers.variables.player_dimension_change=§6fromDim§r, ID измерения, из которого игрок перемещается\n§6toDim§r, ID измерения, в которое игрок перемещается

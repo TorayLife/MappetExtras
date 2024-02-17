@@ -121,3 +121,7 @@ mappet.gui.settings.triggers.variables.player_eat=N/A
 mappet.gui.settings.triggers.player_drink=Player: drink
 mappet.gui.settings.triggers.descriptions.player_drink=This trigger fires when the player drink potion
 mappet.gui.settings.triggers.variables.player_drink=N/A
+
+mappet.gui.settings.triggers.player_dimension_change=Player: change dimension
+mappet.gui.settings.triggers.descriptions.player_dimension_change=This trigger fires when the player changes dimension
+mappet.gui.settings.triggers.variables.player_dimension_change=§6fromDim§r, the ID of the dimension from which the player is traveling\n§6toDim§r, the ID of the dimension to which the player is traveling
