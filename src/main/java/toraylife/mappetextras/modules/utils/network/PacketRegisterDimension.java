@@ -49,7 +49,7 @@ public class PacketRegisterDimension implements IMessage {
                 }
                 catch (Exception e) {
                     e.printStackTrace();
-                    player.sendStatusMessage(new TextComponentString("Failed to register dimension: " + message.id + "\ncause: " + e.getMessage()), false);
+                    player.sendStatusMessage(new TextComponentString("\u00A7cError: " + e.getMessage()), false);
                 }
             }
         }
