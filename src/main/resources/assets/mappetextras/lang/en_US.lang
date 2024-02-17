@@ -54,7 +54,8 @@ mappetextras.gui.panels.dimensions=Dimensions
 mappetextras.gui.dimensions.id=Dimension id
 mappetextras.gui.dimensions.initializeOnStartup=Initialize on startup
 mappetextras.gui.dimensions.worldProvider=World provider
-mappetextras.utils.dimensions.registerDimension=Init dimension
+mappetextras.utils.dimensions.registerDimension=Register dimension
+mappetextras.utils.dimensions.unregisterDimension=Unregister dimension
 mappetextras.utils.dimensions.tpToDimension=TP to dimension
 mappetextras.utils.dimensions.tpToOverworld=TP to overworld
 

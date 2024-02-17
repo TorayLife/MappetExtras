@@ -15,20 +15,16 @@ import mchorse.mclib.client.gui.utils.Icons;
 import mchorse.mclib.client.gui.utils.keys.IKey;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.*;
-import net.minecraftforge.common.DimensionManager;
-import toraylife.mappetextras.MappetExtras;
 import toraylife.mappetextras.modules.utils.ContentType;
 import toraylife.mappetextras.modules.utils.MPEIcons;
-import toraylife.mappetextras.modules.utils.dimensions.CustomDimensionManager;
 import toraylife.mappetextras.modules.utils.dimensions.FlatDimensionProvider;
 import toraylife.mappetextras.modules.utils.dimensions.Dimension;
 import toraylife.mappetextras.modules.utils.dimensions.VoidDimensionProvider;
 import toraylife.mappetextras.modules.utils.network.PacketChangeDimension;
-import toraylife.mappetextras.modules.utils.network.PacketRegisterDimension;
+import toraylife.mappetextras.modules.utils.network.PacketRegistrationDimension;
 import toraylife.mappetextras.network.Dispatcher;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class DimensionsPanel extends GuiMappetDashboardPanel<Dimension> {
 
@@ -40,6 +36,7 @@ public class DimensionsPanel extends GuiMappetDashboardPanel<Dimension> {
     public GuiIconElement tpToDimension;
     public GuiIconElement tpToOverworld;
     public GuiIconElement registerDimension;
+    public GuiIconElement unregisterDimension;
 
     public DimensionsPanel(Minecraft mc, GuiMappetDashboard dashboard) {
         super(mc, dashboard);
@@ -70,12 +67,18 @@ public class DimensionsPanel extends GuiMappetDashboardPanel<Dimension> {
         this.registerDimension = new GuiIconElement(mc, MPEIcons.PAINT_PENCIL, icon -> {
             this.save();
             //TODO rewrite with Task API
-            CommonProxy.eventHandler.addExecutable(new ScriptExecutionFork(null, a-> Dispatcher.sendToServer(new PacketRegisterDimension(this.data.getId())), 5));
+            CommonProxy.eventHandler.addExecutable(new ScriptExecutionFork(null, a-> Dispatcher.sendToServer(new PacketRegistrationDimension(this.data.getId())), 5));
         });
         this.registerDimension.tooltip(IKey.lang("mappetextras.utils.dimensions.registerDimension"));
         this.registerDimension.disabledColor(0xFF880000);
+        this.unregisterDimension = new GuiIconElement(mc, MPEIcons.PAINT_ERASER, icon -> {
+            Dispatcher.sendToServer(new PacketRegistrationDimension(this.data.getId(), true));
+        });
+        this.unregisterDimension.tooltip(IKey.lang("mappetextras.utils.dimensions.unregisterDimension"));
 
-        iconBar.add(this.tpToDimension, this.tpToOverworld, this.registerDimension);
+
+
+        iconBar.add(this.tpToDimension, this.tpToOverworld, this.registerDimension, this.unregisterDimension);
 
         this.fill(data);
     }

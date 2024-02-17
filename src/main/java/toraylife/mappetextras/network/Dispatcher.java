@@ -15,13 +15,13 @@ import toraylife.mappetextras.modules.client.network.*;
 import toraylife.mappetextras.modules.scripting.network.PacketPlayAnimation;
 import toraylife.mappetextras.modules.utils.network.PacketTest;
 import toraylife.mappetextras.modules.utils.network.PacketChangeDimension;
-import toraylife.mappetextras.modules.utils.network.PacketRegisterDimension;
+import toraylife.mappetextras.modules.utils.network.PacketRegistrationDimension;
 
 public class Dispatcher {
     public static final AbstractDispatcher DISPATCHER = new AbstractDispatcher(MappetExtras.MOD_ID) {
         public void register() {
             this.register(PacketChangeDimension.class, PacketChangeDimension.ServerHandler.class, Side.SERVER);
-            this.register(PacketRegisterDimension.class, PacketRegisterDimension.ServerHandler.class, Side.SERVER);
+            this.register(PacketRegistrationDimension.class, PacketRegistrationDimension.ServerHandler.class, Side.SERVER);
             this.register(PacketClientData.class, PacketClientData.ClientHandler.class, Side.CLIENT);
             this.register(PacketPlayAnimation.class, PacketPlayAnimation.ClientHandler.class, Side.CLIENT);
             this.register(PacketClientData.class, PacketClientData.ServerHandler.class, Side.SERVER);

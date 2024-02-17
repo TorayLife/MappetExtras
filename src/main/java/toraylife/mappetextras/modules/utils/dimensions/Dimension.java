@@ -51,4 +51,8 @@ public class Dimension extends AbstractData {
     public void register() {
         DimensionManager.registerDimension(this.dimensionId.get(), this.worldProvider.getDimensionType());
     }
+
+    public void unregister() {
+        DimensionManager.unregisterDimension(this.dimensionId.get());
+    }
 }
