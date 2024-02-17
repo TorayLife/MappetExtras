@@ -27,7 +27,6 @@ public abstract class MixinGuiMappetDashboard extends GuiAbstractDashboard imple
 	@Inject(method = "registerPanels", at = @At("TAIL"), remap = false)
 	public void registerPanels(Minecraft mc, CallbackInfo ci) {
 		this.dimensionsPanel = new DimensionsPanel(mc, (GuiMappetDashboard) (Object) this);
-		//TODO fix name
 		this.panels.registerPanel(this.dimensionsPanel, IKey.lang("mappetextras.gui.panels.dimensions"), Icons.SPHERE);
 	}
 
