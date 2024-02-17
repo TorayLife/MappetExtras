@@ -32,6 +32,13 @@ mappetextras.config.comments.utils_module.beautifier.unindent_chained_methods=Do
 mappetextras.config.utils_module.beautifier.break_chained_methods=Break chained methods
 mappetextras.config.comments.utils_module.beautifier.break_chained_methods=Break chained method calls across subsequent lines
 
+mappetextras.config.utils_module.dimensions.title=Dimensions
+mappetextras.config.utils_module.dimensions.tooltip=Dimensions options
+mappetextras.config.utils_module.dimensions.flat_dimension_id=Flat dimension ID
+mappetextras.config.comments.utils_module.dimensions.flat_dimension_id=Change only if you face incompatibility with another mod.
+mappetextras.config.utils_module.dimensions.void_dimension_id=Void dimension ID
+mappetextras.config.comments.utils_module.dimensions.void_dimension_id=Change only if you face incompatibility with another mod.
+
 # MAIN
 mappetextras.main_module.update.up_to_date=[§6%s§f] §7You have the latest version installed.
 mappetextras.main_module.update.outdated=[§6%s§f] §7A new version §e%s§7 is now available (your current version is §e%s§7).

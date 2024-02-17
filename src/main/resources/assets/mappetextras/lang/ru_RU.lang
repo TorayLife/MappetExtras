@@ -32,6 +32,13 @@ mappetextras.config.comments.utils_module.beautifier.unindent_chained_methods=Н
 mappetextras.config.utils_module.beautifier.break_chained_methods=Разорвать цепочку методов
 mappetextras.config.comments.utils_module.beautifier.break_chained_methods=Разбивать вызовы цепных методов на последующие строки
 
+mappetextras.config.utils_module.dimensions.title=Измерения
+mappetextras.config.utils_module.dimensions.tooltip=Настройки измерений
+mappetextras.config.utils_module.dimensions.flat_dimension_id=ID плоского измерения
+mappetextras.config.comments.utils_module.dimensions.flat_dimension_id=Изменяйте только если встретились с несовместимостью с другим модом.
+mappetextras.config.utils_module.dimensions.void_dimension_id=ID пустого измерения
+mappetextras.config.comments.utils_module.dimensions.void_dimension_id=Изменяйте только если встретились с несовместимостью с другим модом.
+
 # MAIN
 mappetextras.main_module.update.up_to_date=[§6%s§f] §7У вас установлена последняя версия.
 mappetextras.main_module.update.outdated=[§6%s§f] §7Новая версия §e%s§7 уже доступна (ваша текущая версия §e%s§7).
