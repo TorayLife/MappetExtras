@@ -12,6 +12,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
+import net.minecraftforge.common.DimensionManager;
+import org.apache.commons.io.FileUtils;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -23,6 +25,8 @@ import toraylife.mappetextras.modules.scripting.scripts.code.blocks.ScriptEmitte
 import toraylife.mappetextras.modules.scripting.scripts.code.blocks.ScriptModelTileEntity;
 import toraylife.mappetextras.modules.scripting.scripts.code.blocks.ScriptTriggerTileEntity;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
 
@@ -33,6 +37,8 @@ public abstract class MixinScriptWorld {
     private World world;
     @Shadow
     private BlockPos.MutableBlockPos pos;
+
+    @Shadow public abstract int getDimensionId();
 
     /**
      * Gets the biome name at the given block position coordinates.
@@ -159,5 +165,21 @@ public abstract class MixinScriptWorld {
         }
 
         this.world.getChunkProvider().provideChunk(x, z);
+    }
+
+    /**
+     * Deletes the dimension. The dimension id must not be 0, -1 or 1.
+     * @throws IllegalAccessException if the dimension id is 0, -1 or 1
+     * @throws IOException if the dimension cannot be deleted
+     */
+    public void delete() throws IllegalAccessException, IOException {
+        int dimensionId = this.getDimensionId();
+        if (dimensionId == 0 || dimensionId == -1 || dimensionId == 1) {
+            throw new IllegalAccessException("Cannot delete the vanilla dimension!");
+        }
+        String subfolder = DimensionManager.getProvider(dimensionId).getSaveFolder();
+        File folder = new File(DimensionManager.getCurrentSaveRootDirectory(), subfolder == null ? "" : subfolder);
+        FileUtils.deleteDirectory(folder);
+        DimensionManager.unregisterDimension(dimensionId);
     }
 }
