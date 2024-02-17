@@ -3,13 +3,16 @@ package toraylife.mappetextras.modules.scripting.mixins.late;
 import mchorse.mappet.Mappet;
 import mchorse.mappet.api.scripts.code.ScriptServer;
 import net.minecraft.server.MinecraftServer;
+import net.minecraftforge.common.DimensionManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import toraylife.mappetextras.modules.main.mixins.utils.MixinTargetName;
 import toraylife.mappetextras.modules.scripting.scripts.code.triggers.ScriptTrigger;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Mixin(value = ScriptServer.class, remap = false)
 @MixinTargetName("mchorse.mappet.api.scripts.user.IScriptServer")
@@ -69,5 +72,13 @@ public abstract class MixinScriptServer {
     }
     public ScriptTrigger getGlobalTrigger(String type) {
         return new ScriptTrigger(Mappet.settings.registered.get(type));
+    }
+
+    /**
+     * Returns {@link List<Integer>} of all registered dimensions
+     * Useful for {@link mchorse.mappet.api.scripts.user.IScriptServer#getWorld(int)} method.
+     */
+    public List<Integer> getRegisteredDimensions() {
+        return DimensionManager.getRegisteredDimensions().entrySet().stream().flatMapToInt(e -> Arrays.stream(e.getValue().toIntArray())).boxed().collect(Collectors.toList());
     }
 }
