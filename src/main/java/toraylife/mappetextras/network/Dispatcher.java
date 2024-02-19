@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.relauncher.Side;
 import toraylife.mappetextras.MappetExtras;
 import toraylife.mappetextras.modules.client.network.*;
+import toraylife.mappetextras.modules.scripting.network.PacketPlayAnimation;
 import toraylife.mappetextras.modules.utils.network.PacketTest;
 
 public class Dispatcher {
@@ -19,6 +20,7 @@ public class Dispatcher {
         public void register() {
             this.register(PacketTest.class, PacketTest.ClientHandlerTest.class, Side.CLIENT);
             this.register(PacketClientData.class, PacketClientData.ClientHandler.class, Side.CLIENT);
+            this.register(PacketPlayAnimation.class, PacketPlayAnimation.ClientHandler.class, Side.CLIENT);
             this.register(PacketClientData.class, PacketClientData.ServerHandler.class, Side.SERVER);
             this.register(PacketEvent.class, PacketEvent.ServerHandler.class, Side.SERVER);
             this.register(PacketCapability.class, PacketCapability.ClientHandler.class, Side.CLIENT);

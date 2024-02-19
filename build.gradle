@@ -105,6 +105,7 @@ dependencies {
     compileOnly files("run/libs/metamorph-${metamorph}-${mcversion}-dev.jar")
     compileOnly files("run/libs/mappet-${mappet}-${mcversion}-dev.jar")
     compileOnly files("run/libs/mclib-${mclib}-${mcversion}-dev.jar")
+    compileOnly files("run/libs/chameleon-${chameleon}-dev.jar")
     implementation("net.minecraftforge:mergetool:0.2.3.3") { force = true }
 
     implementation 'zone.rong:mixinbooter:7.1'

@@ -1,17 +1,34 @@
 package toraylife.mappetextras.modules.scripting.mixins.late;
 
+import mchorse.chameleon.animation.ActionPlayback;
+import mchorse.chameleon.animation.Animator;
+import mchorse.chameleon.metamorph.ChameleonMorph;
 import mchorse.mappet.CommonProxy;
 import mchorse.mappet.api.scripts.code.entities.ScriptEntity;
 import mchorse.mappet.api.scripts.code.entities.ScriptPlayer;
 import mchorse.mappet.utils.RunnableExecutionFork;
 import mchorse.mclib.utils.Interpolation;
+import mchorse.metamorph.api.morphs.AbstractMorph;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.DamageSource;
+import net.minecraft.world.Teleporter;
+import net.minecraft.world.WorldServer;
+import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import toraylife.mappetextras.modules.main.mixins.utils.MixinTargetName;
+import toraylife.mappetextras.modules.scripting.network.PacketPlayAnimation;
+import toraylife.mappetextras.network.Dispatcher;
+
+import java.util.Arrays;
+import java.util.Iterator;
 
 @Mixin(value = ScriptEntity.class, remap = false)
 @MixinTargetName("mchorse.mappet.api.scripts.user.entities.IScriptEntity")
@@ -21,6 +38,8 @@ public abstract class MixinScriptEntity<T extends Entity> {
 
     @Shadow
     public abstract void setRotations(float pitch, float yaw, float yawHead);
+
+    @Shadow public abstract AbstractMorph getMorph();
 
     /**
      * Gets the age of this entity in ticks.
@@ -288,5 +307,24 @@ public abstract class MixinScriptEntity<T extends Entity> {
     public boolean isWalking() {
         return this.entity.prevDistanceWalkedModified
                 - this.entity.distanceWalkedModified != 0;
+    }
+
+    /**
+     * Play an animation on this entity, if it is an entity that can apply morphs, and it's morph is a ChameleonMorph.
+     *
+     * <pre>{@code
+     *     function main(c) {
+     *         c.getSubject().playAnimation("running");
+     *     }
+     * }</pre>
+     *
+     * @param animation name of animation
+     */
+
+    public void playAnimation(String animation) {
+        Dispatcher.sendToTracked(this.entity, new PacketPlayAnimation(animation, this.entity.getUniqueID().toString()));
+        if (this.entity instanceof EntityPlayerMP) {
+            Dispatcher.sendTo(new PacketPlayAnimation(animation, this.entity.getUniqueID().toString()), (EntityPlayerMP) this.entity);
+        }
     }
 }
