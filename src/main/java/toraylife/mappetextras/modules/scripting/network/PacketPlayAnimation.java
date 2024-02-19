@@ -1,31 +1,21 @@
 package toraylife.mappetextras.modules.scripting.network;
 
 import io.netty.buffer.ByteBuf;
-import mchorse.chameleon.animation.ActionPlayback;
 import mchorse.chameleon.animation.Animator;
 import mchorse.chameleon.metamorph.ChameleonMorph;
-import mchorse.mappet.api.scripts.code.entities.ScriptPlayer;
 import mchorse.mclib.network.ClientMessageHandler;
-import mchorse.mclib.network.ServerMessageHandler;
-import mchorse.mclib.utils.OpHelper;
-import mchorse.metamorph.api.MorphAPI;
 import mchorse.metamorph.api.models.IMorphProvider;
 import mchorse.metamorph.api.morphs.AbstractMorph;
 import mchorse.metamorph.capabilities.morphing.Morphing;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import toraylife.mappetextras.modules.main.utils.ReflectionUtils;
-import toraylife.mappetextras.modules.scripting.mixins.late.ActionPlaybackAccessor;
-import toraylife.mappetextras.modules.scripting.mixins.utils.MutableAnimator;
 
-import java.util.Iterator;
 import java.util.UUID;
 
 public class PacketPlayAnimation implements IMessage {

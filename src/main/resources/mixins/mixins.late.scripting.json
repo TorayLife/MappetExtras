@@ -18,8 +18,6 @@
     "UI.MixinUIComponent"
   ],
   "client": [
-    "ActionPlaybackAccessor",
-    "MixinAnimator"
   ],
   "server": [
   ]
