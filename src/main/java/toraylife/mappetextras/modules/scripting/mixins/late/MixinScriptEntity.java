@@ -5,6 +5,7 @@ import mchorse.mappet.api.scripts.code.entities.ScriptEntity;
 import mchorse.mappet.api.scripts.code.entities.ScriptPlayer;
 import mchorse.mappet.utils.RunnableExecutionFork;
 import mchorse.mclib.utils.Interpolation;
+import mchorse.metamorph.api.morphs.AbstractMorph;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -21,10 +22,9 @@ import toraylife.mappetextras.modules.main.mixins.utils.MixinTargetName;
 import toraylife.mappetextras.modules.scripting.network.PacketPlayAnimation;
 import toraylife.mappetextras.network.Dispatcher;
 
+import javax.script.ScriptException;
 import java.util.Arrays;
-import java.util.Iterator;
-
-import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Mixin(value = ScriptEntity.class, remap = false)
@@ -311,7 +311,7 @@ public abstract class MixinScriptEntity<T extends Entity> {
      * @reason Custom dimensions compatibility
      */
     @Overwrite
-    public void setDimension(int dimension) {
+    public void setDimension(int dimension) throws ScriptException {
         if (this.entity.dimension != dimension) {
             if (DimensionManager.isDimensionRegistered(dimension)) {
                 MinecraftServer minecraftServer = this.entity.getServer();
@@ -332,7 +332,8 @@ public abstract class MixinScriptEntity<T extends Entity> {
                 }
 
             } else {
-                throw new IllegalArgumentException("Registered dimensions: " + Arrays.toString(DimensionManager.getIDs()));
+                List<Integer> values = DimensionManager.getRegisteredDimensions().values().stream().parallel().flatMapToInt(e -> Arrays.stream(e.toIntArray())).boxed().collect(Collectors.toList());
+                throw new ScriptException("Registered dimensions: " + Arrays.toString(values.toArray()));
             }
         }
     }

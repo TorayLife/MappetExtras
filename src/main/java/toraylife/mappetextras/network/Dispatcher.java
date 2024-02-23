@@ -13,7 +13,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import toraylife.mappetextras.MappetExtras;
 import toraylife.mappetextras.modules.client.network.*;
 import toraylife.mappetextras.modules.scripting.network.PacketPlayAnimation;
-import toraylife.mappetextras.modules.utils.network.PacketTest;
 import toraylife.mappetextras.modules.utils.network.PacketChangeDimension;
 import toraylife.mappetextras.modules.utils.network.PacketRegistrationDimension;
 
