@@ -1,3 +1,22 @@
+## Version 1.4.0
+
+This update adds custom dimensions and the ability to play Chameleon animations on NPCs and players.
+
+### Full list of changes:
+
+* New features:
+    * Added a "Measurements" tab where you can create your own custom measurements
+* New global triggers added:
+    * Player: dimension change
+* Changes to API:
+    * Added `IScriptWorld.delete()` method, which deletes the measurement folder (does not work with standard Minecraft measurements)
+    * Added `IScriptServer.getRegisteredDimensions()` method, which returns a list of registered measurements
+    * Added `IScriptEntity.playAnimation(String animation)` method that plays the animation of the Chameleon morph
+* Fixes:
+    * Fixed `IScriptEntity.getEntityId()` method, it now returns a string again
+* Other:
+    * Added tool textures for Mappet's birthday (release day) - September 13th
+
 ## Version 1.3.1
 
 New fixes.

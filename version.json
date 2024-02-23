@@ -1,6 +1,7 @@
 {
     "homepage": "https://github.com/TorayLife/MappetExtras",
     "1.12.2": {
+      "1.4.0": "This update adds custom dimensions and the ability to play Chameleon animations on NPCs and players.",
       "1.3.1": "This version has fixed callbacks, the HUD bug, the crashing of beautifier (yup, again), and renamed a few methods.",
       "1.3.0": "Now only works with mappet version 0.9! In this version it was turned off the display of debugging overlays for blocks if the player is not in creative, as well as changed the compatible version of the Mappet.",
       "1.2.2": "In this version were fixed server crashes at startup and normal game if the scripting engine is not installed.",
@@ -14,8 +15,8 @@
       "0.1.0": "Initial version, test github actions"
     },
     "promos": {
-      "1.12.2-latest": "1.3.1",
-      "1.12.2-recommended": "1.3.1"
+      "1.12.2-latest": "1.4.0",
+      "1.12.2-recommended": "1.4.0"
     },
     "inherit": true
 }
