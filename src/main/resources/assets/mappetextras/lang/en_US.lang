@@ -1,3 +1,5 @@
+#PARSE_ESCAPES
+
 # CONFIG
 mappetextras.config.title=Mappet Extras
 
@@ -30,6 +32,13 @@ mappetextras.config.comments.utils_module.beautifier.unindent_chained_methods=Do
 mappetextras.config.utils_module.beautifier.break_chained_methods=Break chained methods
 mappetextras.config.comments.utils_module.beautifier.break_chained_methods=Break chained method calls across subsequent lines
 
+mappetextras.config.utils_module.dimensions.title=Dimensions
+mappetextras.config.utils_module.dimensions.tooltip=Dimensions options
+mappetextras.config.utils_module.dimensions.flat_dimension_id=Flat dimension ID
+mappetextras.config.comments.utils_module.dimensions.flat_dimension_id=Change only if you face incompatibility with another mod.
+mappetextras.config.utils_module.dimensions.void_dimension_id=Void dimension ID
+mappetextras.config.comments.utils_module.dimensions.void_dimension_id=Change only if you face incompatibility with another mod.
+
 # MAIN
 mappetextras.main_module.update.up_to_date=[§6%s§f] §7You have the latest version installed.
 mappetextras.main_module.update.outdated=[§6%s§f] §7A new version §e%s§7 is now available (your current version is §e%s§7).
@@ -41,6 +50,15 @@ mappetextras.main_module.update.button_update_link=Visit mod page
 
 # CLIENT
 # GUI
+mappetextras.gui.panels.dimensions=Dimensions
+mappetextras.gui.dimensions.id=Dimension id
+mappetextras.gui.dimensions.initializeOnStartup=Initialize on startup
+mappetextras.gui.dimensions.worldProvider=World provider
+mappetextras.utils.dimensions.registerDimension=Register dimension
+mappetextras.utils.dimensions.unregisterDimension=Unregister dimension
+mappetextras.utils.dimensions.tpToDimension=TP to dimension
+mappetextras.utils.dimensions.tpToOverworld=TP to overworld
+
 
 # SCRIPTING
 
@@ -57,6 +75,9 @@ mappetextras.utils.codesearch.search_and_replace=Search and replace
 mappetextras.utils.saveEntry.save=Save
 
 mappetextras.utils_module.beautify=Beautify
+
+
+
 
 
 # ITEMS
@@ -100,3 +121,7 @@ mappet.gui.settings.triggers.variables.player_eat=N/A
 mappet.gui.settings.triggers.player_drink=Player: drink
 mappet.gui.settings.triggers.descriptions.player_drink=This trigger fires when the player drink potion
 mappet.gui.settings.triggers.variables.player_drink=N/A
+
+mappet.gui.settings.triggers.player_dimension_change=Player: change dimension
+mappet.gui.settings.triggers.descriptions.player_dimension_change=This trigger fires when the player changes dimension
+mappet.gui.settings.triggers.variables.player_dimension_change=§6fromDim§r, the ID of the dimension from which the player is traveling\n§6toDim§r, the ID of the dimension to which the player is traveling

@@ -20,7 +20,10 @@ public class UtilsModule implements IModule {
     public ValueBoolean beautifierIndentEmptyLines;
     public ValueBoolean beautifierUnindentChainedMethods;
     public ValueBoolean beautifierBreakChainedMethods;
-  
+
+    public ValueInt flatDimensionId;
+    public ValueInt voidDimensionId;
+
     private static UtilsModule instance;
 
     public static UtilsModule getInstance() {
@@ -43,6 +46,10 @@ public class UtilsModule implements IModule {
         this.beautifierIndentEmptyLines = (ValueBoolean) builder.getBoolean("indent_empty_lines", false).clientSide();
         this.beautifierUnindentChainedMethods = (ValueBoolean) builder.getBoolean("unindent_chained_methods", false).clientSide();
         this.beautifierBreakChainedMethods = (ValueBoolean) builder.getBoolean("break_chained_methods", false).clientSide();
+
+        builder.category("utils_module.dimensions");
+        this.flatDimensionId = builder.getInt("flat_dimension_id", 143);
+        this.voidDimensionId = builder.getInt("void_dimension_id", 144);
     }
 
     @Override

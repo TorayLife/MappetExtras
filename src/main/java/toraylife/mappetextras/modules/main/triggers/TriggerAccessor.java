@@ -17,4 +17,6 @@ public interface TriggerAccessor {
     Trigger getEntityFalling();
     Trigger getPlayerEat();
     Trigger getPlayerDrink();
+
+    Trigger getPlayerDimensionChange();
 }

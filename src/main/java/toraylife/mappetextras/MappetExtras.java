@@ -1,5 +1,6 @@
 package toraylife.mappetextras;
 
+import mchorse.mappet.Mappet;
 import mchorse.mclib.McLib;
 import mchorse.mclib.config.ConfigBuilder;
 import mchorse.mclib.config.ConfigManager;
@@ -9,9 +10,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,6 +20,7 @@ import toraylife.mappetextras.modules.client.ClientModule;
 import toraylife.mappetextras.modules.main.MainModule;
 import toraylife.mappetextras.modules.scripting.ScriptingModule;
 import toraylife.mappetextras.modules.utils.UtilsModule;
+import toraylife.mappetextras.modules.utils.dimensions.CustomDimensionManager;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -68,6 +68,8 @@ public class MappetExtras {
         ScriptingModule.getInstance()
     ));
 
+    public static CustomDimensionManager customDimensionManager;
+
     @SubscribeEvent
     public void onConfigRegister(RegisterConfigEvent event) {
         ConfigBuilder builder = event.createBuilder(MOD_ID);
@@ -108,5 +110,16 @@ public class MappetExtras {
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         proxy.postInit(event);
+    }
+
+    @Mod.EventHandler
+    public void serverStarting(FMLServerStartingEvent event) {
+        /* Initiate managers and global state*/
+        File mappetWorldFolder = new File(net.minecraftforge.common.DimensionManager.getCurrentSaveRootDirectory(), Mappet.MOD_ID);
+
+        mappetWorldFolder.mkdirs();
+
+        customDimensionManager = new CustomDimensionManager(new File(mappetWorldFolder, "dimensions"));
+        customDimensionManager.registerDimensions();
     }
 }

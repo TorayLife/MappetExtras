@@ -1,8 +1,5 @@
 package toraylife.mappetextras.modules.scripting.mixins.late;
 
-import mchorse.chameleon.animation.ActionPlayback;
-import mchorse.chameleon.animation.Animator;
-import mchorse.chameleon.metamorph.ChameleonMorph;
 import mchorse.mappet.CommonProxy;
 import mchorse.mappet.api.scripts.code.entities.ScriptEntity;
 import mchorse.mappet.api.scripts.code.entities.ScriptPlayer;
@@ -12,14 +9,12 @@ import mchorse.metamorph.api.morphs.AbstractMorph;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.Teleporter;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.DimensionManager;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
@@ -27,8 +22,10 @@ import toraylife.mappetextras.modules.main.mixins.utils.MixinTargetName;
 import toraylife.mappetextras.modules.scripting.network.PacketPlayAnimation;
 import toraylife.mappetextras.network.Dispatcher;
 
+import javax.script.ScriptException;
 import java.util.Arrays;
-import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Mixin(value = ScriptEntity.class, remap = false)
 @MixinTargetName("mchorse.mappet.api.scripts.user.entities.IScriptEntity")
@@ -307,6 +304,38 @@ public abstract class MixinScriptEntity<T extends Entity> {
     public boolean isWalking() {
         return this.entity.prevDistanceWalkedModified
                 - this.entity.distanceWalkedModified != 0;
+    }
+
+    /**
+     * @author TorayLife
+     * @reason Custom dimensions compatibility
+     */
+    @Overwrite
+    public void setDimension(int dimension) throws ScriptException {
+        if (this.entity.dimension != dimension) {
+            if (DimensionManager.isDimensionRegistered(dimension)) {
+                MinecraftServer minecraftServer = this.entity.getServer();
+                WorldServer worldServer = minecraftServer.getWorld(dimension);
+                Teleporter teleporter = new Teleporter(worldServer) {
+                    public void placeInPortal(Entity entityIn, float rotationYaw) {
+                    }
+
+                    public boolean placeInExistingPortal(Entity entityIn, float rotationYaw) {
+                        return false;
+                    }
+                };
+                if (this.entity instanceof EntityPlayerMP) {
+                    EntityPlayerMP player = (EntityPlayerMP)this.entity;
+                    minecraftServer.getPlayerList().transferPlayerToDimension(player, dimension, teleporter);
+                } else {
+                    this.entity.changeDimension(dimension, teleporter);
+                }
+
+            } else {
+                List<Integer> values = DimensionManager.getRegisteredDimensions().values().stream().parallel().flatMapToInt(e -> Arrays.stream(e.toIntArray())).boxed().collect(Collectors.toList());
+                throw new ScriptException("Registered dimensions: " + Arrays.toString(values.toArray()));
+            }
+        }
     }
 
     /**

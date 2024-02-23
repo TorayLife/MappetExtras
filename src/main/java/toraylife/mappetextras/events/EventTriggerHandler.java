@@ -11,6 +11,7 @@ import net.minecraft.item.ItemPotion;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import toraylife.mappetextras.modules.main.triggers.TriggerAccessor;
 
@@ -172,6 +173,26 @@ public class EventTriggerHandler {
         }
 
         trigger.trigger(new DataContext(player));
+    }
+
+    @SubscribeEvent
+    public void onDimensionChangeEvent(PlayerEvent.PlayerChangedDimensionEvent event){
+        if (Mappet.settings == null) {
+            return;
+        }
+
+        Trigger trigger = ((TriggerAccessor) Mappet.settings).getPlayerDimensionChange();
+
+        EntityPlayer player = event.player;
+
+        if (shouldCancelTrigger(trigger) || player.world.isRemote) {
+            return;
+        }
+
+        DataContext context = new DataContext(player);
+        context.set("fromDim", event.fromDim);
+        context.set("toDim", event.toDim);
+        trigger.trigger(context);
     }
 
     public boolean shouldCancelTrigger(Trigger trigger) {

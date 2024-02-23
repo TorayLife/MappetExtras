@@ -32,6 +32,13 @@ mappetextras.config.comments.utils_module.beautifier.unindent_chained_methods=Н
 mappetextras.config.utils_module.beautifier.break_chained_methods=Разорвать цепочку методов
 mappetextras.config.comments.utils_module.beautifier.break_chained_methods=Разбивать вызовы цепных методов на последующие строки
 
+mappetextras.config.utils_module.dimensions.title=Измерения
+mappetextras.config.utils_module.dimensions.tooltip=Настройки измерений
+mappetextras.config.utils_module.dimensions.flat_dimension_id=ID плоского измерения
+mappetextras.config.comments.utils_module.dimensions.flat_dimension_id=Изменяйте только если встретились с несовместимостью с другим модом.
+mappetextras.config.utils_module.dimensions.void_dimension_id=ID пустого измерения
+mappetextras.config.comments.utils_module.dimensions.void_dimension_id=Изменяйте только если встретились с несовместимостью с другим модом.
+
 # MAIN
 mappetextras.main_module.update.up_to_date=[§6%s§f] §7У вас установлена последняя версия.
 mappetextras.main_module.update.outdated=[§6%s§f] §7Новая версия §e%s§7 уже доступна (ваша текущая версия §e%s§7).
@@ -42,6 +49,15 @@ mappetextras.main_module.update.screen_title=Обновления: Текуща�
 mappetextras.main_module.update.button_update_link=Посетить страницу мода
 
 # CLIENT
+# GUI
+mappetextras.gui.panels.dimensions=Измерения
+mappetextras.gui.dimensions.id=ID измерения
+mappetextras.gui.dimensions.initializeOnStartup=Инициализировать при запуске сервера
+mappetextras.gui.dimensions.worldProvider=Провайдер мира
+mappetextras.utils.dimensions.registerDimension=Зарегистрировать измерение
+mappetextras.utils.dimensions.unregisterDimension=Убрать регистрацию измерения
+mappetextras.utils.dimensions.tpToDimension=Телепортироваться в измерение
+mappetextras.utils.dimensions.tpToOverworld=Телепортироваться в обычный мир
 
 # SCRIPTING
 
@@ -100,3 +116,7 @@ mappet.gui.settings.triggers.variables.player_eat=N/A
 mappet.gui.settings.triggers.player_drink=Игрок: при питье зелья
 mappet.gui.settings.triggers.descriptions.player_drink=Этот триггер срабатывает, когда игрок выпивает зелье.
 mappet.gui.settings.triggers.variables.player_drink=N/A
+
+mappet.gui.settings.triggers.player_dimension_change=Игрок: изменение измерения
+mappet.gui.settings.triggers.descriptions.player_dimension_change=Этот триггер срабатывает, когда игрок меняет измерение
+mappet.gui.settings.triggers.variables.player_dimension_change=§6fromDim§r, ID измерения, из которого игрок перемещается\n§6toDim§r, ID измерения, в которое игрок перемещается
