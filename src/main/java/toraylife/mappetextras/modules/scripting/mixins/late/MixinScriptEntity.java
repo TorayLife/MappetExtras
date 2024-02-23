@@ -180,24 +180,6 @@ public abstract class MixinScriptEntity<T extends Entity> {
     }
 
     /**
-     * Get the entity ID for this entity.
-     *
-     * @return The entity ID
-     */
-    public int getEntityId() {
-        return this.entity.getEntityId();
-    }
-
-    /**
-     * Set the entity ID for this entity.
-     *
-     * @param id The entity ID to set
-     */
-    public void setEntityId(int id) {
-        this.entity.setEntityId(id);
-    }
-
-    /**
      * Get the AI move speed for this living entity.
      *
      * @return The AI move speed
