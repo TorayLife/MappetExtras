@@ -333,9 +333,10 @@ public abstract class MixinScriptEntity<T extends Entity> {
      */
 
     public void playAnimation(String animation) {
-        Dispatcher.sendToTracked(this.entity, new PacketPlayAnimation(animation, this.entity.getUniqueID().toString()));
+        PacketPlayAnimation packet = new PacketPlayAnimation(animation, this.entity.getUniqueID().toString());
+        Dispatcher.sendToTracked(this.entity, packet);
         if (this.entity instanceof EntityPlayerMP) {
-            Dispatcher.sendTo(new PacketPlayAnimation(animation, this.entity.getUniqueID().toString()), (EntityPlayerMP) this.entity);
+            Dispatcher.sendTo(packet, (EntityPlayerMP) this.entity);
         }
     }
 }

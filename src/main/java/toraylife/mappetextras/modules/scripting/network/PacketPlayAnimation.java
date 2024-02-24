@@ -1,6 +1,7 @@
 package toraylife.mappetextras.modules.scripting.network;
 
 import io.netty.buffer.ByteBuf;
+import mchorse.chameleon.animation.ActionConfig;
 import mchorse.chameleon.animation.Animator;
 import mchorse.chameleon.metamorph.ChameleonMorph;
 import mchorse.mclib.network.ClientMessageHandler;
@@ -57,7 +58,8 @@ public class PacketPlayAnimation implements IMessage {
                 }
                 ChameleonMorph chameleonMorph = (ChameleonMorph)morph;
                 Animator animator = (Animator) ReflectionUtils.getAndInvokeMethod(ChameleonMorph.class, "getAnimator", chameleonMorph);
-                animator.addAction(animator.createAction(animator.animation, chameleonMorph.actions.getConfig(message.animation), false));
+                ActionConfig config = chameleonMorph.actions.getConfig(message.animation);
+                animator.addAction(animator.createAction(animator.animation, config, false));
             });
         }
 

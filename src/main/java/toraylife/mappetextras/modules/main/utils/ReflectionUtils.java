@@ -7,7 +7,7 @@ public class ReflectionUtils {
 
     public static Method getMethod(Class<?> clazz, String methodName, Object... args) {
         try {
-            Method method = clazz.getMethod(methodName, Arrays.stream(args).map(Object::getClass).toArray(Class[]::new));
+            Method method = clazz.getDeclaredMethod(methodName, Arrays.stream(args).map(Object::getClass).toArray(Class[]::new));
             method.setAccessible(true);
             return method;
         } catch (Exception e) {
