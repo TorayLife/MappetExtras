@@ -1,3 +1,13 @@
+## Version 1.4.1
+
+In this version, the method for playing animations in Chameleon morphs has been fixed.
+
+### Full list of changes:
+
+* Fixes:
+    * The `IScriptEntity.playAnimation(String animation)` method has been fixed.
+  
+
 ## Version 1.4.0
 
 This update adds custom dimensions and the ability to play Chameleon animations on NPCs and players.
