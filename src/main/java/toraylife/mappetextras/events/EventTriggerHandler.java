@@ -22,6 +22,11 @@ public class EventTriggerHandler {
         if (Mappet.settings == null) {
             return;
         }
+
+        if (event.phase == TickEvent.Phase.START) {
+            return;
+        }
+
         Trigger trigger = ((TriggerAccessor) Mappet.settings).getPlayerTick();
 
         EntityPlayer player = event.player;
