@@ -66,8 +66,7 @@ public class DimensionsPanel extends GuiMappetDashboardPanel<Dimension> {
         this.tpToOverworld.tooltip(IKey.lang("mappetextras.utils.dimensions.tpToOverworld"));
         this.registerDimension = new GuiIconElement(mc, MPEIcons.PAINT_PENCIL, icon -> {
             this.save();
-            //TODO rewrite with Task API
-            CommonProxy.eventHandler.addExecutable(new ScriptExecutionFork(null, a-> Dispatcher.sendToServer(new PacketRegistrationDimension(this.data.getId())), 5));
+            Dispatcher.sendToServer(new PacketRegistrationDimension(this.data.getId()));
         });
         this.registerDimension.tooltip(IKey.lang("mappetextras.utils.dimensions.registerDimension"));
         this.registerDimension.disabledColor(0xFF880000);

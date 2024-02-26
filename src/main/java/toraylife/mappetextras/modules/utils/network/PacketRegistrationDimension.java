@@ -1,6 +1,8 @@
 package toraylife.mappetextras.modules.utils.network;
 
 import io.netty.buffer.ByteBuf;
+import mchorse.mappet.CommonProxy;
+import mchorse.mappet.api.scripts.ScriptExecutionFork;
 import mchorse.mclib.network.ServerMessageHandler;
 import mchorse.mclib.utils.OpHelper;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -46,22 +48,23 @@ public class PacketRegistrationDimension implements IMessage {
 
         @Override
         public void run(EntityPlayerMP player, PacketRegistrationDimension message) {
-            Dimension dimension = MappetExtras.customDimensionManager.load(message.id);
-            if (!OpHelper.isPlayerOp(player) || dimension == null){
-                return;
-            }
-            try {
-                if (message.unregister) {
-                    dimension.unregister();
+            //TODO rewrite with Task API
+            CommonProxy.eventHandler.addExecutable(new ScriptExecutionFork(null, a-> {
+                Dimension dimension = MappetExtras.customDimensionManager.load(message.id);
+                if (!OpHelper.isPlayerOp(player) || dimension == null) {
+                    return;
                 }
-                else {
-                    dimension.register();
+                try {
+                    if (message.unregister) {
+                        dimension.unregister();
+                    } else {
+                        dimension.register();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    player.sendStatusMessage(new TextComponentString("\u00A7cError: " + e.getMessage()), false);
                 }
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-                player.sendStatusMessage(new TextComponentString("\u00A7cError: " + e.getMessage()), false);
-            }
+            }, 5));
         }
     }
 }
