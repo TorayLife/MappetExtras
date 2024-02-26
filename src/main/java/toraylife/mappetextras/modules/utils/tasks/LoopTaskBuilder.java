@@ -32,7 +32,7 @@ public class LoopTaskBuilder<TConsume, TAccumulator> {
 		return (LoopTaskBuilder<TConsume, TNewAccumulator>) this;
 	}
 
-	public Task<TConsume, TAccumulator> iterateAsync(LoopTaskExecutable<TConsume, TAccumulator> taskExecutable) {
+	public Task<TConsume, TAccumulator> iterateAsync(Function<LoopTaskContext<TConsume, TAccumulator>, TaskResult<TAccumulator>> taskExecutable) {
 		Task<Void, ?> initTask = null;
 		if (this.previousTask != null) {
 			initTask = this.previousTask.getInitTask();

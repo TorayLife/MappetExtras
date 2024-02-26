@@ -1,11 +1,12 @@
 package toraylife.mappetextras.modules.utils.tasks;
 
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 
 public class AsyncLoopTask<TResult, TAccumulator> extends LoopTask<TResult, TAccumulator> {
 
 	public AsyncLoopTask(Task<Void, ?> initTask,
-	                     LoopTaskExecutable<TResult, TAccumulator> executable,
+	                     Function<LoopTaskContext<TResult, TAccumulator>, TaskResult<TAccumulator>> executable,
 	                     TaskDelayTime timeoutDelay,
 	                     long initIterationCount,
 	                     TaskDelayTime defaultIntervalDelay,
@@ -29,7 +30,7 @@ public class AsyncLoopTask<TResult, TAccumulator> extends LoopTask<TResult, TAcc
 		}
 
 		TaskLoop.getInstance().getExecutorService().schedule(() -> {
-			Object objectIterResult = this.executable.execute(currentIterationContext);
+			Object objectIterResult = this.executable.apply(currentIterationContext);
 			TaskResult<TAccumulator> taskIterResult = TaskResult.from(objectIterResult);
 
 			this.iterationCount = currentIterationContext.iterationCount;

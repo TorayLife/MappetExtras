@@ -70,4 +70,7 @@ public class LoopTaskContext<TResult, TAccumulator> extends TaskContext<TResult>
 		this.nextDelay = new TaskDelayTime(millis, TaskDelayTime.Unit.MILLIS);
 	}
 
+	public AccumulateTaskResult<TAccumulator> accumulate(TAccumulator accumulator) {
+		return new AccumulateTaskResult<>(accumulator);
+	}
 }

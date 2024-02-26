@@ -4,7 +4,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Function;
 
 public abstract class LoopTask<TResult, TAccumulator> extends Task<TResult, TAccumulator> {
-	protected final LoopTaskExecutable<TResult, TAccumulator> executable;
+	protected final Function<LoopTaskContext<TResult, TAccumulator>, TaskResult<TAccumulator>> executable;
 	protected final TaskDelayTime defaultIntervalDelay;
 
 
@@ -17,7 +17,7 @@ public abstract class LoopTask<TResult, TAccumulator> extends Task<TResult, TAcc
 	protected LoopTask(Type type,
 	                   Task<Void, ?> initTask,
 	                   TaskDelayTime timeoutDelay,
-	                   LoopTaskExecutable<TResult, TAccumulator> executable,
+	                   Function<LoopTaskContext<TResult, TAccumulator>, TaskResult<TAccumulator>> executable,
 	                   long initIterationCount,
 	                   TaskDelayTime defaultIntervalDelay,
 	                   TAccumulator initAccumulator) {

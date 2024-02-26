@@ -8,7 +8,7 @@ public class AsyncTask<TConsume, TResult> extends RegularTask<TConsume, TResult>
 
 	public AsyncTask(Task<Void, ?> initTask,
 	                 TaskDelayTime timeoutDelay,
-	                 TaskExecutable<TConsume, TResult> executable) {
+	                 Function<TaskContext<TConsume>, TaskResult<TResult>> executable) {
 		super(Type.ASYNC, initTask, timeoutDelay, executable);
 	}
 
@@ -16,7 +16,7 @@ public class AsyncTask<TConsume, TResult> extends RegularTask<TConsume, TResult>
 	@Override
 	public void schedule(TaskContext<TConsume> taskContext) {
 		TaskLoop.getInstance().getExecutorService().schedule(() -> {
-			Object objectResult = this.executable.execute(taskContext);
+			Object objectResult = this.executable.apply(taskContext);
 			TaskResult<TResult> taskResult = TaskResult.from(objectResult);
 
 			if (taskResult instanceof DelegateTaskResult<?>) {

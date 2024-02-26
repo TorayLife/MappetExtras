@@ -9,7 +9,7 @@ public class SyncTask<TConsume, TResult> extends RegularTask<TConsume, TResult> 
 
 	public SyncTask(Task<Void, ?> initTask,
 	                TaskDelayTime timeoutDelay,
-	                TaskExecutable<TConsume, TResult> executable) {
+	                Function<TaskContext<TConsume>, TaskResult<TResult>> executable) {
 		super(Type.SYNC, initTask, timeoutDelay, executable);
 	}
 
@@ -17,7 +17,7 @@ public class SyncTask<TConsume, TResult> extends RegularTask<TConsume, TResult> 
 	@Override
 	public void schedule(TaskContext<TConsume> taskContext) {
 		Runnable scriptRunnable = () -> {
-			Object objectResult = this.executable.execute(taskContext);
+			Object objectResult = this.executable.apply(taskContext);
 			TaskResult<TResult> taskResult = TaskResult.from(objectResult);
 
 			if (taskResult instanceof DelegateTaskResult<?>) {

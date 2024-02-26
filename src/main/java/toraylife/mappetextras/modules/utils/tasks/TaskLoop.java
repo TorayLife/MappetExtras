@@ -21,13 +21,13 @@ public class TaskLoop {
 	}
 
 
-	public <TResult> Task<Void, TResult> first(TaskExecutable<Void, TResult> taskExecutable) {
+	public <TResult> Task<Void, TResult> first(Function<TaskContext<Void>, TaskResult<TResult>> taskExecutable) {
 		SyncTask<Void, TResult> task = new SyncTask<>(null, TaskDelayTime.ZERO_TICKS, taskExecutable);
 		task.setInitTask(task);
 		return task;
 	}
 
-	public <TResult> Task<Void, TResult> firstAsync(TaskExecutable<Void, TResult> taskExecutable) {
+	public <TResult> Task<Void, TResult> firstAsync(Function<TaskContext<Void>, TaskResult<TResult>> taskExecutable) {
 		AsyncTask<Void, TResult> task = new AsyncTask<>(null, TaskDelayTime.ZERO_MILLIS, taskExecutable);
 		task.setInitTask(task);
 		return task;
