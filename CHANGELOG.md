@@ -1,3 +1,16 @@
+## Version 1.4.2
+
+This version fixed a crash when creating dimensions on the server and double-calling some triggers.
+
+### Full list of changes:
+
+* Fixes:
+    * Fixed a bug that caused triggers to be called twice per tick when a player ticks
+    * Fixed a bug where `c.getValue('event')` was not available in some triggers.
+    * Fixed crash when creating a dimension on the server
+    * Fixed dimension registration on the server
+  
+
 ## Version 1.4.1
 
 In this version, the method for playing animations in Chameleon morphs has been fixed.
