@@ -136,20 +136,28 @@ public class EventHandler {
         ScriptVectorAngle oRotate = offHand.getRotate();
 
         if (event.getHand() == MAIN_HAND) {
-            if(!mainHand.isRender() || (mPos.x == 0 && mPos.y == 0 && mPos.z == 0 && mRotate.angle == 0 && mRotate.x == 0 && mRotate.y == 0 && mRotate.z == 0)){
+            if(!mainHand.isRender()) {
+                event.setCanceled(true);
                 return;
             }
 
-            event.setCanceled(!mainHand.isRender());
+            if(mPos.x == 0 && mPos.y == 0 && mPos.z == 0 && mRotate.angle == 0 && mRotate.x == 0 && mRotate.y == 0 && mRotate.z == 0){
+                return;
+            }
+
             handleRotation(mainHand);
         }
 
         if (event.getHand() == OFF_HAND) {
-            if(!offHand.isRender() || (oPos.x == 0 && oPos.y == 0 && oPos.z == 0 && oRotate.angle == 0 && oRotate.x == 0 && oRotate.y == 0 && oRotate.z == 0)){
+            if(!offHand.isRender()) {
+                event.setCanceled(true);
                 return;
             }
 
-            event.setCanceled(!offHand.isRender());
+            if(oPos.x == 0 && oPos.y == 0 && oPos.z == 0 && oRotate.angle == 0 && oRotate.x == 0 && oRotate.y == 0 && oRotate.z == 0){
+                return;
+            }
+
             handleRotation(offHand);
         }
     }
