@@ -79,5 +79,8 @@ public interface IMinecraftCameraShake {
 
     ScriptVector getSpeed();
 
+    /**
+     * Set all values to default
+     */
     void reset();
 }

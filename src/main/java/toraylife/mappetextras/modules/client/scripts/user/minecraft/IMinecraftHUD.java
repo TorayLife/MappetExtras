@@ -123,5 +123,8 @@ public interface IMinecraftHUD {
      */
     void rotateTo(String interpolation, int durationTicks, double angle, double x, double y, double z);
 
-    public void reset();
+    /**
+     * Set all values to default
+     */
+    void reset();
 }

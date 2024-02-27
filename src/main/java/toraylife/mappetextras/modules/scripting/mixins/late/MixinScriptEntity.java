@@ -36,8 +36,6 @@ public abstract class MixinScriptEntity<T extends Entity> {
     @Shadow
     public abstract void setRotations(float pitch, float yaw, float yawHead);
 
-    @Shadow public abstract AbstractMorph getMorph();
-
     /**
      * Gets the age of this entity in ticks.
      *
@@ -286,6 +284,15 @@ public abstract class MixinScriptEntity<T extends Entity> {
     public boolean isWalking() {
         return this.entity.prevDistanceWalkedModified
                 - this.entity.distanceWalkedModified != 0;
+    }
+
+    /**
+     * Get the entity world ID.
+     *
+     * @return The entity ID
+     */
+    public int getEntityWorldId() {
+        return this.entity.getEntityId();
     }
 
     /**
