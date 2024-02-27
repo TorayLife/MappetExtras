@@ -36,6 +36,8 @@ public abstract class MixinScriptEntity<T extends Entity> {
     @Shadow
     public abstract void setRotations(float pitch, float yaw, float yawHead);
 
+    @Shadow public abstract AbstractMorph getMorph();
+
     /**
      * Gets the age of this entity in ticks.
      *
