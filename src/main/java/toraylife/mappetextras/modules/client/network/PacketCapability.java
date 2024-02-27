@@ -55,12 +55,16 @@ public class PacketCapability implements IMessage {
                     }else{
                         OffHand.get(Minecraft.getMinecraft().player).deserializeNBT(message.profile);
                     }
+                    break;
                 case CAMERA:
                     Camera.get(Minecraft.getMinecraft().player).deserializeNBT(message.profile);
+                    break;
                 case MINECRAFT_HUD:
                     MinecraftHUD.get(Minecraft.getMinecraft().player).deserializeNBT(message.profile);
+                    break;
                 case SHAKE:
                     Shake.get(Minecraft.getMinecraft().player).deserializeNBT(message.profile);
+                    break;
             }
         }
     }
