@@ -1,7 +1,8 @@
 {
     "homepage": "https://github.com/TorayLife/MappetExtras",
     "1.12.2": {
-      "1.4.2": "In this version, the method for playing animations in Chameleon morphs has been fixed.",
+      "1.4.3": "In this version llama_orp has fixed bugs related to the rendering of HUD's of Minecraft and added `IScriptVector`.",
+      "1.4.2": "This version fixed a crash when creating dimensions on the server and double-calling some triggers.",
       "1.4.1": "In this version, the method for playing animations in Chameleon morphs has been fixed.",
       "1.4.0": "This update adds custom dimensions and the ability to play Chameleon animations on NPCs and players.",
       "1.3.1": "This version has fixed callbacks, the HUD bug, the crashing of beautifier (yup, again), and renamed a few methods.",
@@ -17,8 +18,8 @@
       "0.1.0": "Initial version, test github actions"
     },
     "promos": {
-      "1.12.2-latest": "1.4.2",
-      "1.12.2-recommended": "1.4.2"
+      "1.12.2-latest": "1.4.3",
+      "1.12.2-recommended": "1.4.3"
     },
     "inherit": true
 }

@@ -1,3 +1,21 @@
+## Version 1.4.3
+
+In this version llama_orp has fixed bugs related to the rendering of HUD's and added `IScriptVector`.
+
+#### Full list of changes:
+
+* Fixes:
+    * Fixed Arm Render - `setRender()`.
+    * Fixed many methods in `IScriptVector`.
+    * Fixed and added many method descriptions.
+    * Fixed HUD Render. Now you can turn rendering of any HUD on and off
+* Changes to API:
+    * Added `IScriptVector.getVectorForRotation()` method.
+    * Added `IScriptEntity.getEntityWorldId()` method returns the entity's id in the world.
+* Features:
+    * Added `Script Path` setting.
+
+
 ## Version 1.4.2
 
 This version fixed a crash when creating dimensions on the server and double-calling some triggers.
