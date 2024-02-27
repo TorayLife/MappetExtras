@@ -193,24 +193,18 @@ public class EventHandler {
         MinecraftHUD minecraftHUD = MinecraftHUD.get(Minecraft.getMinecraft().player);
 
         minecraftHUD.setName(event.getType().name());
-
         boolean render = minecraftHUD.isRender();
         ScriptVector scale = minecraftHUD.getScale();
         ScriptVector pos = minecraftHUD.getPosition();
         ScriptVectorAngle rotate = minecraftHUD.getRotate();
 
-        if(event.getType() == RenderGameOverlayEvent.ElementType.HOTBAR || event.getType() == RenderGameOverlayEvent.ElementType.ALL) {
+        if (event.getType() != RenderGameOverlayEvent.ElementType.HOTBAR || event.getType() != RenderGameOverlayEvent.ElementType.ALL)
             return;
-        }
 
-        if(!render){
-            event.setCanceled(!render);
-            return;
-        }
-
-        if (event.getType() != RenderGameOverlayEvent.ElementType.HOTBAR && event.getType() != RenderGameOverlayEvent.ElementType.ALL) {
+        if (!render) {
+            event.setCanceled(true);
+        } else if (event.getType() != RenderGameOverlayEvent.ElementType.HOTBAR || event.getType() != RenderGameOverlayEvent.ElementType.ALL) {
             GL11.glPushMatrix();
-            GL11.glDepthMask(true);
             GL11.glRotated(rotate.angle, rotate.x, rotate.y, rotate.z);
             GL11.glScaled(scale.x, scale.y, scale.z);
             GL11.glTranslated(pos.x, pos.y, pos.z);
@@ -220,21 +214,8 @@ public class EventHandler {
     @SubscribeEvent
     @SideOnly(Side.CLIENT)
     public void onRenderGuiPost(RenderGameOverlayEvent.Post event) {
-        MinecraftHUD minecraftHUD = MinecraftHUD.get(Minecraft.getMinecraft().player);
-        boolean render = minecraftHUD.isRender();
-
-        if(event.getType() == RenderGameOverlayEvent.ElementType.HOTBAR || event.getType() == RenderGameOverlayEvent.ElementType.ALL) {
-            return;
-        }
-
-        if(!render){
-            event.setCanceled(!render);
-            return;
-        }
-
-        if (event.getType() != RenderGameOverlayEvent.ElementType.HOTBAR && event.getType() != RenderGameOverlayEvent.ElementType.ALL) {
+        if (event.getType() != RenderGameOverlayEvent.ElementType.HOTBAR || event.getType() != RenderGameOverlayEvent.ElementType.ALL)
             GL11.glPopMatrix();
-        }
     }
 
     @SubscribeEvent
