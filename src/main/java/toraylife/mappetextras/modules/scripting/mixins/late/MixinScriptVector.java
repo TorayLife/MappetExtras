@@ -43,7 +43,7 @@ public abstract class MixinScriptVector {
     }
 
     /**
-     * Converts this vector to pitch and yaw angles to the given vector.
+     * Converts this vector to pitch and yaw angles.
      *
      * @param vector The target vector
      * @return Vector containing pitch, yaw, 0
@@ -59,15 +59,15 @@ public abstract class MixinScriptVector {
         return new ScriptVector(pitch, yaw, 0);
     }
 
+    /**
+     * Return the angle between vectors.
+     *
+     * If the vectors are not normalized, the method will return NaN.
+     *
+     * @param vector The vector
+     */
     public double getAngle(ScriptVector vector) {
-        ScriptVector vectorMultiply = this.vectorMultiply((ScriptVector) ((Object)this));
-        double mag2 = (this.x * this.x) + (this.y * this.y)+(this.z * this.z);
-
-        ScriptVector otherVectorMultiply = this.vectorMultiply(vector);
-        double vmag2 = otherVectorMultiply.x + otherVectorMultiply.y + otherVectorMultiply.z;
-
-        double dot = this.dotProduct(vector);
-        return Math.acos(dot/Math.sqrt(mag2*vmag2));
+        return Math.acos(this.dotProduct(vector));
     }
 
     /**
@@ -150,6 +150,18 @@ public abstract class MixinScriptVector {
     }
 
     /**
+     * Checks if this vector equals another x, y, z.
+     *
+     * @param x
+     * @param y
+     * @param z
+     * @return true if equal, false if not
+     */
+    public boolean equals(double x, double y, double z) {
+        return (this.x == x) && (this.y == y) && (this.z == z);
+    }
+
+    /**
      * Computes distance between this and another vector.
      *
      * @param vector The other vector
@@ -174,5 +186,19 @@ public abstract class MixinScriptVector {
         double dz = this.z - z;
 
         return Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2) + Math.pow(dz, 2));
+    }
+
+    /**
+     * Creates a normalized pitch and yaw vector.
+     *
+     * @return vector
+     */
+    public ScriptVector getVectorForRotation(double pitch, double yaw){
+        double f = Math.cos(-yaw * 0.017453292 - Math.PI);
+        double f1 = Math.sin(-yaw * 0.017453292 - Math.PI);
+        double f2 = -Math.cos(-pitch * 0.017453292);
+        double f3 = Math.sin(-pitch * 0.017453292);
+
+        return new ScriptVector((f1 * f2), f3, (f * f2));
     }
 }

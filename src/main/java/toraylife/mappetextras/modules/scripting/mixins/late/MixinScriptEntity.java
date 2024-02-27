@@ -289,6 +289,15 @@ public abstract class MixinScriptEntity<T extends Entity> {
     }
 
     /**
+     * Get the entity world ID.
+     *
+     * @return The entity ID
+     */
+    public int getEntityWorldId() {
+        return this.entity.getEntityId();
+    }
+
+    /**
      * @author TorayLife
      * @reason Custom dimensions compatibility
      */

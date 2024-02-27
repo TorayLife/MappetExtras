@@ -57,6 +57,20 @@ public interface IMinecraftArmRender {
      */
     void setRotations(float pitch, float yaw, float yawHead);
 
+    /**
+     * Return vector rotations.
+     *
+     * <pre>{@code
+     *    function main(c)
+     *    {
+     *        const rot = c.player.getArmRender(0).getRotations();
+     *
+     *        c.send(rot.x); // returns x arm
+     *        c.send(rot.y); // returns y arm
+     *        c.send(rot.z); // returns z arm
+     *    }
+     *  }</pre>
+     */
     ScriptVector getRotations();
 
     /**
@@ -138,5 +152,8 @@ public interface IMinecraftArmRender {
      */
     void rotateTo(String interpolation, int durationTicks, double angle, double x, double y, double z);
 
+    /**
+     * Set all values to default
+     */
     void reset();
 }

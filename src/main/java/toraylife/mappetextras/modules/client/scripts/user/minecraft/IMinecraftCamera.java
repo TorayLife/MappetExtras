@@ -74,7 +74,16 @@ public interface IMinecraftCamera {
      */
     void setRenderWithEntity(ScriptEntity entity);
 
+    /**
+     * Rotates arm to target orientation.
+     *
+     * @param interpolation name of interpolation function
+     * @param durationTicks duration of rotation in ticks
+     */
     void rotateTo(String interpolation, int durationTicks, double pitch, double yaw, double roll);
 
+    /**
+     * Set all values to default
+     */
     void reset();
 }
