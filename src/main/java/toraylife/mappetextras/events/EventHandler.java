@@ -198,12 +198,9 @@ public class EventHandler {
         ScriptVector pos = minecraftHUD.getPosition();
         ScriptVectorAngle rotate = minecraftHUD.getRotate();
 
-        if (event.getType() != RenderGameOverlayEvent.ElementType.HOTBAR || event.getType() != RenderGameOverlayEvent.ElementType.ALL)
-            return;
+        event.setCanceled(!render);
 
-        if (!render) {
-            event.setCanceled(true);
-        } else if (event.getType() != RenderGameOverlayEvent.ElementType.HOTBAR || event.getType() != RenderGameOverlayEvent.ElementType.ALL) {
+        if (render && (event.getType() != RenderGameOverlayEvent.ElementType.HOTBAR && event.getType() != RenderGameOverlayEvent.ElementType.ALL)) {
             GL11.glPushMatrix();
             GL11.glRotated(rotate.angle, rotate.x, rotate.y, rotate.z);
             GL11.glScaled(scale.x, scale.y, scale.z);
@@ -214,7 +211,7 @@ public class EventHandler {
     @SubscribeEvent
     @SideOnly(Side.CLIENT)
     public void onRenderGuiPost(RenderGameOverlayEvent.Post event) {
-        if (event.getType() != RenderGameOverlayEvent.ElementType.HOTBAR || event.getType() != RenderGameOverlayEvent.ElementType.ALL)
+        if (event.getType() != RenderGameOverlayEvent.ElementType.HOTBAR && event.getType() != RenderGameOverlayEvent.ElementType.ALL)
             GL11.glPopMatrix();
     }
 
