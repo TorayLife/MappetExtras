@@ -122,4 +122,20 @@ public class MappetExtras {
         customDimensionManager = new CustomDimensionManager(new File(mappetWorldFolder, "dimensions"));
         customDimensionManager.registerDimensions();
     }
+
+    public static boolean isValidPath(String path) {
+        if (path == null || path.isEmpty()) {
+            return false;
+        }
+
+        String[] parts = path.split("/");
+
+        for (String part : parts) {
+            if (part == null || part.isEmpty()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
