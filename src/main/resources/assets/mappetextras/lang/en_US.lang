@@ -45,6 +45,9 @@ mappetextras.config.scripts.tooltip=Script settings
 mappetextras.config.scripts.scriptsPath=Path to scripts
 mappetextras.config.comments.scripts.scriptsPath=If the path does not specify a drive, then the path starts from the current Minecraft folder. Be sure to re-enter the world!
 
+mappetextras.config.scripts.defaultTextScript=The default text
+mappetextras.config.comments.scripts.defaultTextScript=Default script
+
 # MAIN
 mappetextras.main_module.update.up_to_date=[§6%s§f] §7You have the latest version installed.
 mappetextras.main_module.update.outdated=[§6%s§f] §7A new version §e%s§7 is now available (your current version is §e%s§7).
