@@ -5,20 +5,16 @@ import mchorse.mappet.api.scripts.code.ScriptServer;
 import mchorse.mappet.api.scripts.code.ScriptWorld;
 import mchorse.mappet.api.scripts.code.blocks.ScriptTileEntity;
 import mchorse.mappet.api.scripts.code.items.ScriptInventory;
-import mchorse.mappet.api.scripts.code.items.ScriptItemStack;
 import mchorse.mappet.api.scripts.user.IScriptServer;
 import mchorse.mappet.api.scripts.user.IScriptWorld;
 import mchorse.mappet.api.scripts.user.blocks.IScriptTileEntity;
 import mchorse.mappet.api.scripts.user.items.IScriptInventory;
-import mchorse.mappet.api.scripts.user.items.IScriptItemStack;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 import org.spongepowered.asm.mixin.Mixin;
-import toraylife.mappetextras.capabilities.minecraftHUD.MinecraftHUD;
 import toraylife.mappetextras.modules.main.mixins.utils.MixinTargetName;
 import toraylife.mappetextras.modules.scripting.scripts.code.ScriptFile;
 import toraylife.mappetextras.modules.scripting.scripts.code.ScriptMath;
@@ -247,23 +243,5 @@ public abstract class MixinScriptFactory{
      */
     public Constants getConstants(){
         return new Constants();
-    }
-
-    /**
-     * get all huds Java array.
-     *
-     * <pre>{@code
-     *    function main(c)
-     *    {
-     *        var huds = Java.from(mappet.getAllMinecraftHUDs());
-     *
-     *        for(var i in huds){
-     *            c.send(huds[i])
-     *        }
-     *    }
-     *  }</pre>
-     */
-    public Set<String> getAllMinecraftHUDs(){
-        return new MinecraftHUD().HUDs.keySet();
     }
 }

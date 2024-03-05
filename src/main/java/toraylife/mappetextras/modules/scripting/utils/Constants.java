@@ -1,8 +1,6 @@
 package toraylife.mappetextras.modules.scripting.utils;
 
 public class Constants {
-    public final int MAIN = 0;
-    public final int OFF = 1;
     public final String ADVANCEMENTS = "keyBindAdvancements";
     public final String ATTACK = "keyBindAttack";
     public final String BACK = "keyBindBack";

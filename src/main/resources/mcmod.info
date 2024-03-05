@@ -10,12 +10,12 @@
     "TorayLife",
     "Llama"
   ],
-  "credits": "Special thanks to McHorse, dyamo, OtakuGamer for helping and supporting!",
+  "credits": "Special thanks to McHorse, dyamo, OtakuGamer, TorayLife for helping and supporting!",
   "logoFile": "logo.png",
+  "screenshots": ["logo.png"],
   "useDependencyInformation": true,
   "requiredMods": [
-    "mappet",
-    "mixinbooter"
+    "mappet"
   ],
   "dependencies": [
     "mappet"

@@ -1,4 +1,4 @@
-package toraylife.mappetextras.modules.scripting.mixins.late;
+package toraylife.mappetextras.modules.scripting.mixins.late.ignored;
 
 import mchorse.mappet.api.scripts.Script;
 import mchorse.mappet.api.scripts.ScriptManager;
