@@ -10,12 +10,9 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import toraylife.mappetextras.capabilities.CapabilitiesType;
-import toraylife.mappetextras.capabilities.camera.Camera;
 import toraylife.mappetextras.capabilities.mainHand.MainHand;
 import toraylife.mappetextras.capabilities.minecraftHUD.MinecraftHUD;
 import toraylife.mappetextras.capabilities.offHand.OffHand;
-import toraylife.mappetextras.capabilities.shake.Shake;
-import toraylife.mappetextras.modules.client.AccessType;
 
 public class PacketCapability implements IMessage {
     NBTTagCompound profile;
@@ -56,14 +53,8 @@ public class PacketCapability implements IMessage {
                         OffHand.get(Minecraft.getMinecraft().player).deserializeNBT(message.profile);
                     }
                     break;
-                case CAMERA:
-                    Camera.get(Minecraft.getMinecraft().player).deserializeNBT(message.profile);
-                    break;
                 case MINECRAFT_HUD:
                     MinecraftHUD.get(Minecraft.getMinecraft().player).deserializeNBT(message.profile);
-                    break;
-                case SHAKE:
-                    Shake.get(Minecraft.getMinecraft().player).deserializeNBT(message.profile);
                     break;
             }
         }

@@ -27,7 +27,7 @@ public abstract class MixinScriptManager extends BaseManager<Script> {
     public void init(File folder, CallbackInfo ci) {
         ValueString scriptsFolderPath = ((ScriptingModule)ScriptingModule.getInstance()).scriptsFolderPath;
 
-        if(!Objects.equals(scriptsFolderPath.get(), "") && MappetExtras.isValidPath(scriptsFolderPath.get())) {
+        if(!scriptsFolderPath.get().isEmpty() && MappetExtras.isValidPath(scriptsFolderPath.get())) {
             this.folder = new File(scriptsFolderPath.get());
             this.folder.mkdirs();
         }

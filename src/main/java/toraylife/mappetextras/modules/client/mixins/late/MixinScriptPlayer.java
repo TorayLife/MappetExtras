@@ -9,9 +9,7 @@ import toraylife.mappetextras.modules.client.AccessType;
 import toraylife.mappetextras.modules.client.ClientData;
 import toraylife.mappetextras.modules.client.network.PacketClientData;
 import toraylife.mappetextras.modules.client.scripts.code.minecraft.MinecraftArmRender;
-import toraylife.mappetextras.modules.client.scripts.code.minecraft.MinecraftCamera;
 import toraylife.mappetextras.modules.client.scripts.code.minecraft.MinecraftHUD;
-import toraylife.mappetextras.modules.client.scripts.user.minecraft.IMinecraftCamera;
 import toraylife.mappetextras.modules.client.scripts.user.minecraft.IMinecraftHUD;
 import toraylife.mappetextras.modules.client.scripts.user.minecraft.IMinecraftArmRender;
 import toraylife.mappetextras.modules.main.mixins.utils.MixinTargetName;
@@ -273,14 +271,5 @@ public abstract class MixinScriptPlayer{
             minecraftHUD.setPosition(0, 0);
             minecraftHUD.setRotate(0, 0, 0, 0);
         }
-    }
-
-    /**
-     * Gets a ScriptCamera instance for the player.
-     *
-     * @return ScriptCamera instance
-     */
-    public IMinecraftCamera getCamera(){
-        return new MinecraftCamera(this.getMinecraftPlayer());
     }
 }
