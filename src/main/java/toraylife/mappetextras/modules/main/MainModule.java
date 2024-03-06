@@ -2,6 +2,7 @@ package toraylife.mappetextras.modules.main;
 
 import mchorse.mclib.config.ConfigBuilder;
 import mchorse.mclib.config.values.ValueBoolean;
+import mchorse.mclib.config.values.ValueString;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -13,6 +14,7 @@ public class MainModule implements IModule {
 
     public ValueBoolean showVersionUpdateMessage;
     public ValueBoolean showUpdateOnlyIfOutdated;
+
     private static MainModule instance;
 
     public static MainModule getInstance() {

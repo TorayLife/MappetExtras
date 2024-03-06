@@ -8,12 +8,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import toraylife.mappetextras.modules.client.AccessType;
 import toraylife.mappetextras.modules.client.ClientData;
 import toraylife.mappetextras.modules.client.network.PacketClientData;
-import toraylife.mappetextras.modules.client.scripts.code.minecraft.MinecraftArmRender;
-import toraylife.mappetextras.modules.client.scripts.code.minecraft.MinecraftCamera;
-import toraylife.mappetextras.modules.client.scripts.code.minecraft.MinecraftHUD;
-import toraylife.mappetextras.modules.client.scripts.user.minecraft.IMinecraftCamera;
-import toraylife.mappetextras.modules.client.scripts.user.minecraft.IMinecraftHUD;
-import toraylife.mappetextras.modules.client.scripts.user.minecraft.IMinecraftArmRender;
 import toraylife.mappetextras.modules.main.mixins.utils.MixinTargetName;
 import toraylife.mappetextras.network.Dispatcher;
 
@@ -216,71 +210,5 @@ public abstract class MixinScriptPlayer{
         PacketClientData.сallBack.put(uniqueId, callback);
 
         Dispatcher.sendTo(new PacketClientData(ClientData.RESOLUTION, AccessType.GET, uniqueId), this.getMinecraftPlayer());
-    }
-
-    /**
-     * Gets a {@link IMinecraftArmRender} main or off - hand; 0 - main; off - 1;.
-     *
-     */
-    public IMinecraftArmRender getArmRender(int hand){
-        return new MinecraftArmRender(this.getMinecraftPlayer(), hand);
-    }
-
-    /**
-     * Gets a {@link IMinecraftHUD} hud.
-     *
-     * §7HELMET,
-     * §7PORTAL,
-     * §7CROSSHAIRS,
-     * §7BOSSHEALTH,
-     * §7BOSSINFO,
-     * §7ARMOR,
-     * §7HEALTH,
-     * §7FOOD,
-     * §7AIR,
-     * §7EXPERIENCE,
-     * §7TEXT,
-     * §7HEALTHMOUNT,
-     * §7JUMPBAR,
-     * §7CHAT,
-     * §7PLAYER_LIST,
-     * §7DEBUG,
-     * §7POTION_ICONS,
-     * §7SUBTITLES,
-     * §7FPS_GRAPH,
-     * §7VIGNETTE.
-     */
-    public MinecraftHUD getMinecraftHUD(String hud){
-        return new MinecraftHUD(this.getMinecraftPlayer(), hud.toUpperCase());
-    }
-
-
-    /**
-     * Resets all default Minecraft HUDs to their default state.
-     */
-    public void resetAllMinecraftHUDs(){
-        String[] huds = new String[]{
-            "HELMET", "PORTAL", "CROSSHAIRS", "BOSSHEALTH",
-            "BOSSINFO", "ARMOR", "HEALTH", "AIR",
-            "EXPERIENCE", "TEXT", "HEALTHMOUNT", "JUMPBAR", "CHAT",
-            "PLAYER_LIST", "DEBUG", "POTION_ICONS", "SUBTITLES",
-            "FPS_GRAPH", "VIGNETTE"
-        };
-
-        for(String hud : huds){
-            MinecraftHUD minecraftHUD = this.getMinecraftHUD(hud);
-
-            minecraftHUD.setPosition(0, 0);
-            minecraftHUD.setRotate(0, 0, 0, 0);
-        }
-    }
-
-    /**
-     * Gets a ScriptCamera instance for the player.
-     *
-     * @return ScriptCamera instance
-     */
-    public IMinecraftCamera getCamera(){
-        return new MinecraftCamera(this.getMinecraftPlayer());
     }
 }

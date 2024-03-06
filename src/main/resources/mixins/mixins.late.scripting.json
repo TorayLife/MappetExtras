@@ -5,9 +5,9 @@
   "refmap": "mixins.mappetextras.refmap.json",
   "mixinPriority": 1000,
   "mixins": [
+    "ignored.MixinScriptManager",
     "MixinScriptEntity",
     "MixinScriptFactory",
-    "MixinScriptManager",
     "MixinScriptNpc",
     "MixinScriptPlayer",
     "MixinScriptServer",

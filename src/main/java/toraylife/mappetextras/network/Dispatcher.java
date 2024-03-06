@@ -25,7 +25,6 @@ public class Dispatcher {
             this.register(PacketPlayAnimation.class, PacketPlayAnimation.ClientHandler.class, Side.CLIENT);
             this.register(PacketClientData.class, PacketClientData.ServerHandler.class, Side.SERVER);
             this.register(PacketEvent.class, PacketEvent.ServerHandler.class, Side.SERVER);
-            this.register(PacketCapability.class, PacketCapability.ClientHandler.class, Side.CLIENT);
             this.register(PacketSounds.class, PacketSounds.ClientHandler.class, Side.CLIENT);
             this.register(PacketTextures.class, PacketTextures.ClientHandler.class, Side.CLIENT);
         }
