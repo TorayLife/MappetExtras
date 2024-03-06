@@ -45,6 +45,9 @@ mappetextras.config.scripts.tooltip=Настройки скриптов
 mappetextras.config.scripts.scriptsPath=Путь к скриптам
 mappetextras.config.comments.scripts.scriptsPath=Если в пути не указан диск, то путь начинается с текущей папки Minecraft. Обязательно перезайдите в мир!
 
+mappetextras.config.scripts.defaultTextScript=Текст по умолчанию
+mappetextras.config.comments.scripts.defaultTextScript=Скрипт по умолчанию.
+
 # MAIN
 mappetextras.main_module.update.up_to_date=[§6%s§f] §7У вас установлена последняя версия.
 mappetextras.main_module.update.outdated=[§6%s§f] §7Новая версия §e%s§7 уже доступна (ваша текущая версия §e%s§7).
