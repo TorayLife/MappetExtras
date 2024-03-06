@@ -10,11 +10,8 @@ import toraylife.mappetextras.modules.scripting.ScriptingModule;
 
 @Mixin(value = GuiScriptPanel.class, remap = false)
 public abstract class MixinGuiScriptPanel {
-    @Inject(method = "fillDefaultData(Lmchorse/mappet/api/scripts/Script;)V", at = @At("TAIL"))
+    @Inject(method = "fillDefaultData(Lmchorse/mappet/api/scripts/Script;)V", at = @At(value = "TAIL"), remap = false)
     public void onfillDefaultData(Script data, CallbackInfo ci) {
-        String defaultTextScript = ((ScriptingModule) ScriptingModule.getInstance()).defaultTextScript.get();
-        if(!defaultTextScript.isEmpty()) {
-            data.code = defaultTextScript;
-        }
+        data.code = ((ScriptingModule) ScriptingModule.getInstance()).defaultTextScript.get();
     }
 }

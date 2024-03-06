@@ -23,7 +23,7 @@ public class ScriptingModule implements IModule {
 
     @Override
     public void addConfigOptions(ConfigBuilder builder) {
-        this.defaultTextScript = (ValueTextEditor) new ValueTextEditor("defaultTextScript").clientSide();
+        this.defaultTextScript = (ValueTextEditor) new ValueTextEditor("defaultTextScript", "function main(c)\n{\n    // Code...\n    var s = c.getSubject();\n}").clientSide();
         builder.category("scripts").register(this.defaultTextScript);
         this.scriptsFolderPath = builder.getString("scriptsPath", "");
         this.scriptsFolderPath.clientSide();
