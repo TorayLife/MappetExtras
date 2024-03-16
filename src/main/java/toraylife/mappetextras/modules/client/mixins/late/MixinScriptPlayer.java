@@ -57,7 +57,7 @@ public abstract class MixinScriptPlayer{
      */
     public void getPerspective(Consumer<Object> callBack){
         UUID uniqueId = UUID.randomUUID();
-        PacketClientData.сallBack.put(uniqueId, callBack);
+        PacketClientData.callback.put(uniqueId, callBack);
 
         Dispatcher.sendTo(new PacketClientData(ClientData.PESPECTIVE, AccessType.GET, uniqueId), this.getMinecraftPlayer());
     }
@@ -105,7 +105,7 @@ public abstract class MixinScriptPlayer{
      */
     public void getClipboard(Consumer<Object> callback){
         UUID uniqueId = UUID.randomUUID();
-        PacketClientData.сallBack.put(uniqueId, callback);
+        PacketClientData.callback.put(uniqueId, callback);
 
         Dispatcher.sendTo(new PacketClientData(ClientData.CLIPBOARD, AccessType.GET, uniqueId), this.getMinecraftPlayer());
     }
@@ -152,7 +152,7 @@ public abstract class MixinScriptPlayer{
         data.setBoolean("isInsideWindow", isInsideWindow);
 
         UUID uniqueId = UUID.randomUUID();
-        PacketClientData.сallBack.put(uniqueId, callback);
+        PacketClientData.callback.put(uniqueId, callback);
 
         Dispatcher.sendTo(new PacketClientData(data, ClientData.MOUSEPOSITION, AccessType.GET_WITH_DATA, uniqueId), this.getMinecraftPlayer());
     }
@@ -193,7 +193,7 @@ public abstract class MixinScriptPlayer{
         data.setString("key", key);
 
         UUID uniqueId = UUID.randomUUID();
-        PacketClientData.сallBack.put(uniqueId, callback);
+        PacketClientData.callback.put(uniqueId, callback);
 
         Dispatcher.sendTo(new PacketClientData(data, ClientData.SETTING, AccessType.GET_WITH_DATA, uniqueId), this.getMinecraftPlayer());
     }
@@ -213,7 +213,7 @@ public abstract class MixinScriptPlayer{
      */
     public void getResolution(Consumer<Object> callback) {
         UUID uniqueId = UUID.randomUUID();
-        PacketClientData.сallBack.put(uniqueId, callback);
+        PacketClientData.callback.put(uniqueId, callback);
 
         Dispatcher.sendTo(new PacketClientData(ClientData.RESOLUTION, AccessType.GET, uniqueId), this.getMinecraftPlayer());
     }

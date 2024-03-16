@@ -53,8 +53,8 @@ public abstract class MixinScriptVector {
 
         double hypotenuse = Math.sqrt(Math.pow(subtractVector.x, 2) + Math.pow(subtractVector.z, 2));
 
-        double pitch = Math.atan2(hypotenuse, subtractVector.y) * 180 / Math.PI;
-        double yaw = -Math.atan2(subtractVector.x, subtractVector.z) * 180 / Math.PI;
+        double pitch = Math.toDegrees(Math.atan2(hypotenuse, subtractVector.y));
+        double yaw = Math.toDegrees(-Math.atan2(subtractVector.x, subtractVector.z));
 
         return new ScriptVector(pitch, yaw, 0);
     }
@@ -67,7 +67,7 @@ public abstract class MixinScriptVector {
      * @param vector The vector
      */
     public double getAngle(ScriptVector vector) {
-        return Math.acos(this.dotProduct(vector));
+        return Math.toDegrees(Math.acos(this.dotProduct(vector)));
     }
 
     /**

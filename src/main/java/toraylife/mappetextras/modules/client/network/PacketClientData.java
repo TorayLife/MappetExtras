@@ -21,7 +21,7 @@ import java.util.UUID;
 import java.util.function.Consumer;
 
 public class PacketClientData implements IMessage {
-    public static final Map<UUID, Consumer<Object>> сallBack = new HashMap<>();
+    public static final Map<UUID, Consumer<Object>> callback = new HashMap<>();
     ClientData type;
     AccessType access;
     NBTTagCompound nbtTagCompound;
@@ -145,8 +145,8 @@ public class PacketClientData implements IMessage {
             NBTTagCompound value = packet.nbtTagCompound;
             UUID uniqueId = UUID.fromString(packet.uniqueId);
 
-            сallBack.get(uniqueId).accept(packet.type.process(value));
-            сallBack.remove(uniqueId);
+            callback.get(uniqueId).accept(packet.type.process(value));
+            callback.remove(uniqueId);
         }
     }
 }

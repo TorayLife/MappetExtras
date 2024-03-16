@@ -23,7 +23,7 @@ public class EventTriggerHandler {
             return;
         }
 
-        if (event.phase == TickEvent.Phase.START) {
+        if (event.phase == TickEvent.Phase.END) {
             return;
         }
 
@@ -35,7 +35,7 @@ public class EventTriggerHandler {
             return;
         }
 
-        trigger.trigger(new DataContext(player));
+        CommonProxy.eventHandler.trigger(event, trigger, new DataContext(player));
     }
 
     @SubscribeEvent
@@ -44,7 +44,7 @@ public class EventTriggerHandler {
             return;
         }
 
-        if (event.phase == TickEvent.Phase.START) {
+        if (event.phase == TickEvent.Phase.END) {
             return;
         }
 
@@ -63,7 +63,7 @@ public class EventTriggerHandler {
         DataContext context = new DataContext(player);
         context.set("onGround", player.onGround ? 1 : 0);
 
-        trigger.trigger(context);
+        CommonProxy.eventHandler.trigger(event, trigger, context);
     }
 
     @SubscribeEvent
@@ -147,7 +147,7 @@ public class EventTriggerHandler {
 
         EntityPlayer player = event.player;
 
-        if (shouldCancelTrigger(trigger) || player.world.isRemote) {
+        if (shouldCancelTrigger(trigger) || player.world.isRemote || event.phase == TickEvent.Phase.END) {
             return;
         }
 
@@ -157,9 +157,7 @@ public class EventTriggerHandler {
             return;
         }
 
-        DataContext context = new DataContext(player);
-
-        trigger.trigger(context);
+        CommonProxy.eventHandler.trigger(event, trigger, new DataContext(player));
     }
 
     @SubscribeEvent
@@ -172,7 +170,7 @@ public class EventTriggerHandler {
 
         EntityPlayer player = event.player;
 
-        if (shouldCancelTrigger(trigger) || player.world.isRemote) {
+        if (shouldCancelTrigger(trigger) || player.world.isRemote || event.phase == TickEvent.Phase.END) {
             return;
         }
 
@@ -182,7 +180,7 @@ public class EventTriggerHandler {
             return;
         }
 
-        trigger.trigger(new DataContext(player));
+        CommonProxy.eventHandler.trigger(event, trigger, new DataContext(player));
     }
 
     @SubscribeEvent
@@ -202,7 +200,8 @@ public class EventTriggerHandler {
         DataContext context = new DataContext(player);
         context.set("fromDim", event.fromDim);
         context.set("toDim", event.toDim);
-        trigger.trigger(context);
+
+        CommonProxy.eventHandler.trigger(event, trigger, context);
     }
 
     public boolean shouldCancelTrigger(Trigger trigger) {
