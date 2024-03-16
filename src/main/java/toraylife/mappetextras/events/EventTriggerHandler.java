@@ -23,7 +23,7 @@ public class EventTriggerHandler {
             return;
         }
 
-        if (event.phase == TickEvent.Phase.END) {
+        if (event.phase == TickEvent.Phase.START) {
             return;
         }
 
@@ -44,7 +44,7 @@ public class EventTriggerHandler {
             return;
         }
 
-        if (event.phase == TickEvent.Phase.END) {
+        if (event.phase == TickEvent.Phase.START) {
             return;
         }
 

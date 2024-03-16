@@ -36,9 +36,9 @@ public abstract class MixinScriptVector {
      */
     public ScriptVector crossProduct(ScriptVector vector) {
         return new ScriptVector(
-            this.y * vector.z - this.z * vector.y,
-            this.z * vector.x - this.x * vector.z,
-            this.x * vector.y - this.y * vector.x
+                this.y * vector.z - this.z * vector.y,
+                this.z * vector.x - this.x * vector.z,
+                this.x * vector.y - this.y * vector.x
         );
     }
 
@@ -53,8 +53,8 @@ public abstract class MixinScriptVector {
 
         double hypotenuse = Math.sqrt(Math.pow(subtractVector.x, 2) + Math.pow(subtractVector.z, 2));
 
-        double pitch = Math.toDegrees(Math.atan2(hypotenuse, subtractVector.y));
-        double yaw = Math.toDegrees(-Math.atan2(subtractVector.x, subtractVector.z));
+        double pitch = Math.atan2(hypotenuse, subtractVector.y) * 180 / Math.PI;
+        double yaw = -Math.atan2(subtractVector.x, subtractVector.z) * 180 / Math.PI;
 
         return new ScriptVector(pitch, yaw, 0);
     }
@@ -67,7 +67,7 @@ public abstract class MixinScriptVector {
      * @param vector The vector
      */
     public double getAngle(ScriptVector vector) {
-        return Math.toDegrees(Math.acos(this.dotProduct(vector)));
+        return Math.acos(this.dotProduct(vector));
     }
 
     /**
@@ -103,11 +103,12 @@ public abstract class MixinScriptVector {
         }
 
         return new ScriptVector(
-            this.x + (vector.x - this.x) * coefficient,
-            this.y + (vector.y - this.y) * coefficient,
-            this.z + (vector.z - this.z) * coefficient
+                this.x + (vector.x - this.x) * coefficient,
+                this.y + (vector.y - this.y) * coefficient,
+                this.z + (vector.z - this.z) * coefficient
         );
     }
+
 
     /**
      * Multiplies this vector by components of given vector.

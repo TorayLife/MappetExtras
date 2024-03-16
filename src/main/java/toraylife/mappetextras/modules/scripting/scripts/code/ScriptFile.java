@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ScriptFile implements IScriptFile {
+
     Path path;
 
     public ScriptFile(Path path) {
