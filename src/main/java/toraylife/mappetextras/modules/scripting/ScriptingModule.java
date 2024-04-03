@@ -8,9 +8,10 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import toraylife.mappetextras.MappetExtras;
 import toraylife.mappetextras.modules.IModule;
 import toraylife.mappetextras.modules.scripting.mixins.utils.ValueTextEditor;
+import toraylife.mappetextras.modules.scripting.utils.ValueTextbox;
 
 public class ScriptingModule implements IModule {
-    public ValueString scriptsFolderPath;
+    public ValueTextbox scriptsFolderPath;
     public ValueTextEditor defaultTextScript;
     private static ScriptingModule instance;
 
@@ -24,9 +25,8 @@ public class ScriptingModule implements IModule {
     @Override
     public void addConfigOptions(ConfigBuilder builder) {
         this.defaultTextScript = (ValueTextEditor) new ValueTextEditor("defaultTextScript", "function main(c)\n{\n    // Code...\n    var s = c.getSubject();\n}").clientSide();
-        builder.category("scripts").register(this.defaultTextScript);
-        this.scriptsFolderPath = builder.getString("scriptsPath", "");
-        this.scriptsFolderPath.clientSide();
+        this.scriptsFolderPath = new ValueTextbox("scriptsFolderPath", "");
+        builder.category("scripts").register(this.defaultTextScript).register(this.scriptsFolderPath);
     }
 
     @Override

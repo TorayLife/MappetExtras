@@ -76,11 +76,4 @@ public class EventHandler {
 
         return text;
     }
-
-    @SubscribeEvent
-    @SideOnly(Side.CLIENT)
-    public void onRenderGuiPost(RenderGameOverlayEvent.Post event) {
-        if (event.getType() != RenderGameOverlayEvent.ElementType.HOTBAR && event.getType() != RenderGameOverlayEvent.ElementType.ALL)
-            GL11.glPopMatrix();
-    }
 }

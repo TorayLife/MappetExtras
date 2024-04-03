@@ -71,7 +71,15 @@ public abstract class MixinScriptVector {
     }
 
     /**
-     * Rotates this vector by given pitch and yaw angles.
+     * Rotate this vector by given pitch and yaw angles.
+     *
+     <pre>{@code
+     *     function main(c)
+     *     {
+     *         var look = c.player.look.rotate(0, 90)
+     *         c.player.setMotion(look.x, 0, look.z)
+     *     }
+     * }</pre>
      *
      * @param pitch Pitch angle in degrees
      * @param yaw Yaw angle in degrees
