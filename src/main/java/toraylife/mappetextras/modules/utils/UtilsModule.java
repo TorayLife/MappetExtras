@@ -47,9 +47,10 @@ public class UtilsModule implements IModule {
         this.beautifierUnindentChainedMethods = (ValueBoolean) builder.getBoolean("unindent_chained_methods", false).clientSide();
         this.beautifierBreakChainedMethods = (ValueBoolean) builder.getBoolean("break_chained_methods", false).clientSide();
 
-        builder.category("utils_module.dimensions");
-        this.flatDimensionId = builder.getInt("flat_dimension_id", 143);
-        this.voidDimensionId = builder.getInt("void_dimension_id", 144);
+        // TODO: Fix dimensions
+        //builder.category("utils_module.dimensions");
+        //this.flatDimensionId = builder.getInt("flat_dimension_id", 143);
+        //this.voidDimensionId = builder.getInt("void_dimension_id", 144);
     }
 
     @Override

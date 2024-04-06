@@ -119,8 +119,9 @@ public class MappetExtras {
 
         mappetWorldFolder.mkdirs();
 
-        customDimensionManager = new CustomDimensionManager(new File(mappetWorldFolder, "dimensions"));
-        customDimensionManager.registerDimensions();
+        // TODO: Fix dimensions
+        // customDimensionManager = new CustomDimensionManager(new File(mappetWorldFolder, "dimensions"));
+        // customDimensionManager.registerDimensions();
     }
 
     public static boolean isValidPath(String path) {

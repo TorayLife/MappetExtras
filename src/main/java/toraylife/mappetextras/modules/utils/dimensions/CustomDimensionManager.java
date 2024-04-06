@@ -15,8 +15,8 @@ public class CustomDimensionManager extends BaseManager<Dimension> {
     public CustomDimensionManager(File folder) {
         super(folder);
         try {
-            voidDimensionType = DimensionType.register("Void", "_mpe_void", UtilsModule.getInstance().voidDimensionId.get(), VoidDimensionProvider.class, true);
-            flatDimensionType = DimensionType.register("Flat", "_mpe_flat", UtilsModule.getInstance().flatDimensionId.get(), FlatDimensionProvider.class, true);
+            //voidDimensionType = DimensionType.register("Void", "_mpe_void", UtilsModule.getInstance().voidDimensionId.get(), VoidDimensionProvider.class, true);
+            //flatDimensionType = DimensionType.register("Flat", "_mpe_flat", UtilsModule.getInstance().flatDimensionId.get(), FlatDimensionProvider.class, true);
         }
         catch (Exception e) {
             throw new RuntimeException("Failed to register dimension types. Try change dimension type id's in config", e);

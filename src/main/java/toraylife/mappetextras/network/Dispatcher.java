@@ -20,7 +20,7 @@ public class Dispatcher {
     public static final AbstractDispatcher DISPATCHER = new AbstractDispatcher(MappetExtras.MOD_ID) {
         public void register() {
             this.register(PacketChangeDimension.class, PacketChangeDimension.ServerHandler.class, Side.SERVER);
-            this.register(PacketRegistrationDimension.class, PacketRegistrationDimension.ServerHandler.class, Side.SERVER);
+            //this.register(PacketRegistrationDimension.class, PacketRegistrationDimension.ServerHandler.class, Side.SERVER);
             this.register(PacketClientData.class, PacketClientData.ClientHandler.class, Side.CLIENT);
             this.register(PacketPlayAnimation.class, PacketPlayAnimation.ClientHandler.class, Side.CLIENT);
             this.register(PacketClientData.class, PacketClientData.ServerHandler.class, Side.SERVER);
