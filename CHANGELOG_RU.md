@@ -1,3 +1,25 @@
+## Версия 1.5.0
+
+В этой версии llama_orp исправил баги связанные с рендером HUD'ов майнкрафта и дополнил `IScriptVector`.
+
+### Полный список изменений:
+
+* Исправления:
+    * Исправлен Arm Render - setRender()
+    * Исправлены множество методов в IScriptVector
+    * Исправлены и добавлены множество описаний методам.
+    * Исправлен рендер худов. Теперь можно включать и выключать рендер любого худа
+    * Исправлен метод getAngle. (Раньше возвращал радианы)
+* Изменения в API:
+    * Добавлен метод `IScriptVector.getVectorForRotation()`.
+    * Добавлен метод `IScriptEntity.getEntityWorldId()` возвращает айди энтити в мире.
+    * Удалены: IMinecraftHUD, IMinecraftArmRender, IMinecraftCamera, IMinecraftCameraShake. (Лама: Перенесены в мой собственный аддон Better Mappet)
+    * Удалены все методы связанные с IMinecraftHUD, IMinecraftArmRender, IMinecraftCamera, IMinecraftCameraShake.
+* Нововведения:
+    * Добавлена настройка "Путь к скриптам".
+    * Добавлена настройка "Текст по умолчанию".
+
+
 ## Версия 1.4.3
 
 В этой версии llama_orp исправил баги связанные с рендером HUD'ов майнкрафта и дополнил `IScriptVector`.

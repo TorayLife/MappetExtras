@@ -1,6 +1,7 @@
 {
     "homepage": "https://github.com/TorayLife/MappetExtras",
     "1.12.2": {
+      "1.5.0": "Updates include bug fixes to Arm Render and IScriptVector methods, adding new methods to the API, removing deprecated interfaces, and adding new settings such as \"Script Path\" and \"Default Text\".",
       "1.4.3": "In this version llama_orp has fixed bugs related to the rendering of HUD's of Minecraft and added `IScriptVector`.",
       "1.4.2": "This version fixed a crash when creating dimensions on the server and double-calling some triggers.",
       "1.4.1": "In this version, the method for playing animations in Chameleon morphs has been fixed.",
@@ -18,8 +19,8 @@
       "0.1.0": "Initial version, test github actions"
     },
     "promos": {
-      "1.12.2-latest": "1.4.3",
-      "1.12.2-recommended": "1.4.3"
+      "1.12.2-latest": "1.5.0",
+      "1.12.2-recommended": "1.5.0"
     },
     "inherit": true
 }

@@ -1,3 +1,25 @@
+## Version 1.5.0
+
+Updates include bug fixes to Arm Render and IScriptVector methods, adding new methods to the API, removing deprecated interfaces, and adding new settings such as "Script Path" and "Default Text".
+
+#### Full list of changes:
+
+* Fixes:
+    * Fixed Arm Render - setRender()
+    * Fixed many methods in IScriptVector
+    * Fixed and added many method descriptions.
+    * Fixed Hood Render. Now you can turn rendering of any hood on and off
+    * Fixed getAngle method. (Used to return radians)
+* Changes in API:
+    * Added `IScriptVector.getVectorForRotation()` method.
+    * Added `IScriptEntity.getEntityWorldId()` method returns the entity's id in the world.
+    * Removed: IMinecraftHUD, IMinecraftArmRender, IMinecraftCamera, IMinecraftCameraShake. (Llama: Moved to my own Better Mappet addon)
+    * Removed all methods related to IMinecraftHUD, IMinecraftArmRender, IMinecraftCamera, IMinecraftCameraShake.
+* Innovations:
+    * Added "Script Path" setting.
+    * Added "Default Text" setting.
+
+
 ## Version 1.4.3
 
 In this version llama_orp has fixed bugs related to the rendering of HUD's and added `IScriptVector`.
