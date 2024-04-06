@@ -19,7 +19,7 @@
     "UI.MixinUIComponent"
   ],
   "client": [
-    "MixinGuiScriptPanel"
+    "ignored.MixinGuiScriptPanel"
   ],
   "server": [
   ]

@@ -8,8 +8,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import toraylife.mappetextras.modules.main.mixins.utils.MixinTargetName;
 import toraylife.mappetextras.modules.scripting.scripts.code.triggers.ScriptTrigger;
+import toraylife.mappetextras.modules.scripting.scripts.user.triggers.IScriptTrigger;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -70,7 +70,91 @@ public abstract class MixinScriptServer {
     public boolean isServerInOnlineMode() {
         return this.server.isServerInOnlineMode();
     }
-    public ScriptTrigger getGlobalTrigger(String type) {
+
+    /**
+     * Returns a global trigger by name. Available: §7block_break
+     *
+     * §7block_place
+     *
+     * §7block_interact
+     *
+     * §7block_break
+     *
+     * §7block_place
+     *
+     * §7block_interact
+     *
+     * §7block_click
+     *
+     * §7entity_damaged§r
+     *
+     * §7entity_attacked§r
+     *
+     * §7entity_death§r
+     *
+     * §7server_load§r
+     *
+     * §7server_tick§r
+     *
+     * §7player_chat
+     *
+     * §7player_login
+     *
+     * §7player_logout
+     *
+     * §7player_lmb
+     *
+     * §7player_rmb
+     *
+     * §7player_respawn
+     *
+     * §7player_death
+     *
+     * §7player_item_pickup
+     *
+     * §7player_item_toss
+     *
+     * §7player_item_interact
+     *
+     * §7player_entity_interact
+     *
+     * §7player_close_container
+     *
+     * §7player_open_container
+     *
+     * §7player_journal
+     *
+     * §7player_entity_leash
+     *
+     * §7player_open_gui
+     *
+     * §7player_close_gui
+     *
+     * §7player_eat
+     *
+     * §7player_drink
+     *
+     * §7player_tick
+     *
+     * §7player_walking
+     *
+     * §7player_dimension_change
+     *
+     * §7living_knockback
+     *
+     * §7living_equipment_change
+     *
+     * §7living_jump
+     *
+     * §7living_fall
+     *
+     * §7projectile_impact
+     *
+     * §7state_changed
+     *
+     * @return {@link IScriptTrigger}, global trigger.
+     */
+    public IScriptTrigger getGlobalTrigger(String type) {
         return new ScriptTrigger(Mappet.settings.registered.get(type));
     }
 

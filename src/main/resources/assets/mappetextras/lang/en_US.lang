@@ -42,8 +42,8 @@ mappetextras.config.comments.utils_module.dimensions.void_dimension_id=Change on
 mappetextras.config.scripts.title=Scripts
 mappetextras.config.scripts.tooltip=Script settings
 
-mappetextras.config.scripts.scriptsPath=Path to scripts
-mappetextras.config.comments.scripts.scriptsPath=If the path does not specify a drive, then the path starts from the current Minecraft folder. Be sure to re-enter the world!
+mappetextras.config.scripts.scriptsFolderPath=Path to scripts
+mappetextras.config.comments.scripts.scriptsFolderPath=If the path does not specify a drive, then the path starts from the current Minecraft folder. Be sure to re-enter the world!
 
 mappetextras.config.scripts.defaultTextScript=The default text
 mappetextras.config.comments.scripts.defaultTextScript=Default script

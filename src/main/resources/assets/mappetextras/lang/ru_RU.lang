@@ -42,11 +42,11 @@ mappetextras.config.comments.utils_module.dimensions.void_dimension_id=Изме�
 mappetextras.config.scripts.title=Скрипты
 mappetextras.config.scripts.tooltip=Настройки скриптов
 
-mappetextras.config.scripts.scriptsPath=Путь к скриптам
-mappetextras.config.comments.scripts.scriptsPath=Если в пути не указан диск, то путь начинается с текущей папки Minecraft. Обязательно перезайдите в мир!
+mappetextras.config.scripts.scriptsFolderPath=Путь к скриптам
+mappetextras.config.comments.scripts.scriptsFolderPath=Если в пути не указан диск, то путь начинается с текущей папки Minecraft. Обязательно перезайдите в мир!
 
 mappetextras.config.scripts.defaultTextScript=Текст по умолчанию
-mappetextras.config.comments.scripts.defaultTextScript=Скрипт по умолчанию.
+mappetextras.config.comments.scripts.defaultTextScript=Код при создании скрипта.
 
 # MAIN
 mappetextras.main_module.update.up_to_date=[§6%s§f] §7У вас установлена последняя версия.
