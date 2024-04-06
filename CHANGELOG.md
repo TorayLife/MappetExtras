@@ -1,22 +1,17 @@
 ## Version 1.5.0
 
-Updates include bug fixes to Arm Render and IScriptVector methods, adding new methods to the API, removing deprecated interfaces, and adding new settings such as "Script Path" and "Default Text".
+Fixed getAngle method to return values in degrees, removed IMinecraftHUD, IMinecraftArmRender, IMinecraftCamera, IMinecraftCameraShake and related methods, and added "Default Text" setting.
+Also removed the "Dimensions" tab.
 
 #### Full list of changes:
 
 * Fixes:
-    * Fixed Arm Render - setRender()
-    * Fixed many methods in IScriptVector
-    * Fixed and added many method descriptions.
-    * Fixed Hood Render. Now you can turn rendering of any hood on and off
-    * Fixed getAngle method. (Used to return radians)
-* Changes in API:
-    * Added `IScriptVector.getVectorForRotation()` method.
-    * Added `IScriptEntity.getEntityWorldId()` method returns the entity's id in the world.
+    * Fixed getAngle method. (Used to return radians).
+* Changes to API:
     * Removed: IMinecraftHUD, IMinecraftArmRender, IMinecraftCamera, IMinecraftCameraShake. (Llama: Moved to my own Better Mappet addon)
-    * Removed all methods related to IMinecraftHUD, IMinecraftArmRender, IMinecraftCamera, IMinecraftCameraShake.
+    * Removed all methods associated with IMinecraftHUD, IMinecraftArmRender, IMinecraftCamera, IMinecraftCameraShake.
+    * Removed the Dimensions tab until better times.
 * Innovations:
-    * Added "Script Path" setting.
     * Added "Default Text" setting.
 
 
