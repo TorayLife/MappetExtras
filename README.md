@@ -1,4 +1,5 @@
 # MappetExtras
+![Discord](https://discordapp.com/api/guilds/1114465295436877824/widget.png?style=shield)
 
 <p align="center">
   <img src="https://i.imgur.com/9N9B4kq.png" width="500"/>
